@@ -241,7 +241,7 @@ def _extract_page(page: Any, page_num: int, profile: dict, code_pattern: re.Patt
                 else:
                     row_cells.append((slug, CellValue(kind="alternative", level=cell.level, raw=cell.raw)))
 
-        tree, excluded = build_subject_tree(row_cells)
+        tree, excluded = build_subject_tree(row_cells, profile)
 
         records.append({
             "qualification_code": code,

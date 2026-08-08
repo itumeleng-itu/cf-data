@@ -259,7 +259,7 @@ def _extract_section(
                 else:
                     row_cells.append((slug, type(cell)(kind="alternative", level=cell.level, raw=cell.raw)))
 
-        tree, excluded = build_subject_tree(row_cells)
+        tree, excluded = build_subject_tree(row_cells, profile)
         name = _row_name(upright_words, band, code_x0)
         campus = _row_campus(upright_words, band, profile)
         aps = _row_aps(upright_words, band)

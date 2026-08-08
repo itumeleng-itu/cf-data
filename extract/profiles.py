@@ -24,6 +24,7 @@ _ALLOWED_TOP_KEYS = _REQUIRED_TOP_KEYS | {"source_url", "quirks"}
 _REQUIRED_LAYOUT_KEYS = {"code_pattern", "header_keywords", "rotated_headers"}
 _ALLOWED_LAYOUT_KEYS = _REQUIRED_LAYOUT_KEYS | {
     "footnote_markers", "campus_tokens", "not_accepted_phrases", "alternative_phrases",
+    "mutually_exclusive_subjects",
 }
 
 _REQUIRED_CLASSIFICATION_KEYS = {
@@ -62,6 +63,16 @@ def _validate_layout(institution_id: str, layout: dict) -> None:
 
     if not isinstance(layout["rotated_headers"], bool):
         raise ProfileValidationError(f"{institution_id}: layout.rotated_headers must be a boolean")
+
+    if "mutually_exclusive_subjects" in layout:
+        groups = layout["mutually_exclusive_subjects"]
+        if not isinstance(groups, list) or not groups:
+            raise ProfileValidationError(f"{institution_id}: layout.mutually_exclusive_subjects must be a non-empty list")
+        for group in groups:
+            if not isinstance(group, list) or len(group) < 2 or not all(isinstance(s, str) and s for s in group):
+                raise ProfileValidationError(
+                    f"{institution_id}: layout.mutually_exclusive_subjects group must be a list of 2+ subject slugs, got {group!r}"
+                )
 
 
 def _validate_classification(institution_id: str, classification: dict) -> None:

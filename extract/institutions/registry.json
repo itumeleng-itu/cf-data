@@ -8,7 +8,10 @@
       "footnote_markers": ["*", "**"],
       "campus_tokens": ["APK", "APB", "DFC", "SWC"],
       "not_accepted_phrases": ["Not accepted", "Not applicable"],
-      "alternative_phrases": ["OR", "or"]
+      "alternative_phrases": ["OR", "or"],
+      "mutually_exclusive_subjects": [
+        ["mathematics", "mathematical_literacy", "technical_mathematics"]
+      ]
     },
     "classification": {
       "weights": {
@@ -54,7 +57,8 @@
     "quirks": [
       "Column headers and some data cells (e.g. qualification codes, percentage-threshold cells, the accept/reject marker) render as rotated (90-degree) text. pdfplumber's own extract_text() assembles these in the wrong reading order; extract/text_repair.py reconstructs correct order from char[\"matrix\"] and appends it rather than patching in place.",
       "Ligature glyphs (e.g. 'fi') can appear as a single multi-character entry in page.chars, not two separate characters -- this broke a naive string-reversal repair strategy (see extract/text_repair.py's module docstring) and must be preserved as a unit, not re-split.",
-      "NASCA / Amended Senior Certificate (SC(a)) alternative-admission-route narrative pages sit visually adjacent to real qualification-code tables and can be mistaken for table pages by page-range inference alone -- see extract/ground_truth.py's page-50 correction."
+      "NASCA / Amended Senior Certificate (SC(a)) alternative-admission-route narrative pages sit visually adjacent to real qualification-code tables and can be mistaken for table pages by page-range inference alone -- see extract/ground_truth.py's page-50 correction.",
+      "Mathematics / Mathematical Literacy / Technical Mathematics is a mutually-exclusive group by NATIONAL convention, not a UJ-specific table feature: no South African university requires both Mathematics and Mathematical Literacy from an applicant -- they are alternative NSC subject choices a learner picks between in matric, never held simultaneously. UJ's own tables sometimes mark this with an explicit '/' merged header or an 'OR' row marker (see build_subject_tree's alternative-cell pairing) but often don't -- two level-bearing cells from this group in the same row (e.g. Mathematics AND Mathematical Literacy both showing a level) is still always an `any`, never an `all`, even with no visible marker. Confirmed against real ground truth: B8CD2Q (page 32) and B34HRQ (page 40, three-way) both require this despite no '/' or 'OR' present; B34CAQ (page 40) and B4C01Q (page 82) are the negative control -- Mathematics required, Mathematical Literacy explicitly 'Not accepted' -- and must NOT be turned into an `any` just because both subjects share this group."
     ]
   },
   "cput": {
