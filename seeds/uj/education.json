@@ -1,0 +1,62 @@
+[
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B5BFPQ",
+    "name": "BEd Foundation Phase Teaching (Grade R-3)",
+    "faculty": "Education",
+    "campus": ["SWC"],
+    "duration_years": 4,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 28 }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5, "min_level_fal": 6 },
+            {
+              "kind": "any",
+              "rules": [
+                { "kind": "subject", "subject": "mathematics", "min_level": 3 },
+                { "kind": "subject", "subject": "mathematical_literacy", "min_level": 5 }
+              ]
+            }
+          ]
+        },
+        "excluded_subjects": []
+      }
+    },
+    "selection_notes": [],
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 54,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B5LAZQ",
+    "name": "BEd Senior Phase and FET Teaching (isiZulu)",
+    "faculty": "Education",
+    "campus": ["APK"],
+    "duration_years": 4,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 28 }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5, "min_level_fal": 6 },
+            { "kind": "subject", "language": "isizulu", "min_level": 4, "min_level_fal": 5 }
+          ]
+        },
+        "excluded_subjects": []
+      }
+    },
+    "selection_notes": [],
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 55,
+    "confidence": "verified"
+  }
+]

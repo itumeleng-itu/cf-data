@@ -1,0 +1,163 @@
+[
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B9N02Q",
+    "name": "Bachelor of Nursing",
+    "faculty": "Health Sciences",
+    "campus": ["DFC"],
+    "duration_years": 4,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 30 }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 4 },
+            { "kind": "subject", "subject": "physical_sciences", "min_level": 4 },
+            { "kind": "subject", "subject": "life_sciences", "min_level": 4 }
+          ]
+        },
+        "excluded_subjects": ["mathematical_literacy", "technical_mathematics", "technical_sciences"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 68,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B9O02Q",
+    "name": "Bachelor of Optometry",
+    "faculty": "Health Sciences",
+    "campus": ["DFC"],
+    "duration_years": 4,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 34 }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 5 },
+            { "kind": "subject", "subject": "physical_sciences", "min_level": 5 },
+            { "kind": "subject", "subject": "life_sciences", "min_level": 5 }
+          ]
+        },
+        "excluded_subjects": ["mathematical_literacy", "technical_mathematics", "technical_sciences"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 68,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B9M01Q",
+    "name": "Bachelor of Diagnostic Radiography",
+    "faculty": "Health Sciences",
+    "campus": ["DFC"],
+    "duration_years": 4,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 31, "requires_subject": "mathematics" }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 4 },
+            { "kind": "subject", "subject": "physical_sciences", "min_level": 4 },
+            { "kind": "subject", "subject": "life_sciences", "min_level": 5 }
+          ]
+        },
+        "excluded_subjects": ["mathematical_literacy", "technical_mathematics", "technical_sciences"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 66,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B9E01Q",
+    "name": "Bachelor of Health Sciences in Emergency Medical Care",
+    "faculty": "Health Sciences",
+    "campus": ["DFC"],
+    "duration_years": 4,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 27 }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 4 },
+            { "kind": "subject", "subject": "physical_sciences", "min_level": 4 },
+            { "kind": "subject", "subject": "life_sciences", "min_level": 4 }
+          ]
+        },
+        "excluded_subjects": ["mathematical_literacy", "technical_mathematics", "technical_sciences"]
+      }
+    },
+    "selection_notes": [
+      "fitness assessment",
+      "phobias evaluation",
+      "medical examination"
+    ],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 67,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B9S15Q",
+    "name": "Bachelor of Biokinetics",
+    "faculty": "Health Sciences",
+    "campus": ["DFC"],
+    "duration_years": 4,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          { "min_score": 32, "requires_subject": "mathematics" },
+          { "min_score": 33, "requires_subject": "mathematical_literacy" }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            {
+              "kind": "any",
+              "rules": [
+                { "kind": "subject", "subject": "mathematics", "min_level": 4 },
+                { "kind": "subject", "subject": "mathematical_literacy", "min_level": 5 }
+              ]
+            }
+          ]
+        },
+        "excluded_subjects": []
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 66,
+    "confidence": "verified"
+  }
+]

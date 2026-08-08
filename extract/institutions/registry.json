@@ -1,0 +1,121 @@
+{
+  "uj": {
+    "name": "University of Johannesburg",
+    "layout": {
+      "code_pattern": "[A-Z]\\d[A-Z0-9]{3,4}",
+      "header_keywords": ["Minimum APS", "Qualification Code", "CAREER", "CAMPUS", "PROGRAMME"],
+      "rotated_headers": true,
+      "footnote_markers": ["*", "**"],
+      "campus_tokens": ["APK", "APB", "DFC", "SWC"],
+      "not_accepted_phrases": ["Not accepted", "Not applicable"],
+      "alternative_phrases": ["OR", "or"]
+    },
+    "classification": {
+      "weights": {
+        "programme_table": {
+          "code_matches": 4.0,
+          "keyword_hits": 3.0,
+          "ruled_line_count": 0.05,
+          "numeric_ratio": 3.0,
+          "text_density": 200.0
+        },
+        "requirements_prose": {
+          "text_density": 800.0,
+          "code_matches": -3.0,
+          "ruled_line_count": -0.05,
+          "numeric_ratio": -3.0
+        },
+        "scoring_methodology": {
+          "scoring_phrase_hits": 8.0,
+          "text_density": 600.0,
+          "code_matches": -2.0
+        },
+        "admin": {
+          "text_density": -100.0,
+          "code_matches": -2.0,
+          "image_coverage": -3.0
+        },
+        "decorative": {
+          "image_coverage": 10.0,
+          "text_density": -500.0
+        },
+        "alternative_admission": {
+          "alt_admission_phrase_hits": 6.0,
+          "text_density": 300.0,
+          "ruled_line_count": -0.05,
+          "code_matches": -3.0,
+          "keyword_hits": -1.0
+        }
+      },
+      "admin_baseline": 1.0,
+      "overinclusion_margin": 0.5,
+      "table_evidence_ruled_line_floor": 50
+    },
+    "quirks": [
+      "Column headers and some data cells (e.g. qualification codes, percentage-threshold cells, the accept/reject marker) render as rotated (90-degree) text. pdfplumber's own extract_text() assembles these in the wrong reading order; extract/text_repair.py reconstructs correct order from char[\"matrix\"] and appends it rather than patching in place.",
+      "Ligature glyphs (e.g. 'fi') can appear as a single multi-character entry in page.chars, not two separate characters -- this broke a naive string-reversal repair strategy (see extract/text_repair.py's module docstring) and must be preserved as a unit, not re-split.",
+      "NASCA / Amended Senior Certificate (SC(a)) alternative-admission-route narrative pages sit visually adjacent to real qualification-code tables and can be mistaken for table pages by page-range inference alone -- see extract/ground_truth.py's page-50 correction."
+    ]
+  },
+  "cput": {
+    "name": "Cape Peninsula University of Technology",
+    "layout": {
+      "code_pattern": "\\b[A-Z][A-Z0-9][A-Z]{4}\\b",
+      "header_keywords": ["DEPARTMENT", "QUALIFICATION", "APS SCORE", "METHOD"],
+      "rotated_headers": false,
+      "footnote_markers": ["*", "**", "***"],
+      "not_accepted_phrases": ["not accepted"],
+      "alternative_phrases": ["or", "OR"]
+    },
+    "classification": {
+      "weights": {
+        "programme_table": {
+          "code_matches": 0.0,
+          "keyword_hits": 3.0,
+          "ruled_line_count": 0.05,
+          "numeric_ratio": 3.0,
+          "text_density": 200.0
+        },
+        "requirements_prose": {
+          "text_density": 800.0,
+          "code_matches": 0.0,
+          "ruled_line_count": -0.05,
+          "numeric_ratio": -3.0
+        },
+        "scoring_methodology": {
+          "scoring_phrase_hits": 8.0,
+          "text_density": 600.0,
+          "code_matches": 0.0
+        },
+        "admin": {
+          "text_density": -100.0,
+          "code_matches": -2.0,
+          "image_coverage": -3.0
+        },
+        "decorative": {
+          "image_coverage": 10.0,
+          "text_density": -500.0
+        },
+        "alternative_admission": {
+          "alt_admission_phrase_hits": 6.0,
+          "text_density": 1050.0,
+          "ruled_line_count": -0.03,
+          "keyword_hits": -1.0,
+          "code_matches": 0.0
+        }
+      },
+      "admin_baseline": 1.0,
+      "overinclusion_margin": 0.5,
+      "table_evidence_ruled_line_floor": 50
+    },
+    "quirks": [
+      "DOCUMENT STATUS: this 15-page file contains only TWO per-programme requirement tables (pages 7 and 15) -- verified by reading every page's full text, not inferred from classification. The remaining pages are subject-combination career guidance. Together with codes appearing only on the page-4 cross-reference list, this is a summary brochure, not a full prospectus. CPUT should not be onboarded from this document; the real CPUT prospectus is required first.",
+      "Real qualification codes (e.g. D2EMCA, BPSDGR, HCDNAS -- all exactly 6 characters, uppercase, with an optional single digit in position 2) appear ONLY on one narrative cross-reference page (application-deadline groupings by faculty), never as a column in the actual per-programme admission-requirement tables. code_pattern is derived from real codes and correctly matches them -- layout.code_pattern is kept for 8.4, which needs it to parse that cross-reference page -- but the codes carry NO table-detection information: code_matches is 0 on both real table pages (7, 15) and fires only on ordinary uppercase words (METHOD, HEALTH, DESIGN, ...) elsewhere. classification.weights.programme_table/requirements_prose/scoring_methodology.code_matches are all set to 0.0 for this reason -- not a weak signal, a signal with no value here, so it is neutralized rather than merely down-weighted. admin's code_matches weight (-2.0) is left as-is, unaffected by this finding.",
+      "STRUCTURAL FINDING FOR 8.4: qualification codes appear ONLY on the page-4 cross-reference list (grouped by faculty and application deadline), never as a column in the per-programme requirement tables (pages 7 and 15). Extraction must resolve qualification_code by matching programme NAME against that list, not by reading a code column. Records extracted from the requirement tables alone will have no code. This is the first confirmed case of a per-institution extraction step UJ does not need.",
+      "The cover page and some faculty-overview pages (not the actual requirement tables) use the same 90-degree rotation mechanism as UJ's rotated headers, for a large title or a rotated sidebar faculty-name label -- confirmed via char[\"upright\"]/char[\"matrix\"]. The real per-programme table pages (verified directly) are effectively 100% upright text; rotated_headers is set to false because it describes the table header row specifically, not the whole document.",
+      "No campus-column convention was found in this document (unlike UJ's APK/APB/DFC/SWC) -- campus_tokens omitted rather than invented.",
+      "Method used to compute the score itself differs fundamentally from UJ's: three named methods (Best-of-6 raw-percentage-sum / 10; Double-Maths-and-Science-plus-English; Double-Maths-and-Accounting), all on a raw percentage scale, not UJ's achievement-level sum -- see page 3's 'CALCULATING THE APS SCORE' section (extracted verbatim during 8.2's inspection). A CPUT-specific scorer, not aps_best6_excl_lo, will be needed before this institution can be scored at all -- moot until the real prospectus is obtained.",
+      "Only pages 7 and 15 (2 of 15) are per-programme requirement tables; pages 9, 11, 12, 13, 14 are also non-table career-guidance content but remain misclassified as programme_table -- deliberately not tuned further per the document-status finding above (see CPUT_2027_TABLE_PAGES in extract/ground_truth.py)."
+    ]
+  }
+}

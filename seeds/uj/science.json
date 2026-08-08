@@ -1,0 +1,225 @@
+[
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B2M52Q",
+    "name": "BSc Actuarial Science",
+    "faculty": "Science",
+    "campus": ["APK"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 40 }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 7 }
+          ]
+        },
+        "excluded_subjects": ["technical_mathematics", "technical_sciences"]
+      }
+    },
+    "selection_notes": [],
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 90,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B2I02Q",
+    "name": "BSc Computer Science and Informatics",
+    "faculty": "Science",
+    "campus": ["APK"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 30 }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 6 }
+          ]
+        },
+        "excluded_subjects": ["technical_mathematics", "technical_sciences"]
+      }
+    },
+    "selection_notes": [],
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 86,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B2I01Q",
+    "name": "BSc Information Technology",
+    "faculty": "Science",
+    "campus": ["APK"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 30 }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 6 }
+          ]
+        },
+        "excluded_subjects": ["technical_mathematics", "technical_sciences"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 86,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B2I04Q",
+    "name": "BSc Computer Science and Informatics specialising in Artificial Intelligence",
+    "faculty": "Science",
+    "campus": ["APK"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 34 }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 7 }
+          ]
+        },
+        "excluded_subjects": ["technical_mathematics", "technical_sciences"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 86,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B2M43Q",
+    "name": "BSc Computational Science",
+    "faculty": "Science",
+    "campus": ["APK"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 33 }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 7 },
+            { "kind": "subject", "subject": "physical_sciences", "min_level": 5 }
+          ]
+        },
+        "excluded_subjects": ["technical_mathematics", "technical_sciences"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 89,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B2M55Q",
+    "name": "BSc Mathematics and Mathematical Statistics (with Financial Orientation)",
+    "faculty": "Science",
+    "campus": ["APK"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 33 }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 6 }
+          ]
+        },
+        "excluded_subjects": ["technical_mathematics", "technical_sciences"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 89,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B2M56Q",
+    "name": "BSc Mathematical Statistics and Economics (with Financial Orientation)",
+    "faculty": "Science",
+    "campus": ["APK"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 33 }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 6 }
+          ]
+        },
+        "excluded_subjects": ["technical_mathematics", "technical_sciences"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 90,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B2M57Q",
+    "name": "BSc Mathematics and Economics (with Financial Orientation)",
+    "faculty": "Science",
+    "campus": ["APK"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 33 }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 6 }
+          ]
+        },
+        "excluded_subjects": ["technical_mathematics", "technical_sciences"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 90,
+    "confidence": "verified"
+  }
+]

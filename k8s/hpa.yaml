@@ -1,0 +1,29 @@
+# Load here is violently seasonal: matric results drop in early January and
+# the whole country checks their options inside ~72 hours. Scale up fast
+# (30s stabilisation) so that spike doesn't 503; scale down slowly (300s)
+# so we don't flap replicas back down mid-surge on a brief lull.
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: coursefind-api
+  labels:
+    app: coursefind-api
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: coursefind-api
+  minReplicas: 2
+  maxReplicas: 12
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 30
+    scaleDown:
+      stabilizationWindowSeconds: 300

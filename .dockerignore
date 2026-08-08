@@ -1,0 +1,14 @@
+.git/
+.venv/
+**/__pycache__/
+**/*.pyc
+.pytest_cache/
+.vscode/
+data/
+extract/
+k8s/
+scripts/
+seeds/
+supabase/
+api/tests/
+tests/

@@ -1,0 +1,194 @@
+[
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B34CAQ",
+    "name": "Bachelor of Accounting",
+    "faculty": "College of Business and Economics",
+    "campus": ["APK"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 33, "requires_subject": "mathematics" }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 4 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 5 }
+          ]
+        },
+        "excluded_subjects": ["mathematical_literacy", "technical_mathematics"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 40,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B34A5Q",
+    "name": "BCom Accounting",
+    "faculty": "College of Business and Economics",
+    "campus": ["APK"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 28, "requires_subject": "mathematics" }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 4 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 4 }
+          ]
+        },
+        "excluded_subjects": ["mathematical_literacy", "technical_mathematics"]
+      }
+    },
+    "selection_notes": [
+      "Does not provide direct access to the Postgraduate Diploma in Accounting Science; a bridging programme is required"
+    ],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 41,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B34F5Q",
+    "name": "BCom Finance",
+    "faculty": "College of Business and Economics",
+    "campus": ["APK"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 28, "requires_subject": "mathematics" }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 4 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 4 }
+          ]
+        },
+        "excluded_subjects": ["mathematical_literacy", "technical_mathematics"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 41,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B3N14Q",
+    "name": "BCom Economics and Econometrics",
+    "faculty": "College of Business and Economics",
+    "campus": ["APK"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [{ "min_score": 28, "requires_subject": "mathematics" }],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 4 },
+            { "kind": "subject", "subject": "mathematics", "min_level": 4 }
+          ]
+        },
+        "excluded_subjects": ["mathematical_literacy", "technical_mathematics"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 41,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B34HRQ",
+    "name": "Bachelor of Human Resource Management",
+    "faculty": "College of Business and Economics",
+    "campus": ["APK"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          { "min_score": 28, "requires_subject": "mathematics" },
+          { "min_score": 28, "requires_subject": "technical_mathematics" },
+          { "min_score": 28, "requires_subject": "mathematical_literacy" }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 4 },
+            {
+              "kind": "any",
+              "rules": [
+                { "kind": "subject", "subject": "mathematics", "min_level": 4 },
+                { "kind": "subject", "subject": "technical_mathematics", "min_level": 4 },
+                { "kind": "subject", "subject": "mathematical_literacy", "min_level": 5 }
+              ]
+            }
+          ]
+        },
+        "excluded_subjects": []
+      }
+    },
+    "selection_notes": [
+      "Graduates may register as HR Practitioners with the South African Board of People Practices (SABPP)"
+    ],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 40,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B1CISQ",
+    "name": "BCom Information Systems",
+    "faculty": "College of Business and Economics",
+    "campus": ["APB"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          { "min_score": 26, "requires_subject": "mathematics" },
+          { "min_score": 26, "requires_subject": "technical_mathematics" }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 4 },
+            {
+              "kind": "any",
+              "rules": [
+                { "kind": "subject", "subject": "mathematics", "min_level": 4 },
+                { "kind": "subject", "subject": "technical_mathematics", "min_level": 4 }
+              ]
+            }
+          ]
+        },
+        "excluded_subjects": ["mathematical_literacy"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 42,
+    "confidence": "verified"
+  }
+]

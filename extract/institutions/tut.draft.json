@@ -1,0 +1,222 @@
+{
+  "_comment": "DRAFT profile proposed by scripts/profile_wizard.py -- a hypothesis, not a fact. A human must read the evidence below, verify each field against the real PDF, and move a corrected version into extract/institutions/registry.json by hand. This file is never loaded by extract/profiles.py.",
+  "institution_id": "tut",
+  "pdf_sampled": "universities\\2027\\tut.pdf",
+  "pages_sampled": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
+  "evidence": {
+    "code_pattern_candidates": [
+      {
+        "pattern": "\\b[A-Z]\\d[A-Z0-9]{3,4}\\b",
+        "label": "letter+digit+alnum{3,4} (UJ-style)",
+        "total_matches": 0,
+        "pages_with_matches": 0,
+        "most_common_samples": []
+      },
+      {
+        "pattern": "\\b[A-Z][A-Z0-9][A-Z]{4}\\b",
+        "label": "letter+(letter|digit)+letter{4} (CPUT-style, 6 chars)",
+        "total_matches": 22,
+        "pages_with_matches": 11,
+        "most_common_samples": [
+          "FUTURE",
+          "HIGCSE",
+          "STATUS",
+          "CAREER",
+          "SENIOR",
+          "ANAGEM",
+          "HAZMAT",
+          "CENTRE",
+          "HIGSCE",
+          "BECOME"
+        ]
+      },
+      {
+        "pattern": "\\b[A-Z]{2,4}\\d{2,4}\\b",
+        "label": "letters{2,4}+digits{2,4}",
+        "total_matches": 0,
+        "pages_with_matches": 0,
+        "most_common_samples": []
+      },
+      {
+        "pattern": "\\b\\d[A-Z]{2,5}\\b",
+        "label": "digit+letters{2,5}",
+        "total_matches": 0,
+        "pages_with_matches": 0,
+        "most_common_samples": []
+      }
+    ],
+    "header_keyword_candidates": [
+      {
+        "word": "OF",
+        "page_count": 17
+      },
+      {
+        "word": "PROGRAMME",
+        "page_count": 16
+      },
+      {
+        "word": "APS",
+        "page_count": 16
+      },
+      {
+        "word": "LEVEL",
+        "page_count": 16
+      },
+      {
+        "word": "ADMISSION",
+        "page_count": 16
+      },
+      {
+        "word": "FACULTY",
+        "page_count": 15
+      },
+      {
+        "word": "SCORE",
+        "page_count": 15
+      },
+      {
+        "word": "CAREERS",
+        "page_count": 15
+      },
+      {
+        "word": "FO",
+        "page_count": 15
+      },
+      {
+        "word": "SESUPMAC",
+        "page_count": 15
+      },
+      {
+        "word": "COMPULSORY",
+        "page_count": 15
+      },
+      {
+        "word": "FURTHER",
+        "page_count": 15
+      },
+      {
+        "word": "SS",
+        "page_count": 15
+      },
+      {
+        "word": "REQUIREMENTS",
+        "page_count": 15
+      },
+      {
+        "word": "RECOMMENDED",
+        "page_count": 15
+      },
+      {
+        "word": "SN",
+        "page_count": 15
+      },
+      {
+        "word": "POSSIBLE",
+        "page_count": 15
+      },
+      {
+        "word": "POINT",
+        "page_count": 15
+      },
+      {
+        "word": "YTLUCAF",
+        "page_count": 15
+      },
+      {
+        "word": "SUBJECTS",
+        "page_count": 15
+      }
+    ],
+    "campus_token_candidates": [
+      {
+        "token": "OF",
+        "page_count": 17
+      },
+      {
+        "token": "APS",
+        "page_count": 16
+      },
+      {
+        "token": "FO",
+        "page_count": 15
+      },
+      {
+        "token": "NS",
+        "page_count": 15
+      },
+      {
+        "token": "SS",
+        "page_count": 15
+      },
+      {
+        "token": "SN",
+        "page_count": 15
+      },
+      {
+        "token": "TUT",
+        "page_count": 4
+      },
+      {
+        "token": "DNA",
+        "page_count": 4
+      },
+      {
+        "token": "ENT",
+        "page_count": 4
+      },
+      {
+        "token": "HUM",
+        "page_count": 4
+      },
+      {
+        "token": "NQF",
+        "page_count": 3
+      },
+      {
+        "token": "SMS",
+        "page_count": 2
+      },
+      {
+        "token": "PLAN",
+        "page_count": 2
+      },
+      {
+        "token": "TO",
+        "page_count": 2
+      },
+      {
+        "token": "EHT",
+        "page_count": 2
+      }
+    ],
+    "rotation": {
+      "total_chars_sampled": 67178,
+      "non_upright_chars": 5194,
+      "non_upright_ratio": 0.07731697877281253,
+      "pages_with_any_rotation": 16,
+      "pages_sampled": 20,
+      "likely_rotated_headers": true
+    }
+  }
+}

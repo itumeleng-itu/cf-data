@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://coursefind-data.local/schemas/programme.schema.json",
+  "title": "UJ-style programme seed file",
+  "description": "One institution's programmes for one or more academic years. Mirrors the checks in scripts/validate_data.py — keep both in sync.",
+  "type": "array",
+  "items": { "$ref": "#/$defs/programme" },
+
+  "$defs": {
+    "subject": {
+      "enum": [
+        "english_hl", "english_fal",
+        "afrikaans_hl", "afrikaans_fal",
+        "isizulu_hl", "isizulu_fal",
+        "isixhosa_hl", "isixhosa_fal",
+        "sepedi_hl", "sepedi_fal",
+        "sesotho_hl", "sesotho_fal",
+        "setswana_hl", "setswana_fal",
+        "xitsonga_hl", "xitsonga_fal",
+        "siswati_hl", "siswati_fal",
+        "tshivenda_hl", "tshivenda_fal",
+        "isindebele_hl", "isindebele_fal",
+        "mathematics", "mathematical_literacy", "technical_mathematics",
+        "physical_sciences", "technical_sciences", "life_sciences", "life_orientation",
+        "accounting", "business_studies", "economics", "geography", "history",
+        "tourism", "consumer_studies", "visual_arts", "dramatic_arts", "music",
+        "design", "information_technology", "computer_applications_technology",
+        "engineering_graphics_and_design", "agricultural_sciences",
+        "hospitality_studies", "religion_studies"
+      ]
+    },
+
+    "languageFamily": {
+      "enum": [
+        "english", "afrikaans", "isizulu", "isixhosa", "sepedi", "sesotho",
+        "setswana", "xitsonga", "siswati", "tshivenda", "isindebele"
+      ]
+    },
+
+    "ruleNode": {
+      "oneOf": [
+        { "$ref": "#/$defs/allAnyNode" },
+        { "$ref": "#/$defs/subjectNode" },
+        { "$ref": "#/$defs/anyAdditionalLanguageNode" }
+      ]
+    },
+
+    "allAnyNode": {
+      "type": "object",
+      "properties": {
+        "kind": { "enum": ["all", "any"] },
+        "rules": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/ruleNode" }
+        }
+      },
+      "required": ["kind", "rules"],
+      "additionalProperties": false
+    },
+
+    "subjectNode": {
+      "type": "object",
+      "properties": {
+        "kind": { "const": "subject" },
+        "subject": { "$ref": "#/$defs/subject" },
+        "language": { "$ref": "#/$defs/languageFamily" },
+        "min_level": { "type": "integer", "minimum": 1, "maximum": 7 },
+        "min_level_fal": { "type": "integer", "minimum": 1, "maximum": 7 }
+      },
+      "required": ["kind"],
+      "oneOf": [
+        { "required": ["subject"], "not": { "required": ["language"] } },
+        { "required": ["language"], "not": { "required": ["subject"] } }
+      ],
+      "additionalProperties": false
+    },
+
+    "anyAdditionalLanguageNode": {
+      "type": "object",
+      "properties": {
+        "kind": { "const": "any_additional_language" },
+        "min_level": { "type": "integer", "minimum": 1, "maximum": 7 }
+      },
+      "required": ["kind", "min_level"],
+      "additionalProperties": false
+    },
+
+    "scoreThreshold": {
+      "type": "object",
+      "properties": {
+        "min_score": { "type": "integer", "minimum": 10, "maximum": 48 },
+        "requires_subject": { "$ref": "#/$defs/subject" }
+      },
+      "required": ["min_score"],
+      "additionalProperties": false
+    },
+
+    "nscRequirements": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/scoreThreshold" }
+        },
+        "subjects": { "$ref": "#/$defs/ruleNode" },
+        "excluded_subjects": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/subject" },
+          "default": []
+        }
+      },
+      "required": ["score", "subjects"],
+      "additionalProperties": false
+    },
+
+    "requirements": {
+      "type": "object",
+      "properties": {
+        "nsc": { "$ref": "#/$defs/nscRequirements" }
+      },
+      "required": ["nsc"],
+      "additionalProperties": false
+    },
+
+    "programme": {
+      "type": "object",
+      "properties": {
+        "institution_id": { "type": "string", "minLength": 1 },
+        "academic_year": { "type": "integer" },
+        "qualification_code": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "faculty": { "type": ["string", "null"] },
+        "campus": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "duration_years": { "type": ["number", "null"] },
+        "extended": { "type": "boolean", "default": false },
+        "requirements": { "$ref": "#/$defs/requirements" },
+        "selection_notes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "career_text": { "type": ["string", "null"] },
+        "source_doc": { "type": ["string", "null"] },
+        "source_page": { "type": ["integer", "null"] },
+        "confidence": {
+          "enum": ["verified", "extracted", "flagged"],
+          "default": "extracted"
+        }
+      },
+      "required": [
+        "institution_id", "academic_year", "qualification_code", "name", "requirements"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

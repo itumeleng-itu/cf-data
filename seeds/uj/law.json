@@ -1,0 +1,39 @@
+[
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B4L03Q",
+    "name": "LLB",
+    "faculty": "Law",
+    "campus": ["APK"],
+    "duration_years": 4,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          { "min_score": 31, "requires_subject": "mathematics" },
+          { "min_score": 32, "requires_subject": "mathematical_literacy" }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            { "kind": "any_additional_language", "min_level": 4 },
+            {
+              "kind": "any",
+              "rules": [
+                { "kind": "subject", "subject": "mathematics", "min_level": 3 },
+                { "kind": "subject", "subject": "mathematical_literacy", "min_level": 4 }
+              ]
+            }
+          ]
+        },
+        "excluded_subjects": []
+      }
+    },
+    "selection_notes": ["NCV, NASCA and SC(a) not accepted"],
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 82,
+    "confidence": "verified"
+  }
+]

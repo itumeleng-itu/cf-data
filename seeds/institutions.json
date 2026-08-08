@@ -1,0 +1,8 @@
+[
+  {
+    "id": "uj",
+    "name": "University of Johannesburg",
+    "scoring_strategy": "aps_best6_excl_lo",
+    "scoring_config": { "excludes_life_orientation": true, "subject_count": 6 }
+  }
+]

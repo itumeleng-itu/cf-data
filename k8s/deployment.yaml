@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coursefind-api
+  labels:
+    app: coursefind-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: coursefind-api
+  template:
+    metadata:
+      labels:
+        app: coursefind-api
+    spec:
+      # runAsNonRoot at the pod level is a defense-in-depth belt-and-braces
+      # check; the image already sets USER 1000 and never expects to run
+      # as anything else.
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: api
+          # TODO: set to the real ghcr.io path once build-data-image.yml has
+          # pushed one, e.g. ghcr.io/<org>/<repo>:2027.1 (image tag == data
+          # version; see architecture decision on tag format).
+          image: ghcr.io/CHANGE_ME/coursefind-api:2027.1
+          ports:
+            - name: http
+              containerPort: 8000
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            initialDelaySeconds: 2
+            periodSeconds: 5
+            failureThreshold: 3
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL

@@ -1,0 +1,7 @@
+data/
+universities/
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+api/src/app/data/programmes.json

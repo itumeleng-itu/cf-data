@@ -1,0 +1,31 @@
+<!-- Trimmed real fragment of
+     https://universityqualifications.co.za/pdf-prospectus/university-of-johannesburg-uj-prospectus-2027,
+     saved 2026-08-08. Real detail pages embed the actual PDF location inside
+     an Adobe DC View SDK previewFile() call -- there is no plain <a href=.pdf>
+     link, which is exactly why resolve_pdf_url() has to parse this script
+     rather than just guessing a URL from the slug. -->
+<!DOCTYPE html>
+<html lang="en">
+<head><title>UJ Prospectus 2027</title></head>
+<body>
+<div id="viewer"></div>
+<script type="text/javascript">
+    document.addEventListener("adobe_dc_view_sdk.ready", function() {
+        var adobeDCView = new AdobeDC.View({
+            clientId: "65a2dda6320642a3bd8f65e43a162428"            });
+        adobeDCView.previewFile({
+            content: {
+                location: {
+                    url: "https:\/\/d1yqwmn8pjyrsu.cloudfront.net\/pdf-prospectus\/university-of-johannesburg-uj-prospectus-2027.pdf"                    }
+            },
+            metaData: {
+                fileName: "University Of Johannesburg (UJ) Prospectus 2027"                }
+        }, {
+            embedMode: "IN_LINE",
+            showDownloadPDF: false,
+            showPrintPDF: false
+        });
+    });
+</script>
+</body>
+</html>

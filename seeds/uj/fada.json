@@ -1,0 +1,38 @@
+[
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B8CD2Q",
+    "name": "BA (Communication Design)",
+    "faculty": "Art, Design and Architecture",
+    "campus": ["APB"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          { "min_score": 25, "requires_subject": "mathematics" },
+          { "min_score": 26, "requires_subject": "mathematical_literacy" }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            {
+              "kind": "any",
+              "rules": [
+                { "kind": "subject", "subject": "mathematics", "min_level": 3 },
+                { "kind": "subject", "subject": "mathematical_literacy", "min_level": 4 }
+              ]
+            }
+          ]
+        },
+        "excluded_subjects": ["technical_mathematics"]
+      }
+    },
+    "selection_notes": [],
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 32,
+    "confidence": "verified"
+  }
+]

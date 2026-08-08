@@ -1,0 +1,242 @@
+[
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B6CS0Q",
+    "name": "Bachelor of Engineering in Civil Engineering",
+    "faculty": "Engineering and the Built Environment",
+    "campus": ["APK"],
+    "duration_years": 4,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          { "min_score": 32, "requires_subject": "mathematics" },
+          { "min_score": 32, "requires_subject": "technical_mathematics" }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            {
+              "kind": "any",
+              "rules": [
+                { "kind": "subject", "subject": "mathematics", "min_level": 5 },
+                { "kind": "subject", "subject": "technical_mathematics", "min_level": 5 }
+              ]
+            },
+            { "kind": "subject", "subject": "physical_sciences", "min_level": 5 }
+          ]
+        },
+        "excluded_subjects": ["technical_sciences"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 60,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B6ES0Q",
+    "name": "Bachelor of Engineering in Electrical and Electronic Engineering",
+    "faculty": "Engineering and the Built Environment",
+    "campus": ["APK"],
+    "duration_years": 4,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          { "min_score": 32, "requires_subject": "mathematics" },
+          { "min_score": 32, "requires_subject": "technical_mathematics" }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            {
+              "kind": "any",
+              "rules": [
+                { "kind": "subject", "subject": "mathematics", "min_level": 5 },
+                { "kind": "subject", "subject": "technical_mathematics", "min_level": 5 }
+              ]
+            },
+            { "kind": "subject", "subject": "physical_sciences", "min_level": 5 }
+          ]
+        },
+        "excluded_subjects": ["technical_sciences"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 60,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B6MS0Q",
+    "name": "Bachelor of Engineering in Mechanical Engineering",
+    "faculty": "Engineering and the Built Environment",
+    "campus": ["APK"],
+    "duration_years": 4,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          { "min_score": 32, "requires_subject": "mathematics" },
+          { "min_score": 32, "requires_subject": "technical_mathematics" }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 5 },
+            {
+              "kind": "any",
+              "rules": [
+                { "kind": "subject", "subject": "mathematics", "min_level": 5 },
+                { "kind": "subject", "subject": "technical_mathematics", "min_level": 5 }
+              ]
+            },
+            { "kind": "subject", "subject": "physical_sciences", "min_level": 5 }
+          ]
+        },
+        "excluded_subjects": ["technical_sciences"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 60,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B6CV3Q",
+    "name": "Bachelor of Engineering Technology in Civil Engineering",
+    "faculty": "Engineering and the Built Environment",
+    "campus": ["DFC"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          { "min_score": 28, "requires_subject": "mathematics" },
+          { "min_score": 28, "requires_subject": "technical_mathematics" }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 4 },
+            {
+              "kind": "any",
+              "rules": [
+                { "kind": "subject", "subject": "mathematics", "min_level": 5 },
+                { "kind": "subject", "subject": "technical_mathematics", "min_level": 5 }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                { "kind": "subject", "subject": "physical_sciences", "min_level": 5 },
+                { "kind": "subject", "subject": "technical_sciences", "min_level": 5 }
+              ]
+            }
+          ]
+        },
+        "excluded_subjects": []
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 60,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B6EL1Q",
+    "name": "Bachelor of Engineering Technology in Electrical Engineering",
+    "faculty": "Engineering and the Built Environment",
+    "campus": ["DFC"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          { "min_score": 30, "requires_subject": "mathematics" },
+          { "min_score": 30, "requires_subject": "technical_mathematics" }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 4 },
+            {
+              "kind": "any",
+              "rules": [
+                { "kind": "subject", "subject": "mathematics", "min_level": 5 },
+                { "kind": "subject", "subject": "technical_mathematics", "min_level": 5 }
+              ]
+            },
+            { "kind": "subject", "subject": "physical_sciences", "min_level": 5 }
+          ]
+        },
+        "excluded_subjects": ["technical_sciences"]
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 60,
+    "confidence": "verified"
+  },
+  {
+    "institution_id": "uj",
+    "academic_year": 2027,
+    "qualification_code": "B6MC2Q",
+    "name": "Bachelor of Engineering Technology in Mechanical Engineering",
+    "faculty": "Engineering and the Built Environment",
+    "campus": ["DFC"],
+    "duration_years": 3,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          { "min_score": 30, "requires_subject": "mathematics" },
+          { "min_score": 30, "requires_subject": "technical_mathematics" }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            { "kind": "subject", "language": "english", "min_level": 4 },
+            {
+              "kind": "any",
+              "rules": [
+                { "kind": "subject", "subject": "mathematics", "min_level": 5 },
+                { "kind": "subject", "subject": "technical_mathematics", "min_level": 5 }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                { "kind": "subject", "subject": "physical_sciences", "min_level": 5 },
+                { "kind": "subject", "subject": "technical_sciences", "min_level": 5 }
+              ]
+            }
+          ]
+        },
+        "excluded_subjects": []
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "uj_undergrad_prospectus2027",
+    "source_page": 60,
+    "confidence": "verified"
+  }
+]
