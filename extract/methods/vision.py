@@ -354,10 +354,19 @@ def extract_vision(
     provider_name: str | None = None,
     http_post: Callable | None = None,
     request_delay_seconds: float = _DEFAULT_REQUEST_DELAY_SECONDS,
+    on_page_complete: Callable[[int, list[dict], str], None] | None = None,
 ) -> tuple[list[dict], dict[str, Any]]:
     """One vision-model call per page in table_pages (plus JSON-parse and
     rate-limit retries, see module docstring) -- callers decide which
     pages to pass; this function does not filter or judge them.
+
+    on_page_complete, if given, is called after EVERY page (page_num,
+    page_records, status) -- including an abstained one, with an empty
+    records list -- before moving to the next. A multi-page real run can
+    fail partway through (a free-tier daily quota exhausting mid-run is
+    exactly the failure mode this exists for); a caller that persists
+    incrementally via this hook keeps whatever pages DID complete instead
+    of losing an entire run's real API spend to one late failure.
 
     Returns (records, stats) where stats is
     {"provider", "model", "pages_attempted", "pages_parsed",
@@ -389,6 +398,9 @@ def extract_vision(
             else:
                 abstained_count += 1
             records.extend(page_records)
+
+            if on_page_complete is not None:
+                on_page_complete(page_num, page_records, status)
 
     stats = {
         "provider": provider.name,

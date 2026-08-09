@@ -287,6 +287,34 @@ def test_extract_vision_sleeps_between_pages_not_before_the_first(_no_real_sleep
     assert _no_real_sleep == [2.5]  # one sleep, between the two pages -- none before the first
 
 
+def test_extract_vision_calls_on_page_complete_after_every_page_including_abstained_ones() -> None:
+    pdf_path = _find_uj_2027_pdf()
+    if pdf_path is None:
+        pytest.skip("UJ 2027 PDF not present -- skipping on this clone")
+
+    calls = []
+
+    # Page 60 succeeds, page 61 abstains (garbage twice) -- proves the
+    # hook fires for BOTH outcomes, in page order, not just successes.
+    responses = iter([
+        _openrouter_response({"programmes": [
+            {"qualification_code": "B6CS0Q", "requirements": {"nsc": {"score": None, "subjects": {"kind": "all", "rules": []}}}},
+        ]}),
+        _openrouter_raw_response("garbage {{{"),
+        _openrouter_raw_response("still garbage {{{"),
+    ])
+
+    def _sequenced_post(url, *, headers, json, timeout):
+        return next(responses)
+
+    profile = {"layout": {"code_pattern": r"[A-Z]\d[A-Z0-9]{3,4}", "rotated_headers": True}}
+    extract_vision(
+        pdf_path, profile, [60, 61], api_key="fake-key", provider_name="openrouter",
+        http_post=_sequenced_post, on_page_complete=lambda page_num, records, status: calls.append((page_num, len(records), status)),
+    )
+    assert calls == [(60, 1, "parsed"), (61, 0, "abstained")]
+
+
 def test_extract_vision_model_defaults_and_is_overridable() -> None:
     pdf_path = _find_uj_2027_pdf()
     if pdf_path is None:
