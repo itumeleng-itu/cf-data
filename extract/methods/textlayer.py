@@ -260,7 +260,9 @@ def _extract_section(
                     row_cells.append((slug, type(cell)(kind="alternative", level=cell.level, raw=cell.raw)))
 
         tree, excluded = build_subject_tree(row_cells, profile)
-        name = _row_name(upright_words, band, code_x0)
+        upper_bound = bands[row_index - 1]["bottom"] if row_index > 0 else None
+        lower_bound = bands[row_index + 1]["top"] if row_index + 1 < len(bands) else None
+        name = _row_name(upright_words, band, code_x0, upper_bound, lower_bound)
         campus = _row_campus(upright_words, band, profile)
         aps = _row_aps(upright_words, band)
 
@@ -339,15 +341,72 @@ def _resolve_header(header_text: str, profile: dict) -> str | list[str] | None:
     return resolve_subject_column(header_text, profile)
 
 
-def _row_name(upright_words: list[dict], band: dict, code_x0: float) -> str | None:
-    words = [
-        w for w in upright_words
-        if band["top"] - 3 <= w["top"] <= band["bottom"] + 3 and w["x1"] <= code_x0
-    ]
-    if not words:
+_MAX_NAME_LINE_GAP = 15.0
+
+
+def _row_name(
+    upright_words: list[dict],
+    band: dict,
+    code_x0: float,
+    upper_bound: float | None = None,
+    lower_bound: float | None = None,
+) -> str | None:
+    """Programme names often wrap across 2-3 lines. The row's own band
+    (derived from the rotated code's full vertical extent -- a 6-char
+    rotated code spans ~28pt, similar to a 3-line name) usually already
+    covers every wrapped line, so the base selection is every name-column
+    line falling inside [band.top-3, band.bottom+3], not just the first
+    line found there (confirmed directly on page 47: "BACHELOR OF" /
+    "COMMERCE IN" / "ACCOUNTANCY" all sit inside one code's band, but an
+    early version of this function grabbed only the first and stopped).
+    Separately, a line can overflow just outside that window (also page
+    47: "TRANSPORTATION" sits 0.7pt above band.top-3, with "MANAGEMENT"
+    the only line inside it) -- so this also walks outward from the base
+    selection's own edges, upward and downward, while the gap to the next
+    line stays small (same wrapped name, not new content), never
+    crossing upper_bound/lower_bound (the previous/next row's own
+    bottom/top, when known) even if the gap would otherwise allow it."""
+    candidates = [w for w in upright_words if w["x1"] <= code_x0]
+    if not candidates:
         return None
-    words.sort(key=lambda w: (w["top"], w["x0"]))
-    return " ".join(w["text"] for w in words)
+
+    lines: dict[float, list[dict]] = {}
+    for w in candidates:
+        key = round(w["top"], 1)
+        lines.setdefault(key, []).append(w)
+    line_tops = sorted(lines)
+
+    base = [t for t in line_tops if band["top"] - 3 <= t <= band["bottom"] + 3]
+    if not base:
+        return None
+
+    first_index = line_tops.index(base[0])
+    last_index = line_tops.index(base[-1])
+    selected = set(base)
+
+    prev_top = base[0]
+    for t in reversed(line_tops[:first_index]):
+        if prev_top - t > _MAX_NAME_LINE_GAP:
+            break
+        if upper_bound is not None and t < upper_bound:
+            break
+        selected.add(t)
+        prev_top = t
+
+    prev_top = base[-1]
+    for t in line_tops[last_index + 1:]:
+        if t - prev_top > _MAX_NAME_LINE_GAP:
+            break
+        if lower_bound is not None and t > lower_bound:
+            break
+        selected.add(t)
+        prev_top = t
+
+    words_out: list[dict] = []
+    for t in sorted(selected):
+        words_out.extend(sorted(lines[t], key=lambda w: w["x0"]))
+    joined = " ".join(w["text"] for w in words_out)
+    return joined or None
 
 
 def _row_campus(upright_words: list[dict], band: dict, profile: dict) -> list[str]:

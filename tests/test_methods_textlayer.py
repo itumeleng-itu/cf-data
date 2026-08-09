@@ -198,6 +198,35 @@ def test_second_header_block_gets_its_own_five_column_mapping() -> None:
     assert levels == {"english": 4, "mathematics": 4, "physical_sciences": 4, "life_sciences": 4}
 
 
+# --- page 47: multi-line programme names -----------------------------
+# A real, previously undiagnosed bug: names wrapping across 2-3 lines
+# truncated to their LAST line only under a small fixed +/-3pt window
+# around the row's own band. Two distinct shapes on this one page: the
+# row's band can land on the name's LAST line (overflow above the
+# window) or its FIRST line (the rest inside the window but a naive
+# single-anchor walk never looked past the first match).
+
+@pytest.mark.slow
+def test_two_line_name_overflowing_above_the_row_band() -> None:
+    pdf_path = _find_uj_2027_pdf()
+    if pdf_path is None:
+        pytest.skip("UJ 2027 PDF not present -- skipping on this clone")
+
+    records = _records_by_code(pdf_path, [47])
+    assert records["D34TEQ"]["name"] == "TRANSPORTATION MANAGEMENT"
+
+
+@pytest.mark.slow
+def test_three_line_name_entirely_inside_the_row_band() -> None:
+    pdf_path = _find_uj_2027_pdf()
+    if pdf_path is None:
+        pytest.skip("UJ 2027 PDF not present -- skipping on this clone")
+
+    records = _records_by_code(pdf_path, [47])
+    assert records["B34ACC"]["name"] == "BACHELOR OF COMMERCE IN ACCOUNTANCY"
+    assert records["B34HRC"]["name"] == "BACHELOR OF HUMAN RESOURCE MANAGEMENT"
+
+
 # --- non-rotated profile: out of scope this pass --------------------------
 
 def test_non_rotated_profile_returns_empty_result() -> None:
