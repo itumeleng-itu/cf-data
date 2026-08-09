@@ -68,7 +68,16 @@ def _is_reversed(page: Any, bbox: tuple[float, float, float, float] | None) -> b
     scores, career prose) don't, sitting side by side in the same row."""
     if bbox is None:
         return False
-    chars = page.crop(bbox).chars
+    try:
+        chars = page.crop(bbox).chars
+    except ValueError:
+        # The "text" (stream) strategy can propose a cell bbox that falls
+        # entirely outside the page's own bounding box -- confirmed on a
+        # real UJ page, a degenerate table pdfplumber's whitespace-based
+        # detection found near a margin, not a real table at all. Nothing
+        # reliable can be read from it either way, so this cell is
+        # treated the same as one with no characters: not reversed.
+        return False
     if not chars:
         return False
     return sum(1 for c in chars if not c.get("upright", True)) / len(chars) > 0.5

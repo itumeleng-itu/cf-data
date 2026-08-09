@@ -15,8 +15,21 @@ import pytest
 
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT / "extract"))
-from methods.geometric import extract_geometric  # noqa: E402
+from methods.geometric import _is_reversed, extract_geometric  # noqa: E402
 from profiles import get_profile  # noqa: E402
+
+
+class _RaisesOnCrop:
+    def crop(self, bbox):
+        # Real failure mode, found running Method B across all 40 UJ
+        # table pages (not just the hand-picked ones used elsewhere in
+        # this file): the "text" strategy can propose a cell bbox
+        # entirely outside the page's own bounding box.
+        raise ValueError("Bounding box is entirely outside parent page bounding box")
+
+
+def test_is_reversed_false_when_bbox_is_outside_page_bounds() -> None:
+    assert _is_reversed(_RaisesOnCrop(), (48.4, -80.5, 124.3, -71.5)) is False
 
 
 def _find_uj_2027_pdf() -> Path | None:
