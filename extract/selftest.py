@@ -75,25 +75,32 @@ def find_genuine_conflict_pages(a_records: list[dict], b_records: list[dict]) ->
     return pages
 
 
+_EMPTY_VISION_STATS: dict[str, Any] = {
+    "model": None, "pages_attempted": 0, "pages_parsed": 0, "pages_abstained": 0,
+}
+
+
 def run_ensemble(
     pdf_path: Path,
     profile: dict,
     table_pages: list[int],
     api_key: str,
     model: str | None = None,
-    extract_vision_fn: Callable[..., list[dict]] = extract_vision,
-) -> tuple[dict[str, tuple[dict, dict[str, float]]], set[int]]:
-    """Returns ({code: (merged_record, field_confidence)}, c_pages_run)."""
+    extract_vision_fn: Callable[..., tuple[list[dict], dict[str, Any]]] = extract_vision,
+) -> tuple[dict[str, tuple[dict, dict[str, float]]], set[int], dict[str, Any]]:
+    """Returns ({code: (merged_record, field_confidence)}, c_pages_run,
+    vision_stats). vision_stats is _EMPTY_VISION_STATS (model=None) when
+    A and B already agreed everywhere and Method C never ran at all --
+    that's a valid, zero-cost outcome, not a missing result."""
     a_records = extract_textlayer(pdf_path, profile, table_pages)
     b_records = extract_geometric(pdf_path, profile, table_pages)
 
     c_pages = find_genuine_conflict_pages(a_records, b_records)
-    vision_kwargs = {"model": model} if model else {}
-    c_records = (
-        extract_vision_fn(pdf_path, profile, sorted(c_pages), api_key=api_key, **vision_kwargs)
-        if c_pages
-        else []
-    )
+    if c_pages:
+        vision_kwargs = {"model": model} if model else {}
+        c_records, vision_stats = extract_vision_fn(pdf_path, profile, sorted(c_pages), api_key=api_key, **vision_kwargs)
+    else:
+        c_records, vision_stats = [], dict(_EMPTY_VISION_STATS)
 
     a_idx = {r["qualification_code"]: r for r in a_records}
     b_idx = {r["qualification_code"]: r for r in b_records}
@@ -104,7 +111,7 @@ def run_ensemble(
     for code in all_codes:
         a, b, c = a_idx.get(code), b_idx.get(code), c_idx.get(code)
         results[code] = reconcile(a, b, c)
-    return results, c_pages
+    return results, c_pages, vision_stats
 
 
 def compute_gate(
@@ -134,6 +141,13 @@ def compute_gate(
 
     false_agreement_rate = agreed_wrong / agreed_total if agreed_total else 0.0
 
+    # Queue size over the FULL ensemble output, not just the 29
+    # ground-truth-matched codes -- queue size is a production-behaviour
+    # question (how much of what the pipeline produces needs a human),
+    # not a validation-sample one.
+    needs_review = sum(1 for merged, _confidence in results.values() if merged.get("verification", {}).get("needs_review"))
+    queue_fraction = needs_review / len(results) if results else 0.0
+
     return {
         "completeness_recall": completeness_recall,
         "programmes_found": found,
@@ -142,6 +156,9 @@ def compute_gate(
         "fields_agreed": agreed_total,
         "fields_agreed_wrong": agreed_wrong,
         "false_agreement_by_field": wrong_by_field,
+        "queue_fraction": queue_fraction,
+        "records_total": len(results),
+        "records_needing_review": needs_review,
     }
 
 
@@ -171,15 +188,20 @@ def main() -> int:
     pages = sorted(UJ_2027_TABLE_PAGES)
     ground_truth = _load_uj_ground_truth()
 
-    results, c_pages = run_ensemble(Path(args.pdf), profile, pages, api_key, args.model)
+    results, c_pages, vision_stats = run_ensemble(Path(args.pdf), profile, pages, api_key, args.model)
     gate = compute_gate(results, ground_truth)
 
+    print(f"Method C model: {vision_stats['model']}")
     print(f"Method C ran on {len(c_pages)}/{len(pages)} pages: {sorted(c_pages)}")
+    print(f"pages attempted/parsed/abstained: "
+          f"{vision_stats['pages_attempted']}/{vision_stats['pages_parsed']}/{vision_stats['pages_abstained']}")
     print(f"completeness recall: {gate['completeness_recall']:.1%} "
           f"({gate['programmes_found']}/{gate['programmes_present']}) -- gate: > 98%")
     print(f"false agreement: {gate['false_agreement_rate']:.1%} "
           f"({gate['fields_agreed_wrong']}/{gate['fields_agreed']} agreed fields wrong) -- gate: < 2%")
     print(f"false agreement by field: {gate['false_agreement_by_field']}")
+    print(f"human-queue size: {gate['queue_fraction']:.1%} "
+          f"({gate['records_needing_review']}/{gate['records_total']} records)")
 
     passed = gate["completeness_recall"] > 0.98 and gate["false_agreement_rate"] < 0.02
     print("GATE PASSED" if passed else "GATE FAILED")

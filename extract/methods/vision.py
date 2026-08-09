@@ -10,7 +10,10 @@ verification step uses. If a separate verification pass is added, it
 MUST be a different model family (GPT or Gemini) -- otherwise Method C
 and verification could share correlated blind spots, and the ensemble's
 independence assumption (three genuinely different ways of being wrong)
-stops holding.
+stops holding. The default is overridable via OPENROUTER_MODEL (or the
+model= parameter directly) with no code change -- needed to run this
+against OpenRouter's free-tier roster, which changes which models are
+free frequently enough that hardcoding one would go stale.
 
 Scoped deliberately: this module extracts whatever pages it's given, no
 more, no less -- which pages to run it on (ideally: only pages where
@@ -18,13 +21,32 @@ Methods A and B already disagree, not the whole document) is the
 caller's decision, made in extract/selftest.py or an orchestration
 script, not here. This keeps vision.py a plain, reusable extraction
 primitive rather than something that has to know about reconciliation.
+
+Free-tier realities, handled explicitly rather than assumed away: free
+models are commonly rate-limited (~20 req/min plus daily caps) and
+follow strict-JSON instructions less reliably than paid ones.
+extract_vision() therefore sleeps request_delay_seconds between calls,
+retries a 429 with capped exponential backoff (honouring Retry-After
+when the response provides it), and -- if a response still won't parse
+as JSON after one retry -- ABSTAINS for that page (no records, no
+exception) rather than raising. reconcile() already treats a missing
+candidate as "no vote", distinct from disagreement, so a free model's
+parse failure degrades gracefully into A+B-only reconciliation for
+whatever records were on that page, instead of aborting the run. Returns
+(records, stats) rather than a bare list specifically so a caller (e.g.
+extract/selftest.py) can report pages attempted/parsed/abstained and
+which model produced them -- that ratio is itself a signal about whether
+a given free model is usable at all, and any gate number downstream must
+stay attributable to the model that produced it.
 """
 
 import base64
 import io
 import json
+import os
 import re
 import sys
+import time
 from pathlib import Path
 from typing import Any, Callable
 
@@ -35,9 +57,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from text_repair import normalise_page_text  # noqa: E402
 
 _OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
-_DEFAULT_MODEL = "anthropic/claude-sonnet-4.5"
+_DEFAULT_MODEL = os.environ.get("OPENROUTER_MODEL", "anthropic/claude-sonnet-4.5")
 _RENDER_DPI = 200
 _REQUEST_TIMEOUT = 180.0
+_DEFAULT_REQUEST_DELAY_SECONDS = 3.5  # ~17/min, safely under a common ~20/min free-tier cap
+_MAX_429_RETRIES = 3
+_BACKOFF_BASE_SECONDS = 2.0
+_BACKOFF_CAP_SECONDS = 30.0
+_JSON_PARSE_RETRIES = 1
 
 # Real, hand-verified UJ 2027 records (seeds/uj/*.json), each chosen to
 # demonstrate one or more of the structures the extraction prompt must
@@ -234,7 +261,7 @@ def _build_messages(image_b64: str, page_text: str, page_num: int) -> list[dict]
     ]
 
 
-def _call_openrouter(messages: list[dict], api_key: str, model: str, http_post: Callable) -> str:
+def _post_once(messages: list[dict], api_key: str, model: str, http_post: Callable) -> Any:
     payload = {
         "model": model,
         "messages": messages,
@@ -242,10 +269,28 @@ def _call_openrouter(messages: list[dict], api_key: str, model: str, http_post: 
         "temperature": 0,
     }
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
-    response = http_post(_OPENROUTER_URL, headers=headers, json=payload, timeout=_REQUEST_TIMEOUT)
-    response.raise_for_status()
-    data = response.json()
-    return data["choices"][0]["message"]["content"]
+    return http_post(_OPENROUTER_URL, headers=headers, json=payload, timeout=_REQUEST_TIMEOUT)
+
+
+def _call_openrouter(messages: list[dict], api_key: str, model: str, http_post: Callable) -> str:
+    """Retries a 429 with capped exponential backoff, honouring
+    Retry-After when the response provides it. Any other HTTP error, or
+    exhausting the retry budget, raises -- the caller (_run_page) is
+    responsible for turning that into an abstention rather than crashing
+    the whole multi-page run."""
+    delay = _BACKOFF_BASE_SECONDS
+    for attempt in range(_MAX_429_RETRIES + 1):
+        response = _post_once(messages, api_key, model, http_post)
+        if response.status_code == 429 and attempt < _MAX_429_RETRIES:
+            retry_after = response.headers.get("Retry-After") if hasattr(response, "headers") else None
+            wait = float(retry_after) if retry_after else delay
+            time.sleep(min(wait, _BACKOFF_CAP_SECONDS))
+            delay = min(delay * 2, _BACKOFF_CAP_SECONDS)
+            continue
+        response.raise_for_status()
+        data = response.json()
+        return data["choices"][0]["message"]["content"]
+    raise requests.HTTPError(f"exhausted {_MAX_429_RETRIES} retries on 429")
 
 
 _CODE_LIKE = re.compile(r"^[A-Za-z0-9]{4,8}$")
@@ -264,11 +309,17 @@ def _normalise_record(raw: dict, page_num: int) -> dict | None:
     return record
 
 
-def _parse_response(content: str, page_num: int) -> list[dict]:
+def _try_parse_json(content: str) -> dict | list | None:
+    """None specifically means "did not parse as JSON at all" -- distinct
+    from parsing fine but containing zero/malformed programmes, which is
+    a valid (if unhelpful) response, not a reason to retry or abstain."""
     try:
-        parsed = json.loads(content)
+        return json.loads(content)
     except json.JSONDecodeError:
-        return []
+        return None
+
+
+def _extract_programmes(parsed: Any, page_num: int) -> list[dict]:
     programmes = parsed.get("programmes") if isinstance(parsed, dict) else None
     if not isinstance(programmes, list):
         return []
@@ -276,33 +327,73 @@ def _parse_response(content: str, page_num: int) -> list[dict]:
     return [r for r in records if r is not None]
 
 
+def _run_page(
+    page_num: int, messages: list[dict], api_key: str, model: str, http_post: Callable,
+) -> tuple[list[dict], str]:
+    """Returns (records, status) where status is "parsed" or "abstained".
+    Up to _JSON_PARSE_RETRIES extra attempts if the response won't parse
+    as JSON; a network/HTTP error (after 429 retries are exhausted) also
+    abstains rather than propagating, per this module's documented
+    contract that one bad page never aborts a multi-page run."""
+    for attempt in range(_JSON_PARSE_RETRIES + 1):
+        try:
+            content = _call_openrouter(messages, api_key, model, http_post)
+        except (requests.RequestException, KeyError, IndexError):
+            return [], "abstained"
+        parsed = _try_parse_json(content)
+        if parsed is not None:
+            return _extract_programmes(parsed, page_num), "parsed"
+    return [], "abstained"
+
+
 def extract_vision(
     pdf_path: Path,
     profile: dict,
     table_pages: list[int],
     api_key: str,
-    model: str = _DEFAULT_MODEL,
+    model: str | None = None,
     http_post: Callable | None = None,
-) -> list[dict]:
-    """One OpenRouter call per page in table_pages -- callers decide which
-    pages to pass; this function does not filter or judge them. A page
-    whose call fails (network error, malformed model output) contributes
-    no records for that page rather than aborting the whole run -- the
-    caller's reconciliation step already treats a missing record as an
-    abstention, not an error."""
+    request_delay_seconds: float = _DEFAULT_REQUEST_DELAY_SECONDS,
+) -> tuple[list[dict], dict[str, Any]]:
+    """One OpenRouter call per page in table_pages (plus JSON-parse and
+    429 retries, see module docstring) -- callers decide which pages to
+    pass; this function does not filter or judge them.
+
+    Returns (records, stats) where stats is
+    {"model", "pages_attempted", "pages_parsed", "pages_abstained"} --
+    always recorded so a downstream gate number stays attributable to
+    the model that produced it, and so the parse ratio itself is visible
+    (a low one is a signal a given free model may not be usable for this
+    task at all, independent of whatever records it did produce)."""
+    model = model or _DEFAULT_MODEL
     http_post = http_post or requests.post
     records: list[dict] = []
+    attempted = parsed_count = abstained_count = 0
+
     with pdfplumber.open(pdf_path) as pdf:
-        for page_num in table_pages:
+        for i, page_num in enumerate(table_pages):
             if not 1 <= page_num <= len(pdf.pages):
                 continue
+            if i > 0:
+                time.sleep(request_delay_seconds)
+
             page = pdf.pages[page_num - 1]
             image_b64 = _render_page_png_base64(page)
             page_text = normalise_page_text(page)
             messages = _build_messages(image_b64, page_text, page_num)
-            try:
-                content = _call_openrouter(messages, api_key, model, http_post)
-            except (requests.RequestException, KeyError, IndexError):
-                continue
-            records.extend(_parse_response(content, page_num))
-    return records
+
+            attempted += 1
+            page_records, status = _run_page(page_num, messages, api_key, model, http_post)
+            if status == "parsed":
+                parsed_count += 1
+            else:
+                abstained_count += 1
+            records.extend(page_records)
+
+    stats = {
+        "model": model,
+        "pages_attempted": attempted,
+        "pages_parsed": parsed_count,
+        "pages_abstained": abstained_count,
+    }
+    return records, stats

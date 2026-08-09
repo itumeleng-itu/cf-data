@@ -95,18 +95,19 @@ def test_run_ensemble_only_calls_vision_on_conflict_pages(monkeypatch) -> None:
 
     def fake_extract_vision(pdf_path, profile, table_pages, api_key, **kwargs):
         calls.append(sorted(table_pages))
-        return []
+        return [], {"model": "fake/model", "pages_attempted": 1, "pages_parsed": 1, "pages_abstained": 0}
 
     import selftest
     monkeypatch.setattr(selftest, "extract_textlayer", fake_extract_textlayer)
     monkeypatch.setattr(selftest, "extract_geometric", fake_extract_geometric)
 
-    results, c_pages = run_ensemble(
+    results, c_pages, vision_stats = run_ensemble(
         Path("fake.pdf"), {}, [10, 11], api_key="fake", extract_vision_fn=fake_extract_vision,
     )
     assert c_pages == {10}
     assert calls == [[10]]
     assert set(results) == {"X1", "X2"}
+    assert vision_stats["model"] == "fake/model"
 
 
 def test_run_ensemble_skips_vision_entirely_when_no_conflicts(monkeypatch) -> None:
@@ -120,17 +121,18 @@ def test_run_ensemble_skips_vision_entirely_when_no_conflicts(monkeypatch) -> No
 
     def fake_extract_vision(pdf_path, profile, table_pages, api_key, **kwargs):
         calls.append(table_pages)
-        return []
+        return [], {"model": "fake/model", "pages_attempted": 1, "pages_parsed": 1, "pages_abstained": 0}
 
     import selftest
     monkeypatch.setattr(selftest, "extract_textlayer", fake_extract_textlayer)
     monkeypatch.setattr(selftest, "extract_geometric", fake_extract_geometric)
 
-    results, c_pages = run_ensemble(
+    results, c_pages, vision_stats = run_ensemble(
         Path("fake.pdf"), {}, [10], api_key="fake", extract_vision_fn=fake_extract_vision,
     )
     assert c_pages == set()
     assert calls == []  # never called at all -- zero cost when A and B already agree
+    assert vision_stats["model"] is None  # nothing ran -- not attributable to any model
 
 
 def test_run_ensemble_reconciles_with_c_only_on_its_own_page(monkeypatch) -> None:
@@ -141,13 +143,15 @@ def test_run_ensemble_reconciles_with_c_only_on_its_own_page(monkeypatch) -> Non
         return [_programme("X1", page=10, campus=["DFC"])]
 
     def fake_extract_vision(pdf_path, profile, table_pages, api_key, **kwargs):
-        return [_programme("X1", page=10, campus=["APK"])]
+        return [_programme("X1", page=10, campus=["APK"])], {
+            "model": "fake/model", "pages_attempted": 1, "pages_parsed": 1, "pages_abstained": 0,
+        }
 
     import selftest
     monkeypatch.setattr(selftest, "extract_textlayer", fake_extract_textlayer)
     monkeypatch.setattr(selftest, "extract_geometric", fake_extract_geometric)
 
-    results, c_pages = run_ensemble(
+    results, c_pages, _vision_stats = run_ensemble(
         Path("fake.pdf"), {}, [10], api_key="fake", extract_vision_fn=fake_extract_vision,
     )
     merged, confidence = results["X1"]
@@ -201,3 +205,50 @@ def test_compute_gate_missing_record_does_not_crash_false_agreement_count() -> N
     gate = compute_gate(results, gt)
     assert gate["programmes_found"] == 1
     assert gate["programmes_present"] == 2
+
+
+def test_compute_gate_queue_fraction_over_full_ensemble_not_just_ground_truth() -> None:
+    # Two records need review, one doesn't -- 2/3, regardless of whether
+    # any of them happen to be in the (empty here) ground-truth sample.
+    results = {
+        "X1": ({**_programme("X1", page=10), "verification": {"needs_review": True}}, {}),
+        "X2": ({**_programme("X2", page=10), "verification": {"needs_review": True}}, {}),
+        "X3": ({**_programme("X3", page=10), "verification": {"needs_review": False}}, {}),
+    }
+    gate = compute_gate(results, ground_truth=[])
+    assert gate["records_total"] == 3
+    assert gate["records_needing_review"] == 2
+    assert abs(gate["queue_fraction"] - 2 / 3) < 1e-9
+
+
+def test_compute_gate_queue_fraction_zero_when_no_records() -> None:
+    gate = compute_gate({}, ground_truth=[])
+    assert gate["queue_fraction"] == 0.0
+
+
+# --- run_ensemble: Method C abstention degrades to A+B gracefully --------
+
+def test_run_ensemble_falls_back_to_ab_when_vision_abstains(monkeypatch) -> None:
+    def fake_extract_textlayer(pdf_path, profile, pages):
+        return [_programme("X1", page=10, campus=["APK"])]
+
+    def fake_extract_geometric(pdf_path, profile, pages):
+        return [_programme("X1", page=10, campus=["DFC"])]
+
+    def fake_extract_vision(pdf_path, profile, table_pages, api_key, **kwargs):
+        # Simulates a page that abstained after a JSON-parse retry failure.
+        return [], {"model": "fake/model", "pages_attempted": 1, "pages_parsed": 0, "pages_abstained": 1}
+
+    import selftest
+    monkeypatch.setattr(selftest, "extract_textlayer", fake_extract_textlayer)
+    monkeypatch.setattr(selftest, "extract_geometric", fake_extract_geometric)
+
+    results, c_pages, vision_stats = run_ensemble(
+        Path("fake.pdf"), {}, [10], api_key="fake", extract_vision_fn=fake_extract_vision,
+    )
+    merged, confidence = results["X1"]
+    # No third vote arrived -- A vs B alone, both present and disagreeing
+    # -> no majority, confidence 0.0, exactly as if Method C had never
+    # been scoped in for this page at all.
+    assert confidence["campus"] == 0.0
+    assert vision_stats["pages_abstained"] == 1

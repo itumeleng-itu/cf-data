@@ -1,8 +1,11 @@
 """Tests for extract/methods/vision.py (Method C). Unit tests use a fake
-http_post callable -- no real network call, no OpenRouter cost. The one
-real-API integration is exercised separately by whatever orchestration
-script actually runs Method C against OpenRouter; that costs money and
-does not belong in the regular test suite.
+http_post callable -- no real network call, no OpenRouter cost. time.sleep
+is monkeypatched to a no-op so rate-limit/backoff tests run instantly
+while still verifying the delay logic was exercised. The one real-API
+integration is exercised separately by whatever orchestration script
+actually runs Method C against OpenRouter; that costs money (or, for a
+free model, real network time) and does not belong in the regular test
+suite.
 """
 
 import json
@@ -13,7 +16,15 @@ import pytest
 
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT / "extract"))
-from methods.vision import _normalise_record, _parse_response, extract_vision  # noqa: E402
+import methods.vision as vision  # noqa: E402
+from methods.vision import _extract_programmes, _normalise_record, _try_parse_json, extract_vision  # noqa: E402
+
+
+@pytest.fixture(autouse=True)
+def _no_real_sleep(monkeypatch):
+    sleeps = []
+    monkeypatch.setattr(vision.time, "sleep", lambda seconds: sleeps.append(seconds))
+    return sleeps
 
 
 # --- _normalise_record -----------------------------------------------------
@@ -57,36 +68,40 @@ def test_normalise_record_defaults_missing_selection_notes_and_excluded_subjects
     assert record["requirements"]["nsc"]["excluded_subjects"] == []
 
 
-# --- _parse_response ---------------------------------------------------
+# --- _try_parse_json / _extract_programmes --------------------------------
 
-def test_parse_response_extracts_programmes_array() -> None:
-    content = json.dumps({
+def test_try_parse_json_returns_none_on_malformed_json() -> None:
+    assert _try_parse_json("not json at all {{{") is None
+
+
+def test_try_parse_json_returns_parsed_object_on_success() -> None:
+    assert _try_parse_json(json.dumps({"programmes": []})) == {"programmes": []}
+
+
+def test_extract_programmes_extracts_array() -> None:
+    parsed = {
         "programmes": [
             {"qualification_code": "B6CS0Q", "requirements": {"nsc": {"score": None, "subjects": {"kind": "all", "rules": []}}}},
             {"qualification_code": "B6CV3Q", "requirements": {"nsc": {"score": None, "subjects": {"kind": "all", "rules": []}}}},
         ],
-    })
-    records = _parse_response(content, page_num=60)
+    }
+    records = _extract_programmes(parsed, page_num=60)
     assert {r["qualification_code"] for r in records} == {"B6CS0Q", "B6CV3Q"}
     assert all(r["source_page"] == 60 for r in records)
 
 
-def test_parse_response_malformed_json_returns_empty_list() -> None:
-    assert _parse_response("not json at all {{{", page_num=60) == []
+def test_extract_programmes_missing_key_returns_empty_list() -> None:
+    assert _extract_programmes({"unexpected": "shape"}, page_num=60) == []
 
 
-def test_parse_response_missing_programmes_key_returns_empty_list() -> None:
-    assert _parse_response(json.dumps({"unexpected": "shape"}), page_num=60) == []
-
-
-def test_parse_response_drops_records_with_bad_codes_keeps_good_ones() -> None:
-    content = json.dumps({
+def test_extract_programmes_drops_records_with_bad_codes_keeps_good_ones() -> None:
+    parsed = {
         "programmes": [
             {"qualification_code": "B6CS0Q", "requirements": {"nsc": {"score": None, "subjects": {"kind": "all", "rules": []}}}},
             {"name": "malformed, no code"},
         ],
-    })
-    records = _parse_response(content, page_num=60)
+    }
+    records = _extract_programmes(parsed, page_num=60)
     assert len(records) == 1
     assert records[0]["qualification_code"] == "B6CS0Q"
 
@@ -94,20 +109,28 @@ def test_parse_response_drops_records_with_bad_codes_keeps_good_ones() -> None:
 # --- extract_vision: fake HTTP, no real network -------------------------
 
 class _FakeResponse:
-    def __init__(self, payload: dict) -> None:
+    def __init__(self, payload: dict | None = None, status_code: int = 200, headers: dict | None = None) -> None:
         self._payload = payload
+        self.status_code = status_code
+        self.headers = headers or {}
 
     def raise_for_status(self) -> None:
-        pass
+        if self.status_code >= 400:
+            import requests
+            raise requests.HTTPError(f"{self.status_code}")
 
     def json(self) -> dict:
         return self._payload
 
 
-def _fake_post_returning(content_obj: dict):
-    def _post(url, *, headers, json, timeout):
-        return _FakeResponse({"choices": [{"message": {"content": __import__("json").dumps(content_obj)}}]})
-    return _post
+def _content_response(content_obj: dict) -> _FakeResponse:
+    return _raw_content_response(json.dumps(content_obj))
+
+
+def _raw_content_response(text: str) -> _FakeResponse:
+    message = {"content": text}
+    choice = {"message": message}
+    return _FakeResponse({"choices": [choice]})
 
 
 def _find_uj_2027_pdf() -> Path | None:
@@ -121,19 +144,19 @@ def test_extract_vision_uses_injected_http_post_not_real_network() -> None:
         pytest.skip("UJ 2027 PDF not present -- skipping on this clone")
 
     profile = {"layout": {"code_pattern": r"[A-Z]\d[A-Z0-9]{3,4}", "rotated_headers": True}}
-    fake_post = _fake_post_returning({
-        "programmes": [
-            {"qualification_code": "B6CS0Q", "requirements": {"nsc": {"score": [{"min_score": 32}], "subjects": {"kind": "all", "rules": []}}}},
-        ],
-    })
+    payload = {"programmes": [
+        {"qualification_code": "B6CS0Q", "requirements": {"nsc": {"score": [{"min_score": 32}], "subjects": {"kind": "all", "rules": []}}}},
+    ]}
+    fake_post = lambda url, *, headers, json, timeout: _content_response(payload)  # noqa: E731
 
-    records = extract_vision(pdf_path, profile, [60], api_key="fake-key-not-a-real-secret", http_post=fake_post)
+    records, stats = extract_vision(pdf_path, profile, [60], api_key="fake-key-not-a-real-secret", http_post=fake_post)
     assert len(records) == 1
     assert records[0]["qualification_code"] == "B6CS0Q"
     assert records[0]["source_page"] == 60
+    assert stats == {"model": vision._DEFAULT_MODEL, "pages_attempted": 1, "pages_parsed": 1, "pages_abstained": 0}
 
 
-def test_extract_vision_skips_page_on_request_exception() -> None:
+def test_extract_vision_abstains_on_request_exception() -> None:
     import requests
 
     pdf_path = _find_uj_2027_pdf()
@@ -144,5 +167,127 @@ def test_extract_vision_skips_page_on_request_exception() -> None:
         raise requests.ConnectionError("simulated network failure")
 
     profile = {"layout": {"code_pattern": r"[A-Z]\d[A-Z0-9]{3,4}", "rotated_headers": True}}
-    records = extract_vision(pdf_path, profile, [60], api_key="fake-key", http_post=_failing_post)
+    records, stats = extract_vision(pdf_path, profile, [60], api_key="fake-key", http_post=_failing_post)
     assert records == []
+    assert stats["pages_abstained"] == 1
+    assert stats["pages_parsed"] == 0
+
+
+def test_extract_vision_abstains_after_json_parse_fails_twice() -> None:
+    pdf_path = _find_uj_2027_pdf()
+    if pdf_path is None:
+        pytest.skip("UJ 2027 PDF not present -- skipping on this clone")
+
+    calls = []
+
+    def _garbage_post(url, *, headers, json, timeout):
+        calls.append(1)
+        return _raw_content_response("not json at all {{{")
+
+    profile = {"layout": {"code_pattern": r"[A-Z]\d[A-Z0-9]{3,4}", "rotated_headers": True}}
+    records, stats = extract_vision(pdf_path, profile, [60], api_key="fake-key", http_post=_garbage_post)
+    assert records == []
+    assert stats["pages_abstained"] == 1
+    assert len(calls) == 2  # initial attempt + one retry, per _JSON_PARSE_RETRIES = 1
+
+
+def test_extract_vision_recovers_if_retry_returns_valid_json() -> None:
+    pdf_path = _find_uj_2027_pdf()
+    if pdf_path is None:
+        pytest.skip("UJ 2027 PDF not present -- skipping on this clone")
+
+    calls = []
+
+    def _flaky_post(url, *, headers, json, timeout):
+        calls.append(1)
+        if len(calls) == 1:
+            return _raw_content_response("garbage {{{")
+        return _content_response({"programmes": [
+            {"qualification_code": "B6CS0Q", "requirements": {"nsc": {"score": None, "subjects": {"kind": "all", "rules": []}}}},
+        ]})
+
+    profile = {"layout": {"code_pattern": r"[A-Z]\d[A-Z0-9]{3,4}", "rotated_headers": True}}
+    records, stats = extract_vision(pdf_path, profile, [60], api_key="fake-key", http_post=_flaky_post)
+    assert stats["pages_parsed"] == 1
+    assert len(records) == 1
+
+
+def test_extract_vision_retries_on_429_then_succeeds(_no_real_sleep) -> None:
+    pdf_path = _find_uj_2027_pdf()
+    if pdf_path is None:
+        pytest.skip("UJ 2027 PDF not present -- skipping on this clone")
+
+    calls = []
+
+    def _rate_limited_post(url, *, headers, json, timeout):
+        calls.append(1)
+        if len(calls) == 1:
+            return _FakeResponse(status_code=429, headers={"Retry-After": "1"})
+        return _content_response({"programmes": [
+            {"qualification_code": "B6CS0Q", "requirements": {"nsc": {"score": None, "subjects": {"kind": "all", "rules": []}}}},
+        ]})
+
+    profile = {"layout": {"code_pattern": r"[A-Z]\d[A-Z0-9]{3,4}", "rotated_headers": True}}
+    records, stats = extract_vision(pdf_path, profile, [60], api_key="fake-key", http_post=_rate_limited_post)
+    assert len(calls) == 2
+    assert stats["pages_parsed"] == 1
+    assert len(records) == 1
+    assert 1.0 in _no_real_sleep  # honoured the Retry-After header
+
+
+def test_extract_vision_abstains_after_exhausting_429_retries() -> None:
+    pdf_path = _find_uj_2027_pdf()
+    if pdf_path is None:
+        pytest.skip("UJ 2027 PDF not present -- skipping on this clone")
+
+    def _always_429(url, *, headers, json, timeout):
+        return _FakeResponse(status_code=429)
+
+    profile = {"layout": {"code_pattern": r"[A-Z]\d[A-Z0-9]{3,4}", "rotated_headers": True}}
+    records, stats = extract_vision(pdf_path, profile, [60], api_key="fake-key", http_post=_always_429)
+    assert records == []
+    assert stats["pages_abstained"] == 1
+
+
+def test_extract_vision_sleeps_between_pages_not_before_the_first(_no_real_sleep) -> None:
+    pdf_path = _find_uj_2027_pdf()
+    if pdf_path is None:
+        pytest.skip("UJ 2027 PDF not present -- skipping on this clone")
+
+    payload = {"programmes": []}
+    fake_post = lambda url, *, headers, json, timeout: _content_response(payload)  # noqa: E731
+
+    profile = {"layout": {"code_pattern": r"[A-Z]\d[A-Z0-9]{3,4}", "rotated_headers": True}}
+    extract_vision(pdf_path, profile, [60, 61], api_key="fake-key", http_post=fake_post, request_delay_seconds=2.5)
+    assert _no_real_sleep == [2.5]  # one sleep, between the two pages -- none before the first
+
+
+def test_extract_vision_model_defaults_and_is_overridable() -> None:
+    pdf_path = _find_uj_2027_pdf()
+    if pdf_path is None:
+        pytest.skip("UJ 2027 PDF not present -- skipping on this clone")
+
+    seen_models = []
+
+    def _capturing_post(url, *, headers, json, timeout):
+        seen_models.append(json["model"])
+        return _content_response({"programmes": []})
+
+    profile = {"layout": {"code_pattern": r"[A-Z]\d[A-Z0-9]{3,4}", "rotated_headers": True}}
+    _records, stats = extract_vision(
+        pdf_path, profile, [60], api_key="fake-key", model="some/other-model:free", http_post=_capturing_post,
+    )
+    assert seen_models == ["some/other-model:free"]
+    assert stats["model"] == "some/other-model:free"
+
+
+def test_default_model_reads_openrouter_model_env_var(monkeypatch) -> None:
+    import importlib
+
+    monkeypatch.setenv("OPENROUTER_MODEL", "google/gemma-4-31b-it:free")
+    importlib.reload(vision)
+    try:
+        assert vision._DEFAULT_MODEL == "google/gemma-4-31b-it:free"
+    finally:
+        monkeypatch.delenv("OPENROUTER_MODEL", raising=False)
+        importlib.reload(vision)
