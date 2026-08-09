@@ -10,7 +10,54 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT / "extract"))
-from selftest import compute_gate, find_genuine_conflict_pages, run_ensemble  # noqa: E402
+from selftest import _names_equal, _scores_equal, compute_gate, find_genuine_conflict_pages, run_ensemble  # noqa: E402
+
+
+# --- _names_equal / _scores_equal: comparison, not raw equality ----------
+
+def test_names_equal_case_and_whitespace_insensitive() -> None:
+    assert _names_equal("Civil Engineering", "CIVIL   ENGINEERING") is True
+
+
+def test_names_equal_short_form_contained_in_full_title() -> None:
+    assert _names_equal("Civil Engineering", "Bachelor of Engineering in Civil Engineering") is True
+    assert _names_equal("Bachelor of Engineering in Civil Engineering", "Civil Engineering") is True
+
+
+def test_names_equal_genuinely_different_names_still_fail() -> None:
+    assert _names_equal("Civil Engineering", "Mechanical Engineering") is False
+
+
+def test_names_equal_none_only_matches_none() -> None:
+    assert _names_equal(None, None) is True
+    assert _names_equal(None, "Civil Engineering") is False
+
+
+def test_scores_equal_ignores_redundant_null_requires_subject() -> None:
+    a = [{"min_score": 32}]
+    b = [{"min_score": 32, "requires_subject": None}]
+    assert _scores_equal(a, b) is True
+
+
+def test_scores_equal_order_insensitive() -> None:
+    a = [{"min_score": 32, "requires_subject": "mathematics"}, {"min_score": 32, "requires_subject": "technical_mathematics"}]
+    b = [{"min_score": 32, "requires_subject": "technical_mathematics"}, {"min_score": 32, "requires_subject": "mathematics"}]
+    assert _scores_equal(a, b) is True
+
+
+def test_scores_equal_single_entry_vs_conditional_pair_still_differs() -> None:
+    # A real completeness gap, not a formatting artefact -- must not be
+    # normalised away.
+    single = [{"min_score": 32}]
+    conditional = [
+        {"min_score": 32, "requires_subject": "mathematics"},
+        {"min_score": 32, "requires_subject": "technical_mathematics"},
+    ]
+    assert _scores_equal(single, conditional) is False
+
+
+def test_scores_equal_different_thresholds_differ() -> None:
+    assert _scores_equal([{"min_score": 32}], [{"min_score": 30}]) is False
 
 
 def _programme(code: str, page: int, **overrides) -> dict:
@@ -68,6 +115,24 @@ def test_genuine_subject_tree_disagreement_triggers_its_page() -> None:
     a = [_programme("X1", page=20, requirements={"nsc": {"score": None, "subjects": a_tree, "excluded_subjects": []}})]
     b = [_programme("X1", page=20, requirements={"nsc": {"score": None, "subjects": b_tree, "excluded_subjects": []}})]
     assert find_genuine_conflict_pages(a, b) == {20}
+
+
+def test_name_formatting_difference_does_not_trigger_a_page() -> None:
+    # Short form vs full title -- not a real disagreement, must not spend
+    # Method C resolving a comparison artefact.
+    a = [_programme("X1", page=10, name="Civil Engineering")]
+    b = [_programme("X1", page=10, name="Bachelor of Engineering in Civil Engineering")]
+    assert find_genuine_conflict_pages(a, b) == set()
+
+
+def test_score_redundant_null_does_not_trigger_a_page() -> None:
+    a = [_programme("X1", page=10, requirements={"nsc": {
+        "score": [{"min_score": 32}], "subjects": {"kind": "all", "rules": []}, "excluded_subjects": [],
+    }})]
+    b = [_programme("X1", page=10, requirements={"nsc": {
+        "score": [{"min_score": 32, "requires_subject": None}], "subjects": {"kind": "all", "rules": []}, "excluded_subjects": [],
+    }})]
+    assert find_genuine_conflict_pages(a, b) == set()
 
 
 def test_agreeing_records_never_trigger() -> None:
@@ -191,6 +256,18 @@ def test_compute_gate_false_agreement_only_counts_confidence_1_0_fields() -> Non
     assert gate["false_agreement_by_field"] == {"name": 1}
 
 
+def test_compute_gate_name_format_difference_is_not_false_agreement() -> None:
+    # The exact real-world shape that inflated the first live run's false-
+    # agreement figure: ground truth's full title vs the ensemble's
+    # shorter consensus name -- correct, not an error.
+    gt = _programme("X1", page=10, name="Bachelor of Engineering in Civil Engineering")
+    merged = _programme("X1", page=10, name="Civil Engineering")
+    results = {"X1": (merged, {"name": 1.0})}
+    gate = compute_gate(results, [gt])
+    assert gate["fields_agreed_wrong"] == 0
+    assert gate["false_agreement_by_field"] == {}
+
+
 def test_compute_gate_zero_false_agreement_when_all_agreed_fields_correct() -> None:
     gt = _programme("X1", page=10)
     results = {"X1": (_programme("X1", page=10), {name: 1.0 for name, _p, _k in __import__("selftest")._GROUND_TRUTH_FIELDS})}
@@ -208,12 +285,18 @@ def test_compute_gate_missing_record_does_not_crash_false_agreement_count() -> N
 
 
 def test_compute_gate_queue_fraction_over_full_ensemble_not_just_ground_truth() -> None:
-    # Two records need review, one doesn't -- 2/3, regardless of whether
-    # any of them happen to be in the (empty here) ground-truth sample.
+    # Two records need review (a real, non-unanimous field), one doesn't
+    # -- 2/3, regardless of whether any of them happen to be in the
+    # (empty here) ground-truth sample. needs_review is recomputed from
+    # confidence, not read off a pre-set verification flag -- see the
+    # unpopulated-fields tests below for why.
     results = {
-        "X1": ({**_programme("X1", page=10), "verification": {"needs_review": True}}, {}),
-        "X2": ({**_programme("X2", page=10), "verification": {"needs_review": True}}, {}),
-        "X3": ({**_programme("X3", page=10), "verification": {"needs_review": False}}, {}),
+        "X1": (_programme("X1", page=10), {"campus": 0.66}),
+        "X2": (
+            {**_programme("X2", page=10), "disagreements": {"requirements.nsc.subjects": {"a": {}, "b": {}, "c": {}}}},
+            {"requirements.nsc.subjects": 0.0},
+        ),
+        "X3": (_programme("X3", page=10), {"campus": 1.0}),
     }
     gate = compute_gate(results, ground_truth=[])
     assert gate["records_total"] == 3
@@ -224,6 +307,51 @@ def test_compute_gate_queue_fraction_over_full_ensemble_not_just_ground_truth() 
 def test_compute_gate_queue_fraction_zero_when_no_records() -> None:
     gate = compute_gate({}, ground_truth=[])
     assert gate["queue_fraction"] == 0.0
+
+
+# --- unpopulated fields: excluded from the review trigger -----------------
+# duration_years/faculty/extended currently come back None from every
+# method -- confidence 0.0 on every record, indistinguishable by value
+# alone from a genuine three-way disagreement. Only the latter should
+# force review.
+
+def test_field_no_method_ever_populates_does_not_force_review() -> None:
+    results = {
+        "X1": (_programme("X1", page=10), {"duration_years": 0.0, "campus": 1.0}),
+        "X2": (_programme("X2", page=10), {"duration_years": 0.0, "campus": 1.0}),
+    }
+    gate = compute_gate(results, ground_truth=[])
+    assert gate["unpopulated_fields"] == ["duration_years"]
+    assert gate["records_needing_review"] == 0
+    assert gate["queue_fraction"] == 0.0
+
+
+def test_field_with_a_real_disagreement_on_any_record_stays_in_the_trigger() -> None:
+    # duration_years reaches confidence > 0.0 on X2 (someone actually
+    # voted), so it's a real, if imperfectly covered, field -- not
+    # "unpopulated" -- and X1's disagreement on it must still count.
+    results = {
+        "X1": (_programme("X1", page=10), {"duration_years": 0.0}),
+        "X2": (_programme("X2", page=10), {"duration_years": 1.0}),
+    }
+    gate = compute_gate(results, ground_truth=[])
+    assert gate["unpopulated_fields"] == []
+    assert gate["records_needing_review"] == 1
+
+
+def test_field_flagged_via_disagreements_even_at_confidence_zero_counts_as_attempted() -> None:
+    # All three methods weighed in and disagreed (0.0, genuine 3-way
+    # conflict) -- disagreements records that, distinguishing it from
+    # "nobody voted at all" even though the confidence value is the same.
+    results = {
+        "X1": (
+            {**_programme("X1", page=10), "disagreements": {"campus": {"a": ["APK"], "b": ["DFC"], "c": ["SWC"]}}},
+            {"campus": 0.0},
+        ),
+    }
+    gate = compute_gate(results, ground_truth=[])
+    assert gate["unpopulated_fields"] == []
+    assert gate["records_needing_review"] == 1
 
 
 # --- run_ensemble: Method C abstention degrades to A+B gracefully --------

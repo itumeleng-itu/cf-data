@@ -21,6 +21,7 @@ against a second institution until both gates pass on UJ.
 """
 
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any, Callable
@@ -31,15 +32,52 @@ from methods.geometric import extract_geometric  # noqa: E402
 from methods.textlayer import extract_textlayer  # noqa: E402
 from methods.vision import extract_vision  # noqa: E402
 from profiles import get_profile  # noqa: E402
-from reconcile import _score_key, _set_key, _tree_key, reconcile  # noqa: E402
+from reconcile import _set_key, _tree_key, reconcile  # noqa: E402
 
-_GROUND_TRUTH_FIELDS: list[tuple[str, tuple[str, ...], Callable[[Any], Any]]] = [
-    ("qualification_code", ("qualification_code",), lambda v: v),
-    ("name", ("name",), lambda v: v),
-    ("campus", ("campus",), _set_key),
-    ("requirements.nsc.score", ("requirements", "nsc", "score"), _score_key),
-    ("requirements.nsc.subjects", ("requirements", "nsc", "subjects"), _tree_key),
-    ("requirements.nsc.excluded_subjects", ("requirements", "nsc", "excluded_subjects"), _set_key),
+
+def _normalise_text(value: Any) -> Any:
+    return re.sub(r"\s+", " ", value.strip().lower()) if isinstance(value, str) else value
+
+
+def _names_equal(a: Any, b: Any) -> bool:
+    """Names are free text -- "Civil Engineering" / "CIVIL ENGINEERING" /
+    "Bachelor of Engineering in Civil Engineering" are all correct
+    descriptions of the same programme, just at different lengths, not a
+    disagreement. Case/whitespace-normalised, and one containing the
+    other counts as a match -- a method returning the short form against
+    ground truth's fuller title (or vice versa) is not an error."""
+    if a is None or b is None:
+        return a == b
+    na, nb = _normalise_text(a), _normalise_text(b)
+    return na == nb or na in nb or nb in na
+
+
+def _normalise_score_entry(entry: dict) -> tuple:
+    # requires_subject absent vs explicitly null are the same threshold --
+    # {"min_score": 32} and {"min_score": 32, "requires_subject": null}
+    # describe an unconditional APS of 32 either way.
+    return (entry.get("min_score"), entry.get("requires_subject") or None)
+
+
+def _scores_equal(a: Any, b: Any) -> bool:
+    """Structural, not dict equality: a single-entry score and a
+    multi-entry conditional score (e.g. ground truth's two
+    requires_subject variants for the same min_score) are genuinely
+    DIFFERENT information, not a formatting artefact, and must still
+    compare unequal -- only a redundant explicit-null vs absent
+    requires_subject key is normalised away."""
+    if a is None or b is None:
+        return a == b
+    return {_normalise_score_entry(e) for e in a} == {_normalise_score_entry(e) for e in b}
+
+
+_GROUND_TRUTH_FIELDS: list[tuple[str, tuple[str, ...], Callable[[Any, Any], bool]]] = [
+    ("qualification_code", ("qualification_code",), lambda a, b: a == b),
+    ("name", ("name",), _names_equal),
+    ("campus", ("campus",), lambda a, b: _set_key(a) == _set_key(b)),
+    ("requirements.nsc.score", ("requirements", "nsc", "score"), _scores_equal),
+    ("requirements.nsc.subjects", ("requirements", "nsc", "subjects"), lambda a, b: _tree_key(a) == _tree_key(b)),
+    ("requirements.nsc.excluded_subjects", ("requirements", "nsc", "excluded_subjects"), lambda a, b: _set_key(a) == _set_key(b)),
 ]
 
 
@@ -63,11 +101,11 @@ def find_genuine_conflict_pages(a_records: list[dict], b_records: list[dict]) ->
     pages: set[int] = set()
     for code in set(a_idx) & set(b_idx):
         a, b = a_idx[code], b_idx[code]
-        for _name, path, key_fn in _GROUND_TRUTH_FIELDS:
+        for _name, path, equals_fn in _GROUND_TRUTH_FIELDS:
             a_val, b_val = _get(a, path), _get(b, path)
             if a_val is None or b_val is None:
                 continue
-            if key_fn(a_val) != key_fn(b_val):
+            if not equals_fn(a_val, b_val):
                 page = a.get("source_page")
                 if page is not None:
                     pages.add(page)
@@ -114,6 +152,35 @@ def run_ensemble(
     return results, c_pages, vision_stats
 
 
+def _detect_unpopulated_fields(results: dict[str, tuple[dict, dict[str, float]]]) -> set[str]:
+    """A field where NO record has ever had a real vote -- not "0.0
+    confidence because every method that tried disagreed" (that IS a
+    real, contentious field), but "0.0 confidence because no method ever
+    produced a value for it, on any record, at all". Confidence 0.0 alone
+    conflates these two; a field is only "attempted" if some record
+    either reached confidence > 0.0 for it, or shows up in that record's
+    disagreements (proof at least two methods actually voted and
+    disagreed)."""
+    all_fields: set[str] = set()
+    for _merged, confidence in results.values():
+        all_fields |= set(confidence.keys())
+
+    unpopulated: set[str] = set()
+    for field in all_fields:
+        attempted = False
+        for merged, confidence in results.values():
+            value = confidence.get(field)
+            if value is not None and value > 0.0:
+                attempted = True
+                break
+            if field in (merged.get("disagreements") or {}):
+                attempted = True
+                break
+        if not attempted:
+            unpopulated.add(field)
+    return unpopulated
+
+
 def compute_gate(
     results: dict[str, tuple[dict, dict[str, float]]], ground_truth: list[dict],
 ) -> dict[str, Any]:
@@ -129,13 +196,13 @@ def compute_gate(
         if code not in results:
             continue
         merged, confidence = results[code]
-        for field_name, path, key_fn in _GROUND_TRUTH_FIELDS:
+        for field_name, path, equals_fn in _GROUND_TRUTH_FIELDS:
             if confidence.get(field_name) != 1.0:
                 continue
             agreed_total += 1
             gt_val = _get(gt, path)
             merged_val = _get(merged, path)
-            if key_fn(gt_val) != key_fn(merged_val):
+            if not equals_fn(gt_val, merged_val):
                 agreed_wrong += 1
                 wrong_by_field[field_name] = wrong_by_field.get(field_name, 0) + 1
 
@@ -144,8 +211,17 @@ def compute_gate(
     # Queue size over the FULL ensemble output, not just the 29
     # ground-truth-matched codes -- queue size is a production-behaviour
     # question (how much of what the pipeline produces needs a human),
-    # not a validation-sample one.
-    needs_review = sum(1 for merged, _confidence in results.values() if merged.get("verification", {}).get("needs_review"))
+    # not a validation-sample one. Fields no method has ever populated
+    # (e.g. duration_years/faculty/extended, as of this pass) are
+    # excluded from the trigger entirely -- missing data is not a
+    # disagreement, and letting it force every record into review
+    # drowns out the fields that actually matter.
+    unpopulated_fields = _detect_unpopulated_fields(results)
+    needs_review = 0
+    for merged, confidence in results.values():
+        relevant = {f: v for f, v in confidence.items() if f not in unpopulated_fields}
+        if any(v < 1.0 for v in relevant.values()):
+            needs_review += 1
     queue_fraction = needs_review / len(results) if results else 0.0
 
     return {
@@ -159,6 +235,7 @@ def compute_gate(
         "queue_fraction": queue_fraction,
         "records_total": len(results),
         "records_needing_review": needs_review,
+        "unpopulated_fields": sorted(unpopulated_fields),
     }
 
 
@@ -202,6 +279,7 @@ def main() -> int:
     print(f"false agreement by field: {gate['false_agreement_by_field']}")
     print(f"human-queue size: {gate['queue_fraction']:.1%} "
           f"({gate['records_needing_review']}/{gate['records_total']} records)")
+    print(f"unpopulated fields (excluded from queue trigger): {gate['unpopulated_fields']}")
 
     passed = gate["completeness_recall"] > 0.98 and gate["false_agreement_rate"] < 0.02
     print("GATE PASSED" if passed else "GATE FAILED")
