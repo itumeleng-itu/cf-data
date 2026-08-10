@@ -34,6 +34,26 @@ def _no_real_sleep(monkeypatch):
     return sleeps
 
 
+_PROVIDER_ENV_VARS = ("VISION_PROVIDER", "AISTUDIO_MODEL", "OPENROUTER_MODEL", "ZAI_MODEL")
+
+
+@pytest.fixture(autouse=True)
+def _clear_provider_env(monkeypatch):
+    """vision.py's _DEFAULT_* constants are read from os.environ once, at
+    import time -- a test asserting one of those DEFAULTS must control the
+    environment that defines it, or local .env config (VISION_PROVIDER=zai,
+    say) silently changes which provider "the default" tests actually
+    exercise. Cleared and the module reloaded before every test in this
+    file, regardless of what a developer's own .env happens to contain."""
+    import importlib
+
+    for var in _PROVIDER_ENV_VARS:
+        monkeypatch.delenv(var, raising=False)
+    importlib.reload(vision)
+    yield
+    importlib.reload(vision)
+
+
 def _find_uj_2027_pdf() -> Path | None:
     downloads = ROOT / "data" / "downloads" / "uj_2027.pdf"
     return downloads if downloads.exists() else None
