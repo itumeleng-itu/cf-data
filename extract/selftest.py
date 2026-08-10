@@ -29,7 +29,9 @@ from typing import Any, Callable
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from ground_truth import UJ_2027_TABLE_PAGES  # noqa: E402
 from methods.geometric import extract_geometric  # noqa: E402
+from methods.ocr_cache import DEFAULT_CACHE_DIR  # noqa: E402
 from methods.textlayer import extract_textlayer  # noqa: E402
+from methods.textlayer_ocr import extract_textlayer_ocr  # noqa: E402
 from methods.vision import extract_vision  # noqa: E402
 from profiles import get_profile  # noqa: E402
 from reconcile import _set_key, _tree_key, reconcile  # noqa: E402
@@ -125,12 +127,22 @@ def run_ensemble(
     api_key: str,
     model: str | None = None,
     extract_vision_fn: Callable[..., tuple[list[dict], dict[str, Any]]] = extract_vision,
+    use_ocr_cache: bool = False,
+    cache_dir: Path = DEFAULT_CACHE_DIR,
 ) -> tuple[dict[str, tuple[dict, dict[str, float]]], set[int], dict[str, Any]]:
     """Returns ({code: (merged_record, field_confidence)}, c_pages_run,
     vision_stats). vision_stats is _EMPTY_VISION_STATS (model=None) when
     A and B already agreed everywhere and Method C never ran at all --
-    that's a valid, zero-cost outcome, not a missing result."""
-    a_records = extract_textlayer(pdf_path, profile, table_pages)
+    that's a valid, zero-cost outcome, not a missing result.
+
+    use_ocr_cache=False (the default) leaves Method A exactly as it was --
+    live pdfplumber extraction via extract_textlayer. Set it to True to
+    read Method A's input from a pre-computed Unlimited-OCR Markdown cache
+    (see scripts/run_unlimited_ocr.py) instead."""
+    if use_ocr_cache:
+        a_records = extract_textlayer_ocr(pdf_path, profile, table_pages, cache_dir=cache_dir)
+    else:
+        a_records = extract_textlayer(pdf_path, profile, table_pages)
     b_records = extract_geometric(pdf_path, profile, table_pages)
 
     c_pages = find_genuine_conflict_pages(a_records, b_records)
