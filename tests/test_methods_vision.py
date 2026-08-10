@@ -437,6 +437,34 @@ def test_default_aistudio_model_reads_env_var(monkeypatch) -> None:
         importlib.reload(vision)
 
 
+# --- extract_vision via the Z.ai provider: fake HTTP ----------------------
+# Z.ai's chat-completions shape is the same OpenAI-style choices[0].message
+# .content structure as OpenRouter's, so the existing _openrouter_response/
+# _openrouter_raw_response fakes are reused as-is -- the one real
+# difference (the "thinking" key) is a request-body addition, not a
+# response-shape difference, so it's verified separately below.
+
+def test_extract_vision_zai_sends_thinking_enabled() -> None:
+    pdf_path = _find_uj_2027_pdf()
+    if pdf_path is None:
+        pytest.skip("UJ 2027 PDF not present -- skipping on this clone")
+
+    seen_bodies = []
+
+    def _capturing_post(url, *, headers, json, timeout):
+        seen_bodies.append(json)
+        return _openrouter_response({"programmes": []})
+
+    profile = {"layout": {"code_pattern": r"[A-Z]\d[A-Z0-9]{3,4}", "rotated_headers": True}}
+    records, stats = extract_vision(
+        pdf_path, profile, [60], api_key="fake-key", provider_name="zai", http_post=_capturing_post,
+    )
+    assert seen_bodies[0]["thinking"] == {"type": "enabled"}
+    assert stats["provider"] == "zai"
+    assert stats["model"] == vision._DEFAULT_ZAI_MODEL
+    assert records == []
+
+
 def test_vision_provider_env_var_selects_provider(monkeypatch) -> None:
     import importlib
 

@@ -69,10 +69,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from providers import RateLimitError, VisionProvider  # noqa: E402
 from providers.aistudio import AIStudioProvider  # noqa: E402
 from providers.openrouter import OpenRouterProvider  # noqa: E402
+from providers.zai import ZAIProvider  # noqa: E402
 
 _DEFAULT_PROVIDER = os.environ.get("VISION_PROVIDER", "aistudio")
 _DEFAULT_OPENROUTER_MODEL = os.environ.get("OPENROUTER_MODEL", "anthropic/claude-sonnet-4.5")
 _DEFAULT_AISTUDIO_MODEL = os.environ.get("AISTUDIO_MODEL", "gemini-2.5-flash")
+_DEFAULT_ZAI_MODEL = os.environ.get("ZAI_MODEL", "glm-4.5v")
 
 _RENDER_DPI = 200
 _DEFAULT_REQUEST_DELAY_SECONDS = 3.5  # ~17/min, safely under a common ~20/min free-tier cap
@@ -270,7 +272,9 @@ def _build_provider(
         return AIStudioProvider(api_key=api_key, model=model or _DEFAULT_AISTUDIO_MODEL, http_post=http_post)
     if provider_name == "openrouter":
         return OpenRouterProvider(api_key=api_key, model=model or _DEFAULT_OPENROUTER_MODEL, http_post=http_post)
-    raise ValueError(f"unknown VISION_PROVIDER {provider_name!r} -- expected 'aistudio' or 'openrouter'")
+    if provider_name == "zai":
+        return ZAIProvider(api_key=api_key, model=model or _DEFAULT_ZAI_MODEL, http_post=http_post)
+    raise ValueError(f"unknown VISION_PROVIDER {provider_name!r} -- expected 'aistudio', 'openrouter', or 'zai'")
 
 
 def _complete_with_retry(provider: VisionProvider, image_b64: str, page_text: str, prompt: str) -> str:
