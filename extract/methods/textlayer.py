@@ -65,14 +65,25 @@ from typing import Any
 import pdfplumber
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from text_repair import _advance_key, _group_runs  # noqa: E402
+from text_repair import _advance_key, _group_runs, page_prose_text  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from shared import build_subject_tree, interpret_cell, resolve_subject_column  # noqa: E402
+from shared import (  # noqa: E402
+    APS_MAX,
+    APS_MIN,
+    build_subject_tree,
+    find_aps_candidates,
+    find_subject_alias,
+    interpret_cell,
+    parse_aps_cell,
+    resolve_subject_column,
+    scan_page_exclusions,
+)
 
 _APS_PATTERN = re.compile(r"^\d{2}$")
 _HEADER_ADVANCE_MARGIN = 200.0
 _HEADER_GROUP_GAP = 15.0
+_APS_QUALIFIER_WINDOW = 4
 
 
 def extract_textlayer(pdf_path: Path, profile: dict, table_pages: list[int]) -> list[dict]:
@@ -171,15 +182,17 @@ def _extract_page(page: Any, page_num: int, profile: dict, code_pattern: re.Patt
 
     upright_page = page.filter(lambda obj: obj.get("object_type") != "char" or obj.get("upright", True))
     upright_words = upright_page.extract_words()
+    page_exclusions = scan_page_exclusions(page_prose_text(page), profile)
 
     records = []
     for section_runs in sections:
-        records.extend(_extract_section(section_runs, upright_words, page_num, profile, code_pattern))
+        records.extend(_extract_section(section_runs, upright_words, page_num, profile, code_pattern, page_exclusions))
     return records
 
 
 def _extract_section(
     all_runs: list[list[dict]], upright_words: list[dict], page_num: int, profile: dict, code_pattern: re.Pattern,
+    page_exclusions: list[str],
 ) -> list[dict]:
     code_runs = [run for run in all_runs if code_pattern.fullmatch(_run_text(run))]
     if not code_runs:
@@ -238,6 +251,8 @@ def _extract_section(
         if idx != code_group_index and data_by_group[idx] and resolved is not None
     }
 
+    aps_group_index = _find_aps_group_index(header_groups, data_by_group, code_group_index, subject_columns)
+
     records = []
     for row_index, band in enumerate(bands):
         code = band["code"]
@@ -260,11 +275,15 @@ def _extract_section(
                     row_cells.append((slug, type(cell)(kind="alternative", level=cell.level, raw=cell.raw)))
 
         tree, excluded = build_subject_tree(row_cells, profile)
+        excluded = excluded | set(page_exclusions)
         upper_bound = bands[row_index - 1]["bottom"] if row_index > 0 else None
         lower_bound = bands[row_index + 1]["top"] if row_index + 1 < len(bands) else None
         name = _row_name(upright_words, band, code_x0, upper_bound, lower_bound)
         campus = _row_campus(upright_words, band, profile)
-        aps = _row_aps(upright_words, band)
+        rotated_aps_text = (
+            _row_cell_text(data_by_group[aps_group_index], row_index, bands) if aps_group_index is not None else None
+        )
+        aps = _row_aps(upright_words, band, rotated_aps_text)
 
         records.append({
             "qualification_code": code,
@@ -275,7 +294,7 @@ def _extract_section(
             "extended": None,
             "requirements": {
                 "nsc": {
-                    "score": [{"min_score": aps}] if aps is not None else None,
+                    "score": aps,
                     "subjects": tree,
                     "excluded_subjects": sorted(excluded),
                 },
@@ -418,12 +437,77 @@ def _row_campus(upright_words: list[dict], band: dict, profile: dict) -> list[st
     return found
 
 
-def _row_aps(upright_words: list[dict], band: dict) -> int | None:
-    candidates = [
-        w for w in upright_words
-        if band["top"] - 2 <= w["top"] <= band["bottom"] + 2 and _APS_PATTERN.fullmatch(w["text"])
+def _find_aps_group_index(
+    header_groups: list[Any], data_by_group: list[list[list[dict]]],
+    code_group_index: int, subject_columns: dict[int, str | list[str]],
+) -> int | None:
+    """The header group (among those NOT already resolved as a subject
+    column, and not the code column) whose combined run text has the most
+    APS-plausible numbers -- generic, not a hardcoded "Minimum APS"
+    string match, so it works from whatever profile.layout.header_keywords
+    an institution declares. None if no such group has any APS-plausible
+    content at all."""
+    best_idx, best_count = None, 0
+    for idx in range(len(header_groups)):
+        if idx == code_group_index or idx in subject_columns or not data_by_group[idx]:
+            continue
+        combined = " ".join(_run_text(r) for r in data_by_group[idx])
+        count = len(find_aps_candidates(combined))
+        if count > best_count:
+            best_idx, best_count = idx, count
+    return best_idx
+
+
+def _row_aps(upright_words: list[dict], band: dict, rotated_cell_text: str | None = None) -> list[dict] | None:
+    """Every plausible APS value found in the row's upright text becomes
+    its own score entry, not just the leftmost (confirmed directly: a
+    conditional cell like "31 with Mathematics OR 32 with Mathematical
+    Literacy" silently lost the second branch under the old leftmost-only
+    behaviour). Qualifier text for each value is looked for only in the
+    words between it and the NEXT value -- not the whole band -- since
+    this band mixes several logical columns' upright text purely by x0
+    position (confirmed directly: career-description words interleave
+    with the score qualifier's own words for a multi-line wrapped row),
+    and a whole-band alias search risks attaching an unrelated career-text
+    mention of a subject name to the score.
+
+    If the upright scan finds no digit at all, falls back to the row's
+    own cell in the rotated APS column (if one was identified for this
+    section) via shared.parse_aps_cell -- confirmed directly across all
+    40 UJ table pages: a long/conditional score cell is far more likely
+    (33/47) to render entirely rotated, invisible to this upright scan,
+    than a short 1-2 digit score is (1/88)."""
+    words_in_band = sorted(
+        (w for w in upright_words if band["top"] - 2 <= w["top"] <= band["bottom"] + 2),
+        key=lambda w: w["x0"],
+    )
+    number_indices = [
+        i for i, w in enumerate(words_in_band)
+        if _APS_PATTERN.fullmatch(w["text"]) and APS_MIN <= int(w["text"]) <= APS_MAX
     ]
-    if not candidates:
-        return None
-    candidates.sort(key=lambda w: w["x0"])
-    return int(candidates[0]["text"])
+    if number_indices:
+        entries = []
+        for pos, i in enumerate(number_indices):
+            value = int(words_in_band[i]["text"])
+            next_i = number_indices[pos + 1] if pos + 1 < len(number_indices) else len(words_in_band)
+            # A single number with no following number (the common,
+            # simple case) must NOT search all the way to the end of the
+            # band for a qualifier -- confirmed directly as a real bug:
+            # "32 Plan, design and construction of infrastructure" wrongly
+            # resolved "design" (a real Subject slug) out of unrelated
+            # career-description prose sharing the same band. Real
+            # qualifier phrases are short ("with Mathematics") and always
+            # start with "with" -- require that signal, within a small
+            # word cap, before trusting anything found there.
+            window_end = min(next_i, i + 1 + _APS_QUALIFIER_WINDOW)
+            window_words = [w["text"] for w in words_in_band[i + 1:window_end]]
+            slug = (
+                find_subject_alias(" ".join(window_words))
+                if any(w.strip(",.").lower() == "with" for w in window_words)
+                else None
+            )
+            entries.append({"min_score": value, "requires_subject": slug} if slug else {"min_score": value})
+        return entries
+    if rotated_cell_text:
+        return parse_aps_cell(rotated_cell_text)
+    return None

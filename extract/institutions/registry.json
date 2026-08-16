@@ -121,5 +121,170 @@
       "Method used to compute the score itself differs fundamentally from UJ's: three named methods (Best-of-6 raw-percentage-sum / 10; Double-Maths-and-Science-plus-English; Double-Maths-and-Accounting), all on a raw percentage scale, not UJ's achievement-level sum -- see page 3's 'CALCULATING THE APS SCORE' section (extracted verbatim during 8.2's inspection). A CPUT-specific scorer, not aps_best6_excl_lo, will be needed before this institution can be scored at all -- moot until the real prospectus is obtained.",
       "Only pages 7 and 15 (2 of 15) are per-programme requirement tables; pages 9, 11, 12, 13, 14 are also non-table career-guidance content but remain misclassified as programme_table -- deliberately not tuned further per the document-status finding above (see CPUT_2027_TABLE_PAGES in extract/ground_truth.py)."
     ]
+  },
+  "dut": {
+    "name": "Durban University of Technology",
+    "layout": {
+      "code_pattern": "\\b[A-Z]{5,6}\\d?\\b",
+      "header_keywords": ["NATIONAL SENIOR CERTIFICATE", "SENIOR CERTIFICATE", "Compulsory Subjects", "NSC Rating Code"],
+      "rotated_headers": false,
+      "not_accepted_phrases": ["not accepted"],
+      "alternative_phrases": ["OR", "or"],
+      "rows_per_programme": "many",
+      "mutually_exclusive_subjects": [
+        ["mathematics", "mathematical_literacy", "technical_mathematics"],
+        ["physical_sciences", "technical_sciences"]
+      ]
+    },
+    "classification": {
+      "weights": {
+        "programme_table": {"code_matches": 4.0, "keyword_hits": 3.0, "ruled_line_count": 0.05, "numeric_ratio": 3.0, "text_density": 200.0},
+        "requirements_prose": {"text_density": 800.0, "code_matches": -3.0, "ruled_line_count": -0.05, "numeric_ratio": -3.0},
+        "scoring_methodology": {"scoring_phrase_hits": 8.0, "text_density": 600.0, "code_matches": -2.0},
+        "admin": {"text_density": -100.0, "code_matches": -2.0, "image_coverage": -3.0},
+        "decorative": {"image_coverage": 10.0, "text_density": -500.0},
+        "alternative_admission": {"alt_admission_phrase_hits": 6.0, "text_density": 300.0, "ruled_line_count": -0.05, "code_matches": -3.0, "keyword_hits": -1.0}
+      },
+      "admin_baseline": 1.0,
+      "overinclusion_margin": 0.5,
+      "table_evidence_ruled_line_floor": 50
+    },
+    "quirks": [
+      "UNVERIFIED SMOKE-TEST PROFILE (2026-08-15): derived to test Method B's generalisation on dut_2027.pdf, not from a full page-by-page read of all 175 pages -- classification.weights are copied verbatim from UJ's, untuned, and unused by this run (table_pages were supplied directly from a page-text scan for 'Qualification Code:' occurrences, not via classify.classify_pages).",
+      "STRUCTURAL FINDING: this document is NOT one dense multi-programme grid like UJ's. It is one narrative page (occasionally two) per qualification: a 'Qualification Code: XXXXXX' label line (confirmed on 76 of 175 pages, e.g. page 100's 'Qualification Code: BBCST1'), followed by a THREE-WAY comparison table (NSC / SC (pre-2009) / NCV) with SUBJECTS AS ROWS ('Compulsory Subjects' | 'NSC Rating Code' | ...), not subjects as columns. Confirmed directly via pdfplumber.find_tables() on page 100: the lattice-detected table's own header row is ['NATIONAL SENIOR CERTIFICATE (NSC)...', 'SENIOR CERTIFICATE (SC)...', 'NATIONAL CERTIFICATE (VOCATIONAL) (NCV)'] and its own cells never contain 'BBCST1' or any qualification-code shape at all -- the code sits in ordinary page prose ABOVE the table, entirely outside what Table.extract() returns for it.",
+      "code_pattern is derived from real 'Qualification Code:' label values (SCACBC, BINCT1, BICIOT, DIACC1, DIBIM1, ... -- consistently 6 characters: either 6 letters or 5 letters + 1 trailing digit) purely for completeness/schema validity. It is expected to be USELESS for Method B's row detection specifically because of the structural finding above: the code this pattern matches never appears inside the requirement table Method B reads.",
+      "A separate, unrelated code system ('CAO Code: DU-D-BAT' on page 100) also appears in page prose -- a Central Applications Office code, not the qualification_code UJ's schema means. Neither this nor 'Qualification Code:' is a table column; do not conflate the two.",
+      "Some pages (e.g. page 20, 'First Year Curriculum') list per-MODULE codes (e.g. 'BPRM111', 'BSFD101') for an already-admitted student's course schedule, not admission requirements -- these coincidentally match generic alnum code-shape patterns and were excluded from table_pages by requiring the literal 'Qualification Code:' label rather than a bare code-pattern scan.",
+      "rotated_headers is false: zero non-upright characters found across all 175 pages (confirmed via char[\"upright\"], not sampled -- every page was checked).",
+      "rows_per_programme: many was added expecting group_programme_rows to fix this document (2026-08-15) -- it did NOT, and the reason is instructive, not a bug in that function. Confirmed directly: on every LATTICE-parsed page sampled (page 100 among them), code_pattern matches ZERO cells, exactly as the structural finding above predicts, so group_programme_rows correctly starts zero groups and every row is discarded -- clean, expected, and harmless. But _flatten_rows's own lattice-vs-stream selection (extract/methods/geometric.py's _score_rows) picks STREAM on many DUT pages instead (its naive whitespace-based column splitting happens to score MORE code-pattern-shaped fragments than lattice's real, code-free table), and stream's fragmentation of ordinary prose produces GARBAGE strings that coincidentally fullmatch code_pattern -- 'TOTAL' (a fee-total row label), 'NATIO'/'TIFICA'/'SENIO' (pieces of 'NATIONAL'/'CERTIFICATE'/'SENIOR' split mid-word), 'HEQSF' (an NQF-framework abbreviation), 'SCACBC' (the SAME real code from a DIFFERENT page's 'Qualification Code:' label, picked up out of context). Running the full 76-page table_pages set produced 98 'records', ALL structurally well-formed and ALL semantically false -- not a partial success, a false-positive generator. Do not treat DUT's record count as a progress signal until the strategy-selection issue (shared with WSU, see wsu's own quirks) is addressed; that is a pre-existing extract/methods/geometric.py issue, not something rows_per_programme introduced or can fix.",
+      "mutually_exclusive_subjects reuses UJ's own justification verbatim for the Mathematics/Mathematical Literacy/Technical Mathematics triple (a national NSC subject-choice convention, not university-specific), plus adds Physical Sciences/Technical Sciences on the same reasoning -- confirmed directly in this document's own printed structure (page 100: 'Mathematics OR' on one row, 'Technical Mathematics' on the next; 'Physical Science OR' then 'Technical Science' the row after). Unverified end-to-end since DUT produced no genuine records this pass -- kept for whenever the strategy-selection issue above is fixed."
+    ]
+  },
+  "ufh": {
+    "name": "University of Fort Hare",
+    "layout": {
+      "code_pattern": "\\b\\d{5,6}\\b",
+      "header_keywords": ["Programme", "SAQA", "Subject Requirements", "Min. Level", "Min. APS"],
+      "rotated_headers": false,
+      "not_accepted_phrases": ["not accepted"],
+      "alternative_phrases": ["OR", "or"],
+      "rows_per_programme": "many",
+      "mutually_exclusive_subjects": [
+        ["mathematics", "mathematical_literacy", "technical_mathematics"]
+      ]
+    },
+    "classification": {
+      "weights": {
+        "programme_table": {"code_matches": 4.0, "keyword_hits": 3.0, "ruled_line_count": 0.05, "numeric_ratio": 3.0, "text_density": 200.0},
+        "requirements_prose": {"text_density": 800.0, "code_matches": -3.0, "ruled_line_count": -0.05, "numeric_ratio": -3.0},
+        "scoring_methodology": {"scoring_phrase_hits": 8.0, "text_density": 600.0, "code_matches": -2.0},
+        "admin": {"text_density": -100.0, "code_matches": -2.0, "image_coverage": -3.0},
+        "decorative": {"image_coverage": 10.0, "text_density": -500.0},
+        "alternative_admission": {"alt_admission_phrase_hits": 6.0, "text_density": 300.0, "ruled_line_count": -0.05, "code_matches": -3.0, "keyword_hits": -1.0}
+      },
+      "admin_baseline": 1.0,
+      "overinclusion_margin": 0.5,
+      "table_evidence_ruled_line_floor": 50
+    },
+    "quirks": [
+      "UNVERIFIED SMOKE-TEST PROFILE (2026-08-15): the whole document is only 2 pages; both were read in full. classification.weights are copied verbatim from UJ's, untuned, and unused by this run (table_pages = [1, 2], the whole document).",
+      "STRUCTURAL FINDING: real header row (confirmed via pdfplumber.find_tables(), lattice strategy) is ['Programme Name*', 'Prog. Code (ITS)', 'SAQA ID', 'Subject Requirements', 'Min. Level of Achievement', 'Min. APS Score'] -- TWO separate numeric ID columns per row, 'Prog. Code (ITS)' (5-6 digits, e.g. 500491, 62005, 21525) and a DIFFERENT 'SAQA ID' (also 5-6 digits, e.g. 112523, 94224, 15577). code_pattern targets Prog. Code specifically; since Prog. Code sits to the LEFT of SAQA ID in every real row and Method B's code-column search takes the first (leftmost) matching column, this should not need disambiguation beyond column order -- unverified until the actual run.",
+      "STRUCTURAL FINDING, the collapse risk: like DUT, this table is SUBJECT-AS-ROW, not subject-as-column -- one qualification's row has its Name/Code/SAQA-ID/APS-Score populated only on its FIRST subject line (confirmed directly: 'Bachelor of Education...' / '500491' / '112523' / ... / '28 (29 with ML)' on row 1, then three consecutive rows of [None, None, None, '<next subject>', '<level>', None] for the same qualification). The 'Subject Requirements' column header never resolves to a Subject enum member via resolve_subject_column (it names no specific subject) -- predicted to leave subject_columns empty and every extracted record's subjects tree empty, regardless of code_pattern accuracy.",
+      "rotated_headers is false: zero non-upright characters on either page (confirmed directly, not sampled).",
+      "rows_per_programme: many WORKS here (2026-08-15) -- 52 records from the whole 2-page document (triage estimate: 50), 52/52 with a code, 52/52 with a non-empty subjects tree, 39/52 with a score. Unlike DUT, the code genuinely lives in the group's lead row, so group_programme_rows finds real groups, not fragments.",
+      "mutually_exclusive_subjects (Mathematics/Mathematical Literacy/Technical Mathematics, UJ's own national-convention justification) confirmed correctly grouping into an `any` node on real output, e.g. programme 500491: {any: [mathematics@4, mathematical_literacy@5]} -- exactly the source's 'Mathematics OR\\nMathematics Literacy' cell.",
+      "RESIDUAL GAP, confirmed on real output: 41 of 52 records (79%) capture NO language requirement at all, English included. Cause: extract_row_subject_cells requires a name-cell's line count to match its paired level-cell's line count before pairing (deliberately, to avoid guessing which line goes with which) -- but UFH's language cell routinely wraps to 2 lines ('English - Home language OR\\nEnglish - First additional language') while the SAME row's level cell is only 1 line ('4 (50-59%)', one level shared by both HL and FAL options, not printed twice). The mismatch trips the abstention guard and the whole pair is dropped, silently. This is the dominant reason UFH's subjects trees, while non-empty, are still incomplete -- a real gap in extract_row_subject_cells' line-pairing rule, not something rows_per_programme or group_programme_rows caused."
+    ]
+  },
+  "ufs": {
+    "name": "University of the Free State",
+    "layout": {
+      "code_pattern": "\\b[A-Z]{2}\\d{6}\\b",
+      "header_keywords": ["ACADEMIC PLAN CODE", "MINIMUM ADMISSION REQUIREMENTS", "PROGRAMME DESCRIPTION", "ENGLISH", "MATHEMATICS"],
+      "rotated_headers": false,
+      "not_accepted_phrases": ["not accepted"],
+      "alternative_phrases": ["OR", "or"]
+    },
+    "classification": {
+      "weights": {
+        "programme_table": {"code_matches": 4.0, "keyword_hits": 3.0, "ruled_line_count": 0.05, "numeric_ratio": 3.0, "text_density": 200.0},
+        "requirements_prose": {"text_density": 800.0, "code_matches": -3.0, "ruled_line_count": -0.05, "numeric_ratio": -3.0},
+        "scoring_methodology": {"scoring_phrase_hits": 8.0, "text_density": 600.0, "code_matches": -2.0},
+        "admin": {"text_density": -100.0, "code_matches": -2.0, "image_coverage": -3.0},
+        "decorative": {"image_coverage": 10.0, "text_density": -500.0},
+        "alternative_admission": {"alt_admission_phrase_hits": 6.0, "text_density": 300.0, "ruled_line_count": -0.05, "code_matches": -3.0, "keyword_hits": -1.0}
+      },
+      "admin_baseline": 1.0,
+      "overinclusion_margin": 0.5,
+      "table_evidence_ruled_line_floor": 50
+    },
+    "quirks": [
+      "UNVERIFIED SMOKE-TEST PROFILE (2026-08-15): derived from direct inspection of pages 10-22 (the contiguous admission-requirements chapter, confirmed by code-pattern density; not a full read of all 51 pages). classification.weights are copied verbatim from UJ's, untuned, and unused by this run (table_pages = 10-22, supplied directly rather than via classify.classify_pages).",
+      "code_pattern (2 uppercase letters + 6 digits) confirmed against real table cells via pdfplumber.find_tables(): BC636060, BC432042, BC432049, BC432731, BC432739, BC432749, QC630001, QC634040 -- all real 'ACADEMIC PLAN CODE' column values, not narrative-page codes.",
+      "Two DIFFERENT, shorter code shapes also appear, but only in narrative prose OUTSIDE the requirement table, never as a table cell: 'Academic Programme Code: B4331' (1 letter + 4 digits) and 'Degree Code: 43901' (5 digits) on programme-description pages (e.g. 15, 18, 19). Not matched by code_pattern -- deliberately, since they don't appear in the table Method B reads.",
+      "Header wording varies by page: some tables use 'PROGRAMME' as the row-name column, others 'MAJORS' (e.g. page 16's IT majors table) -- header_keywords avoids that specific word and instead uses 'ACADEMIC PLAN CODE'/'MINIMUM ADMISSION REQUIREMENTS'/'PROGRAMME DESCRIPTION', confirmed present on every sampled real table page.",
+      "A handful of pages elsewhere in the document (4, 50) contain a small number of rotated characters (confirmed via char[\"upright\"]) -- decorative, not inside any admission-requirements table page sampled (10-22 all show zero rotated characters); rotated_headers is false for the same reason CPUT's is.",
+      "'AP' (the real column header for the APS score) was deliberately excluded from header_keywords despite being real: as a 2-letter substring it would match almost any cell containing those two letters together (e.g. 'Applicants', 'Cape'), which is a much weaker signal here than it looks."
+    ]
+  },
+  "wsu": {
+    "name": "Walter Sisulu University",
+    "layout": {
+      "code_pattern": "[A-Z]\\d[A-Z0-9]{3,4}",
+      "header_keywords": ["QUAL DETAILS", "MINIMUM NSC ADMISSION REQUIREMENTS", "PROGRAMME OVERVIEW", "Specific Subject Requirements"],
+      "rotated_headers": false,
+      "not_accepted_phrases": ["not accepted"],
+      "alternative_phrases": ["OR", "or"]
+    },
+    "classification": {
+      "weights": {
+        "programme_table": {"code_matches": 4.0, "keyword_hits": 3.0, "ruled_line_count": 0.05, "numeric_ratio": 3.0, "text_density": 200.0},
+        "requirements_prose": {"text_density": 800.0, "code_matches": -3.0, "ruled_line_count": -0.05, "numeric_ratio": -3.0},
+        "scoring_methodology": {"scoring_phrase_hits": 8.0, "text_density": 600.0, "code_matches": -2.0},
+        "admin": {"text_density": -100.0, "code_matches": -2.0, "image_coverage": -3.0},
+        "decorative": {"image_coverage": 10.0, "text_density": -500.0},
+        "alternative_admission": {"alt_admission_phrase_hits": 6.0, "text_density": 300.0, "ruled_line_count": -0.05, "code_matches": -3.0, "keyword_hits": -1.0}
+      },
+      "admin_baseline": 1.0,
+      "overinclusion_margin": 0.5,
+      "table_evidence_ruled_line_floor": 50
+    },
+    "quirks": [
+      "UNVERIFIED SMOKE-TEST PROFILE (2026-08-15): derived from direct inspection of a handful of pages (7, and page-header structure common to the run of pages with 3+ code matches), not a full read of all 28 pages. classification.weights are copied verbatim from UJ's, untuned, and unused by this run (table_pages supplied directly from a code-pattern density scan, not via classify.classify_pages).",
+      "code_pattern reuses UJ's exact shape (letter, digit, 3-4 alnum) -- confirmed independently against real WSU codes, not copied blindly: W63001, W63002, W63004, W63005, W63008, W63009, W63010, W63011 all fit it.",
+      "STRUCTURAL FINDING, the big one: pdfplumber.find_tables() (lattice) returns pages fragmented into MANY separate small tables (11 on the one page inspected in depth) rather than one coherent grid -- e.g. a qualification's NAME and its CODE can land in two DIFFERENT mini-tables ('Diploma in Internal Auditing' in one 3-row/1-col table, 'W63004 & W63005' as the very next mini-table, with no APS/subjects cell in either). Method B's row loop treats every Table.extract() row independently within whichever table produced it, with no cross-table stitching -- predicted to either miss the code (row has no code cell) or find a code with every other field empty (row IS just the code, alone).",
+      "Subject requirements are BULLETED PROSE inside one 'Specific Subject Requirements' cell (e.g. '• 3 (40-49%) for English as a Home Language or First Additional Language. • 3 (40-49%) for Mathematics; • 3 (40-49%) in any two additional subjects'), not one column per subject -- resolve_subject_column has no header to resolve here at all (the one real header cell is the generic 'Specific Subject Requirements', which is not a Subject enum member or alias). Predicted collapse mode: even a row that DOES keep its code, name and APS together will still get an empty subjects tree.",
+      "rotated_headers is false: zero non-upright characters on every page sampled (7, 8, 9, 12, 16, 19, 25)."
+    ]
+  },
+  "nwu": {
+    "name": "North-West University",
+    "layout": {
+      "code_pattern": "[A-Z]\\d[A-Z0-9]{3,4}",
+      "header_keywords": ["Degree", "Field", "Subjects", "APS", "Campus"],
+      "rotated_headers": false,
+      "not_accepted_phrases": ["not accepted"],
+      "alternative_phrases": ["OR", "or"]
+    },
+    "classification": {
+      "weights": {
+        "programme_table": {"code_matches": 4.0, "keyword_hits": 3.0, "ruled_line_count": 0.05, "numeric_ratio": 3.0, "text_density": 200.0},
+        "requirements_prose": {"text_density": 800.0, "code_matches": -3.0, "ruled_line_count": -0.05, "numeric_ratio": -3.0},
+        "scoring_methodology": {"scoring_phrase_hits": 8.0, "text_density": 600.0, "code_matches": -2.0},
+        "admin": {"text_density": -100.0, "code_matches": -2.0, "image_coverage": -3.0},
+        "decorative": {"image_coverage": 10.0, "text_density": -500.0},
+        "alternative_admission": {"alt_admission_phrase_hits": 6.0, "text_density": 300.0, "ruled_line_count": -0.05, "code_matches": -3.0, "keyword_hits": -1.0}
+      },
+      "admin_baseline": 1.0,
+      "overinclusion_margin": 0.5,
+      "table_evidence_ruled_line_floor": 50
+    },
+    "quirks": [
+      "UNVERIFIED SMOKE-TEST PROFILE (2026-08-15): derived from direct inspection of pages 10, 14, 18, 22, 26, 30 plus a full-document text/rotation sweep (not a full page-by-page read of all 32 pages). classification.weights are copied verbatim from UJ's, untuned, and unused by this run (table_pages supplied directly from a header-vocabulary scan, not via classify.classify_pages).",
+      "STRUCTURAL FINDING, no code anywhere: this document has NO qualification-code convention at all. Confirmed exhaustively, not sampled -- the literal word 'code' does not occur once across all 32 pages of extracted text, and a generic UJ-shape code_pattern ([A-Z]\\\\d[A-Z0-9]{3,4}) matches zero times document-wide. Programmes are identified purely by their 'Degree' name (free text). code_pattern here is a placeholder kept only because profile validation requires one; it is confirmed to never match anything in this document, so its exact shape is irrelevant to the outcome.",
+      "PREDICTED FAILURE MODE IS DIFFERENT FROM THE OTHER FOUR: the table itself is otherwise clean. pdfplumber.find_tables() (lattice) on page 18 returns one well-formed 5-column table -- ['Degree', 'Field', 'Subjects / Requirements', 'APS', 'Campus'] as header, one full row per programme, no fragmentation. Row and column structure are NOT the problem. The predicted failure is that Method B's row-acceptance gate (extract/methods/geometric.py's `code_col = next(...); if code_col is None: continue`) requires a code match to accept a row AT ALL -- with no code to match, every row should be silently skipped, producing zero records, even though the table itself parses cleanly.",
+      "'Subjects / Requirements' is itself bulleted free-text prose (e.g. one cell holding '• Mathematics level 4 OR Technical Mathematics level 5 • DURATION: 3 years'), not one column per subject -- the same shape as WSU's, and would ALSO leave the subjects tree empty even if the code-column blocker were somehow bypassed.",
+      "rotated_headers is false: zero non-upright characters across the entire document (confirmed exhaustively, not sampled)."
+    ]
   }
 }

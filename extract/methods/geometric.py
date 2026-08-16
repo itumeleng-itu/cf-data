@@ -40,10 +40,21 @@ from typing import Any
 
 import pdfplumber
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from shared import CellValue, build_subject_tree, interpret_cell, resolve_subject_column  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from text_repair import page_prose_text  # noqa: E402
 
-_APS_PATTERN = re.compile(r"^\d{2}$")
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from shared import (  # noqa: E402
+    CellValue,
+    build_subject_tree,
+    extract_row_subject_cells,
+    group_programme_rows,
+    interpret_cell,
+    parse_aps_cell,
+    resolve_subject_column,
+    scan_page_exclusions,
+)
+
 _LATTICE_SETTINGS = {"vertical_strategy": "lines", "horizontal_strategy": "lines"}
 _STREAM_SETTINGS = {"vertical_strategy": "text", "horizontal_strategy": "text"}
 
@@ -187,10 +198,16 @@ def _row_name(row: list[str | None], code_col: int) -> str | None:
     return " ".join(c.strip().replace("\n", " ") for c in candidates[:1]) or None
 
 
-def _row_aps(row: list[str | None]) -> int | None:
+def _row_aps(row: list[str | None]) -> list[dict] | None:
+    """The first cell that parse_aps_cell can make sense of, in row
+    order -- name/code cells never contain an APS-plausible number, and
+    subject-level percentage-band cells ("4 (50%+)") are excluded by
+    parse_aps_cell's own guard, so the real score cell is reliably the
+    first hit without needing to know its column index."""
     for cell in row:
-        if cell and _APS_PATTERN.fullmatch(cell.strip()):
-            return int(cell.strip())
+        parsed = parse_aps_cell(cell)
+        if parsed is not None:
+            return parsed
     return None
 
 
@@ -206,12 +223,86 @@ def _row_campus(row: list[str | None], profile: dict) -> list[str]:
     return found
 
 
+def _merge_programme_group(
+    group: list[list[str | None]], profile: dict, code_pattern: re.Pattern,
+    page_exclusions: list[str], page_num: int,
+) -> dict | None:
+    """One 'many'-mode programme: group_programme_rows() guarantees the
+    group's own first (lead) row is the one whose code matched, so scalar
+    fields (code, name, score, campus) come from it alone, the same as
+    the 'one'-mode path's code_col row -- there is no other row to prefer
+    them from. Subject requirements are accumulated across EVERY row in
+    the group (extract_row_subject_cells per row, concatenated in row
+    order) and handed to build_subject_tree exactly once, so alternative
+    -phrase pairing, mutual-exclusion grouping and excluded-subject
+    detection are the SAME logic the 'one'-mode path uses -- never a
+    second implementation of any of them."""
+    lead = group[0]
+    code_col = next((c for c, cell in enumerate(lead) if _matching_code(cell, code_pattern)), None)
+    if code_col is None:
+        return None
+    code = _matching_code(lead[code_col], code_pattern)
+
+    row_cells: list[tuple[str, Any]] = [
+        cell for row in group for cell in extract_row_subject_cells(row, profile)
+    ]
+    tree, excluded = build_subject_tree(row_cells, profile)
+    excluded = excluded | set(page_exclusions)
+
+    return {
+        "qualification_code": code,
+        "name": _row_name(lead, code_col),
+        "faculty": None,
+        "campus": _row_campus(lead, profile),
+        "duration_years": None,
+        "extended": None,
+        "requirements": {
+            "nsc": {
+                "score": _row_aps(lead),
+                "subjects": tree,
+                "excluded_subjects": sorted(excluded),
+            },
+        },
+        "selection_notes": [],
+        "career_text": None,
+        "source_page": page_num,
+    }
+
+
+def _extract_page_many(
+    rows: list[list[str | None]], profile: dict, code_pattern: re.Pattern,
+    page_exclusions: list[str], page_num: int,
+) -> list[dict]:
+    """'many'-mode: header rows carry no column meaning here (subject
+    names are DATA, not headers -- see extract_row_subject_cells), so
+    they're stripped rather than used to build a column mapping, and
+    every remaining data row is handed to group_programme_rows() as one
+    pool. A page repeating its header per sub-section (UJ's multi-block
+    pattern) still works: a header row is never a code match, so it can
+    never itself become a group's lead row, and stripping it out before
+    grouping keeps it from being misread as a stray continuation row of
+    whatever group preceded it."""
+    data_rows = [row for row in rows if not _is_header_row(row, profile)]
+    groups = group_programme_rows(data_rows, profile)
+    records = []
+    for group in groups:
+        record = _merge_programme_group(group, profile, code_pattern, page_exclusions, page_num)
+        if record is not None:
+            records.append(record)
+    return records
+
+
 def _extract_page(page: Any, page_num: int, profile: dict, code_pattern: re.Pattern) -> list[dict]:
     lattice_rows = _flatten_rows(page, _LATTICE_SETTINGS)
     stream_rows = _flatten_rows(page, _STREAM_SETTINGS)
     rows = lattice_rows if _score_rows(lattice_rows, code_pattern) >= _score_rows(stream_rows, code_pattern) else stream_rows
     if not rows:
         return []
+
+    page_exclusions = scan_page_exclusions(page_prose_text(page), profile)
+
+    if profile["layout"].get("rows_per_programme", "one") == "many":
+        return _extract_page_many(rows, profile, code_pattern, page_exclusions, page_num)
 
     # A page can repeat its full header row once per "Bachelor of X"
     # sub-table, and a later occurrence isn't guaranteed to share column
@@ -251,6 +342,7 @@ def _extract_page(page: Any, page_num: int, profile: dict, code_pattern: re.Patt
                     row_cells.append((slug, CellValue(kind="alternative", level=cell.level, raw=cell.raw)))
 
         tree, excluded = build_subject_tree(row_cells, profile)
+        excluded = excluded | set(page_exclusions)
 
         records.append({
             "qualification_code": code,
@@ -261,7 +353,7 @@ def _extract_page(page: Any, page_num: int, profile: dict, code_pattern: re.Patt
             "extended": None,
             "requirements": {
                 "nsc": {
-                    "score": [{"min_score": _row_aps(row)}] if _row_aps(row) is not None else None,
+                    "score": _row_aps(row),
                     "subjects": tree,
                     "excluded_subjects": sorted(excluded),
                 },

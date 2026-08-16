@@ -1,10 +1,27 @@
-"""Frozen taxonomy. Never rename members — add only. These keys appear in
+"""The full list of matric (NSC) subjects the app knows about, plus the
+level-conversion table South African universities use.
+
+In plain terms: every South African university judges an applicant's
+matric certificate using two building blocks —
+  1. which SUBJECTS the learner took (e.g. Mathematics, Physical Sciences)
+  2. what LEVEL (1-7) they achieved in each, converted from a percentage.
+
+This file defines both: the fixed list of subject names (Subject) and the
+percentage-to-level conversion table every institution uses (defined by
+the Department of Basic Education, not invented here).
+
+Frozen taxonomy. Never rename members — add only. These keys appear in
 the database, the API contract and the frontend."""
 
 from enum import StrEnum
 
 
 class Subject(StrEnum):
+    """Every matric subject the system recognises, as a fixed code (e.g.
+    "mathematics"). Home Language / First Additional Language pairs
+    exist for each official South African language (e.g. english_hl vs
+    english_fal) because a learner only takes one of the two, at a
+    different difficulty level."""
     ENGLISH_HL = "english_hl";           ENGLISH_FAL = "english_fal"
     AFRIKAANS_HL = "afrikaans_hl";       AFRIKAANS_FAL = "afrikaans_fal"
     ISIZULU_HL = "isizulu_hl";           ISIZULU_FAL = "isizulu_fal"
@@ -45,6 +62,10 @@ class Subject(StrEnum):
     RELIGION_STUDIES = "religion_studies"
 
 
+# Groups the Home Language / First Additional Language version of each
+# language together, so the rest of the app can ask "did they meet the
+# English requirement?" without caring which of the two variants the
+# learner actually wrote.
 LANGUAGE_FAMILIES: dict[str, tuple[str, str]] = {
     "english": ("english_hl", "english_fal"),
     "afrikaans": ("afrikaans_hl", "afrikaans_fal"),
@@ -61,6 +82,11 @@ LANGUAGE_FAMILIES: dict[str, tuple[str, str]] = {
 
 
 def percentage_to_level(pct: int) -> int:
+    """Converts a raw matric mark (0-100%) into the official NSC
+    "achievement level" (1-7) that universities actually use for
+    admission. For example, 85% becomes level 7 (the top band), and 45%
+    becomes level 3. This mirrors the exact bands published on every
+    South African matric certificate."""
     if not 0 <= pct <= 100:
         raise ValueError(f"percentage out of range 0-100: {pct}")
     if pct >= 80:

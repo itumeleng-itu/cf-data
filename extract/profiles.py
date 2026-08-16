@@ -24,8 +24,9 @@ _ALLOWED_TOP_KEYS = _REQUIRED_TOP_KEYS | {"source_url", "quirks"}
 _REQUIRED_LAYOUT_KEYS = {"code_pattern", "header_keywords", "rotated_headers"}
 _ALLOWED_LAYOUT_KEYS = _REQUIRED_LAYOUT_KEYS | {
     "footnote_markers", "campus_tokens", "not_accepted_phrases", "alternative_phrases",
-    "mutually_exclusive_subjects",
+    "mutually_exclusive_subjects", "rows_per_programme",
 }
+_VALID_ROWS_PER_PROGRAMME = {"one", "many"}
 
 _REQUIRED_CLASSIFICATION_KEYS = {
     "weights", "admin_baseline", "overinclusion_margin", "table_evidence_ruled_line_floor",
@@ -73,6 +74,12 @@ def _validate_layout(institution_id: str, layout: dict) -> None:
                 raise ProfileValidationError(
                     f"{institution_id}: layout.mutually_exclusive_subjects group must be a list of 2+ subject slugs, got {group!r}"
                 )
+
+    if "rows_per_programme" in layout and layout["rows_per_programme"] not in _VALID_ROWS_PER_PROGRAMME:
+        raise ProfileValidationError(
+            f"{institution_id}: layout.rows_per_programme must be one of {sorted(_VALID_ROWS_PER_PROGRAMME)}, "
+            f"got {layout['rows_per_programme']!r}"
+        )
 
 
 def _validate_classification(institution_id: str, classification: dict) -> None:

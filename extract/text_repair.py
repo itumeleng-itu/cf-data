@@ -136,6 +136,33 @@ def normalise_page_text(page: Any) -> str:
     return baseline + "\n" + "\n".join(corrected_runs)
 
 
+def page_prose_text(page: Any) -> str:
+    """Reading-order text for PROSE scanning (e.g. a page-footer exclusion
+    note) -- deliberately not page.extract_text(), confirmed directly on
+    real UJ page 86: extract_text() drops 2 of the footer note's 6
+    word-wrapped lines where they cross a ruled table line, breaking the
+    sentence in a way that silently loses "Technical Mathematics" from
+    it. Built instead from upright words sorted by page position (top,
+    then x0) and space-joined into ONE line -- reconstructs the true
+    reading order directly, the same principle normalise_page_text()
+    applies to rotated text.
+
+    Each rotated run (see _group_runs) is then appended on its OWN
+    separate line, deliberately never merged with another run or with
+    the upright line: a single table cell's isolated marker text (e.g.
+    one row's "Not applicable") must never combine with a neighbouring
+    cell's to look like a longer phrase -- or a longer phrase's subject
+    -- neither actually contains."""
+    upright_page = page.filter(lambda obj: obj.get("object_type") != "char" or obj.get("upright", True))
+    upright_words = upright_page.extract_words()
+    prose_line = " ".join(w["text"] for w in sorted(upright_words, key=lambda w: (round(w["top"], 1), w["x0"])))
+
+    non_upright = [c for c in page.chars if not c.get("upright", True)]
+    run_lines = ["".join(c["text"] for c in run) for run in _group_runs(non_upright)]
+
+    return "\n".join([prose_line, *run_lines])
+
+
 def looks_reversed(token: str, code_pattern: str) -> bool:
     """True if `token` looks like it was extracted backwards: it fails
     code_pattern but its reverse matches, or it's a known reversed

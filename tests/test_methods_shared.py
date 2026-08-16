@@ -12,8 +12,13 @@ sys.path.insert(0, str(ROOT / "extract"))
 from methods.shared import (  # noqa: E402
     CellValue,
     build_subject_tree,
+    find_aps_candidates,
+    find_all_subject_aliases,
+    find_subject_alias,
     interpret_cell,
+    parse_aps_cell,
     resolve_subject_column,
+    scan_page_exclusions,
 )
 
 _UJ_PROFILE = {
@@ -307,3 +312,174 @@ def _find_any_nodes(node: dict) -> list[dict]:
         for child in node["rules"]:
             found.extend(_find_any_nodes(child))
     return found
+
+
+# --- find_aps_candidates ---------------------------------------------------
+
+def test_find_aps_candidates_finds_plausible_two_digit_numbers() -> None:
+    assert [v for v, _s, _e in find_aps_candidates("31 with Mathematics")] == [31]
+
+
+def test_find_aps_candidates_excludes_numbers_outside_14_48() -> None:
+    assert find_aps_candidates("5 with Mathematics") == []
+    assert find_aps_candidates("52 with Mathematics") == []
+
+
+def test_find_aps_candidates_excludes_percentage_band_numbers() -> None:
+    # A subject-level percentage cell like "3 (40%+)" must never be
+    # mistaken for an APS score just because 40 is inside 14-48.
+    assert find_aps_candidates("3 (40%+)") == []
+
+
+def test_find_aps_candidates_finds_multiple_distinct_values() -> None:
+    assert [v for v, _s, _e in find_aps_candidates("31 with Mathematics OR 32 with Mathematical Literacy")] == [31, 32]
+
+
+# --- find_subject_alias / find_all_subject_aliases -------------------------
+
+def test_find_subject_alias_matches_full_subject_name() -> None:
+    assert find_subject_alias("with Mathematics OR") == "mathematics"
+
+
+def test_find_subject_alias_prefers_longest_match() -> None:
+    # "Technical Mathematics" contains "Mathematics" as a substring --
+    # the longer, more specific alias must win.
+    assert find_subject_alias("with Technical Mathematics") == "technical_mathematics"
+
+
+def test_find_subject_alias_uses_manual_header_aliases() -> None:
+    assert find_subject_alias("with Mathematical Literacy") == "mathematical_literacy"
+
+
+def test_find_subject_alias_returns_none_for_unknown_abbreviation() -> None:
+    # "Maths" is not in resolve_subject_column's own vocabulary -- not
+    # invented here either.
+    assert find_subject_alias("with Maths") is None
+
+
+def test_find_all_subject_aliases_finds_non_overlapping_matches() -> None:
+    result = find_all_subject_aliases("with Mathematics OR with Mathematical Literacy")
+    assert result == ["mathematics", "mathematical_literacy"]
+
+
+def test_find_all_subject_aliases_empty_when_nothing_matches() -> None:
+    assert find_all_subject_aliases("with Maths/Tech Maths OR") == []
+
+
+# --- parse_aps_cell ----------------------------------------------------
+
+def test_parse_aps_cell_none_for_empty_or_none() -> None:
+    assert parse_aps_cell(None) is None
+    assert parse_aps_cell("") is None
+
+
+def test_parse_aps_cell_bare_number_no_qualifier() -> None:
+    assert parse_aps_cell("26") == [{"min_score": 26}]
+
+
+def test_parse_aps_cell_single_value_single_alias() -> None:
+    assert parse_aps_cell("31 with\nMathematics") == [
+        {"min_score": 31, "requires_subject": "mathematics"},
+    ]
+
+
+def test_parse_aps_cell_single_value_multiple_aliases_same_score() -> None:
+    # Real UJ B34ACC-shaped cell: one APS value, multiple subject
+    # alternatives sharing it.
+    result = parse_aps_cell("28 with Mathematics OR 28 with Mathematical Literacy")
+    assert result == [
+        {"min_score": 28, "requires_subject": "mathematics"},
+        {"min_score": 28, "requires_subject": "mathematical_literacy"},
+    ]
+
+
+def test_parse_aps_cell_two_values_sequential_qualifiers() -> None:
+    # Real UJ B4L03Q cell.
+    result = parse_aps_cell("31 with\nMathematics OR\n32 with\nMathematical\nLiteracy")
+    assert result == [
+        {"min_score": 31, "requires_subject": "mathematics"},
+        {"min_score": 32, "requires_subject": "mathematical_literacy"},
+    ]
+
+
+def test_parse_aps_cell_two_values_no_qualifier_in_span_abstains() -> None:
+    # Real UJ B8CD2Q cell -- Table.extract() scrambled the word order so
+    # no qualifier sits between the two numbers; must not guess.
+    result = parse_aps_cell("26\nwith 25\nwith\nMathematical\nMathematics\nLiteracy OR")
+    assert result is None
+
+
+def test_parse_aps_cell_abbreviation_only_falls_back_to_bare_value() -> None:
+    # Real UJ B34HRQ cell -- only abbreviated "Maths"/"Tech Maths" forms
+    # present, none of which resolve via the reused alias vocabulary, so
+    # this correctly degrades to a single unconditional entry rather than
+    # the true 3-branch structure.
+    result = parse_aps_cell("28 28\nwith with\nMaths/Tech\nMathematical\nMaths\nLiteracy OR")
+    assert result == [{"min_score": 28}]
+
+
+def test_parse_aps_cell_percentage_band_cell_returns_none() -> None:
+    assert parse_aps_cell("3 (40%+)") is None
+
+
+# --- scan_page_exclusions --------------------------------------------------
+
+def test_scan_page_exclusions_finds_real_uj_science_faculty_note() -> None:
+    # Real UJ page 86/89/90 footer, upright text reassembled in reading
+    # order by text_repair.page_prose_text().
+    page_text = (
+        "We are proud to be the first University in Africa to have received "
+        "accreditation from the BCS: Chartered Institute for IT, for our BSc "
+        "IT Honours programme which one can pursue upon completion of our "
+        "BSc Information Technology degree. PLEASE NOTE: Technical "
+        "Mathematics and Technical Science are not accepted for Degree "
+        "programmes in the Faculty of Science. DEGREE PROGRAMMES"
+    )
+    assert scan_page_exclusions(page_text, _UJ_PROFILE) == ["technical_mathematics", "technical_sciences"]
+
+
+def test_scan_page_exclusions_only_resolves_subjects_before_the_phrase() -> None:
+    # Real UJ page 75 footer: a second subject (plain Mathematics) is
+    # mentioned later in the SAME sentence as something REQUIRED, not
+    # excluded -- whole-sentence scanning would wrongly exclude it too.
+    page_text = (
+        "Technical Mathematics is not accepted, and where Mathematics is "
+        "selected as a major, the Faculty of Science's minimum "
+        "requirements for Grade 12 Mathematics should be met."
+    )
+    assert scan_page_exclusions(page_text, _UJ_PROFILE) == ["technical_mathematics"]
+
+
+def test_scan_page_exclusions_ignores_sentence_with_a_qualification_code() -> None:
+    # Real UJ page 54 false positive: several unrelated programmes' own
+    # upright "Not applicable" cells (Accounting, Economics) sit on the
+    # same page with no punctuation between them, so without this guard
+    # they coalesce into one giant "sentence" carrying unrelated codes and
+    # subjects far from the actual marker.
+    page_text = (
+        "COMMERCE EDUCATION Not ACCOUNTING B5BSAQ 28 4 (50%+) applicable "
+        "Home language 5 (60%+) OR BUSINESS MANAGEMENT B5BSBQ 28 4 (50%+) "
+        "5 (60%+) Additional Language 6 (70%+) Not ECONOMICS B5BSEQ 28 "
+        "4 (50%+) applicable CAREER: Educator focusing on high school "
+        "teaching."
+    )
+    assert scan_page_exclusions(page_text, _UJ_PROFILE) == []
+
+
+def test_scan_page_exclusions_isolated_table_cell_marker_contributes_nothing() -> None:
+    # Each rotated table cell gets its own line (see page_prose_text) --
+    # a bare one-word marker with no subject alias on its own line must
+    # not pick up a subject from an unrelated neighbouring line.
+    page_text = "Mathematics\nNot applicable\nPhysical Science"
+    assert scan_page_exclusions(page_text, _UJ_PROFILE) == []
+
+
+def test_scan_page_exclusions_returns_empty_when_phrase_absent() -> None:
+    page_text = "Bachelor of Human Resource Management. English 5 (60%+)."
+    assert scan_page_exclusions(page_text, _UJ_PROFILE) == []
+
+
+def test_scan_page_exclusions_returns_empty_when_profile_has_no_phrases() -> None:
+    profile = {"layout": {"code_pattern": r"[A-Z]\d[A-Z0-9]{3,4}"}}
+    page_text = "Technical Mathematics is not accepted."
+    assert scan_page_exclusions(page_text, profile) == []

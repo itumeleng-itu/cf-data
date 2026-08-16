@@ -166,8 +166,7 @@
     "requirements": {
       "nsc": {
         "score": [
-          { "min_score": 26, "requires_subject": "mathematics" },
-          { "min_score": 26, "requires_subject": "technical_mathematics" }
+          { "min_score": 26 }
         ],
         "subjects": {
           "kind": "all",
