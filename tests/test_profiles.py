@@ -140,3 +140,68 @@ def test_non_numeric_classification_value_rejected() -> None:
     profile["classification"]["admin_baseline"] = "not a number"
     with pytest.raises(ProfileValidationError, match="must be numeric"):
         validate_profile("test", profile)
+
+
+# --- Method D (phase 8.5) profile knobs -------------------------------
+
+def test_valid_table_settings_passes() -> None:
+    profile = copy.deepcopy(_VALID_PROFILE)
+    profile["layout"]["table_settings"] = {
+        "vertical_strategy": "lines", "horizontal_strategy": "lines",
+        "snap_tolerance": 4, "join_tolerance": 4, "intersection_tolerance": 6,
+    }
+    validate_profile("test", profile)  # must not raise
+
+
+def test_incomplete_table_settings_rejected() -> None:
+    profile = copy.deepcopy(_VALID_PROFILE)
+    profile["layout"]["table_settings"] = {"vertical_strategy": "lines"}
+    with pytest.raises(ProfileValidationError, match="table_settings missing key"):
+        validate_profile("test", profile)
+
+
+def test_valid_header_map_passes() -> None:
+    profile = copy.deepcopy(_VALID_PROFILE)
+    profile["layout"]["header_map"] = [{"pattern": "(?i)math", "key": "mathematics"}]
+    validate_profile("test", profile)  # must not raise
+
+
+def test_header_map_non_compiling_pattern_rejected() -> None:
+    profile = copy.deepcopy(_VALID_PROFILE)
+    profile["layout"]["header_map"] = [{"pattern": "[unclosed", "key": "mathematics"}]
+    with pytest.raises(ProfileValidationError, match="does not compile"):
+        validate_profile("test", profile)
+
+
+def test_header_map_empty_key_rejected() -> None:
+    profile = copy.deepcopy(_VALID_PROFILE)
+    profile["layout"]["header_map"] = [{"pattern": "math", "key": ""}]
+    with pytest.raises(ProfileValidationError, match="empty key"):
+        validate_profile("test", profile)
+
+
+def test_legend_first_cell_non_compiling_rejected() -> None:
+    profile = copy.deepcopy(_VALID_PROFILE)
+    profile["layout"]["legend_first_cell"] = "[unclosed"
+    with pytest.raises(ProfileValidationError, match="does not compile"):
+        validate_profile("test", profile)
+
+
+def test_valid_faculty_ranges_passes() -> None:
+    profile = copy.deepcopy(_VALID_PROFILE)
+    profile["faculty_ranges"] = [[0, 5, "Science"], [6, 10, "Law"]]
+    validate_profile("test", profile)  # must not raise
+
+
+def test_faculty_ranges_backwards_range_rejected() -> None:
+    profile = copy.deepcopy(_VALID_PROFILE)
+    profile["faculty_ranges"] = [[5, 0, "Science"]]
+    with pytest.raises(ProfileValidationError, match="faculty_ranges entry"):
+        validate_profile("test", profile)
+
+
+def test_uj_faculty_ranges_and_method_d_layout_keys_present() -> None:
+    uj = PROFILES["uj"]
+    assert len(uj["faculty_ranges"]) == 8
+    assert uj["layout"]["table_settings"]["vertical_strategy"] == "lines"
+    assert len(uj["layout"]["header_map"]) == 14

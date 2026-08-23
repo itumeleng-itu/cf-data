@@ -19,14 +19,26 @@ from pathlib import Path
 _REGISTRY_PATH = Path(__file__).parent / "institutions" / "registry.json"
 
 _REQUIRED_TOP_KEYS = {"name", "layout", "classification"}
-_ALLOWED_TOP_KEYS = _REQUIRED_TOP_KEYS | {"source_url", "quirks"}
+# faculty_ranges is Method D-only (phase 8.5): 0-indexed page-range ->
+# faculty-name triples, read by extract/methods/coordinate.py to know
+# when to reset its cross-table header/duration/qualification-type state.
+# Optional -- only institutions Method D has been run against carry it.
+_ALLOWED_TOP_KEYS = _REQUIRED_TOP_KEYS | {"source_url", "quirks", "faculty_ranges"}
 
 _REQUIRED_LAYOUT_KEYS = {"code_pattern", "header_keywords", "rotated_headers"}
+# table_settings / header_map / legend_first_cell / alternate_route_header
+# are Method D-only (phase 8.5), read by extract/methods/coordinate.py.
+# All optional: institutions Method D hasn't been run against don't carry
+# them, exactly like rows_per_programme is optional for Method B.
 _ALLOWED_LAYOUT_KEYS = _REQUIRED_LAYOUT_KEYS | {
     "footnote_markers", "campus_tokens", "not_accepted_phrases", "alternative_phrases",
     "mutually_exclusive_subjects", "rows_per_programme",
+    "table_settings", "header_map", "legend_first_cell", "alternate_route_header",
 }
 _VALID_ROWS_PER_PROGRAMME = {"one", "many"}
+_REQUIRED_TABLE_SETTINGS_KEYS = {
+    "vertical_strategy", "horizontal_strategy", "snap_tolerance", "join_tolerance", "intersection_tolerance",
+}
 
 _REQUIRED_CLASSIFICATION_KEYS = {
     "weights", "admin_baseline", "overinclusion_margin", "table_evidence_ruled_line_floor",
@@ -81,6 +93,39 @@ def _validate_layout(institution_id: str, layout: dict) -> None:
             f"got {layout['rows_per_programme']!r}"
         )
 
+    if "table_settings" in layout:
+        settings = layout["table_settings"]
+        if not isinstance(settings, dict):
+            raise ProfileValidationError(f"{institution_id}: layout.table_settings must be an object")
+        missing = _REQUIRED_TABLE_SETTINGS_KEYS - set(settings)
+        if missing:
+            raise ProfileValidationError(f"{institution_id}: layout.table_settings missing key(s) {sorted(missing)}")
+
+    if "header_map" in layout:
+        header_map = layout["header_map"]
+        if not isinstance(header_map, list) or not header_map:
+            raise ProfileValidationError(f"{institution_id}: layout.header_map must be a non-empty list")
+        for entry in header_map:
+            if not isinstance(entry, dict) or set(entry) != {"pattern", "key"}:
+                raise ProfileValidationError(
+                    f"{institution_id}: layout.header_map entries must be {{'pattern', 'key'}} objects, got {entry!r}"
+                )
+            try:
+                re.compile(entry["pattern"])
+            except re.error as exc:
+                raise ProfileValidationError(
+                    f"{institution_id}: layout.header_map pattern {entry['pattern']!r} does not compile: {exc}"
+                ) from exc
+            if not entry["key"]:
+                raise ProfileValidationError(f"{institution_id}: layout.header_map entry has an empty key")
+
+    for key in ("legend_first_cell", "alternate_route_header"):
+        if key in layout:
+            try:
+                re.compile(layout[key])
+            except re.error as exc:
+                raise ProfileValidationError(f"{institution_id}: layout.{key} does not compile: {exc}") from exc
+
 
 def _validate_classification(institution_id: str, classification: dict) -> None:
     unknown = set(classification) - _REQUIRED_CLASSIFICATION_KEYS
@@ -119,6 +164,20 @@ def validate_profile(institution_id: str, profile: dict) -> None:
 
     _validate_layout(institution_id, profile["layout"])
     _validate_classification(institution_id, profile["classification"])
+
+    if "faculty_ranges" in profile:
+        ranges = profile["faculty_ranges"]
+        if not isinstance(ranges, list) or not ranges:
+            raise ProfileValidationError(f"{institution_id}: faculty_ranges must be a non-empty list")
+        for entry in ranges:
+            if (
+                not isinstance(entry, list) or len(entry) != 3
+                or not isinstance(entry[0], int) or not isinstance(entry[1], int)
+                or entry[0] > entry[1] or not isinstance(entry[2], str) or not entry[2]
+            ):
+                raise ProfileValidationError(
+                    f"{institution_id}: faculty_ranges entry must be [low_int, high_int, name], got {entry!r}"
+                )
 
 
 DEFAULT_PROFILE: dict = {
