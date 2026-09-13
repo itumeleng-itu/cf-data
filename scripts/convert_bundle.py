@@ -36,14 +36,15 @@ distinction from a hand-verified overlay. A human transcriber CAN tell
 them apart, by reading the sentence under the table -- so the flat format
 demands they say which, and this module trusts that answer literally.
 
-MUTUALLY EXCLUSIVE SUBJECTS
----------------------------
+MUTUALLY EXCLUSIVE SUBJECTS -- AUTOMATIC OR
+--------------------------------------------
 Mathematics / Mathematical Literacy / Technical Mathematics is one
 national NSC subject-choice group: no South African university requires
 two of them, because a learner picks between them in matric and can never
 hold two. So two REQUIRED members in the same row always mean `any`, even
 when the source table prints no "OR" marker at all (confirmed on B8CD2Q
-and the three-way B34HRQ).
+and the three-way B34HRQ). The operator never has to say this is an OR --
+it's derived from the vocabulary, not the syntax.
 
 _group_mutually_exclusive and build_subject_tree below are ported
 unchanged from the retired extract/methods/shared.py rather than
@@ -56,6 +57,24 @@ subject short-circuits into the excluded set and never becomes a node, so
 it can never be a second group member for grouping to find. Shared group
 membership alone never triggers an `any` -- only two or more group
 members that each carry a real level.
+
+`any_of` -- MANUAL OR
+----------------------
+Everything else that isn't a national subject-choice group is AND by
+default: two plain requirement keys both being satisfied is the only
+reading a flat dict has on its own. Physical Sciences / Technical
+Sciences can genuinely both be held at once (unlike Mathematics/Maths
+Lit), so a programme that accepts either needs to SAY so:
+
+    "any_of": [{"physical_science": 5}, {"technical_science": 5}]
+
+becomes one `any` node alongside whatever else is in `requirements` --
+confirmed against B6CV3Q, which needs TWO sibling `any` nodes in one
+`all` (Maths-or-Tech-Maths, automatic; Physical-or-Technical-Science,
+manual). Only one `any_of` per programme is supported -- no record in the
+180-programme UJ dataset this format was built against ever needed a
+second manual OR group; a future institution that does will need this
+extended, not worked around.
 
 The flat-key -> tree mapping and the score conversion are likewise ported
 from the retired extract/methods/coordinate_records.py, which was tested
@@ -88,11 +107,13 @@ NOT_ACCEPTED = "not_accepted"
 # picks between these in matric and can never hold two, so two required
 # members in one row is always an `any`. Physical Sciences / Technical
 # Sciences is deliberately NOT here -- those two CAN be held together,
-# and a programme accepting either says so with an explicit
-# `physical_sciences_or_technical_sciences` compound key.
+# and a programme accepting either says so with an explicit `any_of`
+# block instead (see the module docstring).
 MUTUALLY_EXCLUSIVE_SUBJECTS: list[list[str]] = [
     ["mathematics", "mathematical_literacy", "technical_mathematics"],
 ]
+
+_ANY_OF_KEY = "any_of"
 
 # Prospectus spellings that don't match a Subject enum value directly --
 # the enum is plural ("physical_sciences"), most prospectus columns are
@@ -113,9 +134,6 @@ _SCORE_SUBJECT_MAP = {
     "with_technical_mathematics": "technical_mathematics",
     "with_mathematical_literacy": "mathematical_literacy",
 }
-
-_COMPOUND_SEPARATOR = "_or_"
-
 
 class BundleError(Exception):
     """A bundle that cannot be converted at all -- an unknown subject key,
@@ -209,17 +227,21 @@ def _resolve_slug(key: str) -> str:
     raise BundleError(f"unknown subject key '{key}'")
 
 
-def _split_compound(key: str) -> list[str] | None:
-    """'physical_sciences_or_technical_sciences' -> both slugs. Returns
-    None for a plain key. No Subject value contains '_or_', so splitting
-    on it is unambiguous."""
-    if _COMPOUND_SEPARATOR not in key:
-        return None
-    return [_resolve_slug(part) for part in key.split(_COMPOUND_SEPARATOR)]
-
-
-def _in_one_group(slugs: list[str]) -> bool:
-    return any(set(slugs) <= set(group) for group in MUTUALLY_EXCLUSIVE_SUBJECTS)
+def _build_any_of_node(value: Any) -> dict:
+    """The manual-OR block: a list of 2+ single-key {subject: level}
+    objects, each becoming one child of one `any` node. Every member must
+    carry a real level -- "not_accepted" inside an alternative makes no
+    sense (an excluded subject can't be the thing that satisfies the
+    requirement) and is rejected rather than silently dropped."""
+    if not isinstance(value, list) or len(value) < 2:
+        raise BundleError(f"{_ANY_OF_KEY}: expected a list of 2+ single-key objects, got {value!r}")
+    rules = []
+    for item in value:
+        if not isinstance(item, dict) or len(item) != 1:
+            raise BundleError(f"{_ANY_OF_KEY}: expected a single-key {{subject: level}} object, got {item!r}")
+        (key, val), = item.items()
+        rules.append(_subject_node(_resolve_slug(key), _level(val, key)))
+    return {"kind": "any", "rules": rules}
 
 
 def _level(value: Any, key: str) -> int:
@@ -231,17 +253,24 @@ def _level(value: Any, key: str) -> int:
 def build_requirements(flat: dict, extra_excluded: list[str] | None = None) -> tuple[dict, list[str]]:
     """Flat requirements dict -> (subjects_tree, sorted excluded_subjects).
 
-    Cells feed through build_subject_tree in the order the flat record
-    lists them, so a compound key's two members stay adjacent and pair
-    correctly. Two node shapes bypass it because CellValue cannot express
-    them: a banded Home/First-Additional-Language requirement (two levels
-    in one cell) and "any recognised additional language"."""
+    Plain requirement keys feed through build_subject_tree in the order
+    the flat record lists them, so mutually_exclusive_subjects grouping
+    sees them in a stable order. Three node shapes bypass that path
+    entirely, because CellValue cannot express any of them: a banded
+    Home/First-Additional-Language requirement (two levels in one cell),
+    "any recognised additional language", and a manual `any_of` OR block
+    (see the module docstring for why this one can't be automatic)."""
     bridge: list[tuple[str, CellValue]] = []
     banded: list[dict] = []
+    any_of_nodes: list[dict] = []
     additional_language: list[dict] = []
     excluded: set[str] = set(extra_excluded or [])
 
     for key, value in flat.items():
+        if key == _ANY_OF_KEY:
+            any_of_nodes.append(_build_any_of_node(value))
+            continue
+
         if value is None:
             continue
 
@@ -249,28 +278,6 @@ def build_requirements(flat: dict, extra_excluded: list[str] | None = None) -> t
             if value != NOT_ACCEPTED:
                 additional_language.append(
                     {"kind": "any_additional_language", "min_level": _level(value, key)}
-                )
-            continue
-
-        compound = _split_compound(key)
-        if compound is not None:
-            if value == NOT_ACCEPTED:
-                excluded.update(compound)
-                continue
-            level = _level(value, key)
-            if _in_one_group(compound):
-                # Both members are already in one mutual-exclusion group,
-                # so feed them as plain levels and let grouping flatten
-                # them. Chaining as level+alternative instead would NEST
-                # an `any` inside an `any` whenever a third group member
-                # appears elsewhere in the same record (B5BFPQ's shape).
-                bridge.extend((slug, CellValue(kind="level", level=level)) for slug in compound)
-            else:
-                # No configured group (physical/technical sciences): pair
-                # them explicitly via the alternative-cell chain.
-                bridge.append((compound[0], CellValue(kind="level", level=level)))
-                bridge.extend(
-                    (slug, CellValue(kind="alternative", level=level)) for slug in compound[1:]
                 )
             continue
 
@@ -293,11 +300,15 @@ def build_requirements(flat: dict, extra_excluded: list[str] | None = None) -> t
         bridge.append((slug, CellValue(kind="level", level=_level(value, key))))
 
     tree, tree_excluded = build_subject_tree(bridge)
-    # any_additional_language goes LAST unconditionally. evaluate() threads
-    # "which language family already satisfied a rule" left to right
-    # through an `all` node, so a named language rule must be evaluated
-    # before the any-additional rule or the same language counts twice.
-    tree["rules"] = banded + tree["rules"] + additional_language
+    # Order: banded language first, then the plain/auto-grouped subjects
+    # (in declaration order -- see _group_mutually_exclusive's docstring
+    # for why the merged `any` stays at its first member's position),
+    # then the manual any_of block, then any_additional_language LAST
+    # unconditionally. evaluate() threads "which language family already
+    # satisfied a rule" left to right through an `all` node, so a named
+    # language rule must be evaluated before the any-additional rule or
+    # the same language counts twice.
+    tree["rules"] = banded + tree["rules"] + any_of_nodes + additional_language
     return tree, sorted(excluded | tree_excluded)
 
 
@@ -330,11 +341,23 @@ def build_score(minimum_aps: Any) -> tuple[list[dict], list[str]]:
     raise BundleError(f"minimum_aps: expected an integer or a variant object, got {minimum_aps!r}")
 
 
+_REQUIRED_PROGRAMME_FIELDS = ("qualification_code", "programme", "duration_years", "minimum_aps")
+
+
 def convert_record(flat: dict, institution_id: str, academic_year: int, source: dict) -> dict:
-    """One flat programme record -> one seed programme record."""
+    """One flat programme record -> one seed programme record.
+
+    Every required-field check below raises BundleError rather than
+    letting a missing key surface as a bare KeyError -- a caller further
+    up (scripts/ingest_bundle.py) needs a clean, reportable message per
+    record, not a stack trace that aborts everything else in the same
+    bundle."""
     code = flat.get("qualification_code")
     if not code:
         raise BundleError("record is missing qualification_code")
+    missing = [f for f in _REQUIRED_PROGRAMME_FIELDS if flat.get(f) in (None, "")]
+    if missing:
+        raise BundleError(f"missing required field(s): {', '.join(missing)}")
 
     tree, excluded = build_requirements(flat.get("requirements") or {}, flat.get("excluded_subjects"))
     score, notes = build_score(flat.get("minimum_aps"))
@@ -345,7 +368,7 @@ def convert_record(flat: dict, institution_id: str, academic_year: int, source: 
         "institution_id": institution_id,
         "academic_year": academic_year,
         "qualification_code": code,
-        "name": flat["name"],
+        "name": flat["programme"],
         "faculty": flat.get("faculty"),
         "campus": flat.get("campus") or [],
         "duration_years": flat.get("duration_years"),

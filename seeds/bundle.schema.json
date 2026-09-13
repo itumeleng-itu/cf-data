@@ -118,11 +118,77 @@
         }
       ]
     },
+    "anyOfBlock": {
+      "type": "array",
+      "minItems": 2,
+      "description": "A manual OR: each item is a single-key {subject: level} object; the whole list becomes one `any` node. Use this only for alternatives that are NOT already a national subject-choice group (Mathematics/Mathematical Literacy/Technical Mathematics groups automatically -- see requirements' own description). Only one any_of block per programme is supported.",
+      "items": {
+        "type": "object",
+        "minProperties": 1,
+        "maxProperties": 1,
+        "additionalProperties": {
+          "$ref": "#/$defs/level"
+        },
+        "propertyNames": {
+          "enum": [
+            "accounting",
+            "afrikaans",
+            "agricultural_sciences",
+            "business_studies",
+            "computer_applications_technology",
+            "consumer_studies",
+            "design",
+            "dramatic_arts",
+            "economics",
+            "engineering_graphics_and_design",
+            "english",
+            "geography",
+            "history",
+            "hospitality_studies",
+            "information_technology",
+            "isindebele",
+            "isixhosa",
+            "isizulu",
+            "life_orientation",
+            "life_science",
+            "life_sciences",
+            "mathematical_literacy",
+            "mathematics",
+            "maths",
+            "maths_literacy",
+            "music",
+            "physical_science",
+            "physical_sciences",
+            "religion_studies",
+            "sepedi",
+            "sesotho",
+            "setswana",
+            "siswati",
+            "technical_mathematics",
+            "technical_maths",
+            "technical_science",
+            "technical_sciences",
+            "tourism",
+            "tshivenda",
+            "visual_arts",
+            "xitsonga"
+          ]
+        }
+      }
+    },
     "requirements": {
       "type": "object",
-      "description": "One entry per subject column in the source table. A key of the form '<a>_or_<b>' means ONE printed level satisfied by either subject. Language families are written as the family ('english'), not as _hl/_fal.",
+      "description": "One entry per subject column in the source table. Mathematics / Mathematical Literacy / Technical Mathematics group into an automatic OR whenever 2+ are present with real levels -- no special syntax needed. Any OTHER alternative (e.g. Physical Sciences OR Technical Sciences) needs an explicit any_of block. Language families are written as the family ('english'), not as _hl/_fal.",
+      "properties": {
+        "any_of": {
+          "$ref": "#/$defs/anyOfBlock"
+        }
+      },
       "propertyNames": {
         "anyOf": [
+          {
+            "const": "any_of"
+          },
           {
             "enum": [
               "accounting",
@@ -168,9 +234,6 @@
               "xitsonga",
               "additional_language"
             ]
-          },
-          {
-            "pattern": "^(accounting|afrikaans|agricultural_sciences|business_studies|computer_applications_technology|consumer_studies|design|dramatic_arts|economics|engineering_graphics_and_design|english|geography|history|hospitality_studies|information_technology|isindebele|isixhosa|isizulu|life_orientation|life_science|life_sciences|mathematical_literacy|mathematics|maths|maths_literacy|music|physical_science|physical_sciences|religion_studies|sepedi|sesotho|setswana|siswati|technical_mathematics|technical_maths|technical_science|technical_sciences|tourism|tshivenda|visual_arts|xitsonga)_or_(accounting|afrikaans|agricultural_sciences|business_studies|computer_applications_technology|consumer_studies|design|dramatic_arts|economics|engineering_graphics_and_design|english|geography|history|hospitality_studies|information_technology|isindebele|isixhosa|isizulu|life_orientation|life_science|life_sciences|mathematical_literacy|mathematics|maths|maths_literacy|music|physical_science|physical_sciences|religion_studies|sepedi|sesotho|setswana|siswati|technical_mathematics|technical_maths|technical_science|technical_sciences|tourism|tshivenda|visual_arts|xitsonga)$"
           }
         ]
       },
@@ -213,7 +276,7 @@
       "type": "object",
       "required": [
         "qualification_code",
-        "name",
+        "programme",
         "duration_years",
         "minimum_aps",
         "requirements"
@@ -224,9 +287,10 @@
           "type": "string",
           "minLength": 1
         },
-        "name": {
+        "programme": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "description": "The programme's title, e.g. 'BA (Communication Design)'."
         },
         "faculty": {
           "type": [
@@ -254,6 +318,13 @@
           "items": {
             "type": "string"
           }
+        },
+        "source_page": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
         },
         "minimum_aps": {
           "oneOf": [
@@ -311,13 +382,6 @@
             "string",
             "null"
           ]
-        },
-        "source_page": {
-          "type": [
-            "integer",
-            "null"
-          ],
-          "minimum": 1
         },
         "confidence": {
           "enum": [

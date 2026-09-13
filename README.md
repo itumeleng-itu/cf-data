@@ -37,25 +37,24 @@ Admission requirements are **transcribed by hand** from prospectus PDFs into a f
 ```mermaid
 flowchart LR
     PDF[Prospectus PDF] -->|archive_source.py| R2[(Cloudflare R2)]
-    PDF -.->|read by a human| B[Bundle JSON<br/>flat, one file per<br/>institution-year]
-    B -->|convert_bundle.py| S[seeds/<br/>requirement trees]
-    S -->|validate_seeds.py| S
-    S -->|load_seeds.py| DB[(Supabase<br/>Postgres)]
-    DB -->|export_data.py| J[programmes.json]
+    PDF -.->|read by a human| B[Bundle zip<br/>flat, one file per<br/>institution-year]
+    B -->|ingest_bundle.py| DB[(Supabase<br/>Postgres)]
+    S[seeds/<br/>requirement trees] -->|load_seeds.py| DB
+    DB -->|export_data.py --verified-only| J[programmes.json]
     J -->|docker build| IMG[API image]
     IMG -->|kubectl apply| K8S[Kubernetes]
 ```
 
-Each step exists for a reason:
+Two ways in, one way out. `seeds/` + `load_seeds.py` is how the original 29 hand-verified UJ records got in, and still works exactly as it did — nothing about it changed. `ingest_bundle.py` is the entrance for everything since: an operator transcribes a prospectus into the flat bundle format and ingests it directly into Postgres, no intermediate tree file required. Each step exists for a reason:
 
 | Step | What it is for |
 |---|---|
 | **R2 archive** | The source PDF is stored so every record's `source_doc` + `source_page` resolves to a real page of a real document. When a learner disputes a result, pointing at the source page is what settles it. |
 | **Bundle** | A person transcribes what the table *looks like* — one number per cell. Nobody hand-authors rule trees. |
-| **convert_bundle.py** | Turns the flat shape into requirement trees, deriving the structure (`any` nodes, exclusions) the flat shape only implies. |
-| **validate_data.py** | Structural checks *and* semantic ones — the errors hand-typed data actually contains. It reports; it never repairs. |
-| **Postgres** | Source of truth. Holds every academic year; the API only ever sees the exported slice. |
-| **export_data.py** | Flattens the chosen years into one JSON file. |
+| **ingest_bundle.py** | Unpacks the bundle safely, converts it (via `convert_bundle.py`), runs it through the same semantic validator `seeds/` is held to, diffs it against whatever is already in Postgres, and writes only what's new or changed — never partially, never as `confidence='verified'`. |
+| **validate_data.py** | Structural checks *and* semantic ones — the errors hand-typed data actually contains. It reports; it never repairs. Shared by both paths into Postgres. |
+| **Postgres** | Source of truth. Holds every academic year and every institution's full history; the API only ever sees the exported, verified slice. |
+| **export_data.py** | Flattens the chosen years into one JSON file. `--verified-only` is the CI default — see [Validation](#validation). |
 | **Docker + k8s** | The API ships as an image with the dataset baked in, so a running container needs no database at all. |
 
 ---
@@ -98,12 +97,14 @@ coursefind-data/
 │   └── Dockerfile
 │
 ├── scripts/                    # The data pipeline, as CLI tools
-│   ├── convert_bundle.py       # Flat bundle  ->  requirement trees in seeds/
+│   ├── ingest_bundle.py        # Bundle zip/dir  ->  Postgres, directly (the real entrance)
+│   ├── convert_bundle.py       # Flat bundle  ->  requirement trees (ingest_bundle.py's engine)
+│   ├── export_bundle.py        # The reverse: Postgres/seeds  ->  flat bundle (template + round-trip test)
 │   ├── validate_data.py        # Structural + semantic validation (reports, never repairs)
 │   ├── validate_seeds.py       # Runs the validator over seeds/, reporting file:line
 │   ├── watch_seeds.py          # Re-validates on every save, for a live authoring loop
 │   ├── seed_stats.py           # Encoding burn-down per faculty file
-│   ├── load_seeds.py           # seeds/  ->  Postgres
+│   ├── load_seeds.py           # seeds/  ->  Postgres (the ORIGINAL entrance -- still works)
 │   ├── export_data.py          # Postgres  ->  api/src/app/data/programmes.json
 │   ├── archive_source.py       # Source PDF  ->  R2, prints the key for source.document
 │   ├── discover_prospectuses.py / fetch_prospectuses.py   # Find and download source PDFs
@@ -165,36 +166,40 @@ Keep the key it prints — it goes in the bundle's `source.document`, and is wha
 
 ### 4. Transcribe it into a bundle
 
-Read [`docs/BUNDLE_FORMAT.md`](docs/BUNDLE_FORMAT.md) first, then write one JSON file per institution-year with `seeds/bundle.schema.json` wired into your editor so it validates as you type.
+Read [`docs/BUNDLE_FORMAT.md`](docs/BUNDLE_FORMAT.md) first, then write one JSON file per institution-year with `seeds/bundle.schema.json` wired into your editor so it validates as you type. Zip several institutions together if you're doing more than one.
 
 The one thing to get right: **`"not_accepted"` is the opposite of an omitted key**, and the printed table often renders both as a dash. `"not_accepted"` bars a learner who offers the subject; `null` or an omitted key does nothing at all. Only a human reading the sentence under the table can tell which — that is precisely the judgement this architecture is built around.
 
-### 5. Convert, and let the validator argue with you
+### 5. Ingest, and let the report argue with you
 
 ```bash
-uv run python scripts/convert_bundle.py bundles/uj_2027.json --dry-run   # check
-uv run python scripts/convert_bundle.py bundles/uj_2027.json             # write seeds/
-uv run python scripts/validate_seeds.py
+uv run python scripts/ingest_bundle.py bundles.zip --dry-run   # unpack, validate, diff -- write nothing
+uv run python scripts/ingest_bundle.py bundles.zip             # for real
 ```
 
-`--dry-run` converts and validates without writing anything. Errors come back as `file:line`.
+`--dry-run` runs every stage except the actual write and prints exactly the report a real run would produce — the natural first command. Both print (and save to `data/reports/ingest_{timestamp}.md`) a per-institution breakdown: how many records are new, changed (with the old value and the new one, field by field), removed, or unchanged, plus any warnings. A bundle that fails validation is rejected **whole** — no half-loaded institution — and every record ingestion writes is stamped `confidence='extracted'`, never `'verified'`, no matter what the bundle says.
 
-### 6. Load, export, ship
+Re-running the exact same bundle is a true no-op: every record comes back `unchanged`, and nothing is written at all — not even a timestamp bump. A record that WAS `'verified'` and that this bundle actually changes drops back to `'extracted'` automatically and is called out prominently in the report, because a human verified the old value and hasn't seen the new one.
+
+### 6. Review, verify, export, ship
 
 ```bash
-uv run python scripts/load_seeds.py
-uv run python scripts/export_data.py --years 2027
+# Read the report. Open the flagged/changed records in Studio (or psql)
+# and set confidence = 'verified' on the ones you've actually checked.
+# Nothing below this line trusts a record that hasn't had this step.
+
+uv run python scripts/export_data.py --years 2027 --verified-only
 cd api && docker build -t coursefind-api:2027.1 --build-arg DATA_VERSION=2027.1 .
 kubectl apply -f k8s/
 ```
 
-The image is tagged `year.revision`. The dataset is baked in at build time, so a running container reads no database and no PDF — only the JSON file inside itself.
+**Step 6's review is required, not optional.** `--verified-only` is the CI default specifically so an ingested-but-unreviewed bundle cannot reach production by being loaded — ingestion can get a record into Postgres, but only a human, deliberately, gets it into what learners actually see. The image is tagged `year.revision`. The dataset is baked in at build time, so a running container reads no database and no PDF — only the JSON file inside itself.
 
 ---
 
 ## Validation
 
-`scripts/validate_data.py` runs two layers, and neither ever modifies the data.
+`scripts/validate_data.py` runs two layers, and neither ever modifies the data. Both `load_seeds.py`'s path (via `validate_seeds.py`) and `ingest_bundle.py`'s path run the exact same check — a bundle isn't held to a looser standard than a hand-written seed file.
 
 **Structural** — is the requirement tree well-formed? Unknown subject slugs, empty `all`/`any` nodes, a node setting both `subject` and `language`, levels outside 1–7.
 

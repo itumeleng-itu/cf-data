@@ -9,6 +9,7 @@ admit learners the university rejects.
 """
 
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -66,7 +67,7 @@ def test_not_accepted_contributes_no_subject_node() -> None:
     assert tree["rules"] == [{"kind": "subject", "language": "english", "min_level": 4}]
 
 
-# --- mutually exclusive subjects (carried over from test_methods_shared) -
+# --- mutually exclusive subjects: automatic OR --------------------------
 
 def test_two_required_group_members_become_one_any() -> None:
     tree, _excluded = build_requirements({"english": 4, "mathematics": 3, "mathematical_literacy": 4})
@@ -79,7 +80,7 @@ def test_three_required_group_members_become_one_flat_three_way_any() -> None:
     # Not two nested pairwise `any` nodes -- a nested shape does not
     # compare equal to the flat one even though it means the same thing.
     tree, _excluded = build_requirements(
-        {"english": 4, "mathematics_or_technical_mathematics": 4, "mathematical_literacy": 5}
+        {"english": 4, "mathematics": 4, "technical_mathematics": 4, "mathematical_literacy": 5}
     )
     any_nodes = _find_any_nodes(tree)
     assert len(any_nodes) == 1
@@ -127,24 +128,12 @@ def test_single_group_member_stays_a_plain_subject() -> None:
     assert tree["rules"] == [{"kind": "subject", "subject": "mathematics", "min_level": 5}]
 
 
-def test_ungrouped_compound_key_pairs_into_an_any() -> None:
-    # physical_sciences/technical_sciences are NOT a national exclusive
-    # group (a learner can hold both), so they only pair when the record
-    # explicitly says either is accepted.
-    tree, _excluded = build_requirements({"physical_sciences_or_technical_sciences": 5})
-    any_nodes = _find_any_nodes(tree)
-    assert len(any_nodes) == 1
-    assert _subjects_in(any_nodes[0]) == {"physical_sciences", "technical_sciences"}
-
-
 def test_separate_science_keys_do_not_pair_implicitly() -> None:
+    # Physical Sciences / Technical Sciences is NOT a national exclusive
+    # group (a learner can hold both) -- two plain keys never auto-pair
+    # without an explicit any_of block.
     tree, _excluded = build_requirements({"physical_science": 5, "life_sciences": 4})
     assert _find_any_nodes(tree) == []
-
-
-def test_compound_not_accepted_excludes_both_members() -> None:
-    _tree, excluded = build_requirements({"mathematics_or_technical_mathematics": "not_accepted"})
-    assert excluded == ["mathematics", "technical_mathematics"]
 
 
 def test_merged_any_keeps_the_position_of_its_first_member() -> None:
@@ -153,6 +142,79 @@ def test_merged_any_keeps_the_position_of_its_first_member() -> None:
     tree, _excluded = build_requirements({"english": 4, "mathematics": 3, "mathematical_literacy": 4})
     assert tree["rules"][0] == {"kind": "subject", "language": "english", "min_level": 4}
     assert tree["rules"][1]["kind"] == "any"
+
+
+# --- any_of: manual OR ---------------------------------------------------
+
+def test_any_of_produces_one_any_node_with_every_member() -> None:
+    tree, _excluded = build_requirements(
+        {"english": 4, "any_of": [{"physical_science": 5}, {"technical_science": 5}]}
+    )
+    any_nodes = _find_any_nodes(tree)
+    assert len(any_nodes) == 1
+    assert _subjects_in(any_nodes[0]) == {"physical_sciences", "technical_sciences"}
+
+
+def test_any_of_supports_more_than_two_alternatives() -> None:
+    tree, _excluded = build_requirements(
+        {"any_of": [{"geography": 4}, {"history": 4}, {"tourism": 4}]}
+    )
+    any_nodes = _find_any_nodes(tree)
+    assert len(any_nodes) == 1
+    assert _subjects_in(any_nodes[0]) == {"geography", "history", "tourism"}
+
+
+def test_any_of_and_an_auto_grouped_any_coexist_as_sibling_nodes() -> None:
+    # The B6CV3Q shape: (Maths or Tech Maths) is automatic, (Physical or
+    # Technical Science) is manual -- two sibling `any` nodes in one `all`.
+    tree, _excluded = build_requirements({
+        "english": 4, "mathematics": 5, "technical_mathematics": 5,
+        "any_of": [{"physical_science": 5}, {"technical_science": 5}],
+    })
+    any_nodes = _find_any_nodes(tree)
+    assert len(any_nodes) == 2
+    groups = [_subjects_in(n) for n in any_nodes]
+    assert {"mathematics", "technical_mathematics"} in groups
+    assert {"physical_sciences", "technical_sciences"} in groups
+    # Order: English, then the auto-grouped any, then the manual any_of.
+    assert tree["rules"][0]["kind"] == "subject"
+    assert tree["rules"][1] == {"kind": "any", "rules": [
+        {"kind": "subject", "subject": "mathematics", "min_level": 5},
+        {"kind": "subject", "subject": "technical_mathematics", "min_level": 5},
+    ]}
+    assert tree["rules"][2]["kind"] == "any"
+
+
+def test_any_of_requires_at_least_two_members() -> None:
+    with pytest.raises(BundleError):
+        build_requirements({"any_of": [{"physical_science": 5}]})
+
+
+def test_any_of_member_must_be_a_single_key_object() -> None:
+    with pytest.raises(BundleError):
+        build_requirements({"any_of": [{"physical_science": 5, "technical_science": 5}, {"geography": 4}]})
+
+
+def test_any_of_member_cannot_be_not_accepted() -> None:
+    # An excluded subject can't be the thing that satisfies an
+    # alternative -- there is no sensible reading of "you may offer
+    # either Physical Science or (an excluded subject)".
+    with pytest.raises(BundleError):
+        build_requirements({"any_of": [{"physical_science": 5}, {"technical_science": "not_accepted"}]})
+
+
+def test_any_of_member_subject_key_must_be_known() -> None:
+    with pytest.raises(BundleError):
+        build_requirements({"any_of": [{"physical_science": 5}, {"nonsense_subject": 5}]})
+
+
+def test_any_of_is_placed_before_any_additional_language() -> None:
+    tree, _excluded = build_requirements({
+        "additional_language": 4,
+        "any_of": [{"physical_science": 5}, {"technical_science": 5}],
+    })
+    assert tree["rules"][0]["kind"] == "any"
+    assert tree["rules"][-1] == {"kind": "any_additional_language", "min_level": 4}
 
 
 # --- language shapes ----------------------------------------------------
@@ -232,7 +294,7 @@ def test_singular_prospectus_spellings_are_accepted() -> None:
 def test_extended_is_derived_from_the_qualification_type_heading() -> None:
     record = convert_record(
         {
-            "qualification_code": "X1", "name": "Extended thing",
+            "qualification_code": "X1", "programme": "Extended thing",
             "qualification_type": "Extended Degree (4 years)", "duration_years": 4,
             "minimum_aps": 26, "requirements": {"english": 4},
         },
@@ -247,7 +309,7 @@ def test_source_document_is_carried_onto_every_record() -> None:
         "academic_year": 2027,
         "source": {"document": "uj/2027/prospectus.pdf"},
         "programmes": [{
-            "qualification_code": "X1", "name": "Thing", "duration_years": 3,
+            "qualification_code": "X1", "programme": "Thing", "duration_years": 3,
             "minimum_aps": 26, "requirements": {"english": 4},
         }],
     })
@@ -256,7 +318,7 @@ def test_source_document_is_carried_onto_every_record() -> None:
 
 def test_scoreable_defaults_to_true_when_omitted() -> None:
     record = convert_record(
-        {"qualification_code": "X1", "name": "Thing", "duration_years": 3,
+        {"qualification_code": "X1", "programme": "Thing", "duration_years": 3,
          "minimum_aps": 26, "requirements": {"english": 4}},
         "uj", 2027, {},
     )
@@ -265,7 +327,7 @@ def test_scoreable_defaults_to_true_when_omitted() -> None:
 
 def test_scoreable_false_is_carried_through() -> None:
     record = convert_record(
-        {"qualification_code": "X1", "name": "Composite Index programme", "duration_years": 4,
+        {"qualification_code": "X1", "programme": "Composite Index programme", "duration_years": 4,
          "minimum_aps": 26, "requirements": {"english": 4}, "scoreable": False},
         "uj", 2027, {},
     )
@@ -274,7 +336,7 @@ def test_scoreable_false_is_carried_through() -> None:
 
 def test_scoring_override_defaults_to_none_when_omitted() -> None:
     record = convert_record(
-        {"qualification_code": "X1", "name": "Thing", "duration_years": 3,
+        {"qualification_code": "X1", "programme": "Thing", "duration_years": 3,
          "minimum_aps": 26, "requirements": {"english": 4}},
         "uj", 2027, {},
     )
@@ -284,7 +346,7 @@ def test_scoring_override_defaults_to_none_when_omitted() -> None:
 
 def test_scoring_override_and_strategy_override_are_carried_through() -> None:
     record = convert_record(
-        {"qualification_code": "X1", "name": "Thing", "duration_years": 3,
+        {"qualification_code": "X1", "programme": "Thing", "duration_years": 3,
          "minimum_aps": 26, "requirements": {"english": 4},
          "scoring_override": {"subject_count": 5},
          "scoring_strategy_override": "percentage_sum_div_10"},
@@ -300,10 +362,28 @@ def test_a_bad_record_names_its_qualification_code() -> None:
             "institution": {"id": "uj", "name": "UJ", "scoring_strategy": "aps_best6_excl_lo"},
             "academic_year": 2027,
             "programmes": [{
-                "qualification_code": "B00BAD", "name": "Thing", "duration_years": 3,
+                "qualification_code": "B00BAD", "programme": "Thing", "duration_years": 3,
                 "minimum_aps": 26, "requirements": {"nonsense": 4},
             }],
         })
+
+
+def test_missing_required_field_is_reported_by_name() -> None:
+    with pytest.raises(BundleError, match="duration_years"):
+        convert_record(
+            {"qualification_code": "X1", "programme": "Thing",
+             "minimum_aps": 26, "requirements": {"english": 4}},
+            "uj", 2027, {},
+        )
+
+
+def test_missing_programme_title_is_reported_not_a_keyerror() -> None:
+    with pytest.raises(BundleError, match="programme"):
+        convert_record(
+            {"qualification_code": "X1", "duration_years": 3,
+             "minimum_aps": 26, "requirements": {"english": 4}},
+            "uj", 2027, {},
+        )
 
 
 # --- against the real hand-verified dataset -----------------------------
@@ -311,9 +391,9 @@ def test_a_bad_record_names_its_qualification_code() -> None:
 _SEEDS = {p["qualification_code"]: p for p in load()["programmes"]}
 
 # Flat transcriptions of nine real UJ records, covering every hard shape
-# in the encoded set: a three-way exclusive group, an ungrouped science
-# alternative, both language bands, a prose-only exclusion, and both
-# negative controls. Each must rebuild its hand-verified tree exactly.
+# in the encoded set: a three-way exclusive group, a manual any_of, both
+# language bands, a prose-only exclusion, and both negative controls.
+# Each must rebuild its hand-verified tree exactly.
 _REAL_CASES: dict[str, tuple[dict, object]] = {
     "B34CAQ": (
         {"english": 4, "mathematics": 5, "mathematical_literacy": "not_accepted",
@@ -321,17 +401,17 @@ _REAL_CASES: dict[str, tuple[dict, object]] = {
         {"with_mathematics": 33},
     ),
     "B6CV3Q": (
-        {"english": 4, "mathematics_or_technical_mathematics": 5,
-         "physical_sciences_or_technical_sciences": 5},
+        {"english": 4, "mathematics": 5, "technical_mathematics": 5,
+         "any_of": [{"physical_science": 5}, {"technical_science": 5}]},
         {"with_mathematics": 28, "with_technical_mathematics": 28},
     ),
     "B6CS0Q": (
-        {"english": 5, "mathematics_or_technical_mathematics": 5,
+        {"english": 5, "mathematics": 5, "technical_mathematics": 5,
          "physical_science": 5, "technical_science": "not_accepted"},
         {"with_mathematics": 32, "with_technical_mathematics": 32},
     ),
     "B34HRQ": (
-        {"english": 4, "mathematics_or_technical_mathematics": 4, "mathematical_literacy": 5},
+        {"english": 4, "mathematics": 4, "technical_mathematics": 4, "mathematical_literacy": 5},
         {"with_mathematics": 28, "with_technical_mathematics": 28,
          "with_mathematical_literacy": 28},
     ),
@@ -351,7 +431,7 @@ _REAL_CASES: dict[str, tuple[dict, object]] = {
         {"with_mathematics": 25, "with_mathematical_literacy": 26},
     ),
     "B1CISQ": (
-        {"english": 4, "mathematics_or_technical_mathematics": 4,
+        {"english": 4, "mathematics": 4, "technical_mathematics": 4,
          "mathematical_literacy": "not_accepted"},
         26,
     ),
@@ -402,8 +482,9 @@ _SCHEMA = json.loads((ROOT / "seeds" / "bundle.schema.json").read_text(encoding=
 
 
 def _schema_base_keys() -> set[str]:
-    names = _SCHEMA["$defs"]["requirements"]["propertyNames"]["anyOf"]
-    return set(names[0]["enum"])
+    branches = _SCHEMA["$defs"]["requirements"]["propertyNames"]["anyOf"]
+    enum_branch = next(b for b in branches if "enum" in b)
+    return set(enum_branch["enum"])
 
 
 def test_schema_accepts_exactly_the_keys_the_converter_accepts() -> None:
@@ -413,6 +494,12 @@ def test_schema_accepts_exactly_the_keys_the_converter_accepts() -> None:
     variants = {key for pair in LANGUAGE_FAMILIES.values() for key in pair}
     expected = ({s.value for s in Subject} - variants) | set(LANGUAGE_FAMILIES) | set(_SUBJECT_ALIASES)
     assert _schema_base_keys() == expected | {"additional_language"}
+
+
+def test_schema_declares_any_of_as_a_distinct_property() -> None:
+    branches = _SCHEMA["$defs"]["requirements"]["propertyNames"]["anyOf"]
+    assert any(b.get("const") == "any_of" for b in branches)
+    assert "any_of" in _SCHEMA["$defs"]["requirements"]["properties"]
 
 
 def test_every_key_the_schema_lists_actually_resolves() -> None:
@@ -443,6 +530,13 @@ def test_schema_score_variant_keys_match_the_converter() -> None:
     assert schema_keys == set(_SCORE_SUBJECT_MAP) | english_banded
 
 
+def test_schema_requires_programme_title_not_the_old_name_key() -> None:
+    programme_schema = _SCHEMA["$defs"]["programme"]
+    assert "programme" in programme_schema["required"]
+    assert "programme" in programme_schema["properties"]
+    assert "name" not in programme_schema["properties"]
+
+
 def test_schema_declares_the_scoring_override_and_scoreable_fields() -> None:
     # Extends the schema-drift coverage above to the scoring-generalisation
     # fields: if convert_bundle.py accepts one of these keys but the schema
@@ -454,7 +548,7 @@ def test_schema_declares_the_scoring_override_and_scoreable_fields() -> None:
     assert {"scoring_override", "scoring_strategy_override", "scoreable"} <= programme_props
 
     record = convert_record(
-        {"qualification_code": "X1", "name": "Thing", "duration_years": 3,
+        {"qualification_code": "X1", "programme": "Thing", "duration_years": 3,
          "minimum_aps": 26, "requirements": {"english": 4},
          "scoring_override": {"subject_count": 5},
          "scoring_strategy_override": "percentage_sum_div_10", "scoreable": False},
@@ -471,12 +565,12 @@ def test_cli_dry_run_converts_and_validates_without_writing(tmp_path: Path) -> N
         "institution": {
             "id": "uj", "name": "University of Johannesburg",
             "scoring_strategy": "aps_best6_excl_lo",
-            "scoring_config": {"excludes_life_orientation": True, "subject_count": 6},
+            "scoring_config": {"subject_count": 6, "exclude_subjects": ["life_orientation"]},
         },
         "academic_year": 2027,
         "source": {"document": "uj/2027/prospectus.pdf", "retrieved_at": "2026-06-25"},
         "programmes": [{
-            "qualification_code": "B34CAQ", "name": "Bachelor of Accounting",
+            "qualification_code": "B34CAQ", "programme": "Bachelor of Accounting",
             "faculty": "College of Business and Economics", "campus": ["APK"],
             "duration_years": 3, "source_page": 40, "confidence": "verified",
             "minimum_aps": {"with_mathematics": 33},
@@ -498,34 +592,44 @@ def test_cli_dry_run_converts_and_validates_without_writing(tmp_path: Path) -> N
     assert not (tmp_path / "seeds").exists()
 
 
-def test_the_worked_example_in_the_docs_converts_exactly_as_documented(tmp_path: Path) -> None:
-    # docs/BUNDLE_FORMAT.md shows a two-record bundle and the tree one of
-    # them converts to. Both blocks are read back out of the markdown and
-    # run, so the document cannot quietly become wrong.
-    import re
+# --- docs/BUNDLE_FORMAT.md's own worked examples must stay accurate -----
+# Each block below is read back out of the markdown and actually run, so
+# the document cannot quietly drift from what the converter does.
 
-    md = (ROOT / "docs" / "BUNDLE_FORMAT.md").read_text(encoding="utf-8")
-    blocks = re.findall(r"```json\n(.*?)\n```", md, re.S)
-    bundle = next(b for b in blocks if '"programmes": [' in b and "B34CAQ" in b and "B2I02Q" in b)
-    expected = json.loads(next(b for b in blocks if '"excluded_subjects": ["mathematical_literacy"' in b))
+_DOC = (ROOT / "docs" / "BUNDLE_FORMAT.md").read_text(encoding="utf-8")
+_DOC_BLOCKS = re.findall(r"```json\n(.*?)\n```", _DOC, re.S)
 
-    source = tmp_path / "uj_2027.json"
-    source.write_text(bundle, encoding="utf-8")
-    result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "convert_bundle.py"), str(source),
-         "--out", str(tmp_path / "seeds")],
-        capture_output=True, text=True, encoding="utf-8",
-    )
-    assert result.returncode == 0, result.stdout + result.stderr
 
-    records = json.loads((tmp_path / "seeds" / "uj" / "uj_2027.json").read_text(encoding="utf-8"))
-    by_code = {r["qualification_code"]: r for r in records}
-    assert by_code["B34CAQ"]["requirements"]["nsc"] == expected
-    # The other half of the contrast: "not_accepted" excludes, null does not.
-    assert by_code["B2I02Q"]["requirements"]["nsc"]["excluded_subjects"] == [
-        "technical_mathematics", "technical_sciences",
+def _doc_block(substring: str) -> dict:
+    return json.loads(next(b for b in _DOC_BLOCKS if substring in b))
+
+
+def test_doc_programme_record_example_converts_without_error() -> None:
+    flat = _doc_block('"qualification_code": "B8CD2Q"')
+    record = convert_record(flat, "uj", 2027, {})
+    assert record["name"] == "BA (Communication Design)"
+    assert record["requirements"]["nsc"]["excluded_subjects"] == ["technical_mathematics"]
+
+
+def test_doc_worked_example_a_not_accepted_reproduces_b34caq() -> None:
+    flat = _doc_block('"mathematical_literacy": "not_accepted", "technical_mathematics": "not_accepted" }')
+    expected = _doc_block('"excluded_subjects": ["mathematical_literacy", "technical_mathematics"]')
+    tree, excluded = build_requirements(flat)
+    score, _notes = build_score({"with_mathematics": 33})
+    assert {"score": score, "subjects": tree, "excluded_subjects": excluded} == expected
+
+
+def test_doc_worked_example_b_any_of_reproduces_b6cv3q() -> None:
+    flat_record = _doc_block('"qualification_code": "B6CV3Q"')
+    expected_tree = _doc_block('"physical_sciences", "min_level": 5')
+    record = convert_record(flat_record, "uj", 2027, {})
+    nsc = record["requirements"]["nsc"]
+    assert nsc["subjects"] == expected_tree
+    assert nsc["excluded_subjects"] == []
+    assert nsc["score"] == [
+        {"min_score": 28, "requires_subject": "mathematics"},
+        {"min_score": 28, "requires_subject": "technical_mathematics"},
     ]
-    assert by_code["B2I02Q"]["source_doc"] == "uj/2027/prospectus.pdf"
 
 
 def test_converting_elsewhere_never_writes_into_the_repo_seeds(tmp_path: Path) -> None:
@@ -535,7 +639,7 @@ def test_converting_elsewhere_never_writes_into_the_repo_seeds(tmp_path: Path) -
         "institution": {"id": "zz", "name": "Elsewhere", "scoring_strategy": "aps_best6_excl_lo"},
         "academic_year": 2027,
         "programmes": [{
-            "qualification_code": "Z1", "name": "Thing", "duration_years": 3,
+            "qualification_code": "Z1", "programme": "Thing", "duration_years": 3,
             "minimum_aps": 26, "requirements": {"english": 4},
         }],
     }), encoding="utf-8")
@@ -559,7 +663,7 @@ def test_cli_rejects_a_semantically_wrong_bundle(tmp_path: Path) -> None:
         },
         "academic_year": 2027,
         "programmes": [{
-            "qualification_code": "B00BAD", "name": "Swapped columns",
+            "qualification_code": "B00BAD", "programme": "Swapped columns",
             "duration_years": 3, "minimum_aps": 26,
             "requirements": {"english": 4, "mathematics": 5, "mathematical_literacy": 3},
         }],
