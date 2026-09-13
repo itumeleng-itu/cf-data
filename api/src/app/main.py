@@ -65,7 +65,21 @@ class _InstitutionModel(BaseModel):
 class _ProgrammeModel(BaseModel):
     """One degree/diploma programme at one university: its code, name,
     and admission requirements (the "requirements" field holds the rule
-    tree that evaluator.py checks a learner's marks against)."""
+    tree that evaluator.py checks a learner's marks against).
+
+    scoring_override and scoring_strategy_override let ONE programme
+    depart from its institution's scoring (see scoring.py) -- a faculty
+    with different config for the same algorithm (scoring_override,
+    merged over the institution's scoring_config) or a genuinely
+    different algorithm (scoring_strategy_override). Both are nullable:
+    absent means "use the institution's own scoring unchanged", the
+    overwhelmingly common case.
+
+    scoreable=False means no formula here produces a trustworthy score
+    at all -- not "scores low" -- e.g. a Composite Index that needs
+    National Benchmark Test results /v1/qualify never collects (see
+    docs/scoring/uct.md, wits.md). Such programmes are never evaluated;
+    see _run_qualify's requires_additional_assessment bucket."""
     institution_id: str
     academic_year: int
     qualification_code: str
@@ -80,6 +94,9 @@ class _ProgrammeModel(BaseModel):
     source_doc: str | None = None
     source_page: int | None = None
     confidence: str = "extracted"
+    scoring_override: dict | None = None
+    scoring_strategy_override: str | None = None
+    scoreable: bool = True
 
 
 class _DataFile(BaseModel):
@@ -199,14 +216,33 @@ class ProgrammeResult(BaseModel):
     failures: list[FailureOut] = Field(default_factory=list)
 
 
+class UnscoreableProgrammeResult(BaseModel):
+    """One programme /v1/qualify could not score at all (scoreable=false
+    -- see _ProgrammeModel), carried in its own response bucket rather
+    than as a qualified/near-miss/failed ProgrammeResult, because it has
+    no score_required, score_actual, margin or per-subject failures to
+    report -- showing zeroes or nulls for all of those would read as "you
+    don't qualify," which is not what this means."""
+    institution: str
+    qualification_code: str
+    name: str
+    faculty: str | None
+    campus: list[str]
+    duration_years: float | None
+    selection_notes: list[str]
+
+
 class QualifyResponse(BaseModel):
     """The full shape of what /v1/qualify sends back: the learner's
     calculated score at each university, the list of programmes they
-    qualify for, the list of "near miss" programmes, and how many
-    programmes were checked in total."""
+    qualify for, the list of "near miss" programmes, programmes that
+    need an assessment this API can't compute (requires_additional_assessment
+    -- e.g. a Composite Index needing National Benchmark Test results),
+    and how many programmes were checked in total."""
     scores: dict[str, int]
     qualified: list[ProgrammeResult]
     near_misses: list[ProgrammeResult]
+    requires_additional_assessment: list[UnscoreableProgrammeResult]
     evaluated_count: int
 
 
@@ -240,11 +276,47 @@ class ProgrammeResultDict(TypedDict):
     failures: list[FailureDict]
 
 
+class UnscoreableProgrammeResultDict(TypedDict):
+    institution: str
+    qualification_code: str
+    name: str
+    faculty: str | None
+    campus: list[str]
+    duration_years: float | None
+    selection_notes: list[str]
+
+
 class QualifyResponseDict(TypedDict):
     scores: dict[str, int]
     qualified: list[ProgrammeResultDict]
     near_misses: list[ProgrammeResultDict]
+    requires_additional_assessment: list[UnscoreableProgrammeResultDict]
     evaluated_count: int
+
+
+def _unscoreable_result(programme: dict) -> UnscoreableProgrammeResultDict:
+    """Builds the trimmed result for a scoreable=false programme -- no
+    score, no failures, since neither can be computed at all (see
+    _ProgrammeModel's docstring)."""
+    return {
+        "institution": programme["institution_id"],
+        "qualification_code": programme["qualification_code"],
+        "name": programme["name"],
+        "faculty": programme.get("faculty"),
+        "campus": programme.get("campus", []),
+        "duration_years": programme.get("duration_years"),
+        "selection_notes": programme.get("selection_notes", []),
+    }
+
+
+def _resolve_scoring(institution: dict, programme: dict) -> tuple[str, dict]:
+    """Which scoring algorithm and config apply to THIS programme: the
+    institution's own scoring_strategy/scoring_config, unless the
+    programme itself overrides one or both (see _ProgrammeModel's
+    docstring for why the two overrides are separate fields)."""
+    strategy = programme.get("scoring_strategy_override") or institution["scoring_strategy"]
+    config = {**institution.get("scoring_config", {}), **(programme.get("scoring_override") or {})}
+    return strategy, config
 
 
 def _evaluate_programme(programme: dict, marks: dict[str, int], achieved: int) -> ProgrammeResultDict:
@@ -300,8 +372,17 @@ def _run_qualify(request: QualifyRequest) -> QualifyResponseDict:
     programme (optionally narrowed by year/university), calculates the
     learner's score at that institution (caching it, since a university
     usually offers many programmes and the score only needs computing
-    once per university), then sorts the results into "qualified" and
-    "near miss" (close, but missing 1-2 things) buckets."""
+    once per university), then sorts the results into "qualified",
+    "near miss" (close, but missing 1-2 things), and
+    "requires_additional_assessment" (scoreable=false -- see
+    _ProgrammeModel) buckets.
+
+    A programme with its own scoring_override/scoring_strategy_override
+    is cached separately by (strategy, config) rather than reusing the
+    institution's baseline score -- but this is the uncommon path; the
+    overwhelming majority of programmes share their institution's plain
+    scoring_strategy/scoring_config and hit the same single cached value
+    every other programme at that institution does, exactly as before."""
     marks = {s.subject: s.percentage for s in request.subjects}
     candidates = [
         p for p in PROGRAMMES
@@ -310,15 +391,30 @@ def _run_qualify(request: QualifyRequest) -> QualifyResponseDict:
     ]
 
     scores: dict[str, int] = {}
+    override_scores: dict[tuple[str, str], int] = {}
     qualified: list[ProgrammeResultDict] = []
     near_misses: list[ProgrammeResultDict] = []
+    requires_additional_assessment: list[UnscoreableProgrammeResultDict] = []
 
     for programme in candidates:
         institution_id = programme["institution_id"]
+        institution = INSTITUTIONS[institution_id]
         if institution_id not in scores:
-            strategy = INSTITUTIONS[institution_id]["scoring_strategy"]
-            scores[institution_id] = SCORERS[strategy](marks)
-        achieved = scores[institution_id]
+            strategy = institution["scoring_strategy"]
+            scores[institution_id] = SCORERS[strategy](marks, institution.get("scoring_config", {}))
+
+        if not programme.get("scoreable", True):
+            requires_additional_assessment.append(_unscoreable_result(programme))
+            continue
+
+        if programme.get("scoring_override") or programme.get("scoring_strategy_override"):
+            strategy, config = _resolve_scoring(institution, programme)
+            cache_key = (strategy, json.dumps(config, sort_keys=True))
+            if cache_key not in override_scores:
+                override_scores[cache_key] = SCORERS[strategy](marks, config)
+            achieved = override_scores[cache_key]
+        else:
+            achieved = scores[institution_id]
 
         result = _evaluate_programme(programme, marks, achieved)
         if not result["failures"]:
@@ -331,6 +427,7 @@ def _run_qualify(request: QualifyRequest) -> QualifyResponseDict:
         "scores": scores,
         "qualified": qualified,
         "near_misses": near_misses,
+        "requires_additional_assessment": requires_additional_assessment,
         "evaluated_count": len(candidates),
     }
 

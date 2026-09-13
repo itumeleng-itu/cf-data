@@ -78,6 +78,61 @@ One file per institution-year. Ship several by zipping them together —
 | `faculty`, `campus`, `source_page`, `career_text`, `selection_notes` | Optional, carried through as-is. |
 | `excluded_subjects` | Optional. Exclusions stated in prose *under* the table rather than in a column. Merged with those derived from `not_accepted`. |
 | `confidence` | `verified`, `extracted` (default) or `flagged`. |
+| `scoring_override` | Optional. Merges over the institution's `scoring_config` for this one programme — see below. |
+| `scoring_strategy_override` | Optional. Replaces the institution's `scoring_strategy` outright for this one programme — see below. |
+| `scoreable` | Optional, defaults `true`. `false` means no formula produces a trustworthy score for this programme at all — see below. |
+
+---
+
+## Scoring: per-institution, sometimes per-programme
+
+`institution.scoring_strategy` and `scoring_config` pick the algorithm and
+its parameters for every programme at that institution by default — see
+`api/src/app/scoring.py` for the registered algorithms (`aps_best6_excl_lo`,
+`percentage_sum_div_10`, `weighted_levels`) and what each one's config
+accepts.
+
+Two escape hatches exist for a programme that genuinely departs from its
+own institution's default, because that happens at the FACULTY level, not
+just the institution level — UCT's Faculty of Science doubles Mathematics
+and Physical Sciences within an otherwise-standard APS; its Commerce
+faculty doesn't (`docs/scoring/uct.md`):
+
+- **`scoring_override`** — a config dict merged *over* the institution's
+  own `scoring_config` for this one programme. Use this when the
+  ALGORITHM is the same but a parameter differs (e.g. a faculty-specific
+  `subject_count`).
+- **`scoring_strategy_override`** — replaces the institution's
+  `scoring_strategy` outright. Use this when the faculty uses a genuinely
+  different algorithm, not just different parameters of the same one.
+
+Both are rare. Leave them out unless a specific programme's prospectus
+states a different formula than the rest of its institution.
+
+### `scoreable: false` — when no formula applies at all
+
+Some programmes cannot be scored by any formula this dataset implements,
+because admission depends on an input `/v1/qualify` deliberately never
+collects. The known case: Wits's and UCT's Faculty of Health Sciences
+fold National Benchmark Test (NBT) results into a Composite Index /
+Weighted Points Score (`docs/scoring/wits.md`, `uct.md`) — most learners
+have no NBT results, so the request schema was deliberately never given
+an NBT field for the sake of a handful of programmes at two institutions.
+
+Set `"scoreable": false` on such a programme and `/v1/qualify` reports it
+in its own `requires_additional_assessment` bucket — carrying only its
+name and `selection_notes`, never a score, never in `qualified` or
+`near_misses`. Put the human-readable explanation of what else the
+learner needs (e.g. "Composite Index includes NBT results — see
+wits.ac.za/nbt") in `selection_notes`, since that's the only field this
+bucket carries.
+
+`minimum_aps` and `requirements` are still required even when
+`scoreable: false` — `/v1/qualify` never evaluates them for such a
+programme, but this format doesn't yet have a shape for "admission
+depends on something other than an NSC score and subject tree" beyond
+"mark it unscoreable and explain in selection_notes." A best-effort
+transcription of the printed NSC-side requirements (if any) is fine.
 
 ---
 

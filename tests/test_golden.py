@@ -62,7 +62,7 @@ def _qualifying_codes() -> frozenset[str]:
         nsc = programme["requirements"]["nsc"]
         excluded = set(nsc.get("excluded_subjects") or [])
         institution = institutions[programme["institution_id"]]
-        achieved = SCORERS[institution["scoring_strategy"]](CANONICAL_MARKS)
+        achieved = SCORERS[institution["scoring_strategy"]](CANONICAL_MARKS, institution.get("scoring_config", {}))
         required = select_score_threshold(nsc["score"], CANONICAL_MARKS)
         failures = evaluate(nsc["subjects"], CANONICAL_MARKS, excluded)
         if required is not None and achieved >= required and not failures:

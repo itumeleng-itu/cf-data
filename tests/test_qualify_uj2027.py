@@ -36,7 +36,7 @@ def _qualifies(code: str, marks: dict[str, int]) -> tuple[bool, list[Failure], i
     nsc = programme["requirements"]["nsc"]
     excluded = _excluded_for(code)
     institution = _INSTITUTIONS[programme["institution_id"]]
-    achieved = SCORERS[institution["scoring_strategy"]](marks)
+    achieved = SCORERS[institution["scoring_strategy"]](marks, institution.get("scoring_config", {}))
     required = select_score_threshold(nsc["score"], marks)
     failures = evaluate(nsc["subjects"], marks, excluded)
     passes = required is not None and achieved >= required and not failures
@@ -46,7 +46,7 @@ def _qualifies(code: str, marks: dict[str, int]) -> tuple[bool, list[Failure], i
 # 1. aps_best6_excl_lo returns 41 -- LO excluded despite tying-highest,
 #    exactly six subjects counted.
 def test_aps_best6_excl_lo_returns_41() -> None:
-    assert SCORERS["aps_best6_excl_lo"](CANONICAL_MARKS) == 41
+    assert SCORERS["aps_best6_excl_lo"](CANONICAL_MARKS, {}) == 41
 
 
 # 2. B2M52Q (Actuarial Science, APS 40, Maths 7) qualifies, margin 1.

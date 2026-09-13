@@ -151,6 +151,21 @@
         "confidence": {
           "enum": ["verified", "extracted", "flagged"],
           "default": "extracted"
+        },
+        "scoring_override": {
+          "type": ["object", "null"],
+          "description": "Merges over the institution's scoring_config for this one programme's score calculation (same algorithm, different parameters -- e.g. a faculty-specific subject_count). null/omitted means the institution's own scoring_config applies unchanged.",
+          "default": null
+        },
+        "scoring_strategy_override": {
+          "type": ["string", "null"],
+          "description": "Replaces the institution's scoring_strategy outright for this one programme, when a faculty uses a genuinely different ALGORITHM, not just different parameters of the same one. null/omitted means the institution's own scoring_strategy applies.",
+          "default": null
+        },
+        "scoreable": {
+          "type": "boolean",
+          "description": "false means no formula here produces a trustworthy score at all (e.g. a Composite Index needing National Benchmark Test results this dataset never collects) -- /v1/qualify reports such a programme in its own requires_additional_assessment bucket, never scored, qualified, or near-miss.",
+          "default": true
         }
       },
       "required": [

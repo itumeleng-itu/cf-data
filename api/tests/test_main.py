@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -175,6 +178,137 @@ def test_qualify_neither_maths_nor_maths_lit_fails_b8cd2q_with_null_required(cli
     assert entry["score_required"] is None
     assert entry["margin"] is None
     assert any(f["kind"] == "score" for f in entry["failures"])
+
+
+# --- scoreable=false / requires_additional_assessment / scoring overrides ------
+# Built against a small synthetic dataset rather than the real UJ seed data
+# (which has no unscoreable or overridden programmes yet), so each test
+# constructs its own client with its own programmes.json.
+
+def _synthetic_client(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, programmes: list[dict], **institution_overrides) -> TestClient:
+    from app.main import app
+
+    institution = {
+        "id": "uj", "name": "University of Johannesburg",
+        "scoring_strategy": "aps_best6_excl_lo", "scoring_config": {},
+    }
+    institution.update(institution_overrides)
+    data = {"institutions": [institution], "programmes": programmes}
+    path = tmp_path / "programmes.json"
+    path.write_text(json.dumps(data), encoding="utf-8")
+    monkeypatch.setenv("PROGRAMMES_DATA_PATH", str(path))
+    monkeypatch.setenv("DATA_VERSION", "test")
+    return TestClient(app)
+
+
+def _base_programme(**overrides) -> dict:
+    base = {
+        "institution_id": "uj", "academic_year": 2027, "qualification_code": "X1",
+        "name": "Test Programme", "faculty": "Health Sciences", "campus": ["APK"],
+        "duration_years": 4, "requirements": {
+            "nsc": {
+                "score": [{"min_score": 20}],
+                "subjects": {"kind": "subject", "language": "english", "min_level": 4},
+                "excluded_subjects": [],
+            },
+        },
+        "selection_notes": ["Composite Index includes NBT results."],
+    }
+    base.update(overrides)
+    return base
+
+
+def test_unscoreable_programme_appears_in_requires_additional_assessment(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path,
+) -> None:
+    with _synthetic_client(monkeypatch, tmp_path, [_base_programme(scoreable=False)]) as client:
+        resp = client.post("/v1/qualify", json={"subjects": CANONICAL_MARKS})
+        body = resp.json()
+        codes = {r["qualification_code"] for r in body["requires_additional_assessment"]}
+        assert codes == {"X1"}
+        assert body["qualified"] == []
+        assert body["near_misses"] == []
+
+
+def test_unscoreable_programme_carries_its_selection_notes_and_no_score_fields(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path,
+) -> None:
+    with _synthetic_client(monkeypatch, tmp_path, [_base_programme(scoreable=False)]) as client:
+        resp = client.post("/v1/qualify", json={"subjects": CANONICAL_MARKS})
+        entry = resp.json()["requires_additional_assessment"][0]
+        assert entry["selection_notes"] == ["Composite Index includes NBT results."]
+        assert "score_required" not in entry
+        assert "score_actual" not in entry
+        assert "margin" not in entry
+        assert "failures" not in entry
+
+
+def test_scoreable_defaults_to_true_when_omitted(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    # Marks qualify easily (English level 7 >= 4, APS well above 20).
+    with _synthetic_client(monkeypatch, tmp_path, [_base_programme()]) as client:
+        resp = client.post("/v1/qualify", json={"subjects": CANONICAL_MARKS})
+        body = resp.json()
+        assert body["requires_additional_assessment"] == []
+        assert {r["qualification_code"] for r in body["qualified"]} == {"X1"}
+
+
+def test_scoring_override_changes_only_that_programmes_score(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path,
+) -> None:
+    # subject_count=1 on the override means only the single best subject
+    # counts -- a much lower score than the institution's default top-6.
+    low_bar = _base_programme(
+        qualification_code="LOW", requirements={
+            "nsc": {
+                "score": [{"min_score": 6}],
+                "subjects": {"kind": "subject", "language": "english", "min_level": 4},
+                "excluded_subjects": [],
+            },
+        },
+        scoring_override={"subject_count": 1},
+    )
+    normal = _base_programme(
+        qualification_code="NORMAL", requirements={
+            "nsc": {
+                "score": [{"min_score": 6}],
+                "subjects": {"kind": "subject", "language": "english", "min_level": 4},
+                "excluded_subjects": [],
+            },
+        },
+    )
+    with _synthetic_client(monkeypatch, tmp_path, [low_bar, normal]) as client:
+        resp = client.post("/v1/qualify", json={"subjects": CANONICAL_MARKS})
+        body = resp.json()
+        results = {r["qualification_code"]: r for r in body["qualified"]}
+        # The institution-wide score in `scores` is unaffected by the
+        # override -- it reflects the baseline aps_best6_excl_lo formula.
+        assert body["scores"]["uj"] == 41
+        assert results["NORMAL"]["score_actual"] == 41
+        assert results["LOW"]["score_actual"] == 7  # best single subject, level 7
+
+
+def test_scoring_strategy_override_swaps_the_algorithm_for_one_programme(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path,
+) -> None:
+    programme = _base_programme(
+        scoring_strategy_override="percentage_sum_div_10",
+        requirements={
+            "nsc": {
+                "score": [{"min_score": 1}],
+                "subjects": {"kind": "subject", "language": "english", "min_level": 4},
+                "excluded_subjects": [],
+            },
+        },
+    )
+    with _synthetic_client(monkeypatch, tmp_path, [programme]) as client:
+        resp = client.post("/v1/qualify", json={"subjects": CANONICAL_MARKS})
+        body = resp.json()
+        result = next(r for r in body["qualified"] if r["qualification_code"] == "X1")
+        # aps_best6_excl_lo would give 41; percentage_sum_div_10 sums raw
+        # percentages / 10 instead -- a materially different number,
+        # proving the override actually swapped the algorithm.
+        assert body["scores"]["uj"] == 41
+        assert result["score_actual"] != 41
 
 
 # --- /v1/meta --------------------------------------------------------------------

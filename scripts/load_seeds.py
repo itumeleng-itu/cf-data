@@ -32,8 +32,9 @@ def main() -> int:
                 """insert into programmes (
                      institution_id, academic_year, qualification_code, name, faculty,
                      campus, duration_years, extended, requirements, selection_notes,
-                     career_text, source_doc, source_page, confidence, updated_at)
-                   values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, now())
+                     career_text, source_doc, source_page, confidence,
+                     scoring_override, scoring_strategy_override, scoreable, updated_at)
+                   values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, now())
                    on conflict (institution_id, academic_year, qualification_code)
                    do update set
                      name = excluded.name, faculty = excluded.faculty,
@@ -42,7 +43,10 @@ def main() -> int:
                      selection_notes = excluded.selection_notes,
                      career_text = excluded.career_text,
                      source_doc = excluded.source_doc, source_page = excluded.source_page,
-                     confidence = excluded.confidence, updated_at = now()""",
+                     confidence = excluded.confidence,
+                     scoring_override = excluded.scoring_override,
+                     scoring_strategy_override = excluded.scoring_strategy_override,
+                     scoreable = excluded.scoreable, updated_at = now()""",
                 (
                     p["institution_id"], p["academic_year"], p["qualification_code"],
                     p["name"], p.get("faculty"), p.get("campus", []),
@@ -50,6 +54,8 @@ def main() -> int:
                     json.dumps(p["requirements"]), p.get("selection_notes", []),
                     p.get("career_text"), p.get("source_doc"), p.get("source_page"),
                     p.get("confidence", "extracted"),
+                    json.dumps(p["scoring_override"]) if p.get("scoring_override") else None,
+                    p.get("scoring_strategy_override"), p.get("scoreable", True),
                 ),
             )
         conn.commit()

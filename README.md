@@ -26,6 +26,8 @@ sequenceDiagram
 
 The API is intentionally simple: on startup it loads the full programme dataset into memory once, and every request after that is pure in-memory checking — no database calls per request, which is why it can answer instantly even when checking thousands of programmes.
 
+A small third bucket exists alongside "qualified" and "near misses": `requires_additional_assessment`, for the handful of programmes (currently unregistered — see [Scoring](#scoring)) where admission depends on something the API deliberately never asks for, like a National Benchmark Test result. Those come back with no score, only the programme's name and what else the learner needs to do.
+
 ---
 
 ## Architecture
@@ -209,6 +211,26 @@ The image is tagged `year.revision`. The dataset is baked in at build time, so a
 The motivating case: the hand-built dataset had **D2ACXQ and D2BTEQ with their APS values swapped, across two revisions**. Schema validation passes that without complaint — both are integers, both in range, both in the right field. Only a check that knows what the numbers *mean* catches it.
 
 > **Validators report. They never repair.** An earlier version of the Physics check silently rewrote `physical_science` to 5 whenever a programme name contained "Physics". That laundered a transposition into plausible-looking bad data instead of surfacing it. A wrong record that looks right is worse than one that fails loudly.
+
+---
+
+## Scoring
+
+Every South African university converts a matric certificate to one admission number before it looks at subject requirements at all — but each does the arithmetic differently. `api/src/app/scoring.py` is a small registry of algorithms, each one parameterised by a `scoring_config` dict, rather than one hardcoded function per institution:
+
+| Algorithm | Shape | Example |
+|---|---|---|
+| `aps_best6_excl_lo` | Sum of the N highest achievement *levels* (1–7), some subjects never counted | UJ |
+| `percentage_sum_div_10` | Sum of the N highest raw *percentages*, divided by a divisor, some subjects never counted | CPUT |
+| `weighted_levels` | Sum of the N highest levels, each multiplied by a per-subject weight | Modelled on UCT/Wits "faculty points" — **not registered to either yet, see below** |
+
+An institution's `scoring_strategy` + `scoring_config` (`seeds/institutions.json`) apply to every one of its programmes by default. A single programme can depart from that with `scoring_override` (same algorithm, different config — a faculty-specific parameter) or `scoring_strategy_override` (a genuinely different algorithm) — see `docs/BUNDLE_FORMAT.md`'s Scoring section for when to reach for either.
+
+**Every scorer must pass a worked example taken verbatim from the institution's own prospectus** (`tests/test_scoring_worked_examples.py`). This is not optional ceremony: a wrong *requirement* breaks one programme; a wrong *scorer* breaks every programme at that institution, consistently and invisibly, since a systematically-off formula still produces plausible-looking numbers for every learner. Nothing in `validate_data.py` can catch that class of error — it checks a programme's numbers against themselves, never an institution's formula against the institution's own published arithmetic. Where no worked example exists yet, the algorithm is written from the prose and recorded as UNVERIFIED in `docs/scoring/{id}.md` instead (see `docs/scoring/weighted_levels.md`) — never registered against a real institution on a guess.
+
+### Programmes that can't be scored at all
+
+Wits's and UCT's Faculty of Health Sciences fold National Benchmark Test (NBT) results into a Composite Index / Weighted Points Score (`docs/scoring/uct.md`, `wits.md`). `/v1/qualify` deliberately never collects NBT scores — most learners don't have them, and adding the field would force a question onto every learner for two institutions' worth of programmes. Such a programme is marked `scoreable: false` and comes back in `/v1/qualify`'s `requires_additional_assessment` bucket instead: no score, no qualify/near-miss verdict, just its name and `selection_notes` explaining what else is needed.
 
 ---
 

@@ -23,7 +23,8 @@ def main() -> int:
         institutions = conn.execute("select * from institutions order by id").fetchall()
         sql = """select institution_id, academic_year, qualification_code, name, faculty,
                         campus, duration_years, extended, requirements, selection_notes,
-                        career_text, source_doc, source_page, confidence
+                        career_text, source_doc, source_page, confidence,
+                        scoring_override, scoring_strategy_override, scoreable
                  from programmes
                  where academic_year = any(%s)"""
         params: list = [years]

@@ -325,6 +325,24 @@
             "extracted",
             "flagged"
           ]
+        },
+        "scoring_override": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Merges over the institution's scoring_config for this one programme's score calculation -- same algorithm, different parameters (e.g. a faculty-specific subject_count). Omit unless this programme genuinely departs from its institution's default."
+        },
+        "scoring_strategy_override": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Replaces the institution's scoring_strategy outright for this one programme, when a faculty uses a different ALGORITHM entirely (see api/src/app/scoring.py's SCORERS), not just different parameters of the same one."
+        },
+        "scoreable": {
+          "type": "boolean",
+          "description": "false means no formula produces a trustworthy score for this programme at all -- e.g. a Composite Index that needs National Benchmark Test results this dataset never collects (docs/scoring/uct.md, wits.md). Such a programme is never scored, qualified, or near-miss -- /v1/qualify reports it separately, carrying only its selection_notes. Omit for the overwhelmingly common case of true."
         }
       }
     }

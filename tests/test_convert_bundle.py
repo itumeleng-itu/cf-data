@@ -254,6 +254,46 @@ def test_source_document_is_carried_onto_every_record() -> None:
     assert records[0]["source_doc"] == "uj/2027/prospectus.pdf"
 
 
+def test_scoreable_defaults_to_true_when_omitted() -> None:
+    record = convert_record(
+        {"qualification_code": "X1", "name": "Thing", "duration_years": 3,
+         "minimum_aps": 26, "requirements": {"english": 4}},
+        "uj", 2027, {},
+    )
+    assert record["scoreable"] is True
+
+
+def test_scoreable_false_is_carried_through() -> None:
+    record = convert_record(
+        {"qualification_code": "X1", "name": "Composite Index programme", "duration_years": 4,
+         "minimum_aps": 26, "requirements": {"english": 4}, "scoreable": False},
+        "uj", 2027, {},
+    )
+    assert record["scoreable"] is False
+
+
+def test_scoring_override_defaults_to_none_when_omitted() -> None:
+    record = convert_record(
+        {"qualification_code": "X1", "name": "Thing", "duration_years": 3,
+         "minimum_aps": 26, "requirements": {"english": 4}},
+        "uj", 2027, {},
+    )
+    assert record["scoring_override"] is None
+    assert record["scoring_strategy_override"] is None
+
+
+def test_scoring_override_and_strategy_override_are_carried_through() -> None:
+    record = convert_record(
+        {"qualification_code": "X1", "name": "Thing", "duration_years": 3,
+         "minimum_aps": 26, "requirements": {"english": 4},
+         "scoring_override": {"subject_count": 5},
+         "scoring_strategy_override": "percentage_sum_div_10"},
+        "uj", 2027, {},
+    )
+    assert record["scoring_override"] == {"subject_count": 5}
+    assert record["scoring_strategy_override"] == "percentage_sum_div_10"
+
+
 def test_a_bad_record_names_its_qualification_code() -> None:
     with pytest.raises(BundleError, match="B00BAD"):
         convert_bundle({
@@ -401,6 +441,28 @@ def test_schema_score_variant_keys_match_the_converter() -> None:
     schema_keys = set(_SCHEMA["$defs"]["apsVariants"]["properties"])
     english_banded = {"with_english_rating_5", "with_english_rating_5_upper", "with_english_rating_4"}
     assert schema_keys == set(_SCORE_SUBJECT_MAP) | english_banded
+
+
+def test_schema_declares_the_scoring_override_and_scoreable_fields() -> None:
+    # Extends the schema-drift coverage above to the scoring-generalisation
+    # fields: if convert_bundle.py accepts one of these keys but the schema
+    # doesn't declare it, an operator's editor flags a perfectly valid
+    # field as an error; if the schema declares one convert_record doesn't
+    # actually carry through, the editor is silently lying about what
+    # taking effect.
+    programme_props = set(_SCHEMA["$defs"]["programme"]["properties"])
+    assert {"scoring_override", "scoring_strategy_override", "scoreable"} <= programme_props
+
+    record = convert_record(
+        {"qualification_code": "X1", "name": "Thing", "duration_years": 3,
+         "minimum_aps": 26, "requirements": {"english": 4},
+         "scoring_override": {"subject_count": 5},
+         "scoring_strategy_override": "percentage_sum_div_10", "scoreable": False},
+        "uj", 2027, {},
+    )
+    assert record["scoring_override"] == {"subject_count": 5}
+    assert record["scoring_strategy_override"] == "percentage_sum_div_10"
+    assert record["scoreable"] is False
 
 
 def test_cli_dry_run_converts_and_validates_without_writing(tmp_path: Path) -> None:
