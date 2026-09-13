@@ -196,10 +196,32 @@ alternatives to each other.
 """
 
 _SYSTEM_PROMPT = f"""You are extracting South African university admission
-requirements from ONE PAGE of a UJ prospectus. You are given the page as
-an image AND a text dump of the page (text_repair.py's
+requirements from ONE PAGE of a university prospectus (institution varies
+-- do not assume any specific university's layout). You are given the
+page as an image AND a text dump of the page (text_repair.py's
 normalise_page_text -- may contain some duplicated or reordered rotated
 text; the IMAGE is authoritative when the two disagree).
+
+IMPORTANT -- programme identity varies by document, read the whole page
+before deciding what a "row" belongs to:
+- Some documents print one row per PROGRAMME, with that programme's own
+  code and name inside the same row (e.g. a wide table where every column
+  in one row belongs to one qualification).
+- Others print one row per SUBJECT REQUIREMENT, with the programme's own
+  name and code stated ONCE, either in a section header above several
+  such rows, or in a labelled line elsewhere on the page (e.g.
+  "Qualification Code: XXXXXX") -- in that layout, EVERY row underneath
+  that header, until the next header or end of that programme's section,
+  belongs to THE SAME programme, and must be merged into ONE record, not
+  one record per row.
+- A single programme's row(s) can also repeat the same page's header
+  labels for a second admission pathway (e.g. an NSC / Senior Certificate
+  / vocational-certificate comparison table) -- only the NSC (National
+  Senior Certificate) column's own subjects and levels belong in
+  requirements.nsc; ignore parallel non-NSC columns entirely.
+Look at the whole page image to judge which shape it is. Return ONE
+JSON record per real, distinct programme -- never one record per table
+row when several rows describe the same programme.
 
 Output STRICT JSON: a single object {{"programmes": [...]}} where each
 element matches this shape exactly:
