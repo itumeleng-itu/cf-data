@@ -1,0 +1,332 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://coursefind-data.local/schemas/bundle.schema.json",
+  "title": "Flat programme bundle (one institution, one academic year)",
+  "description": "The hand-typed input format. One file per institution-year; several are normally zipped together. scripts/convert_bundle.py converts this into the requirement trees in seeds/programme.schema.json. See docs/BUNDLE_FORMAT.md.",
+  "type": "object",
+  "required": [
+    "institution",
+    "academic_year",
+    "programmes"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "institution": {
+      "$ref": "#/$defs/institution"
+    },
+    "academic_year": {
+      "type": "integer",
+      "minimum": 2000,
+      "maximum": 2100
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "programmes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/programme"
+      }
+    }
+  },
+  "$defs": {
+    "institution": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "scoring_strategy"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scoring_strategy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scoring_config": {
+          "type": "object"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "description": "Where the numbers came from. document is the R2 key of the archived source PDF (see scripts/archive_source.py), so every record's source_doc resolves to a real document.",
+      "required": [
+        "document"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "document": {
+          "type": "string",
+          "minLength": 1
+        },
+        "retrieved_at": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "level": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 7,
+      "description": "An NSC achievement level, never a percentage."
+    },
+    "notAccepted": {
+      "const": "not_accepted",
+      "description": "The subject is EXCLUDED: a learner offering it is barred. Opposite of null/omitted, which means the subject is simply not mentioned. Use it only when the source says so -- 'Not applicable' is absence, not exclusion."
+    },
+    "languageBand": {
+      "type": "object",
+      "description": "A language required at one level as Home Language and another as First Additional Language.",
+      "required": [
+        "home_language",
+        "first_additional_language"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "home_language": {
+          "$ref": "#/$defs/level"
+        },
+        "first_additional_language": {
+          "$ref": "#/$defs/level"
+        }
+      }
+    },
+    "requirementValue": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/level"
+        },
+        {
+          "$ref": "#/$defs/notAccepted"
+        },
+        {
+          "$ref": "#/$defs/languageBand"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "requirements": {
+      "type": "object",
+      "description": "One entry per subject column in the source table. A key of the form '<a>_or_<b>' means ONE printed level satisfied by either subject. Language families are written as the family ('english'), not as _hl/_fal.",
+      "propertyNames": {
+        "anyOf": [
+          {
+            "enum": [
+              "accounting",
+              "afrikaans",
+              "agricultural_sciences",
+              "business_studies",
+              "computer_applications_technology",
+              "consumer_studies",
+              "design",
+              "dramatic_arts",
+              "economics",
+              "engineering_graphics_and_design",
+              "english",
+              "geography",
+              "history",
+              "hospitality_studies",
+              "information_technology",
+              "isindebele",
+              "isixhosa",
+              "isizulu",
+              "life_orientation",
+              "life_science",
+              "life_sciences",
+              "mathematical_literacy",
+              "mathematics",
+              "maths",
+              "maths_literacy",
+              "music",
+              "physical_science",
+              "physical_sciences",
+              "religion_studies",
+              "sepedi",
+              "sesotho",
+              "setswana",
+              "siswati",
+              "technical_mathematics",
+              "technical_maths",
+              "technical_science",
+              "technical_sciences",
+              "tourism",
+              "tshivenda",
+              "visual_arts",
+              "xitsonga",
+              "additional_language"
+            ]
+          },
+          {
+            "pattern": "^(accounting|afrikaans|agricultural_sciences|business_studies|computer_applications_technology|consumer_studies|design|dramatic_arts|economics|engineering_graphics_and_design|english|geography|history|hospitality_studies|information_technology|isindebele|isixhosa|isizulu|life_orientation|life_science|life_sciences|mathematical_literacy|mathematics|maths|maths_literacy|music|physical_science|physical_sciences|religion_studies|sepedi|sesotho|setswana|siswati|technical_mathematics|technical_maths|technical_science|technical_sciences|tourism|tshivenda|visual_arts|xitsonga)_or_(accounting|afrikaans|agricultural_sciences|business_studies|computer_applications_technology|consumer_studies|design|dramatic_arts|economics|engineering_graphics_and_design|english|geography|history|hospitality_studies|information_technology|isindebele|isixhosa|isizulu|life_orientation|life_science|life_sciences|mathematical_literacy|mathematics|maths|maths_literacy|music|physical_science|physical_sciences|religion_studies|sepedi|sesotho|setswana|siswati|technical_mathematics|technical_maths|technical_science|technical_sciences|tourism|tshivenda|visual_arts|xitsonga)$"
+          }
+        ]
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/requirementValue"
+      }
+    },
+    "apsVariants": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "description": "A published APS that differs by which maths subject the learner offers, or (the with_english_rating_* form) by the English level achieved.",
+      "properties": {
+        "with_mathematics": {
+          "$ref": "#/$defs/aps"
+        },
+        "with_technical_mathematics": {
+          "$ref": "#/$defs/aps"
+        },
+        "with_mathematical_literacy": {
+          "$ref": "#/$defs/aps"
+        },
+        "with_english_rating_5": {
+          "$ref": "#/$defs/aps"
+        },
+        "with_english_rating_5_upper": {
+          "$ref": "#/$defs/aps"
+        },
+        "with_english_rating_4": {
+          "$ref": "#/$defs/aps"
+        }
+      }
+    },
+    "aps": {
+      "type": "integer",
+      "minimum": 15,
+      "maximum": 45
+    },
+    "programme": {
+      "type": "object",
+      "required": [
+        "qualification_code",
+        "name",
+        "duration_years",
+        "minimum_aps",
+        "requirements"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "qualification_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "faculty": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "qualification_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The section heading the row sat under, e.g. 'Extended Degree (4 years)'. A value starting 'Extended' sets extended=true unless extended is given explicitly."
+        },
+        "extended": {
+          "type": "boolean"
+        },
+        "duration_years": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Required, never guessed from the name: 'BEng' is 4 years and 'BEngTech' is 3, and neither says so."
+        },
+        "campus": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "minimum_aps": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/aps"
+            },
+            {
+              "$ref": "#/$defs/apsVariants"
+            }
+          ]
+        },
+        "requirements": {
+          "$ref": "#/$defs/requirements"
+        },
+        "excluded_subjects": {
+          "type": "array",
+          "description": "Exclusions stated in prose under the table rather than in a column. Merged with the ones derived from 'not_accepted' cells.",
+          "items": {
+            "enum": [
+              "accounting",
+              "agricultural_sciences",
+              "business_studies",
+              "computer_applications_technology",
+              "consumer_studies",
+              "design",
+              "dramatic_arts",
+              "economics",
+              "engineering_graphics_and_design",
+              "geography",
+              "history",
+              "hospitality_studies",
+              "information_technology",
+              "life_orientation",
+              "life_sciences",
+              "mathematical_literacy",
+              "mathematics",
+              "music",
+              "physical_sciences",
+              "religion_studies",
+              "technical_mathematics",
+              "technical_sciences",
+              "tourism",
+              "visual_arts"
+            ]
+          }
+        },
+        "selection_notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "career_text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_page": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "confidence": {
+          "enum": [
+            "verified",
+            "extracted",
+            "flagged"
+          ]
+        }
+      }
+    }
+  }
+}

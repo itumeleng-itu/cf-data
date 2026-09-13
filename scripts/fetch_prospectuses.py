@@ -1,17 +1,16 @@
 """Downloads prospectus PDFs discovered by discover_prospectuses.py.
 
-Never converts a PDF to text, markdown, or any other format -- the
-pipeline reads PDFs natively (char["upright"]/char["matrix"] for
-rotated-text repair, page.lines/page.rects for ruled_line_count,
-character coordinates for column clustering, image boxes, page
-rendering for later vision extraction) and a conversion would destroy
-exactly the binary structure those depend on. Downloads stay as PDFs,
-always.
+Never converts a PDF to text, markdown, or any other format. What
+happens to these files next is that a human reads them -- and
+scripts/triage_prospectus.py reads them natively (page.lines/page.rects,
+character coordinates) to judge which are real prospectuses rather than
+brochures. A conversion would destroy exactly the structure that
+judgement rests on, and would lose the page images a transcriber needs.
+Downloads stay as PDFs, always.
 
-Downloads go to data/downloads/ (or --dest) and stay there until staged
-by hand into data/inbox/. This script never writes into data/inbox/
-itself -- the watcher is live, and a file landing there triggers real
-ingestion.
+Downloads go to data/downloads/ (or --dest). From there the operator
+flow is: triage, archive the keepers to R2 (scripts/archive_source.py),
+transcribe into a bundle. See the README's "Adding an institution".
 """
 
 import argparse
@@ -34,17 +33,6 @@ _SOURCES = {
 }
 
 
-def _refuse_if_inside_inbox(dest: Path) -> None:
-    inbox_root = (Path(__file__).parent.parent / "data" / "inbox").resolve()
-    resolved = dest.resolve()
-    if resolved == inbox_root or inbox_root in resolved.parents:
-        raise SystemExit(
-            f"refusing: --dest {dest} resolves inside data/inbox/ -- this script must "
-            f"never write there. The watcher is live; a file landing in data/inbox/ "
-            f"triggers real ingestion. Downloads stay in data/downloads/ until staged by hand."
-        )
-
-
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--from", dest="from_file", required=True)
@@ -53,7 +41,6 @@ def main() -> int:
     args = ap.parse_args()
 
     dest = Path(args.dest)
-    _refuse_if_inside_inbox(dest)
     dest.mkdir(parents=True, exist_ok=True)
 
     discovery_path = Path(args.from_file)

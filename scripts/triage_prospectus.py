@@ -6,23 +6,19 @@ CPUT's 15-page file has exactly TWO real tables, TUT's has zero
 qualification codes and calls itself "Part 1 of the Prospectus" -- both
 looked like real prospectuses until read page by page.
 
-Self-contained by default: does NOT import extract/classify.py or
-extract/text_repair.py unless --repair-rotated is explicitly passed. This
-tool's candidate code patterns are deliberately generic and plural
-(institutions use different shapes, and none is known yet at triage
-time), unlike classify.py's single registry-driven pattern per
-institution -- reusing that machinery here would be the wrong tool, not
-just an off-limits one.
+Fully self-contained: imports nothing from the rest of the repo. Its
+candidate code patterns are deliberately generic and plural, since
+institutions use different shapes and none is known yet at triage time.
 
---repair-rotated is the one deliberate exception: ul and vut are
-demonstrably corrupted by the exact rotated-text problem
-extract/text_repair.py already solves (confirmed by hand, e.g.
-"SECNEICSLARENIM&LACISYHP" reversed is "PHYSICAL&MINERAL SCIENCES"), so
-judging them on unrepaired text specifically wastes evidence that's
-already sitting in this codebase. The flag imports
-normalise_page_text() -- read-only, extract/text_repair.py itself is
-never modified -- and defaults to OFF so the tool's normal behaviour and
-existing verdicts stay exactly as they were without it.
+A --repair-rotated flag used to exist, reusing the extraction pipeline's
+normalise_page_text() so that ul and vut -- demonstrably corrupted by
+rotated text, e.g. "SECNEICSLARENIM&LACISYHP" for "PHYSICAL&MINERAL
+SCIENCES" -- would not be judged on unrepaired text. It went when that
+pipeline did. It was off by default, so every verdict this tool has ever
+recorded (including the CPUT and TUT brochure findings) was produced
+without it and is unaffected. Those two documents remain the reason this
+script exists: both looked like real prospectuses until read page by
+page.
 
 Does not move or stage anything. Prints the exact staging command for a
 human to run by hand for each LIKELY_FULL file.
@@ -145,29 +141,17 @@ def _verdict(
     return "LIKELY_SUMMARY"
 
 
-def _load_normalise_page_text():
-    # Imported lazily, only when --repair-rotated is actually passed, so
-    # the default (and every existing) invocation stays genuinely
-    # self-contained -- extract/text_repair.py is never touched, only
-    # read from.
-    sys.path.insert(0, str(Path(__file__).parent.parent / "extract"))
-    from text_repair import normalise_page_text  # noqa: PLC0415
-    return normalise_page_text
-
-
-def triage_pdf(pdf_path: Path, repair_rotated: bool = False) -> dict:
+def triage_pdf(pdf_path: Path) -> dict:
     plausible_table_pages = 0
     estimated_programme_rows = 0
     rotated_pages = 0
     any_text_extracted = False
     text_chunks: list[str] = []
 
-    normalise = _load_normalise_page_text() if repair_rotated else None
-
     with pdfplumber.open(pdf_path) as pdf:
         page_count = len(pdf.pages)
         for page in pdf.pages:
-            text = normalise(page) if normalise is not None else (page.extract_text() or "")
+            text = page.extract_text() or ""
             if text.strip():
                 any_text_extracted = True
             text_chunks.append(text.lower())
@@ -214,10 +198,6 @@ def main() -> int:
     ap.add_argument("--pdf", action="append", help="one or more PDF paths; repeatable")
     ap.add_argument("--dir", help="triage every *.pdf in this directory")
     ap.add_argument("--year", type=int, default=None, help="fallback year if it can't be inferred from the path")
-    ap.add_argument(
-        "--repair-rotated", action="store_true",
-        help="apply extract/text_repair.py's normalise_page_text() before scoring pages; off by default",
-    )
     args = ap.parse_args()
 
     pdf_paths: list[Path] = []
@@ -236,7 +216,7 @@ def main() -> int:
             print(f"skipping missing file: {pdf_path}")
             continue
         print(f"triaging {pdf_path} ...")
-        result = triage_pdf(pdf_path, repair_rotated=args.repair_rotated)
+        result = triage_pdf(pdf_path)
         institution_id, year = _identify(pdf_path, args.year)
         result["institution_id"] = institution_id
         result["year"] = year

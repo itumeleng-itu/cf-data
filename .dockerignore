@@ -12,3 +12,6 @@ seeds/
 supabase/
 api/tests/
 tests/
+tools/
+docs/
+universities/

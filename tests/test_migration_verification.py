@@ -7,16 +7,11 @@ not by trusting the migration file alone.
 """
 
 import os
-import sys
 import uuid
-from pathlib import Path
 
 import psycopg
 import pytest
 from dotenv import load_dotenv
-
-ROOT = Path(__file__).parent.parent
-sys.path.insert(0, str(ROOT / "extract"))
 
 load_dotenv()
 
