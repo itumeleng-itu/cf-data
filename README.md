@@ -6,6 +6,8 @@ You type in your subjects and percentages. CourseFind checks them against every 
 
 This repository is the data and API side of CourseFind: the service that does the checking, the admission-rules data it checks against, and the tooling that gets that data in and out.
 
+The consumer-facing app is a separate repository — **[courseFinder](https://github.com/itumeleng-itu/courseFinder)** — which calls this API over HTTP. See [Frontend integration](#frontend-integration-coursefinder) below for exactly how the two fit together.
+
 ---
 
 ## How it works (user flow)
@@ -13,7 +15,7 @@ This repository is the data and API side of CourseFind: the service that does th
 ```mermaid
 sequenceDiagram
     actor Learner
-    participant App as CourseFind (web/app)
+    participant App as courseFinder (web app)
     participant API as CourseFind API (this repo)
 
     Learner->>App: Enters matric subjects & percentages
@@ -27,6 +29,39 @@ sequenceDiagram
 The API is intentionally simple: on startup it loads the full programme dataset into memory once, and every request after that is pure in-memory checking — no database calls per request, which is why it can answer instantly even when checking thousands of programmes.
 
 A small third bucket exists alongside "qualified" and "near misses": `requires_additional_assessment`, for the handful of programmes (currently unregistered — see [Scoring](#scoring)) where admission depends on something the API deliberately never asks for, like a National Benchmark Test result. Those come back with no score, only the programme's name and what else the learner needs to do.
+
+---
+
+## Frontend integration (courseFinder)
+
+This API doesn't yet have data for every South African public university — [`/v1/meta`](#adding-an-institution) reports exactly which institutions it covers at any given moment, and that number grows one prospectus at a time (see [Adding an institution](#adding-an-institution)). **[courseFinder](https://github.com/itumeleng-itu/courseFinder)** — the Next.js app learners actually use — is built to route around that gap rather than wait for it to close: it asks this API which institutions are covered, calls `/v1/qualify` for those, and falls back to its own locally-sourced data for everything this API doesn't have yet. No frontend code change is needed as new institutions are ingested — the moment an institution's programmes are exported and shipped in a new image, courseFinder's next `/v1/meta` call picks it up automatically.
+
+```mermaid
+flowchart TB
+    subgraph courseFinder["courseFinder (Next.js app)"]
+        Hook["useCourseMatcher hook"]
+        ProxyQ["/api/qualify<br/>(server-side proxy)"]
+        ProxyM["/api/qualify/meta<br/>(server-side proxy)"]
+        Local["Local data<br/>data/universities/*.ts<br/>(26 institutions, unverified)"]
+    end
+
+    subgraph API["CourseFind API (this repo)"]
+        MetaEP["GET /v1/meta"]
+        QualifyEP["POST /v1/qualify"]
+        Data[("programmes.json<br/>in-memory, hand-verified")]
+    end
+
+    Hook -->|"1. which institutions<br/>does the API cover?"| ProxyM --> MetaEP --> Data
+    Hook -->|"2. covered institutions"| ProxyQ --> QualifyEP --> Data
+    Hook -->|"3. every OTHER institution"| Local
+
+    style Data fill:#0a5,color:#fff
+    style Local fill:#a50,color:#fff
+```
+
+Why a server-side proxy and not a direct browser call: this API has no CORS configuration (it isn't meant to be called from arbitrary origins), so courseFinder's own `/api/qualify` and `/api/qualify/meta` routes call this API from their own server side and forward the response verbatim — the browser only ever talks to courseFinder's origin. This also keeps `QUALIFY_API_URL` (where this API is actually running) out of the client bundle entirely.
+
+The two repos share no code and no schema package — courseFinder's `lib/qualify-api.ts` hand-mirrors this repo's Pydantic response models, and `lib/subject-slugs.ts` hand-mirrors `api/src/app/subjects.py`'s `Subject` enum, each with a comment pointing back here. If either changes shape, that mirror has to be updated by hand on the other side; there is nothing that enforces it automatically today.
 
 ---
 
