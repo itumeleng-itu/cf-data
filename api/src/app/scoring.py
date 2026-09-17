@@ -169,6 +169,88 @@ def _weighted_levels(marks: dict[str, int], config: dict) -> int:
     return sum(weighted[:subject_count])
 
 
+def _points_for(pct: int, table: list[list[int]]) -> int:
+    """table is [[min_pct, points], ...], any order -- returns the points
+    for the highest threshold pct meets or exceeds, or 0 if pct is below
+    every threshold in the table."""
+    best = 0
+    for min_pct, points in table:
+        if pct >= min_pct and points > best:
+            best = points
+    return best
+
+
+def _custom_points_with_bonus(marks: dict[str, int], config: dict) -> int:
+    """Sum of the N highest points, where points come from the
+    INSTITUTION'S OWN points table rather than the standard NSC 1-7
+    bands, Life Orientation is scored on its own separate table and
+    competes for a place rather than being excluded outright, and named
+    subjects can earn bonus points on top of their base points.
+
+    Modelled on Wits' and Sol Plaatje University's own published
+    formulas -- independently, both share exactly this shape (an
+    institution-specific points scale; Life Orientation scored low but
+    INCLUDED, never dropped the way aps_best6_excl_lo drops it
+    everywhere else in this dataset; bonus points for Mathematics and
+    whichever language the learner offers as Home Language), even though
+    their actual numbers differ. NEITHER is registered to a real
+    institution yet and NEITHER has a confirmed worked example -- see
+    docs/scoring/wits.md (section 5) and spu.md, both UNVERIFIED, for
+    exactly what's confirmed vs. still disputed between sources. Register
+    a scoring_strategy using this once a human has a real worked example
+    to test against, per tests/test_scoring_worked_examples.py.
+
+    Config:
+      points_table       [[min_pct, points], ...] for every subject
+                          except Life Orientation.
+      life_orientation_points_table
+                          Same shape, applied ONLY to whichever mark key
+                          equals life_orientation_subject. Defaults to
+                          points_table if omitted (i.e. no special LO
+                          treatment unless one is actually configured).
+      life_orientation_subject
+                          Which mark key is Life Orientation.
+                          Default "life_orientation".
+      bonus               {subject_slug: [[min_pct, bonus], ...]} --
+                          extra points added on top of a specific named
+                          subject's base points (e.g. "mathematics").
+                          Default {}.
+      bonus_for_home_language
+                          [[min_pct, bonus], ...] applied to whichever
+                          subject key ending in "_hl" the learner
+                          actually offers -- "the learner's Home
+                          Language" is never one fixed subject slug, so
+                          this can't live in `bonus` by name. Default
+                          None (no such bonus).
+      subject_count       how many of the learner's best (points +
+                          bonus) subjects count. Default 7 -- unlike
+                          every other algorithm here, this shape counts
+                          ALL NSC subjects (6 electives plus Life
+                          Orientation), never best-6-excluding-LO.
+    """
+    points_table = config.get("points_table", [])
+    lo_table = config.get("life_orientation_points_table", points_table)
+    lo_subject = config.get("life_orientation_subject", _LIFE_ORIENTATION)
+    bonus_rules: dict[str, list] = config.get("bonus", {})
+    hl_bonus_rule = config.get("bonus_for_home_language")
+    subject_count = config.get("subject_count", 7)
+
+    scores = []
+    for subject, pct in marks.items():
+        if subject == lo_subject:
+            scores.append(_points_for(pct, lo_table))
+            continue
+        points = _points_for(pct, points_table)
+        if subject in bonus_rules:
+            points += _points_for(pct, bonus_rules[subject])
+        elif hl_bonus_rule and subject.endswith("_hl"):
+            points += _points_for(pct, hl_bonus_rule)
+        scores.append(points)
+
+    scores.sort(reverse=True)
+    return sum(scores[:subject_count])
+
+
 # The registry: maps each institution's (or programme override's)
 # scoring_strategy name to the algorithm that implements it. Every
 # function here takes (marks, resolved_config) and returns an int score
@@ -178,4 +260,5 @@ SCORERS: dict[str, Callable[[dict[str, int], dict], int]] = {
     "aps_best6_excl_lo": _aps_best6_excl_lo,
     "percentage_sum_div_10": _percentage_sum_div_10,
     "weighted_levels": _weighted_levels,
+    "custom_points_with_bonus": _custom_points_with_bonus,
 }

@@ -169,3 +169,56 @@ This is a fundamentally different input shape than the standard model:
   requirement. This strengthens the case for treating "NBT scores" as a
   deliberate, cross-institution schema decision rather than a one-off for
   UCT.
+
+## 5. CORRECTION (2026-09-14) — "no new scoring function needed" was wrong
+
+Section 4's "Standard model" conclusion assumed Wits' printed `APS 38+`
+thresholds are the plain national APS (sum of NSC levels 1-7), because
+that investigation was hunting specifically for the NBT/Composite-Index
+pattern and never independently checked what "APS" means AT Wits. It
+doesn't mean the national scale.
+
+A later research pass, reading Wits' own live entry-requirements page
+(`wits.ac.za/undergraduate/entry-requirements/`) directly — fetched
+independently twice, not just cited from a single source — found an
+explicit, separate **"Wits APS"** table shown alongside (not replacing)
+the standard 1-7 NSC table for reference:
+
+- Ordinary subjects score **0-8 points** by percentage band (90-100% =
+  8, down to 0-29% = 0) — not the national 1-7 scale.
+- **English and Mathematics get bonus points** ("8+2=10", "7+2=9" shown
+  on the page).
+- **Life Orientation is scored on its own separate 0-4 scale** — and,
+  critically, the page states the APS is *"based on the best seven
+  subjects including Life Orientation"* — LO is added in at its lower
+  value, never excluded outright the way the default `aps_best6_excl_lo`
+  convention excludes it everywhere else in this dataset.
+- Five independent secondary sources (studentroom.co.za, 99tools.co.za,
+  navyblue.co.za, bursariesafrica.co.za, aps.guide) corroborate the 0-8
+  band structure and the bonus/LO treatment; none dispute it.
+
+This is now believed correct over section 4's assumption, on the weight
+of evidence: multiple independent sources converging on one specific
+mechanism, against an assumption nothing in the original investigation
+actually tested.
+
+**Still open, not resolved by this pass:**
+- The exact composition Wits uses beyond "best 7 including LO" (one
+  secondary source describes "English + Mathematics + LO + best 4
+  others" with a worked example of 41/56, but that specific detail
+  could not be independently verified — its checker errored on every
+  vote).
+- Whether this 0-8 "Wits APS" is what actually gates admission
+  decisions in the prospectus's per-programme `APS N+` thresholds, or is
+  a separate self-assessment tool Wits publishes for applicants — i.e.
+  whether the two documents (the entry-requirements page and the
+  144-page prospectus this file was originally written against) are
+  describing the SAME number or two different ones that happen to look
+  similar. Not confirmed either way.
+- No official worked numeric example was found from Wits itself (unlike
+  UCT's, which prints one).
+
+Given these gaps, `api/src/app/scoring.py`'s `_custom_points_with_bonus`
+(added alongside this correction) is registered but **UNVERIFIED** for
+Wits — built from this prose, not a confirmed worked example. See that
+function's docstring and `tests/test_scoring_worked_examples.py`.

@@ -136,3 +136,84 @@ def test_weighted_levels_unweighted_subjects_use_default_weight_of_one() -> None
 
 def test_registry_contains_weighted_levels() -> None:
     assert "weighted_levels" in SCORERS
+
+
+# --- custom_points_with_bonus (Wits/SPU-style, unregistered) -------------
+
+# A small, made-up points table for testing -- NOT Wits' or SPU's real
+# config (neither is verified yet, see docs/scoring/wits.md, spu.md).
+_TEST_POINTS_TABLE = [[90, 8], [80, 7], [70, 6], [60, 5], [50, 4], [40, 3], [30, 2], [0, 1]]
+_TEST_LO_TABLE = [[90, 4], [80, 3], [70, 2], [60, 1], [0, 0]]
+
+
+def test_custom_points_with_bonus_uses_the_configured_table_not_nsc_levels() -> None:
+    marks = {"geography": 92}  # would be level 7 on the standard scale
+    result = SCORERS["custom_points_with_bonus"](
+        marks, {"points_table": _TEST_POINTS_TABLE, "subject_count": 1},
+    )
+    assert result == 8  # the config's own top band, not 7
+
+
+def test_custom_points_with_bonus_life_orientation_uses_its_own_table() -> None:
+    marks = {"life_orientation": 92}
+    result = SCORERS["custom_points_with_bonus"](
+        marks,
+        {
+            "points_table": _TEST_POINTS_TABLE,
+            "life_orientation_points_table": _TEST_LO_TABLE,
+            "subject_count": 1,
+        },
+    )
+    assert result == 4  # LO's own capped table, not the 8-point ordinary one
+
+
+def test_custom_points_with_bonus_life_orientation_is_included_not_excluded() -> None:
+    # Unlike aps_best6_excl_lo, LO competes for a place rather than being
+    # dropped outright -- with only one subject offered, it must count.
+    marks = {"life_orientation": 50}
+    result = SCORERS["custom_points_with_bonus"](
+        marks,
+        {
+            "points_table": _TEST_POINTS_TABLE,
+            "life_orientation_points_table": _TEST_LO_TABLE,
+            "subject_count": 1,
+        },
+    )
+    assert result == 0  # LO's own table: below 60% -> 0, but it still counted
+
+
+def test_custom_points_with_bonus_named_subject_bonus_stacks_on_base_points() -> None:
+    marks = {"mathematics": 65}  # base points_table: 60-69 -> 5
+    result = SCORERS["custom_points_with_bonus"](
+        marks,
+        {"points_table": _TEST_POINTS_TABLE, "bonus": {"mathematics": [[60, 2], [40, 1]]}, "subject_count": 1},
+    )
+    assert result == 5 + 2
+
+
+def test_custom_points_with_bonus_home_language_bonus_applies_to_whichever_hl_subject_is_offered() -> None:
+    marks = {"isizulu_hl": 65}  # base: 5, +2 home-language bonus
+    result = SCORERS["custom_points_with_bonus"](
+        marks,
+        {"points_table": _TEST_POINTS_TABLE, "bonus_for_home_language": [[60, 2], [40, 1]], "subject_count": 1},
+    )
+    assert result == 5 + 2
+
+
+def test_custom_points_with_bonus_home_language_bonus_never_applies_to_fal() -> None:
+    marks = {"isizulu_fal": 65}  # not "_hl" -- no bonus
+    result = SCORERS["custom_points_with_bonus"](
+        marks,
+        {"points_table": _TEST_POINTS_TABLE, "bonus_for_home_language": [[60, 2], [40, 1]], "subject_count": 1},
+    )
+    assert result == 5
+
+
+def test_custom_points_with_bonus_subject_count_defaults_to_seven() -> None:
+    marks = {f"subject{i}": 65 for i in range(9)}  # 9 subjects, each worth 5
+    result = SCORERS["custom_points_with_bonus"](marks, {"points_table": _TEST_POINTS_TABLE})
+    assert result == 5 * 7  # best 7 of 9, not all 9 and not just 6
+
+
+def test_registry_contains_custom_points_with_bonus() -> None:
+    assert "custom_points_with_bonus" in SCORERS
