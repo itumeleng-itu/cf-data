@@ -61,6 +61,17 @@ class Subject(StrEnum):
     HOSPITALITY_STUDIES = "hospitality_studies"
     RELIGION_STUDIES = "religion_studies"
 
+    # NSC technical/vocational subjects (added for TUT's diploma/BEngTech
+    # programmes -- see universities/2027/tut_2027_programmes.json). Distinct
+    # from the general "Technical Mathematics"/"Technical Sciences" streams
+    # above: these are trade-specific NSC subjects offered at technical
+    # high schools, not alternatives to Mathematics/Physical Sciences.
+    AGRICULTURAL_TECHNOLOGY = "agricultural_technology"
+    CIVIL_TECHNOLOGY = "civil_technology"
+    ELECTRICAL_TECHNOLOGY = "electrical_technology"
+    MECHANICAL_TECHNOLOGY = "mechanical_technology"
+    ENGINEERING_MATHEMATICS_N3 = "engineering_mathematics_n3"
+
 
 # Groups the Home Language / First Additional Language version of each
 # language together, so the rest of the app can ask "did they meet the

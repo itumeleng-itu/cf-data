@@ -119,7 +119,15 @@ def _semantic_errors(p: dict, tag: str) -> list[str]:
     # less than level 5 Physical Sciences has almost certainly picked up
     # the neighbouring row's value. Geology is excluded: it sits under the
     # same Physics department heading without the same science bar.
-    if p.get("faculty") == "Science" and "physics" in low and "geology" not in low and not p.get("extended"):
+    # UJ-only: this heuristic was built and calibrated against UJ's own
+    # degree-level "Science" faculty prospectus pages. Confirmed NOT to
+    # generalise to TUT's Faculty of Science, which also uses "Science" as
+    # a faculty name for its lower-bar DIPLOMAS -- tut-dip-industrial-
+    # physics genuinely requires only level 4 Physical Sciences per TUT's
+    # own brochure (universities/2027/tut_2027_programmes.json), not a
+    # transcription slip.
+    if p.get("institution_id") == "uj" and p.get("faculty") == "Science" and "physics" in low \
+            and "geology" not in low and not p.get("extended"):
         phys = levels.get("physical_sciences")
         if phys and min(phys) < 5:
             errs.append(f"{tag}: {name!r}: Physics major with physical_sciences={min(phys)} (expected >=5)")
@@ -158,12 +166,25 @@ def validate(data: dict) -> list[str]:
         if not nsc:
             errs.append(f"{tag}: no nsc requirements")
             continue
+        if not p.get("scoreable", True):
+            # scoreable=false means main.py's _run_qualify routes this
+            # programme straight to requires_additional_assessment and
+            # never calls evaluate()/select_score_threshold() on it at all
+            # (see _ProgrammeModel's docstring) -- an empty score list and
+            # an empty subject tree are the correct, expected shape here,
+            # not a transcription gap the checks below would be catching.
+            continue
         if not nsc.get("score"):
             errs.append(f"{tag}: empty score thresholds")
         for t in nsc.get("score", []):
             rs = t.get("requires_subject")
             if rs and rs not in VALID:
                 errs.append(f"{tag}: unknown requires_subject '{rs}'")
+            rl = t.get("requires_level")
+            if rl is not None and not 1 <= rl <= 7:
+                errs.append(f"{tag}: requires_level {rl} out of range 1-7")
+            if rl is not None and rs is None:
+                errs.append(f"{tag}: requires_level set without requires_subject")
         for s in nsc.get("excluded_subjects", []):
             if s not in VALID:
                 errs.append(f"{tag}: unknown excluded subject '{s}'")

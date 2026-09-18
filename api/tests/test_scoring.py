@@ -64,6 +64,46 @@ def test_registry_contains_aps_best6_excl_lo() -> None:
     assert callable(SCORERS["aps_best6_excl_lo"])
 
 
+def test_zero_below_level_zeroes_a_weak_subject_but_still_occupies_a_slot() -> None:
+    # TUT-style: "LO and any subject at level 1 are not counted" -- a
+    # level-1 subject contributes 0, but doesn't get DROPPED in favour of
+    # some other subject the way excluding it outright would. With exactly
+    # six subjects offered, the weak one has no competition to lose to --
+    # it still occupies a slot, worth 0 instead of its real level.
+    marks = {
+        "mathematics": 88,          # level 7
+        "english_hl": 87,           # level 7
+        "geography": 92,            # level 7
+        "life_sciences": 87,        # level 7
+        "physical_sciences": 73,    # level 6
+        "history": 25,              # level 1 -- below zero_below_level=2
+    }
+    without_floor = SCORERS["aps_best6_excl_lo"](marks, {"subject_count": 6})
+    with_floor = SCORERS["aps_best6_excl_lo"](marks, {"subject_count": 6, "zero_below_level": 2})
+    assert without_floor == 7 + 7 + 7 + 7 + 6 + 1  # history counts as its real level 1
+    assert with_floor == 7 + 7 + 7 + 7 + 6 + 0  # history's slot -> 0, not dropped for a 7th subject
+
+
+def test_zero_below_level_does_not_change_ranking_when_a_stronger_subject_is_available() -> None:
+    # A level-1 subject that WOULD lose its slot on raw merit anyway (a 7th
+    # subject beats it outright) behaves identically with or without the
+    # floor -- zeroing only matters when the weak subject actually makes
+    # the cut.
+    marks = {
+        "mathematics": 88, "english_hl": 87, "geography": 92, "life_sciences": 87,
+        "physical_sciences": 73, "accounting": 65,  # level 5 -- beats history either way
+        "history": 25,  # level 1
+    }
+    without_floor = SCORERS["aps_best6_excl_lo"](marks, {"subject_count": 6})
+    with_floor = SCORERS["aps_best6_excl_lo"](marks, {"subject_count": 6, "zero_below_level": 2})
+    assert without_floor == with_floor == 7 + 7 + 7 + 7 + 6 + 5
+
+
+def test_zero_below_level_default_is_none_so_every_level_counts_as_itself() -> None:
+    marks = {"history": 25}  # level 1
+    assert SCORERS["aps_best6_excl_lo"](marks, {"subject_count": 1}) == 1
+
+
 # --- percentage_sum_div_10 (CPUT-style) ----------------------------------
 
 def test_percentage_sum_div_10_sums_raw_percentages_not_levels() -> None:

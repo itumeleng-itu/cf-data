@@ -87,13 +87,29 @@ def _aps_best6_excl_lo(marks: dict[str, int], config: dict) -> int:
                          of level. Default ["life_orientation"] -- LO is
                          compulsory on every NSC certificate but no
                          public university counts it toward APS.
+      zero_below_level  if set, any subject whose level is BELOW this
+                         threshold contributes 0 instead of its actual
+                         level -- it still occupies one of the
+                         subject_count slots (a weak subject isn't simply
+                         dropped in favour of a stronger one further down
+                         the list), it just adds nothing. Default None
+                         (no such floor -- every level counts as itself,
+                         UJ's rule). TUT's 2027 brochure is explicit that
+                         "LO and any subject at level 1 are not counted"
+                         while still requiring six subjects submitted --
+                         zero_below_level=2 encodes exactly that (see
+                         universities/2027/tut_2027_programmes.json's own
+                         "scoring" block, which states this rule verbatim).
     """
     subject_count = config.get("subject_count", 6)
     exclude = set(config.get("exclude_subjects", [_LIFE_ORIENTATION]))
+    zero_below = config.get("zero_below_level")
     levels = sorted(
         (percentage_to_level(pct) for subject, pct in marks.items() if subject not in exclude),
         reverse=True,
     )
+    if zero_below is not None:
+        levels = [0 if level < zero_below else level for level in levels]
     return sum(levels[:subject_count])
 
 

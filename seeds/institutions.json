@@ -4,5 +4,17 @@
     "name": "University of Johannesburg",
     "scoring_strategy": "aps_best6_excl_lo",
     "scoring_config": { "subject_count": 6, "exclude_subjects": ["life_orientation"] }
+  },
+  {
+    "id": "tut",
+    "name": "Tshwane University of Technology",
+    "scoring_strategy": "aps_best6_excl_lo",
+    "scoring_config": {
+      "subject_count": 6,
+      "exclude_subjects": [
+        "life_orientation"
+      ],
+      "zero_below_level": 2
+    }
   }
 ]
