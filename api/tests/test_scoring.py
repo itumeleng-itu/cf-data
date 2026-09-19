@@ -104,6 +104,42 @@ def test_zero_below_level_default_is_none_so_every_level_counts_as_itself() -> N
     assert SCORERS["aps_best6_excl_lo"](marks, {"subject_count": 1}) == 1
 
 
+# --- level_bands (VUT-style 8-point scale) -------------------------------
+
+_VUT_BANDS = [
+    {"level": 8, "min": 90, "max": 100}, {"level": 7, "min": 80, "max": 89},
+    {"level": 6, "min": 70, "max": 79}, {"level": 5, "min": 60, "max": 69},
+    {"level": 4, "min": 50, "max": 59}, {"level": 3, "min": 40, "max": 49},
+    {"level": 2, "min": 30, "max": 39}, {"level": 1, "min": 0, "max": 29},
+]
+
+
+def test_level_bands_splits_the_top_standard_band_into_two() -> None:
+    # 85% is level 7 on BOTH scales (standard NSC caps at 7 for 80-100%
+    # entirely; VUT's own scale narrows level 7 to just 80-89%).
+    assert SCORERS["aps_best6_excl_lo"]({"mathematics": 85}, {"subject_count": 1, "level_bands": _VUT_BANDS}) == 7
+    # 95% is level 8 on VUT's scale specifically -- the standard scale has
+    # no level 8 at all and would cap this at 7, undercounting VUT's real APS.
+    assert SCORERS["aps_best6_excl_lo"]({"mathematics": 95}, {"subject_count": 1, "level_bands": _VUT_BANDS}) == 8
+
+
+def test_level_bands_default_is_none_so_the_standard_1_to_7_scale_applies() -> None:
+    assert SCORERS["aps_best6_excl_lo"]({"mathematics": 95}, {"subject_count": 1}) == 7
+
+
+def test_level_bands_below_every_band_falls_back_to_level_one() -> None:
+    sparse_bands = [{"level": 5, "min": 50, "max": 100}]  # no band covers 0-49
+    assert SCORERS["aps_best6_excl_lo"]({"mathematics": 20}, {"subject_count": 1, "level_bands": sparse_bands}) == 1
+
+
+def test_level_bands_and_zero_below_level_compose() -> None:
+    marks = {"mathematics": 95, "history": 20}  # levels 8 and 1 on VUT's scale
+    result = SCORERS["aps_best6_excl_lo"](
+        marks, {"subject_count": 2, "level_bands": _VUT_BANDS, "zero_below_level": 2},
+    )
+    assert result == 8 + 0  # history's level 1 zeroed, mathematics' level 8 untouched
+
+
 # --- percentage_sum_div_10 (CPUT-style) ----------------------------------
 
 def test_percentage_sum_div_10_sums_raw_percentages_not_levels() -> None:

@@ -100,17 +100,49 @@ def _aps_best6_excl_lo(marks: dict[str, int], config: dict) -> int:
                          zero_below_level=2 encodes exactly that (see
                          universities/2027/tut_2027_programmes.json's own
                          "scoring" block, which states this rule verbatim).
+      level_bands       if set, a list of {"min": int, "max": int,
+                         "level": int} bands used INSTEAD of the standard
+                         1-7 NSC conversion for this institution's APS
+                         only -- subjects.py's percentage_to_level is
+                         still what every requirement-tree min_level check
+                         uses everywhere else (subjects.py's own docstring
+                         calls it a frozen taxonomy other institutions
+                         also rely on; this config never touches it).
+                         Default None (use the standard 1-7 bands). VUT's
+                         own brochure splits the top NSC band into two --
+                         80-89% is 7 points, 90-100% is a full 8 -- so its
+                         scoring.level_bands is passed through here
+                         verbatim (see universities/2027/vut_2027_programmes.json).
+                         No VUT programme's own SUBJECT requirement ever
+                         asks for level 7 or 8 (checked: the highest is 6),
+                         so this only changes the summed APS total, never
+                         a subject-level pass/fail.
     """
     subject_count = config.get("subject_count", 6)
     exclude = set(config.get("exclude_subjects", [_LIFE_ORIENTATION]))
     zero_below = config.get("zero_below_level")
+    level_bands = config.get("level_bands")
+    level_of = (lambda pct: _level_from_bands(pct, level_bands)) if level_bands else percentage_to_level
     levels = sorted(
-        (percentage_to_level(pct) for subject, pct in marks.items() if subject not in exclude),
+        (level_of(pct) for subject, pct in marks.items() if subject not in exclude),
         reverse=True,
     )
     if zero_below is not None:
         levels = [0 if level < zero_below else level for level in levels]
     return sum(levels[:subject_count])
+
+
+def _level_from_bands(pct: int, bands: list[dict]) -> int:
+    """Converts a percentage to a level using an institution-supplied
+    band table (see aps_best6_excl_lo's level_bands config) instead of
+    the standard 1-7 NSC bands. Falls back to level 1 if no band matches
+    -- mirrors the reference evaluator this was cross-checked against
+    (universities/2027/qualify.py's Evaluator.level), which does the same
+    for consistency with a percentage of exactly 0."""
+    for band in bands:
+        if band["min"] <= pct <= band["max"]:
+            return band["level"]
+    return 1
 
 
 def _percentage_sum_div_10(marks: dict[str, int], config: dict) -> int:

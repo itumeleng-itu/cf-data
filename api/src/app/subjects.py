@@ -72,6 +72,19 @@ class Subject(StrEnum):
     MECHANICAL_TECHNOLOGY = "mechanical_technology"
     ENGINEERING_MATHEMATICS_N3 = "engineering_mathematics_n3"
 
+    # N-qualification and hospitality-adjacent subjects (added for VUT --
+    # see universities/2027/vut_2027_programmes.json). Engineering
+    # Mathematics/Science N4 are National Certificate (Vocational) subjects,
+    # not NSC ones -- VUT's own brochure accepts them as alternatives for
+    # specific diplomas regardless. Catering/Hotel appear alongside
+    # Hospitality Studies/Tourism as named electives for Food Service
+    # Management; not independently confirmed against the source brochure
+    # text (see docs/scoring/vut.md).
+    ENGINEERING_MATHEMATICS_N4 = "engineering_mathematics_n4"
+    ENGINEERING_SCIENCE_N4 = "engineering_science_n4"
+    CATERING = "catering"
+    HOTEL = "hotel"
+
 
 # Groups the Home Language / First Additional Language version of each
 # language together, so the rest of the app can ask "did they meet the
