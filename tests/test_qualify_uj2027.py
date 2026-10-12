@@ -222,6 +222,12 @@ def test_physical_sciences_actually_required_where_tree_references_it() -> None:
     without_ps = {k: v for k, v in CANONICAL_MARKS.items() if k != "physical_sciences"}
     checked = []
     for code, programme in _PROGRAMMES.items():
+        # UJ-specific invariant, and this is the UJ fixture file. Elsewhere a
+        # programme may legitimately reference physical_sciences inside an
+        # `any` -- Wits BHSci asks for Life Sciences AND/OR Physical Sciences,
+        # so dropping one changes nothing while the other still satisfies it.
+        if programme["institution_id"] != "uj":
+            continue
         nsc = programme["requirements"]["nsc"]
         if not _tree_references_subject(nsc["subjects"], "physical_sciences"):
             continue

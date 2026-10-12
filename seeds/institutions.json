@@ -1,16 +1,5 @@
 [
   {
-    "id": "uj",
-    "name": "University of Johannesburg",
-    "scoring_strategy": "aps_best6_excl_lo",
-    "scoring_config": {
-      "subject_count": 6,
-      "exclude_subjects": [
-        "life_orientation"
-      ]
-    }
-  },
-  {
     "id": "tut",
     "name": "Tshwane University of Technology",
     "scoring_strategy": "aps_best6_excl_lo",
@@ -20,6 +9,17 @@
         "life_orientation"
       ],
       "zero_below_level": 2
+    }
+  },
+  {
+    "id": "uj",
+    "name": "University of Johannesburg",
+    "scoring_strategy": "aps_best6_excl_lo",
+    "scoring_config": {
+      "subject_count": 6,
+      "exclude_subjects": [
+        "life_orientation"
+      ]
     }
   },
   {
@@ -73,6 +73,99 @@
           "max": 29
         }
       ]
+    }
+  },
+  {
+    "id": "wits",
+    "name": "University of the Witwatersrand",
+    "scoring_strategy": "custom_points_with_bonus",
+    "scoring_config": {
+      "subject_count": 7,
+      "life_orientation_subject": "life_orientation",
+      "points_table": [
+        [
+          90,
+          8
+        ],
+        [
+          80,
+          7
+        ],
+        [
+          70,
+          6
+        ],
+        [
+          60,
+          5
+        ],
+        [
+          50,
+          4
+        ],
+        [
+          40,
+          3
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "life_orientation_points_table": [
+        [
+          90,
+          4
+        ],
+        [
+          80,
+          3
+        ],
+        [
+          70,
+          2
+        ],
+        [
+          60,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "bonus": {
+        "english_hl": [
+          [
+            60,
+            2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "english_fal": [
+          [
+            60,
+            2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "mathematics": [
+          [
+            60,
+            2
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      }
     }
   }
 ]

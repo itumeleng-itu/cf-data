@@ -202,22 +202,26 @@ def test_level_zero_is_reported() -> None:
 
 # --- APS plausibility ---------------------------------------------------
 
-def test_aps_below_fifteen_is_reported() -> None:
+# The plausible range is 0-60, not 15-45: an institution publishing its own
+# points table (Wits: 0-8 per subject, +2 on English and Mathematics, best
+# seven including Life Orientation) exceeds the national scale's ceiling.
+# See APS_MIN/APS_MAX in scripts/validate_data.py and $defs.aps in the schema.
+def test_aps_below_the_floor_is_reported() -> None:
     errs = _errors(_programme(requirements={"nsc": {
-        "score": [{"min_score": 12}], "subjects": _subjects(_ENGLISH),
+        "score": [{"min_score": -1}], "subjects": _subjects(_ENGLISH),
     }}))
-    assert any("implausible APS 12" in e for e in errs)
+    assert any("implausible APS -1" in e for e in errs)
 
 
-def test_aps_above_forty_five_is_reported() -> None:
+def test_aps_above_the_ceiling_is_reported() -> None:
     errs = _errors(_programme(requirements={"nsc": {
-        "score": [{"min_score": 47}], "subjects": _subjects(_ENGLISH),
+        "score": [{"min_score": 61}], "subjects": _subjects(_ENGLISH),
     }}))
-    assert any("implausible APS 47" in e for e in errs)
+    assert any("implausible APS 61" in e for e in errs)
 
 
 def test_both_ends_of_the_plausible_aps_range_are_accepted() -> None:
-    for score in (15, 45):
+    for score in (0, 46, 60):   # 46 is the real Wits four-year LLB
         errs = _errors(_programme(requirements={"nsc": {
             "score": [{"min_score": score}], "subjects": _subjects(_ENGLISH),
         }}))

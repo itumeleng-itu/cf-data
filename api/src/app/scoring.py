@@ -270,6 +270,25 @@ def _custom_points_with_bonus(marks: dict[str, int], config: dict) -> int:
                           Language" is never one fixed subject slug, so
                           this can't live in `bonus` by name. Default
                           None (no such bonus).
+                          NOT FOR WITS. Wits' bonus column is headed
+                          "English and Mathematics": it attaches to the
+                          SUBJECT English (HL or FAL) and to Mathematics,
+                          never to a Home Language that is not English.
+                          Setting this for Wits awards +2 to every
+                          African-language Home Language candidate and
+                          inflates their APS -- see docs/scoring/wits.md
+                          section 7.1 for a certificate that shows it.
+      required_subjects   [subject_slug, ...] that MUST occupy a place in
+                          the counted set even when they are not among
+                          the best `subject_count` by points. Wits:
+                          "faculty specific subjects must be included in
+                          the calculation" (prospectus p13). A learner
+                          offering more than `subject_count` subjects
+                          whose required subject is weak would otherwise
+                          have it silently dropped and their score
+                          overstated. A slug the learner does not offer
+                          is ignored here -- absence is a SUBJECT-RULE
+                          failure, not a scoring one. Default [].
       subject_count       how many of the learner's best (points +
                           bonus) subjects count. Default 7 -- unlike
                           every other algorithm here, this shape counts
@@ -282,21 +301,28 @@ def _custom_points_with_bonus(marks: dict[str, int], config: dict) -> int:
     bonus_rules: dict[str, list] = config.get("bonus", {})
     hl_bonus_rule = config.get("bonus_for_home_language")
     subject_count = config.get("subject_count", 7)
+    required: list[str] = config.get("required_subjects", [])
 
-    scores = []
+    scored: list[tuple[str, int]] = []
     for subject, pct in marks.items():
         if subject == lo_subject:
-            scores.append(_points_for(pct, lo_table))
+            scored.append((subject, _points_for(pct, lo_table)))
             continue
         points = _points_for(pct, points_table)
         if subject in bonus_rules:
             points += _points_for(pct, bonus_rules[subject])
         elif hl_bonus_rule and subject.endswith("_hl"):
             points += _points_for(pct, hl_bonus_rule)
-        scores.append(points)
+        scored.append((subject, points))
 
-    scores.sort(reverse=True)
-    return sum(scores[:subject_count])
+    # Required subjects take their places first, however weak, then the
+    # best of the rest fill what is left. Without this, best-N silently
+    # drops a weak compulsory subject and OVERSTATES the score.
+    forced = [(s_, p) for s_, p in scored if s_ in required]
+    rest = sorted((sp for sp in scored if sp[0] not in required),
+                  key=lambda sp: sp[1], reverse=True)
+    counted = forced[:subject_count] + rest[: max(0, subject_count - len(forced))]
+    return sum(p for _, p in counted)
 
 
 # The registry: maps each institution's (or programme override's)

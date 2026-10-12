@@ -43,6 +43,24 @@ CANONICAL_MARKS = {
 # 34, three level-5 bars, the second-highest APS encoded after B2M52Q's 40)
 # is the highest bar in this tranche and was checked individually.
 EXPECTED_QUALIFYING_CODES = frozenset({
+# --- Wits 2027 (added with seeds/wits/, 58 programmes) ----------------
+# The canonical fixture (English HL 87, Maths 88, Physical Sciences 73,
+# Life Sciences 87) clears 56 of the 58. The two it does not are checked
+# individually rather than taken on trust:
+#   SBA03 Actuarial Science    - needs Physical Sciences Level 7
+#   SBA08 Mathematical Sciences- needs Physical Sciences Level 7
+# The fixture's 73% is Level 6, so both correctly fail the subject rule.
+# The 11 Wits programmes marked scoreable=false (Health Sciences on its
+# Composite Index, and the two graduate LLB streams) are never scored and
+# so never appear here at all.
+    "ABA00", "ABA02", "AFA01", "AFA02", "AFA04", "AFA10", "AFA11", "AFA12",
+    "AFA13", "AFA14", "CBA00", "CBA08", "CBA13", "CBA14", "CBA17", "CBA18",
+    "EBA00", "EBA01", "EFA00", "EFA01", "EFA03", "EFA05", "EFA06", "EFA07",
+    "EFA08", "EFA09", "FBA00", "FBA04", "FBA05", "FBA07", "HFA00", "HFA01",
+    "HFA02", "LFA12", "LFA13", "LFA14", "MBA01", "MBA04", "MBA05", "MFA00",
+    "MFA02", "MFA03", "MFA04", "MFA07", "MFA08", "SBA04", "SBA09", "SBA10",
+    "SBA11", "SBA12", "SBA13", "SBA15", "SBA20", "SBA21", "SBA22", "WITS-BSC-GEN",
+
     "B1CISQ", "B2I01Q", "B2I02Q", "B2I04Q", "B2M43Q", "B2M52Q", "B2M55Q", "B2M56Q", "B2M57Q",
     "B34A5Q", "B34CAQ", "B34F5Q", "B34HRQ", "B3N14Q",
     "B4L03Q", "B5BFPQ",

@@ -378,6 +378,8 @@ def convert_record(flat: dict, institution_id: str, academic_year: int, source: 
         "career_text": flat.get("career_text"),
         "source_doc": source.get("document"),
         "source_page": flat.get("source_page"),
+        "curriculum": flat.get("curriculum"),
+        "curriculum_notes": flat.get("curriculum_notes"),
         "confidence": flat.get("confidence", "extracted"),
         "scoring_override": flat.get("scoring_override"),
         "scoring_strategy_override": flat.get("scoring_strategy_override"),

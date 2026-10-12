@@ -39,7 +39,12 @@ VALID = {s.value for s in Subject}
 # structural 10-48: an APS of 12 or 47 parses and validates but no real South
 # African programme publishes one, so it is far more likely a transcription
 # slip than a real threshold.
-APS_MIN, APS_MAX = 15, 45
+# The national APS scale (6 subjects x levels 1-7) tops out near 42, but an
+# institution publishing its OWN points table exceeds it: Wits scores 0-8 per
+# subject with a +2 bonus on English and Mathematics across the best seven
+# including Life Orientation -- ceiling 60 -- and its four-year LLB really
+# does ask 46. Keep in step with $defs.aps in seeds/bundle.schema.json.
+APS_MIN, APS_MAX = 0, 60
 
 
 def walk(rule: dict, path: str, errs: list[str]) -> None:

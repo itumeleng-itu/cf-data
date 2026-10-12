@@ -287,8 +287,9 @@
     },
     "aps": {
       "type": "integer",
-      "minimum": 15,
-      "maximum": 45
+      "minimum": 0,
+      "maximum": 60,
+      "description": "A published APS threshold. The bounds span BOTH the national scale (6 subjects x levels 1-7) and institution-specific points tables: Wits scores 0-8 per subject with a +2 bonus on English and Mathematics across the best seven including Life Orientation, giving a ceiling of 60 and real published thresholds above 45 (the four-year LLB asks 46). A lower bound of 0 lets an unscoreable programme carry a placeholder - see the scoreable conditional on programme."
     },
     "programme": {
       "type": "object",
@@ -296,7 +297,6 @@
         "qualification_code",
         "programme",
         "duration_years",
-        "minimum_aps",
         "requirements"
       ],
       "additionalProperties": false,
@@ -434,6 +434,90 @@
         "scoreable": {
           "type": "boolean",
           "description": "false means no formula produces a trustworthy score for this programme at all -- e.g. a Composite Index that needs National Benchmark Test results this dataset never collects (docs/scoring/uct.md, wits.md). Such a programme is never scored, qualified, or near-miss -- /v1/qualify reports it separately, carrying only its selection_notes. Omit for the overwhelmingly common case of true."
+        },
+        "curriculum": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/curriculumItem"
+            }
+          },
+          "propertyNames": {
+            "enum": [
+              "first_year",
+              "second_year",
+              "third_year",
+              "fourth_year",
+              "fifth_year",
+              "sixth_year"
+            ]
+          },
+          "description": "What the learner STUDIES, by year of study -- distinct from the admission requirements, which are what they need to get in. Optional: some programmes cross-reference their course list to other pages instead of printing it. Transcribed from the prospectus programme section."
+        },
+        "curriculum_notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Instruction prose printed among the course list (credit minimums, 'one of the following') that is NOT itself a course."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "not": {
+              "properties": {
+                "scoreable": {
+                  "const": false
+                }
+              },
+              "required": [
+                "scoreable"
+              ]
+            }
+          },
+          "then": {
+            "required": [
+              "minimum_aps"
+            ],
+            "description": "A scoreable programme must publish a threshold to be scored against."
+          }
+        }
+      ]
+    },
+    "curriculumItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": [
+            "name"
+          ]
+        },
+        {
+          "required": [
+            "options"
+          ]
+        }
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 3,
+          "description": "A single required course."
+        },
+        "options": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string",
+            "minLength": 3
+          },
+          "description": "Courses the learner chooses between (the page prints OR)."
+        },
+        "choice": {
+          "type": "boolean"
         }
       }
     }
