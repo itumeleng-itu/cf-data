@@ -74,5 +74,101 @@
         }
       ]
     }
+  },
+  {
+    "id": "wits",
+    "name": "University of the Witwatersrand",
+    "scoring_strategy": "custom_points_with_bonus",
+    "scoring_config": {
+      "subject_count": 7,
+      "life_orientation_subject": "life_orientation",
+      "points_table": [
+        [
+          90,
+          8
+        ],
+        [
+          80,
+          7
+        ],
+        [
+          70,
+          6
+        ],
+        [
+          60,
+          5
+        ],
+        [
+          50,
+          4
+        ],
+        [
+          40,
+          3
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "life_orientation_points_table": [
+        [
+          90,
+          4
+        ],
+        [
+          80,
+          3
+        ],
+        [
+          70,
+          2
+        ],
+        [
+          60,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "bonus": {
+        "english_hl": [
+          [
+            60,
+            2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "english_fal": [
+          [
+            60,
+            2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "mathematics": [
+          [
+            60,
+            2
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "required_subjects": [
+        "life_orientation"
+      ]
+    }
   }
 ]

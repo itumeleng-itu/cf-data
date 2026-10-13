@@ -43,15 +43,36 @@ CANONICAL_MARKS = {
 # 34, three level-5 bars, the second-highest APS encoded after B2M52Q's 40)
 # is the highest bar in this tranche and was checked individually.
 EXPECTED_QUALIFYING_CODES = frozenset({
-# --- UJ 2027 -------------------------------------------------------
-# Wits was removed from this set with its data; it returns with the
-# re-verified extraction, and the codes it adds must be re-derived
-# deliberately rather than pasted back.
+# --- UJ 2027 -------------------------------------------------------------
     "B1CISQ", "B2I01Q", "B2I02Q", "B2I04Q", "B2M43Q", "B2M52Q",
     "B2M55Q", "B2M56Q", "B2M57Q", "B34A5Q", "B34CAQ", "B34F5Q",
     "B34HRQ", "B3N14Q", "B4L03Q", "B5BFPQ", "B6CS0Q", "B6CV3Q",
     "B6EL1Q", "B6ES0Q", "B6MC2Q", "B6MS0Q", "B8CD2Q", "B9E01Q",
     "B9M01Q", "B9N02Q", "B9O02Q", "B9S15Q",
+# --- Wits 2027 (re-added with the verified extraction, 60 programmes) -----
+# The canonical fixture (English HL 87, Maths 88, Physical Sciences 73,
+# Life Sciences 87) clears 58 of the 60. The two it does not are checked
+# individually rather than taken on trust:
+#   SBA03 Actuarial Science     - page 123: English 7, Mathematics 7,
+#   SBA08 Mathematical Sciences - page 126: Physical Sciences 7
+# The fixture's 73% is Level 6, so both correctly fail the subject rule.
+#
+# This set was RE-DERIVED after Wits was removed and re-added from a
+# corrected extraction -- not restored from the previous commit. It comes
+# out identical, which is the point: the extractor changed how it reads
+# five pages' COURSE LISTS, and course lists have no bearing on who gets
+# in. A change here would have meant an admission requirement moved, and
+# none did.
+    "ABA00", "ABA02", "AFA01", "AFA02", "AFA04", "AFA10",
+    "AFA11", "AFA12", "AFA13", "AFA14", "CBA00", "CBA08",
+    "CBA10", "CBA12", "CBA13", "CBA14", "CBA17", "CBA18",
+    "EBA00", "EBA01", "EFA00", "EFA01", "EFA03", "EFA05",
+    "EFA06", "EFA07", "EFA08", "EFA09", "FBA00", "FBA04",
+    "FBA05", "FBA07", "HFA00", "HFA01", "HFA02", "LFA12",
+    "LFA13", "LFA14", "MBA01", "MBA04", "MBA05", "MFA00",
+    "MFA02", "MFA03", "MFA04", "MFA07", "MFA08", "SBA04",
+    "SBA09", "SBA10", "SBA11", "SBA12", "SBA13", "SBA15",
+    "SBA20", "SBA21", "SBA22", "WITS-BSC-GEN",
 })
 
 
