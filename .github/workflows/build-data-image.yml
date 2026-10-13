@@ -3,10 +3,24 @@ name: Build data image
 # Tag format: data-v<YEAR>.<REVISION>, e.g. data-v2027.1, data-v2027.2 for a
 # correction. The YEAR.REVISION portion (everything after "data-v") becomes
 # both the Docker image tag and the DATA_VERSION baked into it.
+#
+# A tag is the normal path, because the tag is the record of what was
+# shipped. workflow_dispatch is the same build without one: the Actions
+# tab is a top-level tab, where Releases is a small heading in the Code
+# page's sidebar that is easy to miss, and some environments cannot push
+# a tag ref at all. It builds from whatever ref you pick, so a dispatched
+# build is not self-documenting the way a tagged one is -- tag when you
+# can, dispatch when you cannot.
 on:
   push:
     tags:
       - "data-v*"
+  workflow_dispatch:
+    inputs:
+      data_version:
+        description: "Version to build, WITHOUT the data-v prefix (e.g. 2027.1)"
+        required: true
+        type: string
 
 env:
   REGISTRY: ghcr.io
@@ -22,11 +36,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Derive data version and academic years from tag
+      - name: Derive data version and academic years
         id: version
         run: |
-          tag="${GITHUB_REF_NAME}"
-          data_version="${tag#data-v}"
+          # On a tag push GITHUB_REF_NAME is the tag; on a dispatch it is
+          # the branch, so the version comes from the input instead.
+          # Stripping the prefix either way lets someone type either
+          # "2027.1" or "data-v2027.1" into the Actions form.
+          raw="${{ inputs.data_version || github.ref_name }}"
+          data_version="${raw#data-v}"
+          if ! echo "$data_version" | grep -Eq '^[0-9]{4}\.[0-9]+$'; then
+            echo "::error::Expected <YEAR>.<REVISION>, e.g. 2027.1 — got '${raw}'"
+            exit 1
+          fi
           primary_year="${data_version%%.*}"
           next_year=$((primary_year + 1))
           echo "data_version=${data_version}" >> "$GITHUB_OUTPUT"
