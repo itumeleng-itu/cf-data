@@ -27,6 +27,19 @@ this file tries to address:
    qualified -- so until TestQualifyingLearner below, the qualifying path
    had never been exercised end to end by a whole certificate at all.
 
+SCOPE
+-----
+The National Senior Certificate, scored against Wits. Nothing else. The
+IEB, the old Senior Certificate and Cambridge are out of scope rather
+than untested: the prospectus routes foreign qualifications through its
+own per-faculty "International Qualifications" pages and a Matriculation
+Board exemption, never the page-13 APS table, so scoring one here would
+be inventing an answer. Do not add fixtures for them.
+
+Nothing in this file depends on any institution but Wits -- every request
+names institutions=["wits"], and the suite passes unchanged against a
+dataset with Wits alone in it.
+
 WHAT THIS FILE CANNOT DO
 ------------------------
 Every expected APS here was hand-computed from the same reading of the same

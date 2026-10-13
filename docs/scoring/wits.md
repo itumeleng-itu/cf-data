@@ -265,22 +265,47 @@ The fix is a per-programme `scoring_override` setting `required_subjects`
 from that programme's own subject requirements, which the requirement tree
 already states. Not done.
 
-### 10.3 What the three certificates did not cover
+### 10.3 Scope, and what is untested inside it
 
-All three were the same shape: KwaZulu-Natal, an African-language Home
-Language with English First Additional, exactly seven subjects, a standard
-November NSC. Untested:
+SCOPE: the National Senior Certificate, scored against Wits. Nothing else.
 
-  - eight- and nine-subject learners, where best-seven selection starts to
-    matter (this is where 10.2 bites, and where the Life Orientation defect
-    was found)
-  - Afrikaans Home Language candidates
-  - the Independent Examinations Board, the old Senior Certificate,
-    Cambridge and other foreign qualifications
-  - supplementary and rewrite statements
-  - any certificate that actually QUALIFIES for something. All three scored
-    0 qualified at Wits, so the qualifying path has never been exercised
-    end to end by a real statement -- only by fixtures.
+The Independent Examinations Board, the old Senior Certificate, Cambridge
+and other foreign qualifications are OUT OF SCOPE, not gaps waiting to be
+closed.
+
+Foreign qualifications in particular are a route of their own in the
+prospectus, not a variation on the NSC. Each faculty carries its own
+"International Qualifications" page -- 17, 19, 21, 23, 25 and 33, one per
+faculty, and every programme page points to the right one -- and those
+pages convert Cambridge A Level, AS Level, O Level and the Higher
+International Certificate against a Matriculation Board exemption rather
+than against the APS table on page 13. A different table, a different
+exemption, and six faculty variants of it. This API models none of that,
+and should not pretend to by scoring such a candidate on the NSC bands.
+
+Do not add fixtures for any of these.
+
+Inside that scope, the three real certificates were all the same shape --
+KwaZulu-Natal, an African-language Home Language with English First
+Additional, exactly seven subjects, standard November sitting. Two real
+defects hid in that shape, so `api/tests/test_certificate_scenarios.py`
+now breaks it deliberately with synthetic learners: eight and nine
+subjects, Afrikaans as Home Language, and a learner strong enough to
+qualify.
+
+Those synthetic cases exercise the LOGIC. What they cannot do is confirm a
+real document of that shape scores as expected, because they were written
+from the same reading of the same table (see 10.1). Still unseen as an
+actual statement of results:
+
+  - a learner offering eight or nine subjects
+  - an Afrikaans Home Language candidate
+  - any certificate that QUALIFIES. All three real ones scored 0
+    qualified, so that branch has only ever run on synthetic marks.
+  - a supplementary or rewrite statement
+
+A real certificate of any of those four shapes is worth more than another
+of the shape already covered three times.
 
 ### 10.4 Subjects outside the fixed list are rejected outright
 
