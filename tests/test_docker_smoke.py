@@ -28,8 +28,10 @@ IMAGE_TAG = f"coursefind-api-smoketest:{_SUFFIX}"
 CONTAINER_NAME = f"coursefind-api-smoketest-{_SUFFIX}"
 HOST_PORT = 18123
 DATA_VERSION = "smoketest-2027.1"
-EXPECTED_PROGRAMME_COUNT = 29
-EXPECTED_QUALIFYING_COUNT = 28
+# Both institutions now. 29 UJ + 60 Wits; the canonical learner below
+# qualifies for 28 of the UJ programmes and 47 of the Wits ones.
+EXPECTED_PROGRAMME_COUNT = 89
+EXPECTED_QUALIFYING_COUNT = 75
 
 CANONICAL_MARKS = [
     {"subject": "english_hl", "percentage": 87},
