@@ -222,3 +222,72 @@ Given these gaps, `api/src/app/scoring.py`'s `_custom_points_with_bonus`
 (added alongside this correction) is registered but **UNVERIFIED** for
 Wits — built from this prose, not a confirmed worked example. See that
 function's docstring and `tests/test_scoring_worked_examples.py`.
+
+---
+
+## 10. KNOWN LIMITS (2026-10-13)
+
+Three real certificates have been scored against this configuration and all
+three matched a hand calculation (33, 31, 29). That is worth something, but
+it is narrower than it looks, and this section is the honest inventory.
+
+### 10.1 The worked example is still missing, so agreement is not validation
+
+Every one of those three checks compared the implementation against a hand
+calculation **made from the same reading of the same page-13 table**. If the
+table was misread, both agree and both are wrong. Page 13's "CALCULATE YOUR
+POINTS" worksheet is blank and Wits publishes no worked arithmetic anywhere
+in the 144 pages, so `custom_points_with_bonus` remains UNVERIFIED by the
+standard `tests/test_scoring_worked_examples.py` sets. What the three
+certificates do establish is internal consistency and that the three traps
+(the English-not-Home-Language bonus, the compressed LO scale, the 30-39%
+zero band) behave as the table prints them.
+
+To discharge this properly: one APS computed by Wits itself for known marks.
+
+### 10.2 Faculty-specific subjects can still be dropped
+
+Page 13: "faculty specific subjects must be included in the calculation".
+
+`required_subjects` now carries `life_orientation`, which page 13 makes
+compulsory for every programme. The faculty subjects themselves are NOT
+configured, because which subject is compulsory varies per programme --
+Mathematics for Commerce, Physical Sciences for Engineering -- while
+`scoring_config` is institution-wide and cannot name them.
+
+Consequence: a learner offering MORE than seven subjects whose faculty
+subject is weak has it silently dropped from the best seven, and their APS
+is overstated by the difference between that subject and the one that takes
+its place. A learner offering exactly seven is unaffected, since every
+subject counts either way.
+
+The fix is a per-programme `scoring_override` setting `required_subjects`
+from that programme's own subject requirements, which the requirement tree
+already states. Not done.
+
+### 10.3 What the three certificates did not cover
+
+All three were the same shape: KwaZulu-Natal, an African-language Home
+Language with English First Additional, exactly seven subjects, a standard
+November NSC. Untested:
+
+  - eight- and nine-subject learners, where best-seven selection starts to
+    matter (this is where 10.2 bites, and where the Life Orientation defect
+    was found)
+  - Afrikaans Home Language candidates
+  - the Independent Examinations Board, the old Senior Certificate,
+    Cambridge and other foreign qualifications
+  - supplementary and rewrite statements
+  - any certificate that actually QUALIFIES for something. All three scored
+    0 qualified at Wits, so the qualifying path has never been exercised
+    end to end by a real statement -- only by fixtures.
+
+### 10.4 Subjects outside the fixed list are rejected outright
+
+`app/subjects.py` carries 55 subjects. A request naming anything else is
+refused with HTTP 422 rather than scored on what it does recognise, so such
+a learner gets no answer at all. Real NSC subjects currently missing include
+South African Sign Language (which Wits' own BA pages name as a language
+option), Dance Studies, Second Additional Language variants, and the
+non-official languages offered at some schools (French, German, Portuguese,
+Mandarin and others).

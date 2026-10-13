@@ -89,7 +89,10 @@
             0
           ]
         ]
-      }
+      },
+      "required_subjects": [
+        "life_orientation"
+      ]
     }
   },
   "academic_year": 2027,

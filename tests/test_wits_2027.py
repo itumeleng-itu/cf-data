@@ -100,13 +100,81 @@ class TestWitsScoring:
     def test_life_orientation_uses_its_own_compressed_scale(self):
         assert self.score({"life_orientation": 83}) == 3   # NSC level 7, but 3
 
+    def test_life_orientation_is_always_one_of_the_seven(self):
+        """Page 13: "the best seven subjects INCLUDING Life Orientation".
+
+        Life Orientation is scored on the compressed 0-4 scale, so it is
+        almost always a learner's lowest-scoring subject. A best-7 that
+        lets it COMPETE therefore drops it as soon as the learner offers
+        an eighth subject worth more, and the score is overstated.
+
+        A strong learner, eight subjects, Life Orientation at 90%:
+          English HL 85        9  (7 +2)
+          isiZulu FAL 88       7
+          History 86           7
+          Geography 84         7
+          Business Studies 82  7
+          Accounting 80        7
+          Tourism 78           6
+          Life Orientation 90  4  (compressed scale)
+        Correct: LO's 4 plus the best six others (9+7+7+7+7+7 = 44) = 48.
+        Letting LO compete takes the top seven (9,7,7,7,7,7,6) = 50.
+        """
+        strong = {"english_hl": 85, "isizulu_fal": 88, "life_orientation": 90,
+                  "history": 86, "geography": 84, "business_studies": 82,
+                  "accounting": 80, "tourism": 78}
+        assert self.score(strong) == 48
+        assert self.score(strong, required_subjects=[]) == 50
+
+        # And removing Life Orientation must now change the answer. Before
+        # the fix it did not, because LO was contributing nothing at all.
+        without_lo = {k: v for k, v in strong.items() if k != "life_orientation"}
+        assert self.score(without_lo) == 50
+        assert self.score(without_lo) != self.score(strong)
+
+    def test_forcing_life_orientation_only_bites_when_it_would_be_dropped(self):
+        """It must not quietly cost points a learner is entitled to. With
+        seven subjects everything counts anyway; with eight, LO is forced
+        only if something else would have displaced it."""
+        assert self.score(LEARNER) == self.score(LEARNER, required_subjects=[]) == 33
+        eight = {**LEARNER, "accounting": 88}   # LO's 3 still makes the top seven
+        assert self.score(eight) == self.score(eight, required_subjects=[]) == 40
+
+    def test_seven_subject_learners_are_unaffected(self):
+        """Forcing Life Orientation must not move any of the three real
+        certificates this data was checked against -- all offer exactly
+        seven subjects, so every one counts either way."""
+        assert self.score(LEARNER) == LEARNER_APS == 33
+        assert self.score({"isizulu_hl": 76, "english_fal": 61,
+                           "mathematical_literacy": 40, "life_orientation": 73,
+                           "business_studies": 67, "economics": 64,
+                           "tourism": 48}) == 31
+        assert self.score({"isizulu_hl": 83, "english_fal": 75,
+                           "mathematics": 41, "life_orientation": 87,
+                           "geography": 51, "life_sciences": 54,
+                           "physical_sciences": 30}) == 29
+
     def test_required_subjects_are_never_dropped_by_best_n(self):
         """"Faculty specific subjects must be included in the calculation"
         (prospectus p13). Without this, best-7 drops a weak compulsory
-        subject and OVERSTATES the score."""
+        subject and OVERSTATES the score.
+
+        STILL NOT WIRED UP for the faculty subjects themselves. Which
+        subject is compulsory varies per programme -- Mathematics for
+        Commerce, Physical Sciences for Engineering -- and scoring_config
+        is institution-wide, so it cannot name them. Only Life
+        Orientation, which page 13 makes compulsory for every programme,
+        is configured. The second assertion shows what a per-programme
+        scoring_override would do. Until that exists, a learner offering
+        8+ subjects whose faculty subject is weak still scores too high.
+        """
         nine = {**LEARNER, "accounting": 88, "business_studies": 85}
-        assert self.score(nine) == 44                                   # drops maths
-        assert self.score(nine, required_subjects=["mathematics"]) == 40
+        assert self.score(nine) == 43                      # LO forced, maths dropped
+        assert self.score(nine, required_subjects=[]) == 44  # the old, wrong answer
+        # LO's 3 and Mathematics' 0 take two of the seven places, leaving
+        # five for the best of the rest (8+7+7+6+6 = 34).
+        assert self.score(nine, required_subjects=["life_orientation",
+                                                   "mathematics"]) == 37
 
 
 class TestLearnerOutcomes:

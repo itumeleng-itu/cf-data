@@ -165,7 +165,10 @@
             0
           ]
         ]
-      }
+      },
+      "required_subjects": [
+        "life_orientation"
+      ]
     }
   }
 ]
