@@ -159,7 +159,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -292,7 +292,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -501,7 +501,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -769,7 +769,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -1027,7 +1027,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -1190,7 +1190,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -1422,7 +1422,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -1596,7 +1596,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -1712,7 +1712,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": false
@@ -1859,7 +1859,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": false
@@ -2031,7 +2031,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -2183,7 +2183,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -2319,7 +2319,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -2550,7 +2550,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -2786,7 +2786,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -3240,7 +3240,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -3492,7 +3492,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -3756,7 +3756,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -4008,7 +4008,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -4260,7 +4260,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -4524,7 +4524,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -4673,7 +4673,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -4858,7 +4858,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -5011,7 +5011,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -5160,7 +5160,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -5261,7 +5261,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": false
@@ -5407,7 +5407,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": false
@@ -5664,7 +5664,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": false
@@ -5798,7 +5798,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": false
@@ -5964,7 +5964,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": false
@@ -6138,7 +6138,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": false
@@ -6311,7 +6311,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": false
@@ -6440,7 +6440,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": false
@@ -6679,7 +6679,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": false
@@ -6728,7 +6728,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -6792,7 +6792,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -6922,7 +6922,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -7142,7 +7142,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -7263,7 +7263,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -7479,7 +7479,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -7639,7 +7639,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -7789,7 +7789,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -7927,7 +7927,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -8166,7 +8166,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -8406,7 +8406,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -8652,7 +8652,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -8959,7 +8959,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -9131,7 +9131,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -9298,7 +9298,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -9506,7 +9506,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -9668,7 +9668,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -9828,7 +9828,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -10247,7 +10247,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -10485,7 +10485,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -10680,7 +10680,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -10856,7 +10856,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -11039,7 +11039,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -11201,7 +11201,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -11327,7 +11327,7 @@
         "transcription_withheld": null
       }
     ],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
@@ -11375,7 +11375,7 @@
     "source_doc": "wits_2027_prospectus.pdf",
     "source_page": 24,
     "streams": [],
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoring_override": null,
     "scoring_strategy_override": null,
     "scoreable": true
