@@ -20,6 +20,13 @@ extract = [
     "pdfplumber>=0.11.10",
     "requests>=2.32.0",
     "beautifulsoup4>=4.13.0",
+    # Reads R2 credentials from .env for extract/storage.py's two callers,
+    # scripts/archive_source.py and tests/test_storage_live.py. It was
+    # swept out with psycopg when the database went, having sat next to it
+    # in the top-level dependencies -- but it was never database code, and
+    # without it tests/test_storage_live.py fails at IMPORT, which aborts
+    # collection for the whole suite rather than skipping one R2 test.
+    "python-dotenv>=1.2.2",
 ]
 
 [tool.pytest.ini_options]
