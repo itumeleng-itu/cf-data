@@ -106,7 +106,15 @@ def test_the_totals_balance(manifest_total, streams):
     assert served == manifest_total
     # Fixed, so the balance cannot be satisfied by a wholesale drop on
     # both sides -- 0 == 0 would balance too.
-    assert served == 1703
+    #
+    # 1703 until the extractor's prose test was anchored. "select"
+    # unanchored matched inside "Selected", so six BULLETED courses
+    # whose names begin "Selected topic(s)..." were filed as prose and
+    # never reached a learner: two on p52, one each on p62, p63, p97 and
+    # p99. Raising this number is therefore a deliberate correction, and
+    # the figure stays hard-coded precisely so that the next change to
+    # it has to be deliberate too.
+    assert served == 1709
 
 
 def test_nothing_is_transcribed_by_hand(manifest):

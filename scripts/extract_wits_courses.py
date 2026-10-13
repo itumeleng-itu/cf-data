@@ -63,7 +63,14 @@ PROSE = re.compile(
     # "For students unable to demonstrate conversational competence...",
     # which glued a whole sentence onto page 103's Teaching Experience.
     r"students (who|unable|whom|must)|^for students\b|"
-    r"provided that|in addition|choose|select|^plus\b|see page|pages? \d)", re.I)
+    # Anchored, because "select" unanchored matches inside "Selected":
+    # page 62 and 63 both print "Selected Topics in Sociology" as a
+    # BULLETED course, and both filed it as prose. The verbs a
+    # requirements sentence actually uses are the bare forms --
+    # "students choose", "select three courses" -- so matching those
+    # and not their participles costs nothing and stops a real course
+    # name being read as a sentence.
+    r"provided that|in addition|\bchoose\b|\bselect\b|^plus\b|see page|pages? \d)", re.I)
 # A line ending in a colon heads the list below it and is never itself a
 # course: "Recommended course:", "Mathematics I (Major):". Without this it
 # is absorbed as a continuation and comes out glued to the item above --
@@ -490,9 +497,27 @@ def parse_curriculum(region):
                     flush()
                     after_connector = True
                     continue
-                if PROSE.search(t) and not l["bullet"]:
-                    flush(); notes.append(t); continue
+                if PROSE.search(t) and not l["bullet"] and not HEADER.search(t):
+                    # Start the sentence rather than filing it, so its
+                    # WRAPPED LINES join it instead of becoming notes of
+                    # their own. flush() already classifies a finished
+                    # item as prose, which is how the identical sentence
+                    # on page 63 comes out whole: there its first line
+                    # carries a bullet, so it took the assembling path
+                    # below. Page 62 prints the same sentence unbulleted
+                    # and got three notes out of it --
+                    #   "At the beginning of the third year, students can choose to"
+                    #   "continue with Electrical Engineering or register for Information"
+                    #   "Engineering."
+                    # -- one sentence, broken mid-clause, shown to a
+                    # learner as three separate remarks.
+                    flush(); cur = t; prev_top = l["top"]; continue
                 if HEADER.search(t) and not l["bullet"]:
+                    # A line ending in a colon heads the list below it
+                    # and is complete in itself, so it is filed at once
+                    # -- assembling it would swallow the first course
+                    # under it on any page where that course is
+                    # unbulleted.
                     flush(); notes.append(t); continue
                 inline = INLINE_CONNECTOR.match(t)
                 if inline and not l["bullet"]:

@@ -4,7 +4,7 @@
     "extracted": "Deterministic pdfplumber parsing (scripts/extract_wits_courses.py), no model and no hand transcription. INDEPENDENT of the seed, which is built from it, so a page dropped or altered on the way in shows up here as a mismatch. Never regenerate these from the seed -- that makes the check compare the data against itself, which is how an earlier '68/68 pages, zero failures' passed while five pages were wrong."
   },
   "source_document": "wits_2027_prospectus.pdf",
-  "total_courses": 1703,
+  "total_courses": 1709,
   "extracted_pages": 68,
   "transcribed_pages": 0,
   "pages": {
@@ -45,7 +45,7 @@
     },
     "52": {
       "code": "CBA12",
-      "courses": 47,
+      "courses": 49,
       "provenance": "extracted"
     },
     "53": {
@@ -80,12 +80,12 @@
     },
     "62": {
       "code": "EFA03",
-      "courses": 45,
+      "courses": 46,
       "provenance": "extracted"
     },
     "63": {
       "code": "EFA03",
-      "courses": 45,
+      "courses": 46,
       "provenance": "extracted"
     },
     "64": {
@@ -210,7 +210,7 @@
     },
     "97": {
       "code": "AFA10",
-      "courses": 32,
+      "courses": 33,
       "provenance": "extracted"
     },
     "98": {
@@ -220,7 +220,7 @@
     },
     "99": {
       "code": "AFA02",
-      "courses": 35,
+      "courses": 36,
       "provenance": "extracted"
     },
     "100": {

@@ -492,9 +492,7 @@
         "curriculum_notes": [
           "A total of 72 credits must be taken from the following",
           "courses. At least 48 of these credits must make up the",
-          "second year level of your second major. Students who",
-          "wish to pursue a second major in Computer Science must",
-          "be aware of the prerequisite requirements for this course.",
+          "second year level of your second major. Students who wish to pursue a second major in Computer Science must be aware of the prerequisite requirements for this course.",
           "A total of 72 credits must be taken from the following",
           "courses:"
         ],
@@ -714,6 +712,10 @@
               "choice": false
             },
             {
+              "name": "A selected topic in Philosophy III",
+              "choice": false
+            },
+            {
               "name": "Senior seminar in Philosophy",
               "choice": false
             },
@@ -741,6 +743,10 @@
               "choice": false
             },
             {
+              "name": "Selected topics in Political Studies",
+              "choice": false
+            },
+            {
               "name": "Introduction to Comparative Politics",
               "choice": false
             },
@@ -759,12 +765,8 @@
           "AND one of the following:",
           "OR two of the following:",
           "A total of 48 credits must be taken from:",
-          "A total of 72 credits must be selected from either",
-          "Politics III or Philosophy III, depending of what was",
-          "taken in the second the year of study",
-          "Select Movements in 20th Century",
-          "A selected topic in Philosophy III",
-          "Selected topics in Political Studies"
+          "A total of 72 credits must be selected from either Politics III or Philosophy III, depending of what was taken in the second the year of study",
+          "Select Movements in 20th Century"
         ],
         "transcription_withheld": null
       }
@@ -1018,10 +1020,8 @@
         },
         "curriculum_notes": [
           "A total of 72 credits must be taken from the following",
-          "courses: At least 48 credits must make up the second",
-          "year level of your second major.",
-          "A total of 72 credits must be taken from the following",
-          "courses provided you have done the equivalent in the",
+          "courses: At least 48 credits must make up the second year level of your second major.",
+          "A total of 72 credits must be taken from the following courses provided you have done the equivalent in the",
           "second year of study:"
         ],
         "transcription_withheld": null
@@ -1182,9 +1182,7 @@
         "curriculum_notes": [
           "A total of 24 credits must be taken from:",
           "A minimum total of 120 credits must be taken from the",
-          "following courses-provided that you have satisfied the",
-          "prerequisite courses. In order to qualify for the Bachelor",
-          "of Commerce in the field of Accounting it is important to",
+          "following courses-provided that you have satisfied the prerequisite courses. In order to qualify for the Bachelor of Commerce in the field of Accounting it is important to",
           "note that Accounting III must be completed."
         ],
         "transcription_withheld": null
@@ -1409,15 +1407,10 @@
         },
         "curriculum_notes": [
           "AND, one of the following groups:",
-          "Note: The choice of courses may be limited by the timetable",
-          "and number of places available for the course. Individual",
-          "courses may have further admission requirements specified",
-          "in the relevant School Standing Orders.",
+          "Note: The choice of courses may be limited by the timetable and number of places available for the course. Individual courses may have further admission requirements specified in the relevant School Standing Orders.",
           "AND, one of the following groups:",
           "A total of 72 credits must be taken from one of the",
-          "following groups, provided that you have done the",
-          "equivalent in the second year of study and complied",
-          "with the pre- and co-requisite courses."
+          "following groups, provided that you have done the equivalent in the second year of study and complied with the pre- and co-requisite courses."
         ],
         "transcription_withheld": null
       }
@@ -1588,10 +1581,7 @@
         },
         "curriculum_notes": [
           "AND one of the following groups:",
-          "Note: The choice of courses may be limited by the timetable",
-          "and number of places available for the course. Individual",
-          "courses may have further admission requirements specified",
-          "in the relevant School Standing Orders."
+          "Note: The choice of courses may be limited by the timetable and number of places available for the course. Individual courses may have further admission requirements specified in the relevant School Standing Orders."
         ],
         "transcription_withheld": null
       }
@@ -2999,6 +2989,10 @@
               "choice": false
             },
             {
+              "name": "Selected Topics in Sociology",
+              "choice": false
+            },
+            {
               "name": "Systems Management and Integration",
               "choice": false
             },
@@ -3030,10 +3024,7 @@
         },
         "curriculum_notes": [
           "AND, one of the following courses:",
-          "At the beginning of the third year, students can choose to",
-          "continue with Electrical Engineering or register for Information",
-          "Engineering.",
-          "Selected Topics in Sociology",
+          "At the beginning of the third year, students can choose to continue with Electrical Engineering or register for Information Engineering.",
           "AND, any three courses from the following:"
         ],
         "transcription_withheld": null
@@ -3202,6 +3193,10 @@
               "choice": false
             },
             {
+              "name": "Selected Topics in Sociology",
+              "choice": false
+            },
+            {
               "name": "Systems Management and Integration",
               "choice": false
             },
@@ -3234,7 +3229,6 @@
         "curriculum_notes": [
           "AND, one of the following courses:",
           "At the beginning of the third year, students can choose to continue with Electrical Engineering or register for Information Engineering.",
-          "Selected Topics in Sociology",
           "AND, any three courses from the following:"
         ],
         "transcription_withheld": null
@@ -6905,9 +6899,7 @@
         },
         "curriculum_notes": [
           "A student is required to complete two semester courses in",
-          "one of the following languages: isiZulu or Sesotho or South",
-          "African Sign Language (SASL). If a student is proficient",
-          "in any two of the three languages (isiZulu, Sesotho or",
+          "one of the following languages: isiZulu or Sesotho or South African Sign Language (SASL). If a student is proficient in any two of the three languages (isiZulu, Sesotho or",
           "SASL), the student is advised to do one of the following:",
           "(i) register in a first-language stream for two courses in",
           "isiZulu or Sesotho, (ii) register for two courses in any one",
@@ -6916,8 +6908,7 @@
           "from the requirement to register for a language subject.",
           "Where an exemption has been granted, students must add",
           "a course/s yielding at least 36 credits in a subject approved",
-          "by Senate. A student may also be granted a credit if s/he",
-          "has completed the same or an equivalent course."
+          "by Senate. A student may also be granted a credit if s/he has completed the same or an equivalent course."
         ],
         "transcription_withheld": null
       }
@@ -7114,30 +7105,23 @@
             {
               "name": "Writing and Interactivity IV",
               "choice": false
+            },
+            {
+              "name": "Selected topic in Interdisciplinary Arts and Culture Studies",
+              "choice": false
             }
           ]
         },
         "curriculum_notes": [
           "A student is required to complete two semester courses in",
-          "one of the following languages: isiZulu or Sesotho or South",
-          "African Sign Language (SASL). If a student is",
-          "proficient in any two of the three languages (isiZulu,",
-          "Sesotho or SASL), the student is advised to do one of",
-          "the following: (i) register in a first-language stream for",
-          "two courses in isiZulu or Sesotho, (ii) register for two",
-          "courses in any one of the following: French, German,",
-          "Italian, Portuguese, or Spanish, or (iii) formally apply to the",
-          "Dean for exemption from the requirement to register for a",
-          "language subject. Where an exemption has been granted,",
-          "students must add a course/s yielding at least 36 credits",
-          "in a subject approved by Senate. A student may also be",
-          "granted a credit if s/he has completed the same or an",
-          "equivalent course",
+          "one of the following languages: isiZulu or Sesotho or South African Sign Language (SASL). If a student is proficient in any two of the three languages (isiZulu, Sesotho or SASL), the student is advised to do one of the following: (i) register in a first-language stream for two courses in isiZulu or Sesotho, (ii) register for two",
+          "courses in any one of the following: French, German, Italian, Portuguese, or Spanish, or (iii) formally apply to the Dean for exemption from the requirement to register for a language subject. Where an exemption has been granted",
+          "students must add a course/s yielding at least 36 credits in a subject approved by Senate. A student may also be",
+          "granted a credit if s/he has completed the same or an equivalent course",
           "Music in History and Society:",
           "were not chosen, select two from the following courses:",
           "Select one of the following specialisations:",
-          "Select one course at fourth year level from the following:",
-          "Selected topic in Interdisciplinary Arts and Culture Studies"
+          "Select one course at fourth year level from the following:"
         ],
         "transcription_withheld": null
       }
@@ -7449,32 +7433,26 @@
             {
               "name": "Interactive Media IV",
               "choice": false
+            },
+            {
+              "name": "Selected topic in Interdisciplinary Arts and Cultural Studies",
+              "choice": false
             }
           ]
         },
         "curriculum_notes": [
           "A student is required to complete two semester courses",
-          "in one of the following languages: isiZulu or Sesotho",
-          "or South African Sign Language (SASL). If a student is",
-          "proficient in any two of the three languages (isiZulu,",
-          "Sesotho or SASL), the student is advised to do one of",
-          "the following: (i) register in a first-language stream for",
-          "two courses in isiZulu or Sesotho, (ii) register for two",
-          "courses in any one of the following: French, German,",
-          "Italian, Portuguese, or Spanish, or (iii) formally apply to the",
-          "Dean for exemption from the requirement to register for a",
-          "language subject.",
+          "in one of the following languages: isiZulu or Sesotho or South African Sign Language (SASL). If a student is proficient in any two of the three languages (isiZulu, Sesotho or SASL), the student is advised to do one of the following: (i) register in a first-language stream for two courses in isiZulu or Sesotho, (ii) register for two",
+          "courses in any one of the following: French, German, Italian, Portuguese, or Spanish, or (iii) formally apply to the Dean for exemption from the requirement to register for a language subject.",
           "Where an exemption has been granted, students must add",
           "a course/s yielding at least 36 credits in a subject approved",
-          "by Senate. A student may also be granted a credit if s/he",
-          "has completed the same or an equivalent course.",
+          "by Senate. A student may also be granted a credit if s/he has completed the same or an equivalent course.",
           "Select courses yielding 48 credits from:",
           "OR, select one course from the following:",
           "Select one course from the following:",
           "Select four courses from the following:",
           "Select three courses from the list above AND one",
-          "appropriate fourth year course from the following:",
-          "Selected topic in Interdisciplinary Arts and Cultural Studies"
+          "appropriate fourth year course from the following:"
         ],
         "transcription_withheld": null
       }
@@ -7620,9 +7598,7 @@
         },
         "curriculum_notes": [
           "A student is required to complete two semester courses in",
-          "one of the following languages: isiZulu or Sesotho or South",
-          "African Sign Language (SASL). If a student is proficient",
-          "in any two of the three languages (isiZulu, Sesotho or",
+          "one of the following languages: isiZulu or Sesotho or South African Sign Language (SASL). If a student is proficient in any two of the three languages (isiZulu, Sesotho or",
           "SASL), the student is advised to do one of the following:",
           "(i) register in a first-language stream for two courses in",
           "isiZulu or Sesotho, (ii) register for two courses in any one",
@@ -7631,8 +7607,7 @@
           "from the requirement to register for a language subject.",
           "Where an exemption has been granted, students must add",
           "a course/s yielding at least 36 credits in a subject approved",
-          "by Senate. A student may also be granted a credit if s/he",
-          "has completed the same or an equivalent course.",
+          "by Senate. A student may also be granted a credit if s/he has completed the same or an equivalent course.",
           "AND a choice of two pairs:",
           "AND, select two courses from the following:"
         ],
@@ -8145,20 +8120,10 @@
         "curriculum_notes": [
           "Course (A) is taken in the first semester and Course (B) in the second semester.",
           "A student is required to complete two semester courses in",
-          "one of the following languages: isiZulu or Sesotho or South",
-          "African Sign Language (SASL). If a student is",
-          "proficient in any two of the three languages (isiZulu,",
-          "Sesotho or SASL), the student is advised to do one of",
-          "the following: (i) register in a first-language stream for",
-          "two courses in isiZulu or Sesotho, (ii) register for two",
-          "courses in any one of the following: French, German,",
-          "Italian, Portuguese, or Spanish, or (iii) formally apply to the",
-          "Dean for exemption from the requirement to register for a",
-          "language subject. Where an exemption has been granted,",
-          "students must add a course/s yielding at least 36 credits",
-          "in a subject approved by Senate. A student may also be",
-          "granted a credit if s/he has completed the same or an",
-          "equivalent course",
+          "one of the following languages: isiZulu or Sesotho or South African Sign Language (SASL). If a student is proficient in any two of the three languages (isiZulu, Sesotho or SASL), the student is advised to do one of the following: (i) register in a first-language stream for two courses in isiZulu or Sesotho, (ii) register for two",
+          "courses in any one of the following: French, German, Italian, Portuguese, or Spanish, or (iii) formally apply to the Dean for exemption from the requirement to register for a language subject. Where an exemption has been granted",
+          "students must add a course/s yielding at least 36 credits in a subject approved by Senate. A student may also be",
+          "granted a credit if s/he has completed the same or an equivalent course",
           "Select four pairs of courses from the following:",
           "Select one course from the following:",
           "AND, ANY four courses from the following:"
@@ -8640,8 +8605,7 @@
           ]
         },
         "curriculum_notes": [
-          "For students unable to demonstrate conversational",
-          "competence in Sesotho, IsiZulu or South African Sign",
+          "For students unable to demonstrate conversational competence in Sesotho, IsiZulu or South African Sign",
           "Language select a course from the following:",
           "Select a language course from the following:",
           "Select a teaching course from the following:",
@@ -9287,13 +9251,7 @@
           "Any one course from the list below:",
           "Applied Chemistry lll:",
           "Chemistry lll:",
-          "The School of Chemistry offers a 3-year BSc degree that",
-          "combines a Chemistry major with Chemical Engineering",
-          "topics. After obtaining the first degree, students can",
-          "complete a BSc degree in Chemical Engineering in a",
-          "further two years or proceed to a higher degree in",
-          "Chemistry. This is a unique offering from Wits where",
-          "one can attain two degrees within five years."
+          "The School of Chemistry offers a 3-year BSc degree that combines a Chemistry major with Chemical Engineering topics. After obtaining the first degree, students can complete a BSc degree in Chemical Engineering in a further two years or proceed to a higher degree in Chemistry. This is a unique offering from Wits where one can attain two degrees within five years."
         ],
         "transcription_withheld": null
       }
@@ -9822,8 +9780,7 @@
         },
         "curriculum_notes": [
           "Geography III - Four courses from:",
-          "NB: All eight Geography III courses may be taken for a",
-          "double major in Geography"
+          "NB: All eight Geography III courses may be taken for a double major in Geography"
         ],
         "transcription_withheld": null
       }
