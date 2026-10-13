@@ -73,23 +73,24 @@ Admission requirements are **transcribed by hand** from prospectus PDFs into a f
 flowchart LR
     PDF[Prospectus PDF] -->|archive_source.py| R2[(Cloudflare R2)]
     PDF -.->|read by a human| B[Bundle zip<br/>flat, one file per<br/>institution-year]
-    B -->|ingest_bundle.py| DB[(Supabase<br/>Postgres)]
-    S[seeds/<br/>requirement trees] -->|load_seeds.py| DB
-    DB -->|export_data.py --verified-only| J[programmes.json]
+    B -->|convert_bundle.py| S[seeds/<br/>requirement trees]
+    S -->|export_from_seeds.py --verified-only| J[programmes.json]
     J -->|docker build| IMG[API image]
     IMG -->|kubectl apply| K8S[Kubernetes]
 ```
 
-Two ways in, one way out. `seeds/` + `load_seeds.py` is how the original 29 hand-verified UJ records got in, and still works exactly as it did — nothing about it changed. `ingest_bundle.py` is the entrance for everything since: an operator transcribes a prospectus into the flat bundle format and ingests it directly into Postgres, no intermediate tree file required. Each step exists for a reason:
+One way in, one way out, and **no database anywhere in it**. A prospectus is transcribed into the flat bundle format, converted to requirement trees in `seeds/`, and exported to the single JSON file the API serves. `seeds/` is the source of truth: a pull-request diff is the review, and git is the history.
+
+Postgres used to sit between the bundle and the export as an editorial layer. It was removed once the build stopped using it — it answered "what changed since last time, and has a human seen it", which a PR diff answers with better tooling and permanent history. Each remaining step exists for a reason:
 
 | Step | What it is for |
 |---|---|
 | **R2 archive** | The source PDF is stored so every record's `source_doc` + `source_page` resolves to a real page of a real document. When a learner disputes a result, pointing at the source page is what settles it. |
 | **Bundle** | A person transcribes what the table *looks like* — one number per cell. Nobody hand-authors rule trees. |
-| **ingest_bundle.py** | Unpacks the bundle safely, converts it (via `convert_bundle.py`), runs it through the same semantic validator `seeds/` is held to, diffs it against whatever is already in Postgres, and writes only what's new or changed — never partially, never as `confidence='verified'`. |
-| **validate_data.py** | Structural checks *and* semantic ones — the errors hand-typed data actually contains. It reports; it never repairs. Shared by both paths into Postgres. |
-| **Postgres** | Source of truth. Holds every academic year and every institution's full history; the API only ever sees the exported, verified slice. |
-| **export_data.py** | Flattens the chosen years into one JSON file. `--verified-only` is the CI default — see [Validation](#validation). |
+| **convert_bundle.py** | Turns the flat bundle into the requirement trees stored in `seeds/`, running it through the same semantic validator `seeds/` is held to. Nobody hand-authors rule trees. |
+| **validate_data.py** | Structural checks *and* semantic ones — the errors hand-typed data actually contains. It reports; it never repairs. |
+| **seeds/** | Source of truth. Every academic year and every institution, reviewed as a pull request; the API only ever sees the exported, verified slice. |
+| **export_from_seeds.py** | Flattens the chosen years into one JSON file. `--verified-only` is the CI default — the review gate moved from a database column to a reviewed file, it did not disappear. See [Validation](#validation). |
 | **Docker + k8s** | The API ships as an image with the dataset baked in, so a running container needs no database at all. |
 
 ---
@@ -101,7 +102,7 @@ Two ways in, one way out. `seeds/` + `load_seeds.py` is how the original 29 hand
 | API service | **FastAPI** + **Pydantic v2**, Python 3.12 | Fast to write, validates data automatically, great for a small JSON API |
 | Server | **uvicorn** | The actual process that runs the FastAPI app |
 | Package/dependency management | **uv** | Single fast tool for Python versions, virtual envs, and dependencies (a `uv workspace` ties `api/` and the root project together) |
-| Database (source of truth) | **Supabase** (hosted Postgres) | Where verified programme data lives before being exported to the API's flat file |
+| Source of truth | **`seeds/` in git** | Reviewed requirement trees, exported to the API's flat file. No database at any stage. |
 | File/blob storage | **Cloudflare R2** | Stores the original prospectus PDFs the data was transcribed from |
 | Prospectus acquisition | **requests** + **BeautifulSoup**, **pdfplumber** | Finding, downloading and triaging candidate prospectus PDFs |
 | Testing | **pytest** | Both the API and the data tooling have their own test suites |
@@ -132,15 +133,13 @@ coursefind-data/
 │   └── Dockerfile
 │
 ├── scripts/                    # The data pipeline, as CLI tools
-│   ├── ingest_bundle.py        # Bundle zip/dir  ->  Postgres, directly (the real entrance)
-│   ├── convert_bundle.py       # Flat bundle  ->  requirement trees (ingest_bundle.py's engine)
-│   ├── export_bundle.py        # The reverse: Postgres/seeds  ->  flat bundle (template + round-trip test)
+│   ├── convert_bundle.py       # Flat bundle  ->  requirement trees
+│   ├── export_bundle.py        # The reverse: seeds/  ->  flat bundle (template + round-trip test)
 │   ├── validate_data.py        # Structural + semantic validation (reports, never repairs)
 │   ├── validate_seeds.py       # Runs the validator over seeds/, reporting file:line
 │   ├── watch_seeds.py          # Re-validates on every save, for a live authoring loop
 │   ├── seed_stats.py           # Encoding burn-down per faculty file
-│   ├── load_seeds.py           # seeds/  ->  Postgres (the ORIGINAL entrance -- still works)
-│   ├── export_data.py          # Postgres  ->  api/src/app/data/programmes.json
+│   ├── export_from_seeds.py    # seeds/  ->  api/src/app/data/programmes.json
 │   ├── archive_source.py       # Source PDF  ->  R2, prints the key for source.document
 │   ├── discover_prospectuses.py / fetch_prospectuses.py   # Find and download source PDFs
 │   └── triage_prospectus.py    # Is this PDF a real prospectus or a brochure?
@@ -228,7 +227,7 @@ cd api && docker build -t coursefind-api:2027.1 --build-arg DATA_VERSION=2027.1 
 kubectl apply -f k8s/
 ```
 
-**Step 6's review is required, not optional.** `--verified-only` is the CI default specifically so an ingested-but-unreviewed bundle cannot reach production by being loaded — ingestion can get a record into Postgres, but only a human, deliberately, gets it into what learners actually see. The image is tagged `year.revision`. The dataset is baked in at build time, so a running container reads no database and no PDF — only the JSON file inside itself.
+**Step 6's review is required, not optional.** `--verified-only` is the CI default specifically so a converted-but-unreviewed bundle cannot reach production — conversion gets a record into `seeds/`, but only a human, deliberately, marks it `confidence='verified'` and gets it into what learners actually see. The image is tagged `year.revision`. The dataset is baked in at build time, so a running container reads no database and no PDF — only the JSON file inside itself.
 
 ---
 
@@ -290,7 +289,6 @@ Wits's and UCT's Faculty of Health Sciences fold National Benchmark Test (NBT) r
 
 | Variable | Purpose |
 |---|---|
-| `DATABASE_URL` | Postgres connection string (Supabase) — where verified programme data is stored and loaded from |
 | `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `R2_ENDPOINT` | Cloudflare R2 credentials — where source prospectus PDFs are archived |
 
 None of these are needed to run the API itself — the API only ever reads the already-exported `programmes.json` file, never the database, R2, or a PDF.
@@ -320,7 +318,7 @@ Some tests need infrastructure and are marked so they can be skipped:
 uv run pytest -m "not db and not docker and not r2 and not slow"
 ```
 
-`db` needs a reachable `DATABASE_URL`, `docker` builds and runs the real image, `r2` touches live Cloudflare, and `slow` reads real prospectus PDFs that may not exist on a fresh clone.
+`docker` builds and runs the real image, `r2` touches live Cloudflare, and `slow` reads real prospectus PDFs that may not exist on a fresh clone.
 
 ---
 

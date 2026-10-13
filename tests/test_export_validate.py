@@ -26,12 +26,11 @@ def test_validate_cli_exits_1_on_empty_dataset(tmp_path: Path) -> None:
     assert "0 programmes" not in result.stdout.split("\n")[0]  # not the old silent-pass message
 
 
-@pytest.mark.db
 def test_export_refuses_below_min_records(tmp_path: Path) -> None:
     out_file = tmp_path / "programmes.json"
     result = subprocess.run(
         [
-            sys.executable, str(ROOT / "scripts" / "export_data.py"),
+            sys.executable, str(ROOT / "scripts" / "export_from_seeds.py"),
             "--years", "2027",
             "--out", str(out_file),
             "--min-records", "999999",
