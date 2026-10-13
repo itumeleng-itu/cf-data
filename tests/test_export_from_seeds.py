@@ -52,13 +52,13 @@ def test_curriculum_survives_api_model_validation(exported):
     wits = [p for p in programmes if p["institution_id"] == "wits"]
     with_cur = [p for p in wits
                 if any(s.get("curriculum") for s in p.get("streams") or [])]
-    assert len(with_cur) == 52, f"expected 52 Wits curricula, got {len(with_cur)}"
+    assert len(with_cur) == 54, f"expected 54 Wits curricula, got {len(with_cur)}"
     courses = sum(len(v) for p in with_cur for s in p["streams"]
                   for v in s["curriculum"].values())
-    assert courses == 1464, f"expected 1464 course requirements, got {courses}"
+    assert courses == 1545, f"expected 1545 course requirements, got {courses}"
     streams = sum(len(p["streams"]) for p in programmes
                   if p["institution_id"] == "wits")
-    assert streams == 66, f"expected 66 streams, got {streams}"
+    assert streams == 68, f"expected 68 streams, got {streams}"
 
 
 def test_multi_stream_programmes_stay_separated(exported):

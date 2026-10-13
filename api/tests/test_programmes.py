@@ -178,7 +178,7 @@ def test_wits_course_lists_survive_the_whole_path(client):
     served = client.get(
         "/v1/programmes", params={"institution": "wits", "with_curriculum": True},
     ).json()
-    assert len(served) == 52
+    assert len(served) == 54
 
     total = streams = 0
     for p in served:
@@ -188,8 +188,8 @@ def test_wits_course_lists_survive_the_whole_path(client):
             f"{p['qualification_code']} lost its curriculum"
         streams += len(d["streams"])
         total += len(_entries(d))
-    assert total == 1464
-    assert streams == 61
+    assert total == 1545
+    assert streams == 63
 
 
 def test_served_curriculum_is_identical_to_the_seed(client):
@@ -200,7 +200,7 @@ def test_served_curriculum_is_identical_to_the_seed(client):
     Compares the full entry, not just names, so a dropped `options` list
     or a flipped `choice` flag fails here too."""
     seed = {r["qualification_code"]: r for r in _wits_seed()}
-    assert _seed_course_total(list(seed.values())) == 1464
+    assert _seed_course_total(list(seed.values())) == 1545
 
     def strip(entry: dict) -> dict:
         # The response model fills the absent half of the union with
@@ -243,7 +243,7 @@ def test_choices_stay_one_requirement_with_their_options(client):
 
     with_choices = [r for r in seed if choices(r)]
     assert with_choices, "fixture no longer covers choices"
-    assert sum(len(choices(r)) for r in with_choices) == 25
+    assert sum(len(choices(r)) for r in with_choices) == 29
 
     for record in with_choices:
         d = client.get(f"/v1/programmes/wits/{record['qualification_code']}").json()
@@ -268,7 +268,7 @@ def test_a_choice_carries_options_and_a_compulsory_carries_a_name(client):
                 assert c["name"]
                 assert c["options"] is None
                 seen_compulsory += 1
-    assert (seen_choice, seen_compulsory) == (25, 1439)
+    assert (seen_choice, seen_compulsory) == (29, 1516)
 
 
 def test_curriculum_notes_are_not_served_as_courses(client):

@@ -2044,6 +2044,481 @@
     {
       "institution_id": "wits",
       "academic_year": 2027,
+      "qualification_code": "CBA10",
+      "name": "Bachelor of Commerce (BCom) in the field of Information Systems",
+      "faculty": "Commerce, Law and Management",
+      "campus": [],
+      "duration_years": 3.0,
+      "extended": false,
+      "requirements": {
+        "nsc": {
+          "score": [
+            {
+              "min_score": 38
+            }
+          ],
+          "subjects": {
+            "kind": "all",
+            "rules": [
+              {
+                "kind": "subject",
+                "language": "english",
+                "min_level": 5
+              },
+              {
+                "kind": "subject",
+                "subject": "mathematics",
+                "min_level": 5
+              }
+            ]
+          },
+          "excluded_subjects": []
+        }
+      },
+      "selection_notes": [
+        "Waitlist band: APS 35-37.",
+        "Admission requirements are the shared row on prospectus page 16, headed \"Bachelor of Commerce (BCom) in the fields of:\", which covers General, Politics Philosophy and Economics, and Information Systems together; page 51 prints the same requirements for this field on its own."
+      ],
+      "career_text": null,
+      "source_doc": "wits_2027_prospectus.pdf",
+      "source_page": 51,
+      "streams": [
+        {
+          "name": null,
+          "source_page": 51,
+          "curriculum": {
+            "first_year": [
+              {
+                "name": "Information Systems IA and IB",
+                "choice": false
+              },
+              {
+                "name": "Accounting I",
+                "choice": false
+              },
+              {
+                "name": "Computational Mathematics I",
+                "choice": false
+              },
+              {
+                "name": "Business Statistics I",
+                "choice": false
+              },
+              {
+                "name": "Economic IA (Microeconomics)",
+                "choice": false
+              },
+              {
+                "options": [
+                  "Economics IB (Macroeconomics)",
+                  "Economic Theory IA (Microeconomics for Economists)"
+                ],
+                "choice": true
+              },
+              {
+                "name": "Economics Theory IB (Macroeconomics for Economists)",
+                "choice": false
+              }
+            ],
+            "second_year": [
+              {
+                "name": "Information Systems IIA and IIB",
+                "choice": false
+              },
+              {
+                "name": "Corporate Finance II",
+                "choice": false
+              },
+              {
+                "name": "Investment II",
+                "choice": false
+              },
+              {
+                "name": "Economics IIA and IIB",
+                "choice": false
+              },
+              {
+                "name": "Consumer Behaviour",
+                "choice": false
+              },
+              {
+                "name": "Principles of Marketing",
+                "choice": false
+              },
+              {
+                "name": "Integrated Marketing Communications",
+                "choice": false
+              },
+              {
+                "name": "Retail Management",
+                "choice": false
+              },
+              {
+                "name": "Insurance and Risk Management IIA AND IIB",
+                "choice": false
+              },
+              {
+                "name": "Human Resources IIA",
+                "choice": false
+              },
+              {
+                "name": "Human Resources IIB (Labour Relations)",
+                "choice": false
+              }
+            ],
+            "third_year": [
+              {
+                "name": "Management and Application of Information Systems",
+                "choice": false
+              },
+              {
+                "name": "Information Systems Development Project",
+                "choice": false
+              },
+              {
+                "name": "Investment and Corporate Finance III",
+                "choice": false
+              },
+              {
+                "name": "Economic Science III",
+                "choice": false
+              },
+              {
+                "name": "Economic Theory III",
+                "choice": false
+              },
+              {
+                "name": "Applied Development Economics III",
+                "choice": false
+              },
+              {
+                "name": "Marketing IIIA and IIIB",
+                "choice": false
+              },
+              {
+                "name": "Operations Management",
+                "choice": false
+              },
+              {
+                "name": "Project Management",
+                "choice": false
+              },
+              {
+                "name": "Innovation and Intrapreneurship Management",
+                "choice": false
+              },
+              {
+                "name": "Strategic Management",
+                "choice": false
+              },
+              {
+                "name": "Insurance and Risk Management III",
+                "choice": false
+              },
+              {
+                "name": "Compensation and Benefits",
+                "choice": false
+              },
+              {
+                "name": "Human Resource and Individual Performance",
+                "choice": false
+              },
+              {
+                "name": "Human Resources and Organisational Performance",
+                "choice": false
+              },
+              {
+                "name": "Organisational Theory",
+                "choice": false
+              }
+            ]
+          },
+          "curriculum_notes": [
+            "A total of 72 credits must be taken from the following",
+            "courses. At least 48 of these credits must make up the",
+            "second year level of your second major. Students who",
+            "wish to pursue a second major in Computer Science must",
+            "be aware of the prerequisite requirements for this course.",
+            "A total of 72 credits must be taken from the following",
+            "courses:"
+          ],
+          "transcription_withheld": null
+        }
+      ],
+      "confidence": "extracted",
+      "scoring_override": null,
+      "scoring_strategy_override": null,
+      "scoreable": true
+    },
+    {
+      "institution_id": "wits",
+      "academic_year": 2027,
+      "qualification_code": "CBA12",
+      "name": "Bachelor of Commerce (BCom) in the field of Politics, Philosophy and Economics",
+      "faculty": "Commerce, Law and Management",
+      "campus": [],
+      "duration_years": 3.0,
+      "extended": false,
+      "requirements": {
+        "nsc": {
+          "score": [
+            {
+              "min_score": 38
+            }
+          ],
+          "subjects": {
+            "kind": "all",
+            "rules": [
+              {
+                "kind": "subject",
+                "language": "english",
+                "min_level": 5
+              },
+              {
+                "kind": "subject",
+                "subject": "mathematics",
+                "min_level": 5
+              }
+            ]
+          },
+          "excluded_subjects": []
+        }
+      },
+      "selection_notes": [
+        "Waitlist band: APS 35-37.",
+        "Admission requirements are the shared row on prospectus page 16, headed \"Bachelor of Commerce (BCom) in the fields of:\", which covers General, Politics Philosophy and Economics, and Information Systems together; page 52 prints the same requirements for this field on its own."
+      ],
+      "career_text": null,
+      "source_doc": "wits_2027_prospectus.pdf",
+      "source_page": 52,
+      "streams": [
+        {
+          "name": null,
+          "source_page": 52,
+          "curriculum": {
+            "first_year": [
+              {
+                "name": "Economic Theory IA (Microeconomics for Economists)",
+                "choice": false
+              },
+              {
+                "name": "Economic Theory IB (Macroeconomic for Economists)",
+                "choice": false
+              },
+              {
+                "name": "Introduction to Ethics",
+                "choice": false
+              },
+              {
+                "name": "Introduction to Philosophy: Knowledge and Reality I",
+                "choice": false
+              },
+              {
+                "name": "Introduction to Political Studies I",
+                "choice": false
+              },
+              {
+                "name": "States, Power and Governance",
+                "choice": false
+              },
+              {
+                "name": "Computational Mathematics I",
+                "choice": false
+              },
+              {
+                "name": "Business Statistics I",
+                "choice": false
+              }
+            ],
+            "second_year": [
+              {
+                "name": "Economics IIA AND IIB",
+                "choice": false
+              },
+              {
+                "name": "History of Philosophy: A Classical and Early Modern Philosophy",
+                "choice": false
+              },
+              {
+                "name": "Philosophy of Mind and Psychology II",
+                "choice": false
+              },
+              {
+                "name": "Philosophy of Religion II",
+                "choice": false
+              },
+              {
+                "name": "Philosophy of Science II",
+                "choice": false
+              },
+              {
+                "name": "Social and Political Philosophy II",
+                "choice": false
+              },
+              {
+                "name": "Theories of Justice II",
+                "choice": false
+              },
+              {
+                "name": "Continental Philosophy II",
+                "choice": false
+              },
+              {
+                "options": [
+                  "African Philosophy",
+                  "two of the following"
+                ],
+                "choice": true
+              },
+              {
+                "name": "Social Theories of Modernity",
+                "choice": false
+              },
+              {
+                "name": "South Africa: Politics and Governance",
+                "choice": false
+              },
+              {
+                "name": "Black Consciousness Thought and the Politics of Anti- Racism",
+                "choice": false
+              },
+              {
+                "name": "Corporate Finance II",
+                "choice": false
+              },
+              {
+                "name": "Investment II",
+                "choice": false
+              },
+              {
+                "name": "Principles of Management IIA",
+                "choice": false
+              },
+              {
+                "name": "Principles of Management IIB (Entrepreneurships)",
+                "choice": false
+              },
+              {
+                "name": "Insurance and Risk Management IIA",
+                "choice": false
+              },
+              {
+                "name": "Insurance and Risk Management IIB",
+                "choice": false
+              },
+              {
+                "name": "Human Resources IIA",
+                "choice": false
+              },
+              {
+                "name": "Human Resources IIB (Labour Relations)",
+                "choice": false
+              },
+              {
+                "name": "Consumer Behaviour",
+                "choice": false
+              },
+              {
+                "name": "Principles of Marketing IIA",
+                "choice": false
+              },
+              {
+                "name": "Integrated Marketing Communications",
+                "choice": false
+              },
+              {
+                "name": "Retail Management",
+                "choice": false
+              }
+            ],
+            "third_year": [
+              {
+                "options": [
+                  "Economic Science III",
+                  "Economic Theory III",
+                  "Applied Development Economics III"
+                ],
+                "choice": true
+              },
+              {
+                "name": "Epistemology and Metaphysics III",
+                "choice": false
+              },
+              {
+                "name": "Ethics III",
+                "choice": false
+              },
+              {
+                "name": "History of Philosophy B: Further Topics in Modern Philosophy III",
+                "choice": false
+              },
+              {
+                "name": "Philosophy of Social Science",
+                "choice": false
+              },
+              {
+                "name": "Philosophy III",
+                "choice": false
+              },
+              {
+                "name": "Senior seminar in Philosophy",
+                "choice": false
+              },
+              {
+                "name": "Philosophy of Language III",
+                "choice": false
+              },
+              {
+                "name": "Symbolic Logic III",
+                "choice": false
+              },
+              {
+                "options": [
+                  "Philosophy of Art",
+                  "Development: Concepts and Experiences"
+                ],
+                "choice": true
+              },
+              {
+                "name": "Liberty, Justice and the Politics of Difference",
+                "choice": false
+              },
+              {
+                "name": "Conflict and Stability in Postcolonial Africa",
+                "choice": false
+              },
+              {
+                "name": "Introduction to Comparative Politics",
+                "choice": false
+              },
+              {
+                "name": "Politics for Public Service",
+                "choice": false
+              },
+              {
+                "name": "Post-Colonial Politics",
+                "choice": false
+              }
+            ]
+          },
+          "curriculum_notes": [
+            "AND one of the following:",
+            "A total of 48 credits must be taken from:",
+            "A total of 72 credits must be selected from either",
+            "Politics III or Philosophy III, depending of what was",
+            "taken in the second the year of study"
+          ],
+          "transcription_withheld": null
+        }
+      ],
+      "confidence": "extracted",
+      "scoring_override": null,
+      "scoring_strategy_override": null,
+      "scoreable": true
+    },
+    {
+      "institution_id": "wits",
+      "academic_year": 2027,
       "qualification_code": "CBA13",
       "name": "Bachelor of Commerce (BCom) in the field of Law",
       "faculty": "Commerce, Law and Management",

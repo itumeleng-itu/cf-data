@@ -40,7 +40,7 @@ def converted():
 class TestBundleRoundTrip:
     def test_converts_without_error(self, converted):
         _, recs = converted
-        assert len(recs) == len(BUNDLE["programmes"]) == 58
+        assert len(recs) == len(BUNDLE["programmes"]) == 60
 
     def test_passes_the_same_semantic_validation_as_seeds(self, converted):
         inst, recs = converted
@@ -146,8 +146,8 @@ class TestCurriculum:
         _, recs = converted
         with_cur = [r for r in recs
                     if any(s.get("curriculum") for s in r.get("streams") or [])]
-        assert len(with_cur) == 52
-        assert sum(len(r["streams"]) for r in recs) == 66
+        assert len(with_cur) == 54
+        assert sum(len(r["streams"]) for r in recs) == 68
 
     def test_each_prospectus_page_becomes_its_own_stream(self, converted):
         """SBA11 is printed over six pages, one per major, all sharing one

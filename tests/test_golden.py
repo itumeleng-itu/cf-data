@@ -43,9 +43,9 @@ CANONICAL_MARKS = {
 # 34, three level-5 bars, the second-highest APS encoded after B2M52Q's 40)
 # is the highest bar in this tranche and was checked individually.
 EXPECTED_QUALIFYING_CODES = frozenset({
-# --- Wits 2027 (added with seeds/wits/, 58 programmes) ----------------
+# --- Wits 2027 (added with seeds/wits/, 60 programmes) ----------------
 # The canonical fixture (English HL 87, Maths 88, Physical Sciences 73,
-# Life Sciences 87) clears 56 of the 58. The two it does not are checked
+# Life Sciences 87) clears 58 of the 60. The two it does not are checked
 # individually rather than taken on trust:
 #   SBA03 Actuarial Science    - needs Physical Sciences Level 7
 #   SBA08 Mathematical Sciences- needs Physical Sciences Level 7
@@ -53,8 +53,19 @@ EXPECTED_QUALIFYING_CODES = frozenset({
 # The 11 Wits programmes marked scoreable=false (Health Sciences on its
 # Composite Index, and the two graduate LLB streams) are never scored and
 # so never appear here at all.
+#
+# CBA10 (BCom Information Systems) and CBA12 (BCom Politics, Philosophy and
+# Economics) joined the set deliberately. Prospectus page 16 prints ONE
+# requirements row headed "Bachelor of Commerce (BCom) in the fields of:"
+# over three sub-bullets -- General, Politics Philosophy and Economics,
+# Information Systems -- and the admissions extract had collapsed all three
+# into the parent row, so only General (CBA00) existed as a record. They
+# share CBA00's requirements exactly (APS 38+, English 5, Mathematics 5),
+# which pages 51 and 52 each print independently, so a fixture that clears
+# CBA00 must clear these two as well. Nothing was lost from the set.
     "ABA00", "ABA02", "AFA01", "AFA02", "AFA04", "AFA10", "AFA11", "AFA12",
-    "AFA13", "AFA14", "CBA00", "CBA08", "CBA13", "CBA14", "CBA17", "CBA18",
+    "AFA13", "AFA14", "CBA00", "CBA08", "CBA10", "CBA12", "CBA13", "CBA14",
+    "CBA17", "CBA18",
     "EBA00", "EBA01", "EFA00", "EFA01", "EFA03", "EFA05", "EFA06", "EFA07",
     "EFA08", "EFA09", "FBA00", "FBA04", "FBA05", "FBA07", "HFA00", "HFA01",
     "HFA02", "LFA12", "LFA13", "LFA14", "MBA01", "MBA04", "MBA05", "MFA00",

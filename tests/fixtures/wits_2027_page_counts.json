@@ -1,0 +1,280 @@
+{
+  "_comment": "Course counts per prospectus page, taken from the deterministic pdfplumber extraction of wits_2027_prospectus.pdf (no model). This is the independent record the served data is reconciled against: seeds/wits/wits_2027.json must account for every page here, either by serving the same number of courses or by withholding the page with a stated reason. Without it, a page silently dropped between the extract and the seed looks exactly like a page that never had courses. Regenerate only from a fresh extraction, never by copying the seed -- that would make the check circular.",
+  "source_document": "Wits Guide for Undergraduate Applicants 2027, pages 40-131",
+  "extraction_method": "deterministic pdfplumber coordinate parsing; no model",
+  "total_courses": 1648,
+  "pages": {
+    "45": {
+      "code": "CBA00",
+      "courses": 24
+    },
+    "46": {
+      "code": "CBA14",
+      "courses": 23
+    },
+    "47": {
+      "code": "CBA08",
+      "courses": 18
+    },
+    "48": {
+      "code": "CBA13",
+      "courses": 45
+    },
+    "49": {
+      "code": "CBA17",
+      "courses": 36
+    },
+    "50": {
+      "code": "CBA18",
+      "courses": 26
+    },
+    "51": {
+      "code": "CBA10",
+      "courses": 34
+    },
+    "52": {
+      "code": "CBA12",
+      "courses": 47
+    },
+    "53": {
+      "code": "LFA12",
+      "courses": 15
+    },
+    "54": {
+      "code": "LFA13",
+      "courses": 22
+    },
+    "55": {
+      "code": "LFA14",
+      "courses": 24
+    },
+    "59": {
+      "code": "EFA00",
+      "courses": 40
+    },
+    "60": {
+      "code": "EFA08",
+      "courses": 46
+    },
+    "61": {
+      "code": "EFA01",
+      "courses": 42
+    },
+    "62": {
+      "code": "EFA03",
+      "courses": 42
+    },
+    "63": {
+      "code": "EFA03",
+      "courses": 45
+    },
+    "64": {
+      "code": "EBA00",
+      "courses": 22
+    },
+    "65": {
+      "code": "EBA01",
+      "courses": 18
+    },
+    "66": {
+      "code": "EFA05",
+      "courses": 46
+    },
+    "67": {
+      "code": "EFA07",
+      "courses": 46
+    },
+    "68": {
+      "code": "EFA06",
+      "courses": 49
+    },
+    "69": {
+      "code": "EFA09",
+      "courses": 49
+    },
+    "70": {
+      "code": "FBA00",
+      "courses": 21
+    },
+    "71": {
+      "code": "FBA05",
+      "courses": 23
+    },
+    "72": {
+      "code": "FBA04",
+      "courses": 31
+    },
+    "73": {
+      "code": "FBA07",
+      "courses": 22
+    },
+    "76": {
+      "code": "MBA05",
+      "courses": 14
+    },
+    "77": {
+      "code": "MBA05",
+      "courses": 13
+    },
+    "78": {
+      "code": "MBA05",
+      "courses": 10
+    },
+    "79": {
+      "code": "MBA01",
+      "courses": 3
+    },
+    "80": {
+      "code": "MFA08",
+      "courses": 40
+    },
+    "81": {
+      "code": "MBA04",
+      "courses": 14
+    },
+    "82": {
+      "code": "MFA00",
+      "courses": 10
+    },
+    "83": {
+      "code": "MFA07",
+      "courses": 12
+    },
+    "84": {
+      "code": "MFA03",
+      "courses": 18
+    },
+    "85": {
+      "code": "MFA04",
+      "courses": 23
+    },
+    "86": {
+      "code": "MFA02",
+      "courses": 21
+    },
+    "89": {
+      "code": "ABA00",
+      "courses": 0
+    },
+    "94": {
+      "code": "ABA02",
+      "courses": 0
+    },
+    "96": {
+      "code": "AFA11",
+      "courses": 21
+    },
+    "97": {
+      "code": "AFA10",
+      "courses": 31
+    },
+    "98": {
+      "code": "AFA01",
+      "courses": 14
+    },
+    "99": {
+      "code": "AFA02",
+      "courses": 35
+    },
+    "100": {
+      "code": "AFA14",
+      "courses": 40
+    },
+    "102": {
+      "code": "HFA00",
+      "courses": 39
+    },
+    "103": {
+      "code": "HFA01",
+      "courses": 39
+    },
+    "104": {
+      "code": "HFA02",
+      "courses": 43
+    },
+    "107": {
+      "code": "AFA13",
+      "courses": 18
+    },
+    "108": {
+      "code": "AFA12",
+      "courses": 21
+    },
+    "109": {
+      "code": "AFA04",
+      "courses": 14
+    },
+    "113": {
+      "code": "SBA11",
+      "courses": 13
+    },
+    "114": {
+      "code": "SBA11",
+      "courses": 14
+    },
+    "115": {
+      "code": "SBA11",
+      "courses": 8
+    },
+    "116": {
+      "code": "SBA11",
+      "courses": 9
+    },
+    "117": {
+      "code": "SBA11",
+      "courses": 9
+    },
+    "118": {
+      "code": "SBA11",
+      "courses": 9
+    },
+    "119": {
+      "code": "SBA10",
+      "courses": 14
+    },
+    "120": {
+      "code": "SBA22",
+      "courses": 14
+    },
+    "121": {
+      "code": "SBA20",
+      "courses": 25
+    },
+    "122": {
+      "code": "SBA09",
+      "courses": 18
+    },
+    "123": {
+      "code": "SBA03",
+      "courses": 20
+    },
+    "124": {
+      "code": "SBA21",
+      "courses": 21
+    },
+    "125": {
+      "code": "SBA13",
+      "courses": 30
+    },
+    "126": {
+      "code": "SBA08",
+      "courses": 28
+    },
+    "127": {
+      "code": "SBA12",
+      "courses": 10
+    },
+    "128": {
+      "code": "SBA04",
+      "courses": 18
+    },
+    "129": {
+      "code": "SBA15",
+      "courses": 24
+    },
+    "130": {
+      "code": "SBA12",
+      "courses": 15
+    }
+  }
+}
