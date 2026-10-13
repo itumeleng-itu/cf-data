@@ -4,6 +4,26 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
+
+def _seeded() -> dict:
+    """The same seeds/ data the client fixture serves (conftest builds its
+    data file from seed_loader.load()). Used so assertions about totals
+    track the dataset instead of hardcoding one institution's count."""
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
+    from seed_loader import load
+    return load()
+
+
+def _seeded_programme_count() -> int:
+    return len(_seeded()["programmes"])
+
+
+def _seeded_institution_ids() -> set[str]:
+    return {p["institution_id"] for p in _seeded()["programmes"]}
+
+
 CANONICAL_MARKS = [
     {"subject": "english_hl", "percentage": 87},
     {"subject": "afrikaans_fal", "percentage": 85},
@@ -53,7 +73,10 @@ def test_qualify_canonical_fixture_matches_expected_programmes(client: TestClien
     qualified_codes = {r["qualification_code"] for r in body["qualified"]}
     assert {"B2M52Q", "B2I02Q", "B4L03Q"} <= qualified_codes
     assert body["scores"]["uj"] == 41
-    assert body["evaluated_count"] == 29
+    # Every seeded programme is evaluated, across every institution in
+    # seeds/. Asserted against the loaded data rather than a literal so
+    # that onboarding an institution does not fail a test about UJ.
+    assert body["evaluated_count"] == _seeded_programme_count()
 
 
 def test_qualify_sorts_qualified_by_margin_descending(client: TestClient) -> None:
@@ -318,5 +341,6 @@ def test_meta_shape(client: TestClient) -> None:
     body = resp.json()
     assert body["data_version"] == "2027.1-test"
     assert body["academic_years"] == [2027]
-    assert body["institutions"] == {"uj": [2027]}
-    assert body["programme_count"] == 29
+    assert body["institutions"]["uj"] == [2027]
+    assert set(body["institutions"]) == _seeded_institution_ids()
+    assert body["programme_count"] == _seeded_programme_count()

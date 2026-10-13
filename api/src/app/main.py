@@ -93,6 +93,18 @@ class _ProgrammeModel(BaseModel):
     career_text: str | None = None
     source_doc: str | None = None
     source_page: int | None = None
+    # What the learner STUDIES, by year of study, as distinct from the
+    # requirements above, which are what they need to get IN. Keyed
+    # first_year..sixth_year; each item is either {"name": ...} or
+    # {"options": [...], "choice": true} where the prospectus prints an OR.
+    # Optional: some programmes cross-reference their course list to other
+    # pages instead of printing it, and most institutions have not been
+    # transcribed at this depth yet.
+    curriculum: dict[str, list[dict]] | None = None
+    # Instruction prose printed among the course list ("a total of 72
+    # credits must be taken from the following") that is NOT itself a
+    # course. Kept so the list can be rendered faithfully.
+    curriculum_notes: list[str] | None = None
     confidence: str = "extracted"
     scoring_override: dict | None = None
     scoring_strategy_override: str | None = None
