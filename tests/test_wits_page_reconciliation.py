@@ -27,6 +27,7 @@ cannot see past it.
 """
 
 import json
+from collections import Counter
 from pathlib import Path
 
 import pytest
@@ -40,6 +41,12 @@ SEED = ROOT / "seeds" / "wits" / "wits_2027.json"
 def manifest() -> dict:
     data = json.loads(MANIFEST.read_text(encoding="utf-8"))
     return {int(page): info for page, info in data["pages"].items()}
+
+
+@pytest.fixture(scope="module")
+def provenance() -> dict[int, str]:
+    data = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    return {int(page): info["provenance"] for page, info in data["pages"].items()}
 
 
 @pytest.fixture(scope="module")
@@ -103,6 +110,15 @@ def test_each_served_page_serves_exactly_what_was_extracted(manifest, streams):
     assert not wrong, "; ".join(wrong)
 
 
+def test_nothing_is_withheld_any_more(streams):
+    """The five pages the extractor could not read were transcribed by
+    hand instead, so every page in the prospectus now serves its courses.
+    Stated outright because the test below passes vacuously once there is
+    nothing withheld, and a silent vacuum is how a regression hides."""
+    assert [p for p, (_, s) in streams.items()
+            if s.get("transcription_withheld")] == []
+
+
 def test_a_withheld_page_serves_nothing_and_says_why(manifest, streams):
     """Withholding is the only sanctioned way for a page's courses not to
     be served, and it has to be stated. An empty curriculum with no reason
@@ -131,25 +147,40 @@ def test_the_totals_balance(manifest, manifest_total, streams):
     )
     assert served + withheld == manifest_total, (
         f"{served} served + {withheld} withheld = {served + withheld}, "
-        f"but the extraction found {manifest_total}"
+        f"but the page counts total {manifest_total}"
     )
     # Fixed so the balance cannot be satisfied by a wholesale drop on both
-    # sides -- 0 + 1648 would balance too.
-    assert (served, withheld) == (1545, 103)
+    # sides -- 0 + 1657 would balance too.
+    assert (served, withheld) == (1657, 0)
 
 
-def test_the_manifest_was_not_generated_from_the_seed(manifest, streams):
-    """The manifest only has value as an independent record. If it ever
-    matches the seed on every page including the withheld ones, it has been
-    regenerated from the seed and the reconciliation is circular."""
-    withheld_pages = [p for p, (_, s) in streams.items()
-                      if s.get("transcription_withheld")]
-    assert withheld_pages, "fixture no longer covers withholding"
-    assert all(manifest[p]["courses"] > 0 for p in withheld_pages), (
-        "the manifest reports zero courses for pages the seed withholds — "
-        "it appears to have been regenerated from the seed rather than from "
-        "a fresh extraction of the prospectus"
-    )
+def test_the_manifest_states_how_each_page_was_read(provenance):
+    """A row is only a CHECK on the seed if it came from somewhere else.
+
+    63 pages come from the deterministic extraction the seed was built
+    from, so a page dropped or altered on the way in shows up here as a
+    mismatch. 5 were transcribed by hand off the rendered page, because
+    the extractor reads two parallel bulleted columns straight across and
+    fused course names that exist in neither column. For those five the
+    same reading produced both the manifest and the seed, so they confirm
+    the count survived conversion and serving, and nothing more.
+
+    Conflating the two would let a hand-written number pose as an
+    independent check, so provenance is recorded per page and asserted
+    here rather than left implicit."""
+    assert set(provenance.values()) == {"extracted", "transcribed"}
+    counts = Counter(provenance.values())
+    assert counts["extracted"] == 63
+    assert counts["transcribed"] == 5
+    assert {p for p, v in provenance.items() if v == "transcribed"} == {
+        62, 84, 115, 119, 124}
+
+
+def test_most_pages_are_still_checked_against_an_independent_record(provenance):
+    """If hand transcription spread far enough, this file would quietly
+    stop being a check at all. Most pages must stay extracted."""
+    extracted = sum(1 for v in provenance.values() if v == "extracted")
+    assert extracted / len(provenance) > 0.9
 
 
 def test_codes_agree_between_the_extraction_and_the_seed(manifest, streams):

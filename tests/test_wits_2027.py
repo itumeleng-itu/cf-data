@@ -214,7 +214,7 @@ class TestCurriculum:
         _, recs = converted
         with_cur = [r for r in recs
                     if any(s.get("curriculum") for s in r.get("streams") or [])]
-        assert len(with_cur) == 54
+        assert len(with_cur) == 57
         assert sum(len(r["streams"]) for r in recs) == 68
 
     def test_each_prospectus_page_becomes_its_own_stream(self, converted):

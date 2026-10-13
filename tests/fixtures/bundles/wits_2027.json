@@ -2434,16 +2434,176 @@
         "physical_sciences": 5
       },
       "source_page": 62,
-      "selection_notes": [
-        "Majors on separate prospectus pages: Bachelor of Science in Engineering in Electrical Engineering (p62); Bachelor of Science in Engineering in Information Engineering (p63)"
-      ],
+      "selection_notes": [],
       "streams": [
         {
           "name": "Electrical Engineering",
           "source_page": 62,
-          "curriculum": {},
-          "curriculum_notes": [],
-          "transcription_withheld": "The prospectus sets this page's course list in two parallel bulleted columns, which the extractor reads across rather than down. The list is withheld rather than published with course names that appear in neither column."
+          "curriculum": {
+            "first_year": [
+              {
+                "name": "Engineering Chemistry",
+                "choice": false
+              },
+              {
+                "name": "Introduction to the Engineering Profession",
+                "choice": false
+              },
+              {
+                "name": "Engineering Analysis and Design IA AND 1B",
+                "choice": false
+              },
+              {
+                "name": "Engineering Mathematics IA AND 1B",
+                "choice": false
+              },
+              {
+                "name": "Engineering Physics IA AND 1B",
+                "choice": false
+              },
+              {
+                "name": "Applied Physics I",
+                "choice": false
+              },
+              {
+                "options": [
+                  "Elementary IsiZulu Language and Culture IA",
+                  "Elementary Sesotho Language and Culture IA",
+                  "The International Relations of South Africa and Africa",
+                  "Introduction to Political Studies",
+                  "Southern Africa in the Era of Globalisation",
+                  "Identity and Society",
+                  "Introduction to Ethics I",
+                  "Introduction to Philosophy: Knowledge and Reality",
+                  "Global Encounters and Contemporary Realities IA"
+                ],
+                "choice": true
+              }
+            ],
+            "second_year": [
+              {
+                "name": "Data Structures and Algorithms",
+                "choice": false
+              },
+              {
+                "name": "Electrical and Magnetic Systems",
+                "choice": false
+              },
+              {
+                "name": "Software Development I",
+                "choice": false
+              },
+              {
+                "name": "Signals and Systems I (Electrical)",
+                "choice": false
+              },
+              {
+                "name": "Microprocessors",
+                "choice": false
+              },
+              {
+                "name": "Electronics I",
+                "choice": false
+              },
+              {
+                "name": "Electric Circuits",
+                "choice": false
+              },
+              {
+                "name": "Mathematics II",
+                "choice": false
+              },
+              {
+                "name": "Physics II (Electrical)",
+                "choice": false
+              },
+              {
+                "name": "Vacation Work I",
+                "choice": false
+              }
+            ],
+            "third_year": [
+              {
+                "name": "Electromagnetic Engineering",
+                "choice": false
+              },
+              {
+                "name": "Electronics II",
+                "choice": false
+              },
+              {
+                "name": "Power Engineering",
+                "choice": false
+              },
+              {
+                "name": "Probablistic Systems Analysis",
+                "choice": false
+              },
+              {
+                "name": "Software Development II",
+                "choice": false
+              },
+              {
+                "name": "Signals and Systems IIA AND IIB",
+                "choice": false
+              },
+              {
+                "name": "Control I",
+                "choice": false
+              },
+              {
+                "name": "Electrical Engineering Design",
+                "choice": false
+              },
+              {
+                "name": "Economics of Design",
+                "choice": false
+              },
+              {
+                "name": "Mathematical Methods",
+                "choice": false
+              }
+            ],
+            "fourth_year": [
+              {
+                "name": "Electrical Engineering Design II",
+                "choice": false
+              },
+              {
+                "name": "Electrical Engineering Laboratory",
+                "choice": false
+              },
+              {
+                "name": "Measurement Systems",
+                "choice": false
+              },
+              {
+                "name": "Selected Topics in Sociology",
+                "choice": false
+              },
+              {
+                "name": "Systems Management and Integration",
+                "choice": false
+              },
+              {
+                "options": [
+                  "High Frequency Techniques",
+                  "High Voltage Engineering",
+                  "Electromechanical Conversion",
+                  "Control II",
+                  "Renewable Energy",
+                  "Data Intensive Computing in Data Science"
+                ],
+                "choice": true
+              }
+            ]
+          },
+          "curriculum_notes": [
+            "AND, one of the following courses:",
+            "At the beginning of the third year, students can choose to continue with Electrical Engineering or register for Information Engineering.",
+            "AND, any three courses from the following:"
+          ],
+          "transcription_withheld": null
         },
         {
           "name": "Information Engineering",
@@ -4453,8 +4613,7 @@
         "No matric APS threshold is published for this programme. Health Sciences uses a Composite Index (60% academic, 40% NBT); the graduate LLB streams use no matric calculation at all.",
         "All applicants (excluding GEMP/GEPP) must write the NBT by 17 August 2026 for early feedback. Must be written in person; online NBT results will not be considered. [decided by: National Benchmark Test result (applicant must sit the test)]",
         "Applicants achieving in the 'basic' range will not be considered for a place in Health Sciences degrees. [decided by: Wits (body not named in source)]",
-        "Composite Index = 60% academic results (five subjects) + 40% National Benchmark Test scores. Uses percentages obtained, NOT symbols. [decided by: Faculty of Health Sciences]",
-        "Majors on separate prospectus pages: Bachelor of Health Sciences in the field of Biokinetics (p76); Bachelor of Health Sciences in the field Pathology, of Biomedical Sciences Immunology. (p77); Bachelor of Health Sciences in the field of Health Systems Sciences (p78)"
+        "Composite Index = 60% academic results (five subjects) + 40% National Benchmark Test scores. Uses percentages obtained, NOT symbols. [decided by: Faculty of Health Sciences]"
       ],
       "scoreable": false,
       "streams": [
@@ -4899,9 +5058,102 @@
         {
           "name": null,
           "source_page": 84,
-          "curriculum": {},
+          "curriculum": {
+            "first_year": [
+              {
+                "name": "Introduction to Medical Sciences",
+                "choice": false
+              },
+              {
+                "name": "Chemistry I",
+                "choice": false
+              },
+              {
+                "name": "Fundamentals of Occupational Science",
+                "choice": false
+              },
+              {
+                "name": "Occupational Therapy I",
+                "choice": false
+              },
+              {
+                "name": "Physics I",
+                "choice": false
+              },
+              {
+                "name": "Introduction to Psychology I",
+                "choice": false
+              },
+              {
+                "name": "Basic Principles of Group and Individual Psychology I",
+                "choice": false
+              },
+              {
+                "name": "Human Behavioural Sciences I",
+                "choice": false
+              }
+            ],
+            "second_year": [
+              {
+                "name": "Anatomy for Physiotherapy and Occupational Therapy Students II",
+                "choice": false
+              },
+              {
+                "name": "Fundamentals of Occupational Science and Occupational Therapy II",
+                "choice": false
+              },
+              {
+                "name": "Physiology AND Medical Biochemistry I",
+                "choice": false
+              }
+            ],
+            "third_year": [
+              {
+                "name": "Occupational Therapy III applied to Physical Conditions",
+                "choice": false
+              },
+              {
+                "name": "Occupational Therapy III applied to Psychiatric Conditions",
+                "choice": false
+              },
+              {
+                "name": "Medicine and Surgery for Occupational Therapy",
+                "choice": false
+              },
+              {
+                "name": "Science of Occupation II",
+                "choice": false
+              },
+              {
+                "name": "Psychiatry in Relation to Occupational Therapy",
+                "choice": false
+              },
+              {
+                "name": "Health Psychology",
+                "choice": false
+              },
+              {
+                "name": "Research Design and Analysis",
+                "choice": false
+              }
+            ],
+            "fourth_year": [
+              {
+                "name": "Science of Occupation III",
+                "choice": false
+              },
+              {
+                "name": "Occupational Therapy as applied to Psychiatric Conditions",
+                "choice": false
+              },
+              {
+                "name": "Occupational Therapy as applied to Physical Conditions",
+                "choice": false
+              }
+            ]
+          },
           "curriculum_notes": [],
-          "transcription_withheld": "The prospectus sets this page's course list in two parallel bulleted columns, which the extractor reads across rather than down. The list is withheld rather than published with course names that appear in neither column."
+          "transcription_withheld": null
         }
       ]
     },
@@ -7727,9 +7979,113 @@
         {
           "name": null,
           "source_page": 119,
-          "curriculum": {},
-          "curriculum_notes": [],
-          "transcription_withheld": "The prospectus sets this page's course list in two parallel bulleted columns, which the extractor reads across rather than down. The list is withheld rather than published with course names that appear in neither column."
+          "curriculum": {
+            "first_year": [
+              {
+                "name": "Geography I",
+                "choice": false
+              },
+              {
+                "name": "Archaeology I",
+                "choice": false
+              },
+              {
+                "options": [
+                  "Auxiliary Mathematics I",
+                  "Mathematics I (Major)"
+                ],
+                "choice": true
+              },
+              {
+                "name": "Algebra",
+                "choice": false
+              },
+              {
+                "name": "Calculus",
+                "choice": false
+              },
+              {
+                "name": "Any other Level I course",
+                "choice": false
+              }
+            ],
+            "second_year": [
+              {
+                "name": "Earth and Atmospheric Processes",
+                "choice": false
+              },
+              {
+                "name": "Methods, Models and Geographical Information Systems",
+                "choice": false
+              },
+              {
+                "name": "Thinking Geographically: Concepts and Practices in Human Geography",
+                "choice": false
+              },
+              {
+                "options": [
+                  "Environmental Governance: From Local to Global",
+                  "Conservation Biogeography"
+                ],
+                "choice": true
+              },
+              {
+                "name": "Archaeology II",
+                "choice": false
+              },
+              {
+                "name": "Any other Level lI course",
+                "choice": false
+              }
+            ],
+            "third_year": [
+              {
+                "name": "Food: Security, Politics and Culture",
+                "choice": false
+              },
+              {
+                "name": "Climate and Environmental Change",
+                "choice": false
+              },
+              {
+                "name": "Economic Geography",
+                "choice": false
+              },
+              {
+                "name": "Environmental Monitoring and Modelling",
+                "choice": false
+              },
+              {
+                "name": "Remote Sensing and Photogrammetry III",
+                "choice": false
+              },
+              {
+                "name": "Theory and Practice in Sustainability Science and Sustainable Development",
+                "choice": false
+              },
+              {
+                "name": "Urban Futures: The Political-Economy of Population and Scarcity",
+                "choice": false
+              },
+              {
+                "name": "Advanced Atmospheric Sciences",
+                "choice": false
+              },
+              {
+                "name": "Archaeology III",
+                "choice": false
+              },
+              {
+                "name": "Any other Level III major",
+                "choice": false
+              }
+            ]
+          },
+          "curriculum_notes": [
+            "Geography III - Four courses from:",
+            "NB: All eight Geography III courses may be taken for a double major in Geography"
+          ],
+          "transcription_withheld": null
         }
       ]
     },
@@ -7746,8 +8102,7 @@
       "source_page": 113,
       "selection_notes": [
         "Waitlist band: APS 41-42.",
-        "All applicants to the Faculty of Science must write the National Benchmark Test by 31 October 2026. Results are used in addition to final Grade 12 results to identify students who may need additional support. [decided by: National Benchmark Test result (applicant must sit the test)]",
-        "Majors on separate prospectus pages: Bachelor of Science in the field of PROGRAMME Biological Sciences (p113); Bachelor of Science in the field of Biological Sciences (p114); Bachelor of Science in the field of Biological Sciences (p115); Bachelor of Science in the field of Biological Sciences (p116); Bachelor of Science in the field of Biological Sciences (p117); Bachelor of Science in the field of Biological Sciences (p118)"
+        "All applicants to the Faculty of Science must write the National Benchmark Test by 31 October 2026. Results are used in addition to final Grade 12 results to identify students who may need additional support. [decided by: National Benchmark Test result (applicant must sit the test)]"
       ],
       "streams": [
         {
@@ -7896,9 +8251,70 @@
         {
           "name": "Applied Bioinformatics",
           "source_page": 115,
-          "curriculum": {},
-          "curriculum_notes": [],
-          "transcription_withheld": "The prospectus sets this page's course list in two parallel bulleted columns, which the extractor reads across rather than down. The list is withheld rather than published with course names that appear in neither column."
+          "curriculum": {
+            "first_year": [
+              {
+                "name": "Introductory Life Sciences",
+                "choice": false
+              },
+              {
+                "name": "Chemistry",
+                "choice": false
+              },
+              {
+                "options": [
+                  "Auxiliary Mathematics",
+                  "Mathematics I (Major)"
+                ],
+                "choice": true
+              },
+              {
+                "name": "Algebra",
+                "choice": false
+              },
+              {
+                "name": "Calculus",
+                "choice": false
+              },
+              {
+                "name": "Any other Level I course",
+                "choice": false
+              },
+              {
+                "name": "Physics I (Auxiliary)",
+                "choice": false
+              }
+            ],
+            "second_year": [
+              {
+                "name": "Molecular and Cell Biology IIA: Molecular Processes",
+                "choice": false
+              },
+              {
+                "name": "Molecular and Cell Biology IIB: Cells and Organisms",
+                "choice": false
+              },
+              {
+                "name": "Molecular and Cell Biology IIC: Applications",
+                "choice": false
+              }
+            ],
+            "third_year": [
+              {
+                "name": "Applied Bioinformatics",
+                "choice": false
+              },
+              {
+                "name": "Any other Level III MCB major",
+                "choice": false
+              }
+            ]
+          },
+          "curriculum_notes": [
+            "Mathematics I (Major):",
+            "Recommended course:"
+          ],
+          "transcription_withheld": null
         },
         {
           "name": "Biochemistry and Cell Biology",
@@ -8075,8 +8491,7 @@
       "source_page": 127,
       "selection_notes": [
         "Waitlist: Applicants with 44+ points and English Level 6, Mathematics Level 7 and Physical Sciences Level 7 may be wait-listed, subject to place availability.",
-        "All applicants to the Faculty of Science must write the National Benchmark Test by 31 October 2026. Results are used in addition to final Grade 12 results to identify students who may need additional support. [decided by: National Benchmark Test result (applicant must sit the test)]",
-        "Majors on separate prospectus pages: Bachelor of Science in the field of Physical Sciences (Chemistry) (p127); Bachelor of Science in the field of Physical Sciences (Physics) (p130)"
+        "All applicants to the Faculty of Science must write the National Benchmark Test by 31 October 2026. Results are used in addition to final Grade 12 results to identify students who may need additional support. [decided by: National Benchmark Test result (applicant must sit the test)]"
       ],
       "streams": [
         {
@@ -8698,9 +9113,120 @@
         {
           "name": null,
           "source_page": 124,
-          "curriculum": {},
-          "curriculum_notes": [],
-          "transcription_withheld": "The prospectus sets this page's course list in two parallel bulleted columns, which the extractor reads across rather than down. The list is withheld rather than published with course names that appear in neither column."
+          "curriculum": {
+            "first_year": [
+              {
+                "name": "Mathematical Methods and Modelling I",
+                "choice": false
+              },
+              {
+                "name": "Mechanics I",
+                "choice": false
+              },
+              {
+                "name": "Scientific Computing I",
+                "choice": false
+              },
+              {
+                "name": "Algebra",
+                "choice": false
+              },
+              {
+                "name": "Calculus",
+                "choice": false
+              },
+              {
+                "name": "Discrete Computational Structures",
+                "choice": false
+              },
+              {
+                "name": "Introduction to Algorithms and Programming",
+                "choice": false
+              },
+              {
+                "name": "Introduction to Data Structures and Algorithms",
+                "choice": false
+              },
+              {
+                "name": "Basic Computer Organisation",
+                "choice": false
+              },
+              {
+                "name": "Physics I (Major)",
+                "choice": false
+              }
+            ],
+            "second_year": [
+              {
+                "name": "Mathematical Methods and Modelling II",
+                "choice": false
+              },
+              {
+                "name": "Mechanics II",
+                "choice": false
+              },
+              {
+                "name": "Scientific Computing II",
+                "choice": false
+              },
+              {
+                "name": "Abstract Mathematics",
+                "choice": false
+              },
+              {
+                "name": "Basic Analysis",
+                "choice": false
+              },
+              {
+                "name": "Introduction to Mathematical Statistics",
+                "choice": false
+              },
+              {
+                "name": "Linear Algebra",
+                "choice": false
+              },
+              {
+                "name": "Multivariable Calculus",
+                "choice": false
+              },
+              {
+                "name": "Advanced Analysis",
+                "choice": false
+              },
+              {
+                "name": "Any other Level II course",
+                "choice": false
+              }
+            ],
+            "third_year": [
+              {
+                "name": "Mathematical Methods and Modelling III",
+                "choice": false
+              },
+              {
+                "name": "Mechanics III",
+                "choice": false
+              },
+              {
+                "name": "Scientific Computing III",
+                "choice": false
+              },
+              {
+                "name": "Any other Level III major",
+                "choice": false
+              }
+            ]
+          },
+          "curriculum_notes": [
+            "Computational and Applied Mathematics I:",
+            "Mathematics I (Major):",
+            "Any two other Level I courses. Recommended courses:",
+            "Computer Science I:",
+            "Computational and Applied Mathematics II:",
+            "Mathematics II:",
+            "Computational and Applied Mathematics III:"
+          ],
+          "transcription_withheld": null
         }
       ]
     },
