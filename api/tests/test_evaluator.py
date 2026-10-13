@@ -312,3 +312,94 @@ def test_subject_display_name_examples() -> None:
     assert subject_display_name("siswati_hl") == "siSwati Home Language"
     assert subject_display_name("isizulu_fal") == "isiZulu First Additional Language"
     assert subject_display_name("engineering_graphics_and_design") == "Engineering Graphics and Design"
+
+
+# --- "any" groups: which branch gets reported ------------------------------
+# Found by running a real Mathematical Literacy certificate (NSC Nov 2022,
+# eThekwini) against Wits. The verdicts were right; the REASONS were not.
+
+_MATHS_OR_LIT = {
+    "kind": "any",
+    "rules": [
+        {"kind": "subject", "subject": "mathematics", "min_level": 4},
+        {"kind": "subject", "subject": "mathematical_literacy", "min_level": 5},
+        {"kind": "subject", "subject": "technical_mathematics", "min_level": 5},
+    ],
+}
+
+
+def test_any_reports_the_branch_the_learner_is_closest_to():
+    """Ranking branches by failure COUNT cannot separate two single-rule
+    branches, so min() kept whichever was written first. A learner with
+    Mathematical Literacy was told "Requires Mathematics as a matric
+    subject" -- the one branch they can do nothing about -- while the
+    branch they were two levels short of went unmentioned."""
+    failures = evaluate(_MATHS_OR_LIT, {"mathematical_literacy": 40}, set())
+    assert len(failures) == 1
+    assert failures[0].subject == "mathematical_literacy"
+    assert failures[0].actual == 3
+    assert failures[0].required == 5
+
+
+def test_any_names_every_alternative():
+    """The prospectus prints one requirement with three ways to satisfy
+    it. Reporting a single branch loses the alternatives, which are the
+    part a learner can act on."""
+    message = evaluate(_MATHS_OR_LIT, {"mathematical_literacy": 40}, set())[0].message
+    assert "Mathematics level 4" in message
+    assert "Mathematical Literacy level 5" in message
+    assert "Technical Mathematics level 5" in message
+    assert "you have Mathematical Literacy level 3" in message
+
+
+def test_any_with_two_alternatives_reads_as_a_plain_or():
+    message = evaluate({
+        "kind": "any",
+        "rules": [
+            {"kind": "subject", "subject": "mathematics", "min_level": 3},
+            {"kind": "subject", "subject": "mathematical_literacy", "min_level": 4},
+        ],
+    }, {"mathematical_literacy": 40}, set())[0].message
+    assert "Mathematics level 3 (40%+) or Mathematical Literacy level 4 (50%+)" in message
+
+
+def test_any_says_so_when_the_learner_holds_none_of_the_alternatives():
+    message = evaluate(_MATHS_OR_LIT, {"english_hl": 70}, set())[0].message
+    assert "you have none of these" in message
+
+
+def test_a_single_subject_rule_keeps_its_plain_message():
+    """Only an "any" group gains the alternatives. A programme that
+    really does require Mathematics and nothing else must still say so,
+    or the fix would soften a genuine bar into a list of options."""
+    failures = evaluate(
+        {"kind": "subject", "subject": "mathematics", "min_level": 5},
+        {"mathematical_literacy": 70}, set())
+    assert failures[0].message == "Requires Mathematics as a matric subject"
+
+
+def test_any_still_passes_when_one_branch_is_met():
+    assert evaluate(_MATHS_OR_LIT, {"mathematical_literacy": 65}, set()) == []
+    assert evaluate(_MATHS_OR_LIT, {"mathematics": 55}, set()) == []
+    assert evaluate(_MATHS_OR_LIT, {"technical_mathematics": 62}, set()) == []
+
+
+def test_branch_order_does_not_change_the_reported_branch():
+    """The original bug was order-dependence. Reversing the branches must
+    not change which one is reported."""
+    reversed_rule = {"kind": "any", "rules": list(reversed(_MATHS_OR_LIT["rules"]))}
+    a = evaluate(_MATHS_OR_LIT, {"mathematical_literacy": 40}, set())[0]
+    b = evaluate(reversed_rule, {"mathematical_literacy": 40}, set())[0]
+    assert a.subject == b.subject == "mathematical_literacy"
+
+
+def test_a_held_subject_outranks_a_smaller_gap_in_an_absent_one():
+    """Distance puts "you do not have this subject" beyond any shortfall
+    in a subject the learner does have, even when the absent branch would
+    look closer on level alone."""
+    rule = {"kind": "any", "rules": [
+        {"kind": "subject", "subject": "mathematics", "min_level": 2},
+        {"kind": "subject", "subject": "mathematical_literacy", "min_level": 7},
+    ]}
+    failure = evaluate(rule, {"mathematical_literacy": 40}, set())[0]
+    assert failure.subject == "mathematical_literacy"

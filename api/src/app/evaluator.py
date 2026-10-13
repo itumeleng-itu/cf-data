@@ -199,19 +199,93 @@ def _evaluate_all(rule: dict, marks: dict, excluded: set[str], consumed_language
     return failures
 
 
+_SUBJECT_ABSENT_PENALTY = 100
+
+
+def _branch_distance(failures: list[Failure]) -> tuple[int, int]:
+    """How far a learner is from satisfying one branch of an "any" group.
+
+    Ranking by the NUMBER of failures alone cannot tell two single-rule
+    branches apart, and min() then silently keeps whichever was written
+    first. For "Mathematics level 4 OR Mathematical Literacy level 5"
+    that meant a learner holding Mathematical Literacy at level 3 was
+    told "Requires Mathematics as a matric subject" -- naming the one
+    branch they can do nothing about, and hiding the one they were two
+    levels away from. A Mathematical Literacy candidate reads that as
+    barred by a subject choice made in Grade 10, when in fact the
+    programme is open to them.
+
+    So distance is (how many rules are unmet, how far short they fall),
+    where "you do not have this subject at all" is further away than any
+    shortfall in a subject you do have.
+    """
+    shortfall = 0
+    for failure in failures:
+        if failure.actual is None:
+            shortfall += _SUBJECT_ABSENT_PENALTY
+        elif failure.required is not None:
+            shortfall += max(0, failure.required - failure.actual)
+    return len(failures), shortfall
+
+
+def _combined_any_message(children: list, branches: list[list[Failure]],
+                          nearest: list[Failure]) -> str | None:
+    """One message naming every alternative, for the common case where an
+    "any" group is a plain set of subject rules.
+
+    The prospectus prints these as one requirement with several ways to
+    satisfy it ("Mathematics Level 4 OR Maths Literacy Level 5 OR
+    Technical Mathematics Level 5"). Reporting a single branch loses the
+    alternatives, which are exactly what a learner needs to see. Returns
+    None when the group is anything more complex, where the nearest
+    branch's own message is already the clearest thing to say.
+    """
+    if len(children) < 2 or any(len(b) != 1 for b in branches):
+        return None
+    options = []
+    for child in children:
+        if not (isinstance(child, dict) and child.get("kind") == "subject"
+                and "subject" in child):
+            return None
+        level = _valid_level(child.get("min_level"))
+        if level is None:
+            return None
+        options.append(
+            f"{subject_display_name(child['subject'])} level {level} "
+            f"({MIN_PCT_FOR_LEVEL[level]}%+)"
+        )
+    requirement = (f"{options[0]} or {options[1]}" if len(options) == 2
+                   else ", ".join(options[:-1]) + f", or {options[-1]}")
+    held = [f for f in nearest if f.actual is not None]
+    if held:
+        f = held[0]
+        have = f"you have {subject_display_name(f.subject)} level {f.actual}"
+    else:
+        have = "you have none of these"
+    return f"Requires {requirement}; {have}"
+
+
 def _evaluate_any(rule: dict, marks: dict, excluded: set[str], consumed_language: str | None) -> list[Failure]:
     """Handles an "ANY of these" requirement group (e.g. Mathematics OR
     Mathematical Literacy) -- the learner only needs to pass ONE child
-    rule. If none pass, reports the failure from whichever branch they
-    came CLOSEST to meeting (fewest missing requirements), so the
-    feedback is as useful as possible rather than an arbitrary pick."""
+    rule. If none pass, reports the branch they came CLOSEST to meeting
+    (see _branch_distance), naming the other alternatives alongside it
+    where the group is a simple set of subject rules."""
     children = rule.get("rules")
     if not children:
         return _malformed("any", "Malformed rule: 'any' node has no branches")
     branches = [evaluate(child, marks, excluded, consumed_language) for child in children]
     if any(not b for b in branches):
         return []
-    return min(branches, key=len)
+    nearest = min(branches, key=_branch_distance)
+    combined = _combined_any_message(children, branches, nearest)
+    if combined is None:
+        return nearest
+    # Keep required/actual from the nearest branch so the numeric fields
+    # stay meaningful; only the prose gains the alternatives.
+    return [Failure(kind=nearest[0].kind, message=combined,
+                    required=nearest[0].required, actual=nearest[0].actual,
+                    subject=nearest[0].subject)]
 
 
 def _evaluate_subject(rule: dict, marks: dict, excluded: set[str]) -> list[Failure]:
