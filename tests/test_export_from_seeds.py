@@ -45,15 +45,36 @@ def test_wits_is_present_with_its_own_scoring_strategy(exported):
 
 def test_curriculum_survives_api_model_validation(exported):
     """_ProgrammeModel drops any field it does not declare. Without the
-    curriculum field on the model this passes through the exporter and
+    streams field on the model this passes through the exporter and
     vanishes at load, with no error anywhere."""
     from app.main import load_data
     programmes, _ = load_data(exported)
     wits = [p for p in programmes if p["institution_id"] == "wits"]
-    with_cur = [p for p in wits if p.get("curriculum")]
-    assert len(with_cur) == 53, f"expected 53 Wits curricula, got {len(with_cur)}"
-    courses = sum(len(v) for p in with_cur for v in p["curriculum"].values())
-    assert courses == 1530, f"expected 1530 course requirements, got {courses}"
+    with_cur = [p for p in wits
+                if any(s.get("curriculum") for s in p.get("streams") or [])]
+    assert len(with_cur) == 52, f"expected 52 Wits curricula, got {len(with_cur)}"
+    courses = sum(len(v) for p in with_cur for s in p["streams"]
+                  for v in s["curriculum"].values())
+    assert courses == 1464, f"expected 1464 course requirements, got {courses}"
+    streams = sum(len(p["streams"]) for p in programmes
+                  if p["institution_id"] == "wits")
+    assert streams == 66, f"expected 66 streams, got {streams}"
+
+
+def test_multi_stream_programmes_stay_separated(exported):
+    """Four Wits codes print one prospectus page per major. Collapsing
+    them into one list is how SBA11 came to require "Introductory Life
+    Sciences" six times."""
+    from app.main import load_data
+    programmes, _ = load_data(exported)
+    by_code = {p["qualification_code"]: p for p in programmes
+               if p["institution_id"] == "wits"}
+    assert {c: len(by_code[c]["streams"])
+            for c in ("EFA03", "MBA05", "SBA11", "SBA12")} == {
+        "EFA03": 2, "MBA05": 3, "SBA11": 6, "SBA12": 2}
+    names = [s["name"] for s in by_code["SBA11"]["streams"]]
+    assert "Microbiology and Biotechnology" in names
+    assert len(set(names)) == 6, "every stream of a shared code must be named"
 
 
 def test_a_curriculum_choice_keeps_both_options(exported):
@@ -61,7 +82,9 @@ def test_a_curriculum_choice_keeps_both_options(exported):
     programmes, _ = load_data(exported)
     bcom = next(p for p in programmes
                 if p["institution_id"] == "wits" and p["qualification_code"] == "CBA00")
-    choices = [c for c in bcom["curriculum"]["first_year"] if c.get("choice")]
+    assert len(bcom["streams"]) == 1
+    choices = [c for c in bcom["streams"][0]["curriculum"]["first_year"]
+               if c.get("choice")]
     assert choices, "BCom General prints two OR choices in first year"
     assert all(len(c["options"]) >= 2 for c in choices)
 

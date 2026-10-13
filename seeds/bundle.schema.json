@@ -435,32 +435,12 @@
           "type": "boolean",
           "description": "false means no formula produces a trustworthy score for this programme at all -- e.g. a Composite Index that needs National Benchmark Test results this dataset never collects (docs/scoring/uct.md, wits.md). Such a programme is never scored, qualified, or near-miss -- /v1/qualify reports it separately, carrying only its selection_notes. Omit for the overwhelmingly common case of true."
         },
-        "curriculum": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "array",
-            "items": {
-              "$ref": "#/$defs/curriculumItem"
-            }
-          },
-          "propertyNames": {
-            "enum": [
-              "first_year",
-              "second_year",
-              "third_year",
-              "fourth_year",
-              "fifth_year",
-              "sixth_year"
-            ]
-          },
-          "description": "What the learner STUDIES, by year of study -- distinct from the admission requirements, which are what they need to get in. Optional: some programmes cross-reference their course list to other pages instead of printing it. Transcribed from the prospectus programme section."
-        },
-        "curriculum_notes": {
+        "streams": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/$defs/stream"
           },
-          "description": "Instruction prose printed among the course list (credit minimums, 'one of the following') that is NOT itself a course."
+          "description": "The programme's course lists, one per stream. Empty or absent when no course list has been transcribed, which is NOT the same as the programme having no courses."
         }
       },
       "allOf": [
@@ -518,6 +498,64 @@
         },
         "choice": {
           "type": "boolean"
+        }
+      }
+    },
+    "stream": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "curriculum"
+      ],
+      "description": "One stream of a programme: a major or specialisation that shares its degree code -- and therefore its admission requirements -- with its siblings, but has its own course list. Several Wits codes print one prospectus page per stream (SBA11 has six). Keying a course list on the degree code alone concatenates those pages into one undifferentiated list, which is wrong rather than merely incomplete.",
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "description": "The stream's name as the prospectus heads its page, e.g. 'Microbiology and Biotechnology'. Null when the programme has a single stream, where the page heading is just the programme's own name and would be redundant. Must be distinct within a programme that has more than one stream."
+        },
+        "source_page": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "The prospectus page this stream's course list was read from."
+        },
+        "curriculum": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/curriculumItem"
+            }
+          },
+          "propertyNames": {
+            "enum": [
+              "first_year",
+              "second_year",
+              "third_year",
+              "fourth_year",
+              "fifth_year",
+              "sixth_year"
+            ]
+          },
+          "description": "What the learner STUDIES, by year of study -- distinct from the admission requirements, which are what they need to get in. Optional: some programmes cross-reference their course list to other pages instead of printing it. Transcribed from the prospectus programme section."
+        },
+        "curriculum_notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Instruction prose printed among the course list (credit minimums, 'one of the following') that is NOT itself a course."
+        },
+        "transcription_withheld": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "description": "Why this stream has no course list even though its page prints one. Absent or null means the empty/missing curriculum needs no explanation: the page genuinely prints no list, or cross-references it to another page. Set only when a list IS printed and was deliberately NOT transcribed -- so that 'we cannot read this correctly yet' is never silently indistinguishable from 'there is nothing here'."
         }
       }
     }

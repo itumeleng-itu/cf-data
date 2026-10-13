@@ -1,7 +1,12 @@
 data/
+# ...except the dataset the API actually serves. It is generated
+# (scripts/export_from_seeds.py) but it is also the deployed artifact, and
+# it is built from seeds/ with no database in the path, so it belongs in
+# git: the diff is the review and the history is permanent.
+!api/src/app/data/
+!api/src/app/data/programmes.json
 universities/
 .env
 __pycache__/
 *.pyc
 .pytest_cache/
-api/src/app/data/programmes.json

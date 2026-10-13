@@ -344,6 +344,73 @@ def build_score(minimum_aps: Any) -> tuple[list[dict], list[str]]:
 _REQUIRED_PROGRAMME_FIELDS = ("qualification_code", "programme", "duration_years", "minimum_aps")
 
 
+def build_streams(flat: dict) -> list[dict]:
+    """The programme's course lists, one per stream.
+
+    A stream is a major or specialisation that shares its degree code --
+    and therefore its admission requirements -- with its siblings, but has
+    its own course list. Wits prints one prospectus page per stream; four
+    of its codes span two to six pages.
+
+    Accepts either shape of input bundle:
+
+      streams: [{name, source_page, curriculum, curriculum_notes}]
+          Already per-stream. `name` is null for a programme with a single
+          stream, where the page heading is just the programme's own name.
+
+      curriculum: {...}  +  curriculum_notes: [...]
+          The older flat shape, from an institution whose course lists are
+          not split by stream. Wrapped in a single unnamed stream so every
+          record has one shape downstream. This is lossless for a
+          single-page programme; it was NOT lossless for a multi-page one,
+          which is why the bundle now carries streams directly.
+
+    Returns [] when no course list was transcribed at all. That is not the
+    same as a programme having no courses -- see _ProgrammeModel in the
+    API -- it means nobody has typed them in yet.
+    """
+    if flat.get("streams") is not None:
+        streams = []
+        for i, s in enumerate(flat["streams"]):
+            if not isinstance(s, dict):
+                raise BundleError(f"streams[{i}]: expected an object, got {s!r}")
+            curriculum = s.get("curriculum") or {}
+            if not isinstance(curriculum, dict):
+                raise BundleError(f"streams[{i}]: curriculum must be an object")
+            withheld = s.get("transcription_withheld")
+            if withheld and curriculum:
+                raise BundleError(
+                    f"streams[{i}]: transcription_withheld is set but a "
+                    "curriculum is present — a withheld list must be empty, "
+                    "or the reason is false"
+                )
+            streams.append({
+                "name": s.get("name"),
+                "source_page": s.get("source_page") or flat.get("source_page"),
+                "curriculum": curriculum,
+                "curriculum_notes": list(s.get("curriculum_notes") or []),
+                "transcription_withheld": withheld,
+            })
+        names = [s["name"] for s in streams]
+        if len(streams) > 1 and len(set(names)) != len(names):
+            raise BundleError(
+                f"streams cannot be told apart: {names} — a multi-stream "
+                "programme needs a distinct name per stream"
+            )
+        return streams
+
+    curriculum = flat.get("curriculum")
+    if not curriculum:
+        return []
+    return [{
+        "name": None,
+        "source_page": flat.get("source_page"),
+        "curriculum": curriculum,
+        "curriculum_notes": list(flat.get("curriculum_notes") or []),
+        "transcription_withheld": None,
+    }]
+
+
 def convert_record(flat: dict, institution_id: str, academic_year: int, source: dict) -> dict:
     """One flat programme record -> one seed programme record.
 
@@ -378,8 +445,12 @@ def convert_record(flat: dict, institution_id: str, academic_year: int, source: 
         "career_text": flat.get("career_text"),
         "source_doc": source.get("document"),
         "source_page": flat.get("source_page"),
-        "curriculum": flat.get("curriculum"),
-        "curriculum_notes": flat.get("curriculum_notes"),
+        # A course list belongs to a STREAM (a major or specialisation), not
+        # to the degree code: several Wits codes print one prospectus page
+        # per stream, all sharing one set of admission requirements. Keying
+        # the course list on the code alone concatenated those pages into
+        # one undifferentiated list. See build_streams.
+        "streams": build_streams(flat),
         "confidence": flat.get("confidence", "extracted"),
         "scoring_override": flat.get("scoring_override"),
         "scoring_strategy_override": flat.get("scoring_strategy_override"),

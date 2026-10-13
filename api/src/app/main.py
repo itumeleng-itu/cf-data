@@ -43,6 +43,12 @@ _DEFAULT_DATA_PATH = Path(__file__).parent / "data" / "programmes.json"
 # server. Empty until the app finishes starting up (see lifespan below).
 PROGRAMMES: list[dict] = []
 INSTITUTIONS: dict[str, dict] = {}
+# (institution_id, academic_year, qualification_code) -> programme, so
+# /v1/programmes/... is a dict lookup rather than a scan of PROGRAMMES.
+# A qualification_code is only unique WITHIN an institution and year --
+# two universities can and do reuse the same code -- so all three parts
+# are needed as the key.
+PROGRAMME_INDEX: dict[tuple[str, int, str], dict] = {}
 
 
 # --- load-time validation models (discarded after load) ---------------------
@@ -93,18 +99,21 @@ class _ProgrammeModel(BaseModel):
     career_text: str | None = None
     source_doc: str | None = None
     source_page: int | None = None
-    # What the learner STUDIES, by year of study, as distinct from the
-    # requirements above, which are what they need to get IN. Keyed
-    # first_year..sixth_year; each item is either {"name": ...} or
-    # {"options": [...], "choice": true} where the prospectus prints an OR.
-    # Optional: some programmes cross-reference their course list to other
-    # pages instead of printing it, and most institutions have not been
-    # transcribed at this depth yet.
-    curriculum: dict[str, list[dict]] | None = None
-    # Instruction prose printed among the course list ("a total of 72
-    # credits must be taken from the following") that is NOT itself a
-    # course. Kept so the list can be rendered faithfully.
-    curriculum_notes: list[str] | None = None
+    # What the learner STUDIES, as distinct from the requirements above,
+    # which are what they need to get IN -- one course list per stream.
+    #
+    # A stream is a major or specialisation sharing this degree code, and
+    # therefore these admission requirements, with its siblings while
+    # having its own course list: SBA11 is one APS and one subject set
+    # across six streams, from Applied Ecology to Microbiology. Only the
+    # course list varies, which is why the stream nests here instead of
+    # becoming its own record -- six records would duplicate the
+    # requirements and return SBA11 six times from one qualify call.
+    #
+    # Empty for the many programmes whose course list has not been
+    # transcribed, or which cross-reference it to another page instead of
+    # printing it. That is NOT the same as a programme having no courses.
+    streams: list[dict] = Field(default_factory=list)
     confidence: str = "extracted"
     scoring_override: dict | None = None
     scoring_strategy_override: str | None = None
@@ -142,10 +151,14 @@ async def lifespan(_app: FastAPI):
     """Runs once when the server starts (loads all the programme data
     into memory) and once when it shuts down (clears it). FastAPI calls
     this automatically -- it's not called directly anywhere else."""
-    global PROGRAMMES, INSTITUTIONS
+    global PROGRAMMES, INSTITUTIONS, PROGRAMME_INDEX
     PROGRAMMES, INSTITUTIONS = load_data(_data_path())
+    PROGRAMME_INDEX = {
+        (p["institution_id"], p["academic_year"], p["qualification_code"]): p
+        for p in PROGRAMMES
+    }
     yield
-    PROGRAMMES, INSTITUTIONS = [], {}
+    PROGRAMMES, INSTITUTIONS, PROGRAMME_INDEX = [], {}, {}
 
 
 # The actual web application. Every route below (@app.get / @app.post) is
@@ -452,6 +465,179 @@ def qualify(request: QualifyRequest) -> QualifyResponseDict:
     actual work happens in _run_qualify above; this function is just the
     route FastAPI dispatches to."""
     return _run_qualify(request)
+
+
+# --- /v1/programmes -----------------------------------------------------------
+# /v1/qualify answers "can this learner get in?". These two endpoints answer
+# the question that comes next: "what would I actually study?" -- the course
+# list a prospectus prints per programme.
+#
+# The curriculum is deliberately NOT on ProgrammeResult. A qualify response
+# carries up to several hundred programmes, and Wits alone has 1,530 course
+# requirements across 53 of them; inlining those would multiply the response
+# size for data the learner only wants for the handful they click into. So
+# qualify stays a list endpoint and this is the detail endpoint.
+
+class CourseRequirementOut(BaseModel):
+    """One requirement from a programme's course list -- one line of the
+    prospectus, which is one of two things:
+
+      compulsory:  {"choice": false, "name": "Business Accounting I"}
+      a choice:    {"choice": true,  "options": ["Economics IB", "Economic Theory IA"]}
+
+    A choice is ONE requirement with several ways to satisfy it, which is
+    why it is a single entry carrying `options` rather than several
+    entries. Flattening the options into separate courses would turn an
+    "X or Y" in the prospectus into two compulsory courses -- a wrong
+    course list, not merely an incomplete one -- so the distinction is
+    carried all the way to the client.
+    """
+    choice: bool
+    name: str | None = None
+    options: list[str] | None = None
+
+
+class StreamOut(BaseModel):
+    """One stream of a programme and its course list.
+
+    `name` is null when the programme has a single stream -- there is
+    nothing to distinguish it from, and the prospectus heading is just the
+    programme's own name. When a programme has several streams, every one
+    is named.
+
+    `curriculum` is keyed by the stage the prospectus organises courses
+    under, usually a year of study (first_year, second_year, ...).
+    """
+    name: str | None
+    source_page: int | None
+    curriculum: dict[str, list[CourseRequirementOut]]
+    curriculum_notes: list[str]
+    # Set only when the page DOES print a course list that was deliberately
+    # not transcribed, so a client can say "not available yet" rather than
+    # implying the programme has no courses. Null otherwise.
+    transcription_withheld: str | None = None
+
+
+class ProgrammeDetail(BaseModel):
+    """Everything known about ONE programme, including its course lists.
+
+    `streams` is empty for the many programmes whose course list has not
+    been transcribed, which is NOT the same as a programme having no
+    courses -- see _ProgrammeModel.
+    """
+    institution: str
+    academic_year: int
+    qualification_code: str
+    name: str
+    faculty: str | None
+    campus: list[str]
+    duration_years: float | None
+    extended: bool
+    selection_notes: list[str]
+    career_text: str | None
+    streams: list[StreamOut]
+    source_doc: str | None
+    source_page: int | None
+    confidence: str
+
+
+class ProgrammeSummary(BaseModel):
+    """One programme in a list response -- no course lists, so the list
+    stays small. `stream_names` names this programme's streams without
+    carrying their courses, so a client can show "six majors" and let the
+    learner pick before fetching the detail. It is empty both for a
+    programme with one unnamed stream and for one with no transcribed
+    course list; `has_curriculum` tells those two apart."""
+    institution: str
+    academic_year: int
+    qualification_code: str
+    name: str
+    faculty: str | None
+    campus: list[str]
+    duration_years: float | None
+    has_curriculum: bool
+    stream_names: list[str]
+
+
+def _has_courses(p: dict) -> bool:
+    """A programme has a transcribed course list if ANY of its streams
+    does. A stream carrying an empty curriculum counts as not
+    transcribed, not as a programme with no courses."""
+    return any(s.get("curriculum") for s in p.get("streams") or [])
+
+
+def _detail(p: dict) -> ProgrammeDetail:
+    return ProgrammeDetail(
+        institution=p["institution_id"],
+        academic_year=p["academic_year"],
+        qualification_code=p["qualification_code"],
+        name=p["name"],
+        faculty=p.get("faculty"),
+        campus=p.get("campus", []),
+        duration_years=p.get("duration_years"),
+        extended=p.get("extended", False),
+        selection_notes=p.get("selection_notes", []),
+        career_text=p.get("career_text"),
+        streams=p.get("streams") or [],
+        source_doc=p.get("source_doc"),
+        source_page=p.get("source_page"),
+        confidence=p.get("confidence", "extracted"),
+    )
+
+
+@app.get("/v1/programmes", response_model=list[ProgrammeSummary])
+def list_programmes(
+    institution: str | None = None,
+    academic_year: int | None = None,
+    faculty: str | None = None,
+    with_curriculum: bool = False,
+) -> list[ProgrammeSummary]:
+    """GET /v1/programmes — browse the catalogue without sending any
+    marks. Filters are all optional and combine with AND. Pass
+    with_curriculum=true to see only programmes whose course list has
+    been transcribed."""
+    out = []
+    for p in PROGRAMMES:
+        if institution and p["institution_id"] != institution:
+            continue
+        if academic_year and p["academic_year"] != academic_year:
+            continue
+        if faculty and p.get("faculty") != faculty:
+            continue
+        has = _has_courses(p)
+        if with_curriculum and not has:
+            continue
+        out.append(ProgrammeSummary(
+            institution=p["institution_id"],
+            academic_year=p["academic_year"],
+            qualification_code=p["qualification_code"],
+            name=p["name"],
+            faculty=p.get("faculty"),
+            campus=p.get("campus", []),
+            duration_years=p.get("duration_years"),
+            has_curriculum=has,
+            stream_names=[s["name"] for s in p.get("streams") or [] if s.get("name")],
+        ))
+    return out
+
+
+@app.get("/v1/programmes/{institution}/{qualification_code}",
+         response_model=ProgrammeDetail)
+def programme_detail(
+    institution: str,
+    qualification_code: str,
+    academic_year: int = 2027,
+) -> ProgrammeDetail:
+    """GET /v1/programmes/{institution}/{code} — one programme and its
+    course list. 404 if that institution/year/code combination isn't in
+    the loaded data."""
+    p = PROGRAMME_INDEX.get((institution, academic_year, qualification_code))
+    if p is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"no programme {qualification_code!r} at {institution!r} for {academic_year}",
+        )
+    return _detail(p)
 
 
 # --- /v1/meta -------------------------------------------------------------------

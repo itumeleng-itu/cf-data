@@ -144,13 +144,39 @@ class TestLearnerOutcomes:
 class TestCurriculum:
     def test_curricula_are_carried_through_conversion(self, converted):
         _, recs = converted
-        with_cur = [r for r in recs if r.get("curriculum")]
-        assert len(with_cur) == 53
+        with_cur = [r for r in recs
+                    if any(s.get("curriculum") for s in r.get("streams") or [])]
+        assert len(with_cur) == 52
+        assert sum(len(r["streams"]) for r in recs) == 66
+
+    def test_each_prospectus_page_becomes_its_own_stream(self, converted):
+        """SBA11 is printed over six pages, one per major, all sharing one
+        APS and one subject set. Conversion must keep the six course lists
+        apart while keeping them on ONE record -- six records would
+        duplicate the requirements and return SBA11 six times per query."""
+        _, recs = converted
+        sba11 = [r for r in recs if r["qualification_code"] == "SBA11"][0]
+        assert len(sba11["streams"]) == 6
+        pages = [s["source_page"] for s in sba11["streams"]]
+        assert pages == sorted(pages) == [113, 114, 115, 116, 117, 118]
+        assert len({s["name"] for s in sba11["streams"]}) == 6
+        # The defect this guards: as one flat list, first year read as
+        # "Introductory Life Sciences" six times over.
+        first = sba11["streams"][0]["curriculum"]["first_year"]
+        assert sum(1 for c in first if c.get("name") == "Introductory Life Sciences") == 1
+
+    def test_a_single_page_programme_has_one_unnamed_stream(self, converted):
+        """With nothing to distinguish it from, a stream name would just
+        repeat the programme's own name."""
+        _, recs = converted
+        bcom = [r for r in recs if r["qualification_code"] == "CBA00"][0]
+        assert len(bcom["streams"]) == 1
+        assert bcom["streams"][0]["name"] is None
 
     def test_a_choice_keeps_both_options(self, converted):
         _, recs = converted
         bcom = [r for r in recs if r["qualification_code"] == "CBA00"][0]
-        first = bcom["curriculum"]["first_year"]
+        first = bcom["streams"][0]["curriculum"]["first_year"]
         choices = [c for c in first if c.get("choice")]
         assert choices, "page 45 prints two OR choices in first year"
         assert all(len(c["options"]) >= 2 for c in choices)
@@ -158,8 +184,9 @@ class TestCurriculum:
     def test_instruction_prose_is_not_stored_as_a_course(self, converted):
         _, recs = converted
         for r in recs:
-            for items in (r.get("curriculum") or {}).values():
-                for c in items:
-                    for name in (c["options"] if c.get("choice") else [c["name"]]):
-                        assert "credits" not in name.lower()
-                        assert not name.endswith(":")
+            for stream in r.get("streams") or []:
+                for items in stream["curriculum"].values():
+                    for c in items:
+                        for name in (c["options"] if c.get("choice") else [c["name"]]):
+                            assert "credits" not in name.lower()
+                            assert not name.endswith(":")
