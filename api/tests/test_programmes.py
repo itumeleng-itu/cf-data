@@ -188,7 +188,7 @@ def test_wits_course_lists_survive_the_whole_path(client):
             f"{p['qualification_code']} lost its curriculum"
         streams += len(d["streams"])
         total += len(_entries(d))
-    assert total == 1657
+    assert total == 1656
     assert streams == 66
 
 
@@ -200,7 +200,7 @@ def test_served_curriculum_is_identical_to_the_seed(client):
     Compares the full entry, not just names, so a dropped `options` list
     or a flipped `choice` flag fails here too."""
     seed = {r["qualification_code"]: r for r in _wits_seed()}
-    assert _seed_course_total(list(seed.values())) == 1657
+    assert _seed_course_total(list(seed.values())) == 1656
 
     def strip(entry: dict) -> dict:
         # The response model fills the absent half of the union with
@@ -243,7 +243,7 @@ def test_choices_stay_one_requirement_with_their_options(client):
 
     with_choices = [r for r in seed if choices(r)]
     assert with_choices, "fixture no longer covers choices"
-    assert sum(len(choices(r)) for r in with_choices) == 34
+    assert sum(len(choices(r)) for r in with_choices) == 30
 
     for record in with_choices:
         d = client.get(f"/v1/programmes/wits/{record['qualification_code']}").json()
@@ -268,7 +268,7 @@ def test_a_choice_carries_options_and_a_compulsory_carries_a_name(client):
                 assert c["name"]
                 assert c["options"] is None
                 seen_compulsory += 1
-    assert (seen_choice, seen_compulsory) == (34, 1623)
+    assert (seen_choice, seen_compulsory) == (30, 1626)
 
 
 def test_curriculum_notes_are_not_served_as_courses(client):
@@ -337,8 +337,8 @@ def test_the_pages_that_were_withheld_now_serve_their_courses(client):
     """The five, by the page each was read from. Counts are literals: a
     hand transcription that silently loses entries would otherwise look
     exactly like a successful one."""
-    expected = {62: ("EFA03", 33), 84: ("MFA03", 21), 115: ("SBA11", 12),
-                119: ("SBA10", 22), 124: ("SBA21", 24)}
+    expected = {62: ("EFA03", 46), 84: ("MFA03", 21), 115: ("SBA11", 10),
+                119: ("SBA10", 21), 124: ("SBA21", 23)}
     seen = {}
     for code in {c for c, _ in expected.values()}:
         for stream in client.get(f"/v1/programmes/wits/{code}").json()["streams"]:
@@ -404,8 +404,8 @@ def test_every_wits_course_name_appears_on_its_own_page(client):
             out = out.replace(ch, " ")
         return " ".join(out.split())
 
-    KNOWN_BAD_PAGES = {104, 120}
-    ALLOW = KNOWN_BAD_PAGES | {62}
+    KNOWN_BAD_PAGES = set()
+    ALLOW = {62}
 
     cache, failures = {}, []
     for p in client.get("/v1/programmes",

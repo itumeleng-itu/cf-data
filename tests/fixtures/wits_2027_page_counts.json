@@ -1,13 +1,13 @@
 {
-  "_comment": "Course counts per prospectus page and how each was arrived at. seeds/wits/wits_2027.json must account for every page here.",
+  "_comment": "Course counts per prospectus page and how each was arrived at.",
   "_provenance": {
-    "extracted": "Deterministic pdfplumber parsing of the prospectus, no model. INDEPENDENT of the seed, which was built from it, so a page dropped or altered on the way in shows up as a mismatch. Never regenerate these from the seed.",
-    "transcribed": "Read off the rendered page by hand, because the extractor reads two parallel bulleted columns straight across and fused names that exist in neither column. NOT independent of the seed: one reading produced both. The page itself is what checks these."
+    "extracted": "Deterministic pdfplumber parsing (scripts/extract_wits_courses.py), no model. INDEPENDENT of the seed, which is built from it.",
+    "transcribed": "Read off the rendered page by hand. Page 84 only: its first and third year set two bulleted lists side by side AND wrap items inside them, and nothing in the layout separates a trailing run that belongs to the left list from one continuing the right."
   },
   "source_document": "wits_2027_prospectus.pdf",
-  "total_courses": 1657,
-  "extracted_pages": 63,
-  "transcribed_pages": 5,
+  "total_courses": 1656,
+  "extracted_pages": 67,
+  "transcribed_pages": 1,
   "pages": {
     "45": {
       "code": "CBA00",
@@ -31,7 +31,7 @@
     },
     "49": {
       "code": "CBA17",
-      "courses": 36,
+      "courses": 34,
       "provenance": "extracted"
     },
     "50": {
@@ -81,12 +81,12 @@
     },
     "62": {
       "code": "EFA03",
-      "courses": 33,
-      "provenance": "transcribed"
+      "courses": 46,
+      "provenance": "extracted"
     },
     "63": {
       "code": "EFA03",
-      "courses": 45,
+      "courses": 32,
       "provenance": "extracted"
     },
     "64": {
@@ -111,12 +111,12 @@
     },
     "68": {
       "code": "EFA06",
-      "courses": 49,
+      "courses": 40,
       "provenance": "extracted"
     },
     "69": {
       "code": "EFA09",
-      "courses": 49,
+      "courses": 37,
       "provenance": "extracted"
     },
     "70": {
@@ -171,7 +171,7 @@
     },
     "82": {
       "code": "MFA00",
-      "courses": 10,
+      "courses": 12,
       "provenance": "extracted"
     },
     "83": {
@@ -211,7 +211,7 @@
     },
     "97": {
       "code": "AFA10",
-      "courses": 31,
+      "courses": 32,
       "provenance": "extracted"
     },
     "98": {
@@ -271,8 +271,8 @@
     },
     "115": {
       "code": "SBA11",
-      "courses": 12,
-      "provenance": "transcribed"
+      "courses": 10,
+      "provenance": "extracted"
     },
     "116": {
       "code": "SBA11",
@@ -291,52 +291,52 @@
     },
     "119": {
       "code": "SBA10",
-      "courses": 22,
-      "provenance": "transcribed"
+      "courses": 21,
+      "provenance": "extracted"
     },
     "120": {
       "code": "SBA22",
-      "courses": 14,
+      "courses": 15,
       "provenance": "extracted"
     },
     "121": {
       "code": "SBA20",
-      "courses": 25,
+      "courses": 27,
       "provenance": "extracted"
     },
     "122": {
       "code": "SBA09",
-      "courses": 18,
+      "courses": 21,
       "provenance": "extracted"
     },
     "123": {
       "code": "SBA03",
-      "courses": 20,
+      "courses": 23,
       "provenance": "extracted"
     },
     "124": {
       "code": "SBA21",
-      "courses": 24,
-      "provenance": "transcribed"
+      "courses": 23,
+      "provenance": "extracted"
     },
     "125": {
       "code": "SBA13",
-      "courses": 30,
+      "courses": 31,
       "provenance": "extracted"
     },
     "126": {
       "code": "SBA08",
-      "courses": 28,
+      "courses": 31,
       "provenance": "extracted"
     },
     "127": {
       "code": "SBA12",
-      "courses": 10,
+      "courses": 13,
       "provenance": "extracted"
     },
     "128": {
       "code": "SBA04",
-      "courses": 18,
+      "courses": 21,
       "provenance": "extracted"
     },
     "129": {
@@ -346,7 +346,7 @@
     },
     "130": {
       "code": "SBA12",
-      "courses": 15,
+      "courses": 19,
       "provenance": "extracted"
     }
   }

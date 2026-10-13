@@ -552,40 +552,6 @@
         "name": null,
         "source_page": 52,
         "curriculum": {
-          "first_year": [
-            {
-              "name": "Economic Theory IA (Microeconomics for Economists)",
-              "choice": false
-            },
-            {
-              "name": "Economic Theory IB (Macroeconomic for Economists)",
-              "choice": false
-            },
-            {
-              "name": "Introduction to Ethics",
-              "choice": false
-            },
-            {
-              "name": "Introduction to Philosophy: Knowledge and Reality I",
-              "choice": false
-            },
-            {
-              "name": "Introduction to Political Studies I",
-              "choice": false
-            },
-            {
-              "name": "States, Power and Governance",
-              "choice": false
-            },
-            {
-              "name": "Computational Mathematics I",
-              "choice": false
-            },
-            {
-              "name": "Business Statistics I",
-              "choice": false
-            }
-          ],
           "second_year": [
             {
               "name": "Economics IIA AND IIB",
@@ -620,11 +586,8 @@
               "choice": false
             },
             {
-              "options": [
-                "African Philosophy",
-                "two of the following"
-              ],
-              "choice": true
+              "name": "African Philosophy",
+              "choice": false
             },
             {
               "name": "Social Theories of Modernity",
@@ -715,6 +678,40 @@
             {
               "name": "Philosophy III",
               "choice": false
+            }
+          ],
+          "first_year": [
+            {
+              "name": "Economic Theory IA (Microeconomics for Economists)",
+              "choice": false
+            },
+            {
+              "name": "Economic Theory IB (Macroeconomic for Economists)",
+              "choice": false
+            },
+            {
+              "name": "Introduction to Ethics",
+              "choice": false
+            },
+            {
+              "name": "Introduction to Philosophy: Knowledge and Reality I",
+              "choice": false
+            },
+            {
+              "name": "Introduction to Political Studies I",
+              "choice": false
+            },
+            {
+              "name": "States, Power and Governance",
+              "choice": false
+            },
+            {
+              "name": "Computational Mathematics I",
+              "choice": false
+            },
+            {
+              "name": "Business Statistics I",
+              "choice": false
             },
             {
               "name": "Senior seminar in Philosophy",
@@ -759,6 +756,7 @@
         },
         "curriculum_notes": [
           "AND one of the following:",
+          "OR two of the following:",
           "A total of 48 credits must be taken from:",
           "A total of 72 credits must be selected from either",
           "Politics III or Philosophy III, depending of what was",
@@ -817,46 +815,6 @@
         "name": null,
         "source_page": 48,
         "curriculum": {
-          "first_year": [
-            {
-              "name": "Introduction to Law",
-              "choice": false
-            },
-            {
-              "name": "Law of Persons",
-              "choice": false
-            },
-            {
-              "name": "Economics IA (Microeconomics)",
-              "choice": false
-            },
-            {
-              "options": [
-                "Economics IB (Macroeconomics)",
-                "Economic Theory IA (Microeconomics for Economists)"
-              ],
-              "choice": true
-            },
-            {
-              "name": "Economic Theory IB (Macroeconomics for Economists)",
-              "choice": false
-            },
-            {
-              "name": "Computational Mathematics I",
-              "choice": false
-            },
-            {
-              "name": "Business Statistics I",
-              "choice": false
-            },
-            {
-              "options": [
-                "Fundamentals of Information Systems",
-                "Information Systems IA"
-              ],
-              "choice": true
-            }
-          ],
           "second_year": [
             {
               "name": "Family Law",
@@ -947,6 +905,46 @@
             {
               "name": "Jurisprudence",
               "choice": false
+            }
+          ],
+          "first_year": [
+            {
+              "name": "Introduction to Law",
+              "choice": false
+            },
+            {
+              "name": "Law of Persons",
+              "choice": false
+            },
+            {
+              "name": "Economics IA (Microeconomics)",
+              "choice": false
+            },
+            {
+              "options": [
+                "Economics IB (Macroeconomics)",
+                "Economic Theory IA (Microeconomics for Economists)"
+              ],
+              "choice": true
+            },
+            {
+              "name": "Economic Theory IB (Macroeconomics for Economists)",
+              "choice": false
+            },
+            {
+              "name": "Computational Mathematics I",
+              "choice": false
+            },
+            {
+              "name": "Business Statistics I",
+              "choice": false
+            },
+            {
+              "options": [
+                "Fundamentals of Information Systems",
+                "Information Systems IA"
+              ],
+              "choice": true
             },
             {
               "name": "Investment and Corporate Finance III",
@@ -1238,55 +1236,6 @@
         "name": null,
         "source_page": 49,
         "curriculum": {
-          "first_year": [
-            {
-              "name": "Business Accounting I",
-              "choice": false
-            },
-            {
-              "name": "Economic Theory IA (Microeconomics for Economists)",
-              "choice": false
-            },
-            {
-              "name": "Economic Theory IB (Macroeconomics for Economists)",
-              "choice": false
-            },
-            {
-              "name": "Algebra I",
-              "choice": false
-            },
-            {
-              "name": "Calculus I",
-              "choice": false
-            },
-            {
-              "name": "Mathematical Methods and Modelling l",
-              "choice": false
-            },
-            {
-              "name": "Mechanics l",
-              "choice": false
-            },
-            {
-              "options": [
-                "Scientific Computing l",
-                "Basic Computer Organisation"
-              ],
-              "choice": true
-            },
-            {
-              "name": "Discrete Computational Structures",
-              "choice": false
-            },
-            {
-              "name": "Introduction to Algorithms and Programming",
-              "choice": false
-            },
-            {
-              "name": "Introduction to Data Structures and Algorithms",
-              "choice": false
-            }
-          ],
           "second_year": [
             {
               "name": "Economics IIA and IIB",
@@ -1362,11 +1311,46 @@
               "choice": false
             },
             {
-              "options": [
-                "Investment and Corporate Finance III",
-                "Mathematical Methods and Modelling III"
-              ],
-              "choice": true
+              "name": "Investment and Corporate Finance III",
+              "choice": false
+            }
+          ],
+          "first_year": [
+            {
+              "name": "Business Accounting I",
+              "choice": false
+            },
+            {
+              "name": "Economic Theory IA (Microeconomics for Economists)",
+              "choice": false
+            },
+            {
+              "name": "Economic Theory IB (Macroeconomics for Economists)",
+              "choice": false
+            },
+            {
+              "name": "Algebra I",
+              "choice": false
+            },
+            {
+              "name": "Calculus I",
+              "choice": false
+            },
+            {
+              "name": "Mathematical Methods and Modelling l",
+              "choice": false
+            },
+            {
+              "name": "Mechanics l",
+              "choice": false
+            },
+            {
+              "name": "Scientific Computing l",
+              "choice": false
+            },
+            {
+              "name": "Mathematical Methods and Modelling III",
+              "choice": false
             },
             {
               "name": "Mechanics III",
@@ -1406,15 +1390,11 @@
         },
         "curriculum_notes": [
           "AND, one of the following groups:",
-          "Note: The choice of courses may be limited by the timetable",
-          "and number of places available for the course. Individual",
-          "courses may have further admission requirements specified",
-          "in the relevant School Standing Orders.",
-          "AND, one of the following groups:",
           "A total of 72 credits must be taken from one of the",
           "following groups, provided that you have done the",
           "equivalent in the second year of study and complied",
-          "with the pre- and co-requisite courses."
+          "with the pre- and co-requisite courses.",
+          "AND, one of the following groups:"
         ],
         "transcription_withheld": null
       }
@@ -2539,7 +2519,9 @@
           ]
         },
         "curriculum_notes": [
-          "AND, one of the following courses:"
+          "AND, one of the following courses:",
+          "course combinations:",
+          "a) Extractive Metallurgy"
         ],
         "transcription_withheld": null
       }
@@ -2859,18 +2841,40 @@
               "choice": false
             },
             {
-              "options": [
-                "Elementary IsiZulu Language and Culture IA",
-                "Elementary Sesotho Language and Culture IA",
-                "The International Relations of South Africa and Africa",
-                "Introduction to Political Studies",
-                "Southern Africa in the Era of Globalisation",
-                "Identity and Society",
-                "Introduction to Ethics I",
-                "Introduction to Philosophy: Knowledge and Reality",
-                "Global Encounters and Contemporary Realities IA"
-              ],
-              "choice": true
+              "name": "Elementary IsiZulu Language and Culture IA",
+              "choice": false
+            },
+            {
+              "name": "Elementary Sesotho Language and Culture IA",
+              "choice": false
+            },
+            {
+              "name": "The International Relations of South Africa and Africa",
+              "choice": false
+            },
+            {
+              "name": "Introduction to Political Studies",
+              "choice": false
+            },
+            {
+              "name": "Southern Africa in the Era of Globalisation",
+              "choice": false
+            },
+            {
+              "name": "Identity and Society",
+              "choice": false
+            },
+            {
+              "name": "Introduction to Ethics I",
+              "choice": false
+            },
+            {
+              "name": "Introduction to Philosophy: Knowledge and Reality",
+              "choice": false
+            },
+            {
+              "name": "Global Encounters and Contemporary Realities IA",
+              "choice": false
             }
           ],
           "second_year": [
@@ -2971,30 +2975,48 @@
               "choice": false
             },
             {
-              "name": "Selected Topics in Sociology",
-              "choice": false
-            },
-            {
               "name": "Systems Management and Integration",
               "choice": false
             },
             {
-              "options": [
-                "High Frequency Techniques",
-                "High Voltage Engineering",
-                "Electromechanical Conversion",
-                "Control II",
-                "Renewable Energy",
-                "Data Intensive Computing in Data Science"
-              ],
-              "choice": true
+              "name": "any three courses",
+              "choice": false
+            },
+            {
+              "name": "High Frequency Techniques",
+              "choice": false
+            },
+            {
+              "name": "High Voltage Engineering",
+              "choice": false
+            },
+            {
+              "name": "Electromechanical Conversion",
+              "choice": false
+            },
+            {
+              "name": "Control II",
+              "choice": false
+            },
+            {
+              "name": "Renewable Energy",
+              "choice": false
+            },
+            {
+              "name": "Data Intensive Computing in Data Science",
+              "choice": false
             }
           ]
         },
         "curriculum_notes": [
-          "AND, one of the following courses:",
-          "At the beginning of the third year, students can choose to continue with Electrical Engineering or register for Information Engineering.",
-          "AND, any three courses from the following:"
+          "AND, one of the following",
+          "courses:",
+          "At the beginning",
+          "continue with Electrical",
+          "Engineering.",
+          "of the third year, students can choose to",
+          "Engineering or register for Information",
+          "from the following:"
         ],
         "transcription_withheld": null
       },
@@ -3002,68 +3024,6 @@
         "name": "Information Engineering",
         "source_page": 63,
         "curriculum": {
-          "first_year": [
-            {
-              "name": "Engineering Chemistry",
-              "choice": false
-            },
-            {
-              "name": "Introduction to the Engineering Profession",
-              "choice": false
-            },
-            {
-              "name": "Engineering Analysis and Design IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "Engineering Mathematics IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "Engineering Physics IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "Applied Physics I",
-              "choice": false
-            },
-            {
-              "name": "Elementary IsiZulu Language and Culture IA",
-              "choice": false
-            },
-            {
-              "name": "Elementary Sesotho Language and Culture IA",
-              "choice": false
-            },
-            {
-              "name": "The International Relations of South Africa and Africa",
-              "choice": false
-            },
-            {
-              "name": "Introduction to Political Studies",
-              "choice": false
-            },
-            {
-              "name": "Southern Africa in the Era of Globalisation",
-              "choice": false
-            },
-            {
-              "name": "Identity and Society",
-              "choice": false
-            },
-            {
-              "name": "Introduction to Ethics I",
-              "choice": false
-            },
-            {
-              "name": "Introduction to Philosophy: Knowledge and Reality",
-              "choice": false
-            },
-            {
-              "name": "Global Encounters and Contemporary Realities IA",
-              "choice": false
-            }
-          ],
           "second_year": [
             {
               "name": "Data Structures and Algorithms",
@@ -3162,7 +3122,7 @@
               "choice": false
             },
             {
-              "name": "Systems Management and Integration AND, any three courses from the following",
+              "name": "Systems Management and Integration",
               "choice": false
             },
             {
@@ -3180,6 +3140,16 @@
             {
               "name": "Data Intensive Computing in Data Science",
               "choice": false
+            }
+          ],
+          "first_year": [
+            {
+              "name": "Engineering Chemistry",
+              "choice": false
+            },
+            {
+              "name": "Introduction to the Engineering Profession",
+              "choice": false
             },
             {
               "name": "Full Stack Quantum Computing",
@@ -3192,7 +3162,7 @@
           ]
         },
         "curriculum_notes": [
-          "AND, one of the following courses:"
+          "AND, any three courses from the following:"
         ],
         "transcription_withheld": null
       }
@@ -3500,68 +3470,6 @@
         "name": null,
         "source_page": 68,
         "curriculum": {
-          "first_year": [
-            {
-              "name": "Engineering Chemistry",
-              "choice": false
-            },
-            {
-              "name": "Introduction to the Engineering Profession",
-              "choice": false
-            },
-            {
-              "name": "Engineering Analysis and Design IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "Engineering Mathematics IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "Engineering Physics IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "Applied Physics I",
-              "choice": false
-            },
-            {
-              "name": "Elementary IsiZulu Language and Culture IA",
-              "choice": false
-            },
-            {
-              "name": "Elementary Sesotho Language and Culture IA",
-              "choice": false
-            },
-            {
-              "name": "The International Relations of South Africa and Africa",
-              "choice": false
-            },
-            {
-              "name": "Introduction to Political Studies",
-              "choice": false
-            },
-            {
-              "name": "Southern Africa in the Era of Globalisation",
-              "choice": false
-            },
-            {
-              "name": "Identity and Society",
-              "choice": false
-            },
-            {
-              "name": "Introduction to Ethics I",
-              "choice": false
-            },
-            {
-              "name": "Introduction to Philosophy: Knowledge and Reality",
-              "choice": false
-            },
-            {
-              "name": "Global Encounters and Contemporary Realities IA",
-              "choice": false
-            }
-          ],
           "second_year": [
             {
               "name": "Electrical Engineering",
@@ -3674,6 +3582,32 @@
             {
               "name": "Systems Management and Integration",
               "choice": false
+            }
+          ],
+          "first_year": [
+            {
+              "name": "Engineering Chemistry",
+              "choice": false
+            },
+            {
+              "name": "Introduction to the Engineering Profession",
+              "choice": false
+            },
+            {
+              "name": "Engineering Analysis and Design IA AND IB",
+              "choice": false
+            },
+            {
+              "name": "Engineering Mathematics IA AND IB",
+              "choice": false
+            },
+            {
+              "name": "Engineering Physics IA AND IB",
+              "choice": false
+            },
+            {
+              "name": "Applied Physics I",
+              "choice": false
             },
             {
               "name": "Gas Dynamics and Propulsion",
@@ -3705,9 +3639,7 @@
             }
           ]
         },
-        "curriculum_notes": [
-          "AND, one of the following courses:"
-        ],
+        "curriculum_notes": [],
         "transcription_withheld": null
       }
     ],
@@ -4268,68 +4200,6 @@
         "name": null,
         "source_page": 69,
         "curriculum": {
-          "first_year": [
-            {
-              "name": "Engineering Chemistry",
-              "choice": false
-            },
-            {
-              "name": "Introduction to the Engineering Profession",
-              "choice": false
-            },
-            {
-              "name": "Engineering Analysis and Design IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "Engineering Mathematics IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "Engineering Physics IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "Applied Physics I",
-              "choice": false
-            },
-            {
-              "name": "Elementary IsiZulu Language and Culture IA",
-              "choice": false
-            },
-            {
-              "name": "Elementary Sesotho Language and Culture IA",
-              "choice": false
-            },
-            {
-              "name": "The International Relations of South Africa and Africa",
-              "choice": false
-            },
-            {
-              "name": "Introduction to Political Studies",
-              "choice": false
-            },
-            {
-              "name": "Southern Africa in the Era of Globalisation",
-              "choice": false
-            },
-            {
-              "name": "Identity and Society",
-              "choice": false
-            },
-            {
-              "name": "Introduction to Ethics I",
-              "choice": false
-            },
-            {
-              "name": "Introduction to Philosophy: Knowledge and Reality",
-              "choice": false
-            },
-            {
-              "name": "Global Encounters and Contemporary Realities IA",
-              "choice": false
-            }
-          ],
           "second_year": [
             {
               "name": "Applied Mathematics IIA",
@@ -4458,6 +4328,20 @@
             {
               "name": "Mining Optimisation Techniques and Systems Engineering",
               "choice": false
+            }
+          ],
+          "first_year": [
+            {
+              "name": "Engineering Chemistry",
+              "choice": false
+            },
+            {
+              "name": "Introduction to the Engineering Profession",
+              "choice": false
+            },
+            {
+              "name": "Engineering Analysis and Design IA AND IB",
+              "choice": false
             },
             {
               "name": "Health, Safety and Mining Law",
@@ -4473,9 +4357,7 @@
             }
           ]
         },
-        "curriculum_notes": [
-          "AND, one of the following courses:"
-        ],
+        "curriculum_notes": [],
         "transcription_withheld": null
       }
     ],
@@ -5732,7 +5614,19 @@
           ],
           "fourth_year": [
             {
-              "name": "Integrated Basic Medical and Human Sciences B FIFTH-YEAR Integrated Clinical Medicine A SIXTH-YEAR Integrated Clinical Medicine B",
+              "name": "Integrated Basic Medical and Human Sciences B",
+              "choice": false
+            }
+          ],
+          "fifth_year": [
+            {
+              "name": "Integrated Clinical Medicine A",
+              "choice": false
+            }
+          ],
+          "sixth_year": [
+            {
+              "name": "Integrated Clinical Medicine B",
               "choice": false
             }
           ]
@@ -6591,9 +6485,11 @@
               "choice": false
             },
             {
-              "name": "Dental Practice Management II FIFTH-YEAR",
+              "name": "Dental Practice Management II",
               "choice": false
-            },
+            }
+          ],
+          "fifth_year": [
             {
               "name": "Anaesthetics",
               "choice": false
@@ -6831,7 +6727,7 @@
               "choice": false
             },
             {
-              "name": "Professional Practice in Fine Arts HONOURS STUDY Follow your BA undergraduate degree with an Honours degree, one-year (full-time) and specialise in a field that will allow you to follow your passion in the career of your choice.",
+              "name": "Professional Practice in Fine Arts",
               "choice": false
             }
           ]
@@ -6901,24 +6797,6 @@
         "name": null,
         "source_page": 99,
         "curriculum": {
-          "first_year": [
-            {
-              "name": "Film, Visual and Performing Arts IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "Music Literacies and Skills IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "Music Performance Studies IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "Two BA semester courses",
-              "choice": false
-            }
-          ],
           "second_year": [
             {
               "name": "Critical Music Studies IIA AND IIB",
@@ -7027,6 +6905,24 @@
             {
               "name": "Cultural Entrepreneur",
               "choice": false
+            }
+          ],
+          "first_year": [
+            {
+              "name": "Film, Visual and Performing Arts IA AND IB",
+              "choice": false
+            },
+            {
+              "name": "Music Literacies and Skills IA AND IB",
+              "choice": false
+            },
+            {
+              "name": "Music Performance Studies IA AND IB",
+              "choice": false
+            },
+            {
+              "name": "Two BA semester courses",
+              "choice": false
             },
             {
               "name": "Arts Marketing: Context, Strategies and Practices",
@@ -7051,25 +6947,13 @@
           ]
         },
         "curriculum_notes": [
-          "A student is required to complete two semester courses in",
-          "one of the following languages: isiZulu or Sesotho or South",
-          "African Sign Language (SASL). If a student is",
-          "proficient in any two of the three languages (isiZulu,",
-          "Sesotho or SASL), the student is advised to do one of",
-          "the following: (i) register in a first-language stream for",
-          "two courses in isiZulu or Sesotho, (ii) register for two",
-          "courses in any one of the following: French, German,",
-          "Italian, Portuguese, or Spanish, or (iii) formally apply to the",
-          "Dean for exemption from the requirement to register for a",
-          "language subject. Where an exemption has been granted,",
-          "students must add a course/s yielding at least 36 credits",
-          "in a subject approved by Senate. A student may also be",
-          "granted a credit if s/he has completed the same or an",
-          "equivalent course",
           "Music in History and Society:",
           "were not chosen, select two from the following courses:",
           "Select one of the following specialisations:",
-          "Select one course at fourth year level from the following:"
+          "Select one course at fourth year level from the following:",
+          "A student is required to complete two semester courses in",
+          "one of the following languages: isiZulu or Sesotho or South",
+          "African Sign Language (SASL). If a student is"
         ],
         "transcription_withheld": null
       }
@@ -7241,20 +7125,6 @@
         "name": null,
         "source_page": 97,
         "curriculum": {
-          "first_year": [
-            {
-              "name": "Film, Visual and Performing Arts 1A AND IB",
-              "choice": false
-            },
-            {
-              "name": "Visual Storytelling IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "Image Creation IA AND IB",
-              "choice": false
-            }
-          ],
           "second_year": [
             {
               "name": "Image Creation IIA AND IIB",
@@ -7313,9 +7183,13 @@
             {
               "options": [
                 "Funding Contexts in Cultural and Creative Industries",
-                "Film, Visual and Performing Arts IIIA: Aesthetics Technologies and Commodity Cultures"
+                "Screen Studies IIIA"
               ],
               "choice": true
+            },
+            {
+              "name": "Film, Visual and Performing Arts IIIA: Aesthetics Technologies and Commodity Cultures",
+              "choice": false
             },
             {
               "name": "Film, Visual and Performing Arts IIIB: Medium, Process and Criticality",
@@ -7337,6 +7211,20 @@
             },
             {
               "name": "Experimental Film IV",
+              "choice": false
+            }
+          ],
+          "first_year": [
+            {
+              "name": "Film, Visual and Performing Arts 1A AND IB",
+              "choice": false
+            },
+            {
+              "name": "Visual Storytelling IA AND IB",
+              "choice": false
+            },
+            {
+              "name": "Image Creation IA AND IB",
               "choice": false
             },
             {
@@ -7381,6 +7269,10 @@
           ]
         },
         "curriculum_notes": [
+          "Select courses yielding 48 credits from:",
+          "OR, select one course from the following:",
+          "Select one course from the following:",
+          "Select four courses from the following:",
           "A student is required to complete two semester courses",
           "in one of the following languages: isiZulu or Sesotho",
           "or South African Sign Language (SASL). If a student is",
@@ -7392,15 +7284,6 @@
           "Italian, Portuguese, or Spanish, or (iii) formally apply to the",
           "Dean for exemption from the requirement to register for a",
           "language subject.",
-          "Where an exemption has been granted, students must add",
-          "a course/s yielding at least 36 credits in a subject approved",
-          "by Senate. A student may also be granted a credit if s/he",
-          "has completed the same or an equivalent course.",
-          "Select courses yielding 48 credits from:",
-          "OR, select one course from the following:",
-          "Screen Studies IIIA",
-          "Select one course from the following:",
-          "Select four courses from the following:",
           "Select three courses from the list above AND one",
           "appropriate fourth year course from the following:"
         ],
@@ -7495,7 +7378,7 @@
               "choice": false
             },
             {
-              "name": "Film, Visual and Performing Arts IIIB: Medium, Process and Criticality AND a choice of two pairs",
+              "name": "Film, Visual and Performing Arts IIIB: Medium, Process and Criticality",
               "choice": false
             },
             {
@@ -7561,6 +7444,7 @@
           "a course/s yielding at least 36 credits in a subject approved",
           "by Senate. A student may also be granted a credit if s/he",
           "has completed the same or an equivalent course.",
+          "AND a choice of two pairs:",
           "AND, select two courses from the following:"
         ],
         "transcription_withheld": null
@@ -7900,20 +7784,6 @@
         "name": null,
         "source_page": 100,
         "curriculum": {
-          "first_year": [
-            {
-              "name": "Performance Practice IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "Theatre and Production IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "Film, Visual and Performing Arts IA AND IB",
-              "choice": false
-            }
-          ],
           "second_year": [
             {
               "name": "Performance Practice IIA AND IIB",
@@ -8026,13 +7896,27 @@
             {
               "name": "Research Project",
               "choice": false
+            }
+          ],
+          "first_year": [
+            {
+              "name": "Performance Practice IA AND IB",
+              "choice": false
+            },
+            {
+              "name": "Theatre and Production IA AND IB",
+              "choice": false
+            },
+            {
+              "name": "Film, Visual and Performing Arts IA AND IB",
+              "choice": false
             },
             {
               "name": "Drama Therapy Research Essay",
               "choice": false
             },
             {
-              "name": "Applied Drama Research Essay AND, ANY four courses from the following",
+              "name": "Applied Drama Research Essay",
               "choice": false
             },
             {
@@ -8070,25 +7954,14 @@
           ]
         },
         "curriculum_notes": [
+          "Select four pairs of courses from the following:",
+          "Select one course from the following:",
           "Course (A) is taken in the first semester and",
           "Course (B) in the second semester.",
           "A student is required to complete two semester courses in",
           "one of the following languages: isiZulu or Sesotho or South",
           "African Sign Language (SASL). If a student is",
-          "proficient in any two of the three languages (isiZulu,",
-          "Sesotho or SASL), the student is advised to do one of",
-          "the following: (i) register in a first-language stream for",
-          "two courses in isiZulu or Sesotho, (ii) register for two",
-          "courses in any one of the following: French, German,",
-          "Italian, Portuguese, or Spanish, or (iii) formally apply to the",
-          "Dean for exemption from the requirement to register for a",
-          "language subject. Where an exemption has been granted,",
-          "students must add a course/s yielding at least 36 credits",
-          "in a subject approved by Senate. A student may also be",
-          "granted a credit if s/he has completed the same or an",
-          "equivalent course",
-          "Select four pairs of courses from the following:",
-          "Select one course from the following:"
+          "AND, ANY four courses from the following:"
         ],
         "transcription_withheld": null
       }
@@ -8158,60 +8031,6 @@
         "name": null,
         "source_page": 102,
         "curriculum": {
-          "first_year": [
-            {
-              "name": "Education IA AND B",
-              "choice": false
-            },
-            {
-              "name": "Being a Foundation Phase Teacher A AND B",
-              "choice": false
-            },
-            {
-              "name": "Mathematics for Primary School Teachers",
-              "choice": false
-            },
-            {
-              "name": "Childhood Studies I",
-              "choice": false
-            },
-            {
-              "name": "Literacy for Primary School Teachers I",
-              "choice": false
-            },
-            {
-              "name": "Arts for Teachers",
-              "choice": false
-            },
-            {
-              "name": "Teaching Experience IA AND IB",
-              "choice": false
-            },
-            {
-              "name": "ICT Literacy",
-              "choice": false
-            },
-            {
-              "name": "Fun with Choir",
-              "choice": false
-            },
-            {
-              "name": "Physical Activity and Sports in Schools",
-              "choice": false
-            },
-            {
-              "name": "Financial Planning and Entrepreneurship",
-              "choice": false
-            },
-            {
-              "name": "Learning in and through Art",
-              "choice": false
-            },
-            {
-              "name": "Learning in and through Drama",
-              "choice": false
-            }
-          ],
           "second_year": [
             {
               "name": "Education II",
@@ -8270,6 +8089,24 @@
             {
               "name": "IsiZulu Additional Language II",
               "choice": false
+            }
+          ],
+          "first_year": [
+            {
+              "name": "Education IA AND B",
+              "choice": false
+            },
+            {
+              "name": "Being a Foundation Phase Teacher A AND B",
+              "choice": false
+            },
+            {
+              "name": "Mathematics for Primary School Teachers",
+              "choice": false
+            },
+            {
+              "name": "Childhood Studies I",
+              "choice": false
             },
             {
               "name": "Sesotho Additional Language II",
@@ -8289,6 +8126,42 @@
             }
           ],
           "fourth_year": [
+            {
+              "name": "Literacy for Primary School Teachers I",
+              "choice": false
+            },
+            {
+              "name": "Arts for Teachers",
+              "choice": false
+            },
+            {
+              "name": "Teaching Experience IA AND IB",
+              "choice": false
+            },
+            {
+              "name": "ICT Literacy",
+              "choice": false
+            },
+            {
+              "name": "Fun with Choir",
+              "choice": false
+            },
+            {
+              "name": "Physical Activity and Sports in Schools",
+              "choice": false
+            },
+            {
+              "name": "Financial Planning and Entrepreneurship",
+              "choice": false
+            },
+            {
+              "name": "Learning in and through Art",
+              "choice": false
+            },
+            {
+              "name": "Learning in and through Drama",
+              "choice": false
+            },
             {
               "name": "Education IV",
               "choice": false
@@ -8324,10 +8197,10 @@
           ]
         },
         "curriculum_notes": [
-          "And select one elective from the following:",
           "And select ONE additional language; a language not",
           "taken for the NSC; and which is not a home language:",
           "And select ONE additional language from the following:",
+          "And select one elective from the following:",
           "And select two electives from the following:"
         ],
         "transcription_withheld": null
@@ -8398,48 +8271,6 @@
         "name": null,
         "source_page": 103,
         "curriculum": {
-          "first_year": [
-            {
-              "name": "Education IA AND B",
-              "choice": false
-            },
-            {
-              "name": "Mathematics for Primary School Teachers I",
-              "choice": false
-            },
-            {
-              "name": "Literacy for Primary School Teachers I",
-              "choice": false
-            },
-            {
-              "name": "Social Sciences I",
-              "choice": false
-            },
-            {
-              "name": "Becoming a Teacher A AND B",
-              "choice": false
-            },
-            {
-              "name": "English I",
-              "choice": false
-            },
-            {
-              "name": "Teaching Experience IA/IB For students unable to demonstrate conversational competence in Sesotho, IsiZulu or South African Sign",
-              "choice": false
-            },
-            {
-              "name": "IsiZulu (Conversational Competence)",
-              "choice": false
-            },
-            {
-              "name": "Sesotho (Conversational Competence)",
-              "choice": false
-            },
-            {
-              "name": "South African Sign Language (Conversational Competence)",
-              "choice": false
-            }
-          ],
           "second_year": [
             {
               "name": "Education II",
@@ -8511,7 +8342,48 @@
               "choice": false
             }
           ],
+          "first_year": [],
           "fourth_year": [
+            {
+              "name": "Education IA AND B",
+              "choice": false
+            },
+            {
+              "name": "Mathematics for Primary School Teachers I",
+              "choice": false
+            },
+            {
+              "name": "Literacy for Primary School Teachers I",
+              "choice": false
+            },
+            {
+              "name": "Social Sciences I",
+              "choice": false
+            },
+            {
+              "name": "Becoming a Teacher A AND B",
+              "choice": false
+            },
+            {
+              "name": "English I",
+              "choice": false
+            },
+            {
+              "name": "Teaching Experience IA/IB For students unable to demonstrate conversational competence in Sesotho, IsiZulu or South African Sign",
+              "choice": false
+            },
+            {
+              "name": "IsiZulu (Conversational Competence)",
+              "choice": false
+            },
+            {
+              "name": "Sesotho (Conversational Competence)",
+              "choice": false
+            },
+            {
+              "name": "South African Sign Language (Conversational Competence)",
+              "choice": false
+            },
             {
               "name": "Education IV",
               "choice": false
@@ -8567,11 +8439,11 @@
           ]
         },
         "curriculum_notes": [
-          "Language select a course from the following:",
           "Select a language course from the following:",
           "Select a teaching course from the following:",
           "Select a course corresponding to courses selected in the",
           "first year:",
+          "Language select a course from the following:",
           "Select one elective from the following:"
         ],
         "transcription_withheld": null
@@ -8682,6 +8554,48 @@
         "name": null,
         "source_page": 104,
         "curriculum": {
+          "second_year": [
+            {
+              "name": "Education II",
+              "choice": false
+            },
+            {
+              "name": "Life Skills for Teachers",
+              "choice": false
+            },
+            {
+              "name": "Teaching Experience II",
+              "choice": false
+            },
+            {
+              "name": "Natural Sciences II",
+              "choice": false
+            },
+            {
+              "name": "English II",
+              "choice": false
+            },
+            {
+              "name": "isiZulu II",
+              "choice": false
+            },
+            {
+              "name": "Sesotho II",
+              "choice": false
+            },
+            {
+              "name": "Mathematics II",
+              "choice": false
+            },
+            {
+              "name": "Social Sciences II",
+              "choice": false
+            },
+            {
+              "name": "Technology II",
+              "choice": false
+            }
+          ],
           "first_year": [
             {
               "name": "Education IA AND B",
@@ -8756,49 +8670,7 @@
               "choice": false
             },
             {
-              "name": "Learning in and through Drama Life Orientation (LO) as a teaching major will not be included achievement levels in these subjects will be considered for admission. Outline. Education 8 - 12 Further Education and Training Teaching",
-              "choice": false
-            }
-          ],
-          "second_year": [
-            {
-              "name": "Education II",
-              "choice": false
-            },
-            {
-              "name": "Life Skills for Teachers",
-              "choice": false
-            },
-            {
-              "name": "Teaching Experience II",
-              "choice": false
-            },
-            {
-              "name": "Natural Sciences II",
-              "choice": false
-            },
-            {
-              "name": "English II",
-              "choice": false
-            },
-            {
-              "name": "isiZulu II",
-              "choice": false
-            },
-            {
-              "name": "Sesotho II",
-              "choice": false
-            },
-            {
-              "name": "Mathematics II",
-              "choice": false
-            },
-            {
-              "name": "Social Sciences II",
-              "choice": false
-            },
-            {
-              "name": "Technology II",
+              "name": "Learning in and through Drama",
               "choice": false
             },
             {
@@ -8842,7 +8714,7 @@
               "choice": false
             },
             {
-              "name": "Teaching Experience II A student who does not have an Indigenous African",
+              "name": "Teaching Experience II",
               "choice": false
             },
             {
@@ -8854,23 +8726,28 @@
               "choice": false
             },
             {
-              "name": "South African Sign Language (Conversational Competence) in 2027. A combination of prerequisite Matric subjects and",
+              "name": "South African Sign Language (Conversational Competence)",
               "choice": false
             }
           ]
         },
         "curriculum_notes": [
+          "Select Level II courses of the major you did in first year",
+          "from the following:",
           "Select two courses from the following:",
           "Students who cannot demonstrate ICT (Information and",
           "Technology Competency) to select:",
           "Students whom ICT does not apply to select from the",
           "following:",
-          "Select Level II courses of the major you did in first year",
-          "from the following:",
+          "Life Orientation (LO) as a teaching major will not be included",
+          "achievement levels in these subjects will be considered for admission.",
+          "Outline.",
           "Select the senior phase pedagogy courses A AND B",
           "corresponding to one of the courses above:",
+          "A student who does not have an Indigenous African",
           "Language in their matric must select one of the",
           "following:",
+          "in 2027. A combination of prerequisite Matric subjects and",
           "Refer to listed subjects under the first year Programme"
         ],
         "transcription_withheld": null
@@ -8934,6 +8811,10 @@
         "curriculum": {
           "first_year": [
             {
+              "name": "Mathematical Statistics",
+              "choice": false
+            },
+            {
               "name": "Algebra",
               "choice": false
             },
@@ -8948,9 +8829,17 @@
             {
               "name": "Economic Theory IB Macroeconomics",
               "choice": false
+            },
+            {
+              "name": "Business Accounting",
+              "choice": false
             }
           ],
           "second_year": [
+            {
+              "name": "Mathematical Statistics",
+              "choice": false
+            },
             {
               "name": "Abstract Mathematics",
               "choice": false
@@ -9021,11 +8910,8 @@
         },
         "curriculum_notes": [
           "Actuarial Science",
-          "Mathematical Statistics",
           "Mathematics I (Major):",
-          "Business Accounting",
           "Actuarial Science",
-          "Mathematical Statistics",
           "Mathematics II:",
           "Actuarial Science III:",
           "Mathematical Statistics III:"
@@ -9099,6 +8985,14 @@
               "choice": false
             },
             {
+              "name": "Physics I (Major)",
+              "choice": false
+            },
+            {
+              "name": "Engineering Analysis and Design IA and IB",
+              "choice": false
+            },
+            {
               "name": "Elementary Sesotho Language and Culture IA",
               "choice": false
             },
@@ -9165,18 +9059,19 @@
             {
               "name": "Chemistry lllB",
               "choice": false
+            },
+            {
+              "name": "Process Engineering Fundamentals IIB",
+              "choice": false
             }
           ]
         },
         "curriculum_notes": [
           "Chemistry",
           "AND Mathematics I (Major):",
-          "Physics I (Major)",
-          "Engineering Analysis and Design IA and IB",
           "Any one course from the list below:",
           "Applied Chemistry lll:",
           "Chemistry lll:",
-          "Process Engineering Fundamentals IIB",
           "The School of Chemistry offers a 3-year BSc degree that",
           "combines a Chemistry major with Chemical Engineering",
           "topics. After obtaining the first degree, students can",
@@ -9244,28 +9139,6 @@
         "name": null,
         "source_page": 126,
         "curriculum": {
-          "first_year": [
-            {
-              "name": "Algebra",
-              "choice": false
-            },
-            {
-              "name": "Calculus",
-              "choice": false
-            },
-            {
-              "name": "Mathematical Methods and Modelling I",
-              "choice": false
-            },
-            {
-              "name": "Mechanics I",
-              "choice": false
-            },
-            {
-              "name": "Scientific Computing I",
-              "choice": false
-            }
-          ],
           "second_year": [
             {
               "name": "Basic Analysis",
@@ -9301,6 +9174,10 @@
             },
             {
               "name": "Scientific Computing II",
+              "choice": false
+            },
+            {
+              "name": "Mathematical Statistics",
               "choice": false
             }
           ],
@@ -9353,11 +9230,38 @@
               "choice": false
             },
             {
-              "options": [
-                "Number Theory",
-                "Topology"
-              ],
-              "choice": true
+              "name": "Number Theory",
+              "choice": false
+            }
+          ],
+          "first_year": [
+            {
+              "name": "Algebra",
+              "choice": false
+            },
+            {
+              "name": "Calculus",
+              "choice": false
+            },
+            {
+              "name": "Mathematical Methods and Modelling I",
+              "choice": false
+            },
+            {
+              "name": "Mechanics I",
+              "choice": false
+            },
+            {
+              "name": "Scientific Computing I",
+              "choice": false
+            },
+            {
+              "name": "Mathematical Statistics",
+              "choice": false
+            },
+            {
+              "name": "Topology",
+              "choice": false
             },
             {
               "options": [
@@ -9376,16 +9280,14 @@
           ]
         },
         "curriculum_notes": [
-          "Mathematics I (Major):",
-          "Computational and Applied Mathematics I:",
-          "Mathematical Statistics",
-          "Additional courses yielding a minimum of 54 Level I credits",
           "Mathematics II:",
           "Computational and Applied Mathematics ll:",
-          "Mathematical Statistics",
           "Mathematical Statistics III:",
           "Computational and Applied Mathematics lIl:",
-          "Mathematics III:"
+          "Mathematics III:",
+          "Mathematics I (Major):",
+          "Computational and Applied Mathematics I:",
+          "Additional courses yielding a minimum of 54 Level I credits"
         ],
         "transcription_withheld": null
       }
@@ -9456,6 +9358,10 @@
               "choice": false
             },
             {
+              "name": "Any other Level I course",
+              "choice": false
+            },
+            {
               "name": "Geography",
               "choice": false
             },
@@ -9487,6 +9393,14 @@
             },
             {
               "name": "Geological Mapping Techniques",
+              "choice": false
+            },
+            {
+              "name": "Basic Statistics for Natural Scientists",
+              "choice": false
+            },
+            {
+              "name": "Any other Level II course",
               "choice": false
             }
           ],
@@ -9529,12 +9443,9 @@
           "Chemistry",
           "Geology",
           "Auxiliary Mathematics I or Mathematics I (Major):",
-          "Any other Level I course",
           "Recommended courses:",
           "Geology II:",
           "Applied Geology II:",
-          "Basic Statistics for Natural Scientists",
-          "Any other Level II course",
           "Geology III:",
           "Applied Geology III:"
         ],
@@ -9593,10 +9504,6 @@
         "source_page": 119,
         "curriculum": {
           "first_year": [
-            {
-              "name": "Geography I",
-              "choice": false
-            },
             {
               "name": "Archaeology I",
               "choice": false
@@ -9694,8 +9601,10 @@
           ]
         },
         "curriculum_notes": [
+          "Geography I",
           "Geography III - Four courses from:",
-          "NB: All eight Geography III courses may be taken for a double major in Geography"
+          "NB: All eight Geography III courses may be taken for a",
+          "double major in Geography"
         ],
         "transcription_withheld": null
       }
@@ -9896,23 +9805,15 @@
         "curriculum": {
           "first_year": [
             {
-              "name": "Introductory Life Sciences",
-              "choice": false
-            },
-            {
               "name": "Chemistry",
               "choice": false
             },
             {
               "options": [
                 "Auxiliary Mathematics",
-                "Mathematics I (Major)"
+                "Algebra"
               ],
               "choice": true
-            },
-            {
-              "name": "Algebra",
-              "choice": false
             },
             {
               "name": "Calculus",
@@ -9953,6 +9854,7 @@
           ]
         },
         "curriculum_notes": [
+          "Introductory Life Sciences",
           "Mathematics I (Major):",
           "Recommended course:"
         ],
@@ -9991,7 +9893,7 @@
             },
             {
               "options": [
-                "Molecular and Cell Biology IIC: Applications (for double-MCB major students)",
+                "Applications (for double-MCB major students)",
                 "Any other Level II course"
               ],
               "choice": true
@@ -10008,7 +9910,9 @@
             }
           ]
         },
-        "curriculum_notes": [],
+        "curriculum_notes": [
+          "Molecular and Cell Biology IIC:"
+        ],
         "transcription_withheld": null
       },
       {
@@ -10044,7 +9948,7 @@
             },
             {
               "options": [
-                "Molecular and Cell Biology IIC: Applications (for double-MCB major students)",
+                "Applications (for double-MCB major students)",
                 "Any other Level II course"
               ],
               "choice": true
@@ -10061,7 +9965,9 @@
             }
           ]
         },
-        "curriculum_notes": [],
+        "curriculum_notes": [
+          "Molecular and Cell Biology IIC:"
+        ],
         "transcription_withheld": null
       },
       {
@@ -10182,7 +10088,18 @@
             {
               "options": [
                 "Calculus",
-                "Physics I (major)"
+                "Auxiliary Mathematics"
+              ],
+              "choice": true
+            },
+            {
+              "name": "Any two other Level I courses",
+              "choice": false
+            },
+            {
+              "options": [
+                "Physics I (major)",
+                "Physics I (Auxiliary)"
               ],
               "choice": true
             }
@@ -10203,6 +10120,10 @@
             {
               "name": "Applied Chemistry IIB",
               "choice": false
+            },
+            {
+              "name": "Any other Level II course",
+              "choice": false
             }
           ],
           "third_year": [
@@ -10219,24 +10140,22 @@
               "choice": false
             },
             {
-              "name": "Applied Chemistry IIIB",
-              "choice": false
+              "options": [
+                "Applied Chemistry IIIB",
+                "Any other Level III course"
+              ],
+              "choice": true
             }
           ]
         },
         "curriculum_notes": [
           "Chemistry I",
           "Mathematics I (Major):",
-          "Auxiliary Mathematics",
-          "Any two other Level I courses",
           "Recommended courses:",
-          "Physics I (Auxiliary)",
           "Chemistry ll:",
           "Recommended courses:",
-          "Any other Level II course",
           "Chemistry lIl:",
-          "Recommended courses:",
-          "Any other Level III course"
+          "Recommended courses:"
         ],
         "transcription_withheld": null
       },
@@ -10251,6 +10170,14 @@
             },
             {
               "name": "Calculus",
+              "choice": false
+            },
+            {
+              "name": "Chemistry",
+              "choice": false
+            },
+            {
+              "name": "Any other Level I course",
               "choice": false
             }
           ],
@@ -10282,6 +10209,10 @@
             {
               "name": "Advanced Analysis",
               "choice": false
+            },
+            {
+              "name": "Any other Level II course",
+              "choice": false
             }
           ],
           "third_year": [
@@ -10308,19 +10239,19 @@
             {
               "name": "Introduction to Geophysics",
               "choice": false
+            },
+            {
+              "name": "Any other Level III major",
+              "choice": false
             }
           ]
         },
         "curriculum_notes": [
           "Physics (Major)",
           "Mathematics I (Major):",
-          "Chemistry",
-          "Any other Level I course",
           "Physics II:",
           "Mathematics II:",
-          "Any other Level II course",
-          "Physics III:",
-          "Any other Level III major"
+          "Physics III:"
         ],
         "transcription_withheld": null
       }
@@ -10411,6 +10342,10 @@
             },
             {
               "name": "Scientific Computing I",
+              "choice": false
+            },
+            {
+              "name": "Any other level l course",
               "choice": false
             }
           ],
@@ -10507,7 +10442,6 @@
           "Computer Science I:",
           "Mathematics I (Major):",
           "Computational and Applied Mathematics I:",
-          "Any other level l course",
           "Computer Science II:",
           "Mathematics II:",
           "Computational and Applied Mathematics ll:",
@@ -10663,7 +10597,7 @@
               "choice": false
             },
             {
-              "name": "Advanced Experimental Physics and Project Astrophysics III",
+              "name": "Advanced Experimental Physics and Project",
               "choice": false
             },
             {
@@ -10684,7 +10618,8 @@
           "Physics II:",
           "Mathematics II:",
           "Computational and Applied Mathematics ll:",
-          "Physics III:"
+          "Physics III:",
+          "Astrophysics III:"
         ],
         "transcription_withheld": null
       }
@@ -10740,16 +10675,6 @@
         "name": null,
         "source_page": 121,
         "curriculum": {
-          "first_year": [
-            {
-              "name": "Introductory Life Sciences",
-              "choice": false
-            },
-            {
-              "name": "Chemistry I",
-              "choice": false
-            }
-          ],
           "second_year": [
             {
               "name": "Engineering Surveying",
@@ -10814,6 +10739,10 @@
               "choice": false
             },
             {
+              "name": "Remote Sensing and Photogrammetry",
+              "choice": false
+            },
+            {
               "name": "Economic Geography",
               "choice": false
             },
@@ -10845,20 +10774,32 @@
               "name": "Geospatial Data Design and Visualization",
               "choice": false
             }
+          ],
+          "first_year": [
+            {
+              "name": "Auxiliary Mathematics",
+              "choice": false
+            },
+            {
+              "name": "Introductory Life Sciences",
+              "choice": false
+            },
+            {
+              "name": "Chemistry I",
+              "choice": false
+            }
           ]
         },
         "curriculum_notes": [
-          "Geography",
-          "Auxiliary Mathematics",
-          "Additional courses yielding a minimum of 72 Level I",
-          "credits",
-          "Recommended courses:",
           "Geospatial Sciences:",
           "Geography II:",
           "Any two courses yielding 12 credits each as listed below:",
           "Geospatial Sciences III:",
-          "Remote Sensing and Photogrammetry",
-          "Three courses from the list below:"
+          "Three courses from the list below:",
+          "Geography",
+          "Additional courses yielding a minimum of 72 Level I",
+          "credits",
+          "Recommended courses:"
         ],
         "transcription_withheld": null
       }
@@ -10948,11 +10889,7 @@
               "choice": false
             },
             {
-              "name": "Basic Computer Organisation",
-              "choice": false
-            },
-            {
-              "name": "Physics I (Major)",
+              "name": "Basic Computer Organisation Physics I (Major)",
               "choice": false
             }
           ],
@@ -11110,6 +11047,10 @@
             {
               "name": "Nature, Climate and Society",
               "choice": false
+            },
+            {
+              "name": "Any two other Level lI majors",
+              "choice": false
             }
           ],
           "third_year": [
@@ -11138,7 +11079,7 @@
               "choice": false
             },
             {
-              "name": "Any other Level III major HONOURS STUDY Follow your BSc undergraduate degree with an Honours degree, one-year (full-time) and specialise in a field that will allow you to follow your passion in the career of your choice.",
+              "name": "Any other Level III major",
               "choice": false
             }
           ]
@@ -11146,7 +11087,6 @@
         "curriculum_notes": [
           "Auxiliary Mathematics or Mathematics I (major):",
           "Any three other level one courses, recommended courses:",
-          "Any two other Level lI majors",
           "any two courses from the list below:"
         ],
         "transcription_withheld": null

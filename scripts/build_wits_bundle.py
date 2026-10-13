@@ -95,68 +95,17 @@ SHARED_ROW_NOTE = (
 
 # --- (3) the five pages read by hand --------------------------------------
 CORRECTIONS = {
-    62: {  # EFA03 Electrical Engineering. Second year is two columns:
-           # x=333 Data Structures and Algorithms / Electrical and Magnetic
-           # Systems / Software Development I / Signals and Systems I
-           # (Electrical) / Microprocessors; x=449 Electronics I / Electric
-           # Circuits / Mathematics II / Physics II (Electrical) /
-           # Vacation Work I.
-        "curriculum": {
-            "first_year": [
-                c("Engineering Chemistry"),
-                c("Introduction to the Engineering Profession"),
-                c("Engineering Analysis and Design IA AND 1B"),
-                c("Engineering Mathematics IA AND 1B"),
-                c("Engineering Physics IA AND 1B"),
-                c("Applied Physics I"),
-                choice("Elementary IsiZulu Language and Culture IA",
-                       "Elementary Sesotho Language and Culture IA",
-                       "The International Relations of South Africa and Africa",
-                       "Introduction to Political Studies",
-                       "Southern Africa in the Era of Globalisation",
-                       "Identity and Society",
-                       "Introduction to Ethics I",
-                       "Introduction to Philosophy: Knowledge and Reality",
-                       "Global Encounters and Contemporary Realities IA"),
-            ],
-            "second_year": [
-                c("Data Structures and Algorithms"),
-                c("Electrical and Magnetic Systems"),
-                c("Software Development I"),
-                c("Signals and Systems I (Electrical)"),
-                c("Microprocessors"),
-                c("Electronics I"),
-                c("Electric Circuits"),
-                c("Mathematics II"),
-                c("Physics II (Electrical)"),
-                c("Vacation Work I"),
-            ],
-            "third_year": [
-                c("Electromagnetic Engineering"), c("Electronics II"),
-                c("Power Engineering"), c("Probablistic Systems Analysis"),
-                c("Software Development II"), c("Signals and Systems IIA AND IIB"),
-                c("Control I"), c("Electrical Engineering Design"),
-                c("Economics of Design"), c("Mathematical Methods"),
-            ],
-            "fourth_year": [
-                c("Electrical Engineering Design II"),
-                c("Electrical Engineering Laboratory"),
-                c("Measurement Systems"),
-                c("Selected Topics in Sociology"),
-                c("Systems Management and Integration"),
-                choice("High Frequency Techniques", "High Voltage Engineering",
-                       "Electromechanical Conversion", "Control II",
-                       "Renewable Energy",
-                       "Data Intensive Computing in Data Science"),
-            ],
-        },
-        "curriculum_notes": [
-            "AND, one of the following courses:",
-            "At the beginning of the third year, students can choose to continue "
-            "with Electrical Engineering or register for Information Engineering.",
-            "AND, any three courses from the following:",
-        ],
-    },
+    # Only page 84 still needs reading by hand. Its first and third year
+    # set two bulleted lists side by side AND wrap items inside them, and
+    # the two signals conflict: on page 62 a trailing run belongs to the
+    # LEFT list ("Signals and Systems I (Electrical)"), while in the same
+    # geometry here it continues the RIGHT one ("Introduction to" +
+    # "Psychology I"). Nothing in the layout separates those cases, so the
+    # parser gets two names wrong and this page is transcribed.
+    #
+    # Pages 62, 115, 119 and 124 were transcribed here too until the
+    # extractor learned to read them: every name it now produces for them
+    # appears verbatim on its own page.
     84: {  # MFA03 Occupational Therapy. First and third year are two
            # columns, bullets at x=333 and x=449.
         "curriculum": {
@@ -188,91 +137,6 @@ CORRECTIONS = {
             ],
         },
         "curriculum_notes": [],
-    },
-    115: {  # SBA11 Applied Bioinformatics. Single-column curriculum; the
-            # two-column bullets higher up the page are the CAREERS list.
-        "curriculum": {
-            "first_year": [
-                c("Introductory Life Sciences"), c("Chemistry"),
-                choice("Auxiliary Mathematics", "Mathematics I (Major)"),
-                c("Algebra"), c("Calculus"), c("Any other Level I course"),
-                c("Physics I (Auxiliary)"),
-            ],
-            "second_year": [
-                c("Molecular and Cell Biology IIA: Molecular Processes"),
-                c("Molecular and Cell Biology IIB: Cells and Organisms"),
-                c("Molecular and Cell Biology IIC: Applications"),
-            ],
-            "third_year": [
-                c("Applied Bioinformatics"), c("Any other Level III MCB major"),
-            ],
-        },
-        "curriculum_notes": ["Mathematics I (Major):", "Recommended course:"],
-    },
-    119: {  # SBA10 Geography. Single-column curriculum; CAREERS above it.
-            # "Any other Level lI course" is printed with a lowercase L.
-        "curriculum": {
-            "first_year": [
-                c("Geography I"), c("Archaeology I"),
-                choice("Auxiliary Mathematics I", "Mathematics I (Major)"),
-                c("Algebra"), c("Calculus"), c("Any other Level I course"),
-            ],
-            "second_year": [
-                c("Earth and Atmospheric Processes"),
-                c("Methods, Models and Geographical Information Systems"),
-                c("Thinking Geographically: Concepts and Practices in Human Geography"),
-                choice("Environmental Governance: From Local to Global",
-                       "Conservation Biogeography"),
-                c("Archaeology II"), c("Any other Level lI course"),
-            ],
-            "third_year": [
-                c("Food: Security, Politics and Culture"),
-                c("Climate and Environmental Change"), c("Economic Geography"),
-                c("Environmental Monitoring and Modelling"),
-                c("Remote Sensing and Photogrammetry III"),
-                c("Theory and Practice in Sustainability Science and Sustainable Development"),
-                c("Urban Futures: The Political-Economy of Population and Scarcity"),
-                c("Advanced Atmospheric Sciences"), c("Archaeology III"),
-                c("Any other Level III major"),
-            ],
-        },
-        "curriculum_notes": [
-            # "Mathematics I (Major)" is NOT a note here: page 119 prints it
-            # as the alternative to Auxiliary Mathematics I, so it is one
-            # side of the choice above, not prose printed among the courses.
-            "Geography III - Four courses from:",
-            "NB: All eight Geography III courses may be taken for a double "
-            "major in Geography",
-        ],
-    },
-    124: {  # SBA21 Computational and Applied Mathematics. Single column.
-        "curriculum": {
-            "first_year": [
-                c("Mathematical Methods and Modelling I"), c("Mechanics I"),
-                c("Scientific Computing I"), c("Algebra"), c("Calculus"),
-                c("Discrete Computational Structures"),
-                c("Introduction to Algorithms and Programming"),
-                c("Introduction to Data Structures and Algorithms"),
-                c("Basic Computer Organisation"), c("Physics I (Major)"),
-            ],
-            "second_year": [
-                c("Mathematical Methods and Modelling II"), c("Mechanics II"),
-                c("Scientific Computing II"), c("Abstract Mathematics"),
-                c("Basic Analysis"), c("Introduction to Mathematical Statistics"),
-                c("Linear Algebra"), c("Multivariable Calculus"),
-                c("Advanced Analysis"), c("Any other Level II course"),
-            ],
-            "third_year": [
-                c("Mathematical Methods and Modelling III"), c("Mechanics III"),
-                c("Scientific Computing III"), c("Any other Level III major"),
-            ],
-        },
-        "curriculum_notes": [
-            "Computational and Applied Mathematics I:", "Mathematics I (Major):",
-            "Any two other Level I courses. Recommended courses:",
-            "Computer Science I:", "Computational and Applied Mathematics II:",
-            "Mathematics II:", "Computational and Applied Mathematics III:",
-        ],
     },
 }
 
@@ -437,8 +301,11 @@ def main() -> int:
     # run on the same row, emitted last in -raw order, and the name is
     # correct as served.
     missing = verify_fidelity(bundle)
+    # Page 62 only: "Signals and Systems I (Electrical)" is correct, but
+    # -raw emits the parenthetical with the neighbouring column's run, so
+    # the name is not contiguous in the text. Verified by inspection.
     known = {62}
-    unexpected = [m for m in missing if m[0] not in known and m[0] not in (104, 120)]
+    unexpected = [m for m in missing if m[0] not in known]
     if unexpected:
         print(f"REFUSING: {len(unexpected)} unexpected fidelity failure(s):")
         for page, code, name in unexpected[:10]:
@@ -463,8 +330,8 @@ def main() -> int:
     flagged = [(pg, code) for pg, code, _ in missing]
     print(f"fidelity                : {len(missing)} name(s) flagged "
           f"{sorted(set(flagged))}")
-    print("                          p62 verified correct by inspection; "
-          "p104/p120 carry prose the extractor swept in")
+    print("                          p62 is a false alarm: the parenthetical "
+          "is a separate run that -raw emits last")
     return 0
 
 

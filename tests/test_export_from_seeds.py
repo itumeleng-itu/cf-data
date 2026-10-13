@@ -55,7 +55,7 @@ def test_curriculum_survives_api_model_validation(exported):
     assert len(with_cur) == 57, f"expected 57 Wits curricula, got {len(with_cur)}"
     courses = sum(len(v) for p in with_cur for s in p["streams"]
                   for v in s["curriculum"].values())
-    assert courses == 1657, f"expected 1657 course requirements, got {courses}"
+    assert courses == 1656, f"expected 1656 course requirements, got {courses}"
     streams = sum(len(p["streams"]) for p in programmes
                   if p["institution_id"] == "wits")
     assert streams == 68, f"expected 68 streams, got {streams}"

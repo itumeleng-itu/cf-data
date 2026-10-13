@@ -151,29 +151,30 @@ def test_the_totals_balance(manifest, manifest_total, streams):
     )
     # Fixed so the balance cannot be satisfied by a wholesale drop on both
     # sides -- 0 + 1657 would balance too.
-    assert (served, withheld) == (1657, 0)
+    assert (served, withheld) == (1656, 0)
 
 
 def test_the_manifest_states_how_each_page_was_read(provenance):
     """A row is only a CHECK on the seed if it came from somewhere else.
 
-    63 pages come from the deterministic extraction the seed was built
+    67 pages come from the deterministic extraction the seed was built
     from, so a page dropped or altered on the way in shows up here as a
-    mismatch. 5 were transcribed by hand off the rendered page, because
-    the extractor reads two parallel bulleted columns straight across and
-    fused course names that exist in neither column. For those five the
-    same reading produced both the manifest and the seed, so they confirm
-    the count survived conversion and serving, and nothing more.
+    mismatch. One -- page 84 -- was read by hand, and for it the same
+    reading produced both the manifest and the seed, so it confirms the
+    count survived conversion and serving, and nothing more.
+
+    It was five until the extractor learned to read parallel bulleted
+    columns, hyphenated year headings, inline connectors and the gap that
+    separates a wrapped name from the prose below it.
 
     Conflating the two would let a hand-written number pose as an
     independent check, so provenance is recorded per page and asserted
     here rather than left implicit."""
     assert set(provenance.values()) == {"extracted", "transcribed"}
     counts = Counter(provenance.values())
-    assert counts["extracted"] == 63
-    assert counts["transcribed"] == 5
-    assert {p for p, v in provenance.items() if v == "transcribed"} == {
-        62, 84, 115, 119, 124}
+    assert counts["extracted"] == 67
+    assert counts["transcribed"] == 1
+    assert {p for p, v in provenance.items() if v == "transcribed"} == {84}
 
 
 def test_most_pages_are_still_checked_against_an_independent_record(provenance):
