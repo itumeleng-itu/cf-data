@@ -32,7 +32,7 @@
     "career_text": "Photographer employed by an organisation or doing freelance work: portraiture, advertising, fashion, press, editorial, industrial, architecture, fine art",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 5,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -68,7 +68,7 @@
     "career_text": "Fashion designer; Digital & Manual pattern cutter; Digital & Manual pattern grader; Manual and digital pattern making; Garment technologist; Wardrobe assistant; Visual retail merchandiser; Fashion retail merchandiser; Fashion retail buyer; Fashion entrepreneur",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 5,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -104,7 +104,7 @@
     "career_text": "Product developer in glass/ceramics/fibre; Designer in glass/ceramics/fibre; Crafter in glass/ceramics/fibre; Painter; Sculptor; Installation artist; Printmaker; Ceramist; Fibre artist; Glass artist; Muralist; Museum/gallery guide; Museum/gallery curator; Illustrator",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 5,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -140,7 +140,7 @@
     "career_text": "Design artist in the public and private sectors, e.g. layout artist, visualiser, illustrator, package designer. Producer, creative director, art director, technical director, games designer, interface designer and interactive writer.",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 5,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -177,7 +177,7 @@
     "career_text": "Residential design; Office design; Community and education design; Healthcare design; Architectural and interior design consultancies; Interior stylist; Project manager; Shopfitter draughtsman; Independent interior design practice",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 5,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -213,7 +213,7 @@
     "career_text": "CAD designer; Advanced bench worker; Product developer; Setter; CAM practitioner; 3D wax printer technician; Artist jeweller; Restorer; Jewellery retailer; Product representative; Caster; Wax carver; Jewellery renderer; Model maker",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 5,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -249,7 +249,7 @@
     "career_text": "Film producer; Film director; Scriptwriter; VFX editor; Camera operator; Location manager; Production assistant; Broadcast journalist; Production manager; Assistant director; Film editor; Cinematographer; Lighting technician; Programme researcher; Sound technician; Production coordinator",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 5,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -285,7 +285,7 @@
     "career_text": "Choreographer; Creative entrepreneur; Dancer; Dance captain; Performing Arts maker; Performing Arts reviewer; Theatre maker",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 5,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -321,7 +321,7 @@
     "career_text": "Choral conductor; Chorus member; Composer; Creative entrepreneur; Film-score composer; Jazz musician; Jingle writer; Music producer; Opera singer; Performing Arts maker; Performing Arts reviewer; Theatre maker",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 5,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -357,7 +357,7 @@
     "career_text": "Choral conductor; Chorus member; Composer; Creative entrepreneur; Film-score composer; Jazz musician; Jingle writer; Music producer; Opera singer; Performing Arts maker; Performing Arts reviewer; Theatre maker",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 5,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -393,7 +393,7 @@
     "career_text": "Actor; Applied Theatre practi tioner; Creative entrepreneur; Director; Lighting/sound operator; Media performer (radio and television); Musical Theatre performer; Performing Arts maker; Performing Arts reviewer; Performing Arts technician; Physical Theatre practitioner; Production manager; Scriptwriter; Stage manager; Stage technical crew; Theatre maker; Theatre technician; Voice-over artist",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 5,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -429,7 +429,7 @@
     "career_text": "Actor; Applied Theatre practi tioner; Creative entrepreneur; Director; Lighting/sound operator; Media performer (radio and television); Musical Theatre performer; Performing Arts maker; Performing Arts reviewer; Performing Arts technician; Physical Theatre practitioner; Production manager; Scriptwriter; Stage manager; Stage technical crew; Theatre maker; Theatre technician; Voice-over artist",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 5,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -465,7 +465,7 @@
     "career_text": "Jazz Musician, Music Producer, Opera Singer",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 5,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -550,7 +550,7 @@
     "career_text": "Financial accountant, auditor, asset manager, administrative service manager, administrative service manager",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 6,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -625,7 +625,7 @@
     "career_text": "Consultant, financial analyst, entrepreneur, economist, banking, insurance, investment, public sectors in economics and financial management, financial and management consultant",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 6,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -710,7 +710,7 @@
     "career_text": "Cost and pricing accountant, project accountant, management accountant, financial controller, financial accountant/controllers, business operations manager, budget controller, finance consultants",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 6,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -794,7 +794,7 @@
     "career_text": "Junior business analysts, research analysts, financial analysts, business performance analysts, performance and monitoring assistant/manager, financial planner, finance consultants, investment analysts",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 6,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -879,7 +879,7 @@
     "career_text": "Auditor",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 6,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -964,7 +964,7 @@
     "career_text": "State accountant and accountant in central and provincial government sectors, as well as statutory government institutions",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 6,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -1039,7 +1039,7 @@
     "career_text": "Accounting technician, bookkeeper, accounts clerk, tax consultant, financial accountant",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 6,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -1105,7 +1105,7 @@
     "career_text": "Architectural technologist, property inspector, building product consultant, specialising in architectural technology, self-employed and private architect",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 7,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -1171,7 +1171,7 @@
     "career_text": null,
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 7,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -1242,7 +1242,7 @@
     "career_text": "Survey technologist and route to professional topographic or engineering surveyor, geographic information systems practitioner, photogrammetrist",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 7,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -1314,7 +1314,7 @@
     "career_text": "Chemical engineering technician and technologist, researcher and developer, fuel- cell technologist, consultant",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 7,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -1386,7 +1386,7 @@
     "career_text": "Construction manager or supervisor, project manager, technician in civil engineering working for a civil engineering consultant, technologist, construction company, or local, provincial or national government",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 7,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -1460,7 +1460,7 @@
     "career_text": "Design, planning, construction and maintenance of specialised fields systems related to electrical engineering",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 7,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -1532,7 +1532,7 @@
     "career_text": "Professional technologist, technician, manager, entrepreneur and consultant",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 7,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -1604,7 +1604,7 @@
     "career_text": "Management of production and processing of raw material, manufacturing and processing of products, development, characterisation and quality assurance of products and raw materials, development of new plastic products and material, marketing and sales of raw materials and products",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 7,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -1676,7 +1676,7 @@
     "career_text": "Mechanical technologist, technician, manager, entrepreneur and consultant",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 7,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -1748,7 +1748,7 @@
     "career_text": "Mechanical and Electronic technologist, technician, manager, entrepreneur and consultant",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 7,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -1820,7 +1820,7 @@
     "career_text": "Metallurgist, technician, technologist, plant manager, consultant, researcher and developer",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 7,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -1891,7 +1891,7 @@
     "career_text": "Construction manager, technician quality surveyor, clerk of works, building inspector",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 7,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -1963,7 +1963,7 @@
     "career_text": "Construction manager or supervisor, project manager, technician in civil engineering working for a civil engineering consultant, technologist, construction company, or local, provincial or national government",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 7,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -2036,7 +2036,7 @@
     "career_text": "Design, planning, construction and maintenance of specialised fields systems related to electrical engineering",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 7,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -2107,7 +2107,7 @@
     "career_text": "Survey technologist and route to professional topographic or engineering surveyor, geographic information systems practitioner, photogrammetrist",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 8,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -2173,7 +2173,7 @@
     "career_text": "Junior industrial designer, member of design and development team, junior design entrepreneur. Design skills can be applied across diverse business fields",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 8,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -2245,7 +2245,7 @@
     "career_text": "Construction manager or supervisor, project manager, technician in civil engineering working for a civil engineering consultant, construction company, or local, provincial or national government",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 8,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -2317,7 +2317,7 @@
     "career_text": "Construction manager or supervisor, project manager, technician in civil engineering working for a civil engineering consultant, construction company, or local, provincial or national government",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 8,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -2390,7 +2390,7 @@
     "career_text": "Design, planning, construction and maintenance of specialised fields systems related to electrical engineering",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 8,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -2462,7 +2462,7 @@
     "career_text": "Technician, manager, entrepreneur and consultant",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 8,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -2534,7 +2534,7 @@
     "career_text": "Technician, manager, entrepreneur and consultant",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 8,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -2594,7 +2594,7 @@
     "career_text": "Educator/lecturer, school inspector, representative of Department of Education, life-skills facilitator, guidance counsellor",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 9,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -2688,7 +2688,7 @@
     "career_text": null,
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 9,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -2795,7 +2795,7 @@
     "career_text": null,
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 9,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -2887,7 +2887,7 @@
     "career_text": null,
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 9,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -2974,7 +2974,7 @@
     "career_text": null,
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 9,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -3041,7 +3041,7 @@
     "career_text": null,
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 9,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -3118,7 +3118,7 @@
     "career_text": null,
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 9,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -3190,7 +3190,7 @@
     "career_text": null,
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 9,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -3252,7 +3252,7 @@
     "career_text": null,
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 9,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -3349,7 +3349,7 @@
     "career_text": "Educator/lecturer, school inspector, representative of Department of Education, life-skills facilitator, guidance counsellor",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 10,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -3445,7 +3445,7 @@
     "career_text": null,
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 10,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -3516,7 +3516,7 @@
     "career_text": "Child care (Infant and Toddlers), elder care, elementary teacher (teach adult about food and nutrition), dress making/sewing/fashion design, caterers/baking, pottery, interior designing, marketing consumer product within the community, working in family and community service agencies, community service worker, financial consultant.",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 10,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -3592,7 +3592,7 @@
     "career_text": null,
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 10,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -3649,7 +3649,7 @@
     "career_text": "Correctional services official, skills development officer, manager, security official",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 10,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -3735,7 +3735,7 @@
     "career_text": "Marketing communication specialist, industrial journalist, public relations practitioner, media planner, communications practitioner, social media strategist, publicity coordinator, account planner/manager, media practitioner, industrial journalist, events coordinator, diplomat, international communication specialist",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 10,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -3773,7 +3773,7 @@
     "career_text": "Journalist in printed media, broadcasting, industrial and online journalism",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 10,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -3812,7 +3812,7 @@
     "career_text": "General language practitioner, translator, editor or proofreader, language advisor, consultant, technologist, interpreter, language planner, editor, columnist, writer",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 11,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -3849,7 +3849,7 @@
     "career_text": "Costs consultants at cost consulting firms, cost consultant proprietors, paralegals in law firms, paralegals at justice centres (Legal Aid Board), paralegals at the office of the Master of the Supreme Court, paralegals at the Deeds’ Office, paralegals at private companies such as Scorpion Legal Protection.",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 11,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -3887,7 +3887,7 @@
     "career_text": "Conveyancing secretaries, legal secretaries, paralegals in law firms, paralegals at justice centres (Legal Aid Board), paralegals at the office of the Master of the Supreme Court, paralegals at the Deeds’ Office, paralegals at private companies such as Scorpion Legal Protection.",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 11,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -3964,7 +3964,7 @@
     "career_text": "Employee of SAPS, reservist, security occupation community policing, municipal and metro police, private investigators",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 11,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -4021,7 +4021,7 @@
     "career_text": "Clerk, public official manager",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 11,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -4078,7 +4078,7 @@
     "career_text": "Clerk, public official manager",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 11,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -4155,7 +4155,7 @@
     "career_text": "Software developer, web developer, mobile solution developer, database developer, data scientist, system analyst, quality engineer.",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 13,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -4232,7 +4232,7 @@
     "career_text": null,
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 13,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -4304,7 +4304,7 @@
     "career_text": "Computer systems engineer, electronic engineer, electronics tester, software engineer, software tester, programmer, web developer, systems analyst, network administrator, systems administrator, database administrator, systems support, network planner, data science and cloud computing",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 13,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -4376,7 +4376,7 @@
     "career_text": "technologist, system integration specialist, intelligent system technologist.",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 13,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -4452,7 +4452,7 @@
     "career_text": "Business analyst, user acceptance tester, systems trainer, systems tester, support specialist, e-commerce developer, enterprise systems manager, information resource manager, database administrator, project manager, technology consultant, systems analyst.",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 13,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -4528,7 +4528,7 @@
     "career_text": null,
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 13,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -4619,7 +4619,7 @@
     "career_text": "Computer network support specialist, network and computer systems administrator, computer network architect, network analyst, network engineer, cybersecurity specialist, data centre technician, digital forensics/ IT Assurance / IT Forensics Specialist, Security Operations Centre",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 13,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -4710,7 +4710,7 @@
     "career_text": "Access Management (IAM) specialist, threat intelligence analyst, wireless communications specialist.",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 13,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -4787,7 +4787,7 @@
     "career_text": "Content designer, 3D games programmer, 3D animation creator, virtual reality designer, interactive training systems developer, simulation developer, web developer, user interface and user experience designer, e-learning specialist, hybrid art director, front-end developer.",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 13,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -4864,7 +4864,7 @@
     "career_text": null,
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 13,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -4931,7 +4931,7 @@
     "career_text": "Secretary, administration officer, personal assistant, office manager",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 14,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -4999,7 +4999,7 @@
     "career_text": "Adventure specialist, planning and presenting outdoor activities (e.g. rafting, mountain climbing, bungee jumping), providing outdoor equipment, tourism operator",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 14,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -5066,7 +5066,7 @@
     "career_text": "Casino-, hotel- and resort managers, supervisors and VIP hosts",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 14,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -5132,7 +5132,7 @@
     "career_text": "Agent, call centre representative, call centre officer, team leader, supervisor, functional leader, strategic manager",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 14,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -5204,7 +5204,7 @@
     "career_text": "Financial credit analyst, accounts receivable manager, credit and litigation coordinator, credit/debtor clerk in banking sector",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 14,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -5272,7 +5272,7 @@
     "career_text": "Field guide, ecotourism guide, tour operator, planner, developer, manager, entrepreneur, eco-destination planner, manager at eco-lodges",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 14,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -5340,7 +5340,7 @@
     "career_text": "Creating and building a business, business training consultant, small business development officer",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 14,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -5407,7 +5407,7 @@
     "career_text": "Events coordinator, events planner, events manager",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 14,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -5473,7 +5473,7 @@
     "career_text": "Food Management Industries: Working in Hospital kitchens, Old Age Homes, Prison Service Hostels, Hotels and Boarding Schools, Banqueting and Mass Catering Chefs",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 14,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -5539,7 +5539,7 @@
     "career_text": "Manager in the hospitality industry (hotels, guesthouses), entrepreneur, researcher, chef, food and beverage manager, industrial catering service/accommodation manager",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 14,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -5606,7 +5606,7 @@
     "career_text": "Training officer, personnel officer, personnel manager, training officer, labour relations officer",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 14,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -5674,7 +5674,7 @@
     "career_text": "Sales consultant, sales manager, marketing manager, advertising manager, researcher, customer services, product manager",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 14,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -5740,7 +5740,7 @@
     "career_text": "Inventory controller, materials manager, operations manager, production analyst, process engineer",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 14,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -5807,7 +5807,7 @@
     "career_text": "Merchandising and sales representative for retail suppliers and wholesalers",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 15,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -5874,7 +5874,7 @@
     "career_text": "Sports administrator, club manager, sports marketing agent, sports development officer, promoter, commentator, entrepreneur, sales consultant, market researcher",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 15,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -5941,7 +5941,7 @@
     "career_text": "Buyer, materials manager, logistics manager, distribution manager, warehouse manager",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 15,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -6008,7 +6008,7 @@
     "career_text": "Travel agent, tour operator, guest services, tourism information services, education and training, sight seeing tours and recreation, tourism information services",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 15,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -6074,7 +6074,7 @@
     "career_text": "Work-study practitioner, management services practitioner, business analyst, value-chain consultant",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 15,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -6110,7 +6110,7 @@
     "career_text": "Secretary, administration officer, personal assistant, office manager",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 15,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -6146,7 +6146,7 @@
     "career_text": "Agent, call centre representative, call centre officer, team leader, supervisor, functional leader, strategic manager",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 15,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -6209,7 +6209,7 @@
     "career_text": "Animal production manager, animal production representative, animal production technician, researcher farmer, feedlot manager, lecturer, agricultural journalist",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 16,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -6285,7 +6285,7 @@
     "career_text": "Commercial crop producer, production manager, extension service worker",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 16,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -6348,7 +6348,7 @@
     "career_text": "Horse-stud manager, horse seller, riding-school owner, equine breeder",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 16,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -6449,7 +6449,7 @@
     "career_text": "Horticulturists, maintenance managers, site managers or as grounds superintendents, researchers (developing new cultivars or solving problems) and in the academic world of teaching, learning and education.",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 16,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -6550,7 +6550,7 @@
     "career_text": "Landscape consultants, landscape designers or landscape contractors, site managers, maintenance managers, nursery managers, researchers (developing new cultivars or solving problems) as well as in the academic world of teaching, learning and education.",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 16,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -6627,7 +6627,7 @@
     "career_text": "Conservation manager, conservation researcher, environmental educationist, eco- destination planners, guides, nature conservator, hunting operator",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 16,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -6704,7 +6704,7 @@
     "career_text": "Game-farm or ranch manager, wildlife adviser, professional hunter, disease control, habitat management, game population dynamics, game capture and translocation.",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 16,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -6780,7 +6780,7 @@
     "career_text": null,
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 17,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -6858,7 +6858,7 @@
     "career_text": "Environmental health practitioner, health advisor, air-pollution control officer, meat inspector, occupational hygienist, consultant, inspector, environmental officer/ auditor, food safety auditor, risk officer, researcher",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 17,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -6920,7 +6920,7 @@
     "career_text": "Practice as nurse and midwife in public and private health care facilities or as private nurse practitioner",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 17,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -6998,7 +6998,7 @@
     "career_text": "Pharmacist",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 17,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -7075,7 +7075,7 @@
     "career_text": "Radiographer, radiation control officer and medical and pharmaceutical representative",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 17,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -7152,7 +7152,7 @@
     "career_text": "Employment in a number of allied health-related fields. The scope of occupation is primarily dependent on the entrepreneurial initiative of the individual and includes practising as a Biokineticist in the following environments: Corporate Sector, Correctional Facilities, Elite and Professional Sport, Fire Services, Industry, Local Authorities, Military Bases, Military Hospitals, Police Services, Private Practices",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 17,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -7229,7 +7229,7 @@
     "career_text": "Clinical technologist, private hospitals and private practices, opportunities in cardiology, nephrology, reproduction, the respiratory system and neurophysiology, cardiovascular perfusion, pulmonology",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 17,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -7306,7 +7306,7 @@
     "career_text": "Medical technologist, work in medical field, analysing human tissue and blood, pathology, histology, virology, blood transfusion and laboratory work",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 17,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -7383,7 +7383,7 @@
     "career_text": "Medical orthotist or prosthetist, own practice, medical representative (orthopaedic rehabilitation by assessing, measuring, designing, manufacturing, maintaining and fitting orthoses and prostheses)",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 17,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -7470,7 +7470,7 @@
     "career_text": "Veterinary technologist (activities include the collection and processing of samples, diagnostic work and research and vaccine production)",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 17,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -7542,7 +7542,7 @@
     "career_text": "Sports scientists, sports coaches, sports managers, and sports researchers. Qualified students will function at such a level to cater for the needs of an apparently healthy population as well as fitness training for special populations such as children, the youth and older adults. This qualification also offers a physical activity foundation based on scientific knowledge to facilitate health and sport in order to support health workers, as well as enhancing the level of professionalism within the national sport, health and fitness industry",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 18,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -7623,7 +7623,7 @@
     "career_text": "Health and skin care professional as a somatologist, aromatherapist, reflexologist, stress-relief and relaxation therapist at health spa or stress clinic, representative of cosmetic firm or own business",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 18,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -7681,7 +7681,7 @@
     "career_text": "Assisting in a dental practice, assisting a dentist, infection control, stock control and accounts",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 18,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -7733,7 +7733,7 @@
     "career_text": "Industrial Chemists usually work in chemical plants and laboratories across a broad range of industries, from chemical manufacturing, mining, building materials and paints/coatings through to paper, petroleum, plastics and advanced materials manufacturing",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 18,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -7805,7 +7805,7 @@
     "career_text": "Chemist, laboratory analyst, technologist. Opportunities for analytical chemistry graduates exist in laboratories, manufacturing and mining industries, research industries, forensic departments, and national science councils.",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 18,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -7882,7 +7882,7 @@
     "career_text": "Biotechnologist or microbiologist, work in the industry or research labs, microbiology, waste management, beverage production, food production, research",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 18,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -7955,7 +7955,7 @@
     "career_text": "Appointed as an environmental officer or environmental technologist within numerous industries that deal with either managing negative changes on the biogeophysical environment or/and investigating existing impacts or potential impacts on the biogeophysical environment. Graduates may also be employed into a number of government departments or state bodies that deal with environmental impacts such as the Department of Environmental Affairs.",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 18,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -7993,7 +7993,7 @@
     "career_text": "Fire fighter, fire prevention officer, fire safety officer, station officer, divisional officer, emergency services manager, officer in SANDF",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 18,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": false
   },
   {
@@ -8070,7 +8070,7 @@
     "career_text": "Food technologist, quality controller, researcher, developer of new products, opportunities in food processing, canning, meat or fish factories, food quality and hygiene",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 19,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -8143,7 +8143,7 @@
     "career_text": "Engineering geologist, geological technician or technologist, hydro-geological consultant, mining companies, Department of Minerals and Energy, Department of Water Affairs and Forestry",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 19,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -8215,7 +8215,7 @@
     "career_text": "Photonics - work as optical instrument technicians, lens-coating technicians, laser technicians, vacuum technicians, metrologists (optical), non-destructive testing technicians. Nuclear Technologist - work as general nuclear technicians, radiation protection technicians, waste management technicians, radiation risk technicians, radioactive contamination risk technicians, vacuum technicians, non-destructive testing technicians and metrologists.",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 19,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -8288,7 +8288,7 @@
     "career_text": "Water care technician, water care technologist and process controller",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 19,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -8364,7 +8364,7 @@
     "career_text": "Water care technician, water care technologist and process controller",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 19,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   },
   {
@@ -8455,7 +8455,7 @@
     "career_text": "Water care technician, water care technologist and process controller",
     "source_doc": "tut_first_year_course_information_2027.pdf",
     "source_page": 19,
-    "confidence": "extracted",
+    "confidence": "verified",
     "scoreable": true
   }
 ]

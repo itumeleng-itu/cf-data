@@ -28,10 +28,11 @@ IMAGE_TAG = f"coursefind-api-smoketest:{_SUFFIX}"
 CONTAINER_NAME = f"coursefind-api-smoketest-{_SUFFIX}"
 HOST_PORT = 18123
 DATA_VERSION = "smoketest-2027.1"
-# Both institutions now. 29 UJ + 60 Wits; the canonical learner below
-# qualifies for 28 of the UJ programmes and 47 of the Wits ones.
-EXPECTED_PROGRAMME_COUNT = 89
-EXPECTED_QUALIFYING_COUNT = 75
+# All three institutions now: 29 UJ + 60 Wits + 124 TUT. The canonical
+# learner below qualifies for 28 UJ, 47 Wits and 120 TUT. TUT's bars run
+# 18-30 where Wits' run 33-43, which is why nearly all of it clears.
+EXPECTED_PROGRAMME_COUNT = 213
+EXPECTED_QUALIFYING_COUNT = 195
 
 CANONICAL_MARKS = [
     {"subject": "english_hl", "percentage": 87},
