@@ -100,6 +100,20 @@ def _mentions_english(rule: dict) -> bool:
     return rule.get("language") == "english" or rule.get("subject") in ("english_hl", "english_fal")
 
 
+def _count_any_additional_language(rule: dict) -> int:
+    """How many "some other language" rules a tree carries."""
+    if rule.get("kind") in ("all", "any"):
+        return sum(_count_any_additional_language(r) for r in rule.get("rules", []))
+    return 1 if rule.get("kind") == "any_additional_language" else 0
+
+
+def _names_any_language(rule: dict) -> bool:
+    """Whether the tree names a specific language anywhere."""
+    if rule.get("kind") in ("all", "any"):
+        return any(_names_any_language(r) for r in rule.get("rules", []))
+    return bool(rule.get("language")) or str(rule.get("subject", "")).endswith(("_hl", "_fal"))
+
+
 def _semantic_errors(p: dict, tag: str) -> list[str]:
     """Checks a structurally valid record can still fail. Ported from
     extract/methods/coordinate.py's validate(); see the module docstring
@@ -142,7 +156,40 @@ def _semantic_errors(p: dict, tag: str) -> list[str]:
         if isinstance(score, int) and not APS_MIN <= score <= APS_MAX:
             errs.append(f"{tag}: implausible APS {score} (outside {APS_MIN}-{APS_MAX})")
 
-    if not _mentions_english(nsc["subjects"]):
+    # A programme that states NO NSC subject requirements at all, and
+    # is marked unscoreable, is admitted on something other than a
+    # school certificate. TUT's Dip (Fire Technology) is open only to
+    # serving Fire and Rescue personnel and asks for a diploma-endorsed
+    # NSC, three years' service and HAZMAT and Fire Fighter
+    # certificates -- it names no subject, so there is no English rule
+    # to find and inventing one would state a requirement TUT does not.
+    #
+    # Deliberately narrow: BOTH conditions are required. A record that
+    # lists some subjects but not English is still an error, which is
+    # the transcription slip this check exists to catch, and Wits' 11
+    # unscoreable programmes all do state English and stay covered.
+    states_no_subjects = not (nsc["subjects"].get("rules")
+                              if nsc["subjects"].get("kind") in ("all", "any")
+                              else True)
+
+    # A language-teaching degree can require languages WITHOUT
+    # requiring English. TUT's BEd (Foundation Phase Teaching) asks for
+    # "Home language offered in the programme" at 5 and "First
+    # additional language" at 4 -- a learner teaching in Sepedi and
+    # isiZulu satisfies it, and English appears nowhere on the row.
+    #
+    # Also deliberately narrow: it takes TWO unnamed-language rules and
+    # NO named language anywhere. One such rule beside a dropped
+    # English is still an error, which is the slip this check is for --
+    # UJ's LLB and Wits' BEd pair any_additional_language WITH a named
+    # English and stay covered.
+    unnamed_languages = _count_any_additional_language(nsc["subjects"])
+    names_a_language = _names_any_language(nsc["subjects"])
+    language_degree = unnamed_languages >= 2 and not names_a_language
+
+    if not (p.get("scoreable") is False and states_no_subjects) \
+            and not language_degree \
+            and not _mentions_english(nsc["subjects"]):
         errs.append(f"{tag}: no English requirement")
 
     if p.get("duration_years") is None:

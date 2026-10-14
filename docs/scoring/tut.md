@@ -1,5 +1,110 @@
 # TUT 2027 — source, conversion, and known gaps
 
+**Status: `confidence: "extracted"` for all 124 TUT programmes, not
+`"verified"`.** Registered against `aps_best6_excl_lo` with a real,
+cross-checked `zero_below_level` config — the scoring formula is not the
+gap here; the gap is that no human has read the converted requirements
+against the prospectus.
+
+## Source — re-encoded 2026-10-14 from TUT's own prospectus
+
+`TUT First Year Course Information 2027`, the university's own PDF,
+extracted by `scripts/extract_tut_programmes.py` and
+`scripts/tut_requirements.py`, verified by
+`scripts/verify_tut_programmes.py`, converted by
+`scripts/convert_tut_programmes.py`. Running the extractor twice gives
+the same file.
+
+**This replaces the previous source, which no longer exists.** TUT's 125
+programmes were originally converted from
+`universities/2027/tut_2027_programmes.json`, a dataset supplied
+directly and never committed to this repo. It is gone, and with it the
+reference evaluator the conversion was cross-checked against. Only the
+scoring config in `seeds/institutions.json` survived. The record of that
+work is kept below, because the cross-check it describes is still the
+strongest evidence the scoring config is right — but the requirements
+now in `seeds/tut/tut_2027.json` come from the prospectus, not from it.
+
+124, not 125: `Dip (Policing)` prints two admission ROUTES as two rows —
+an experiential one for serving law-enforcement officers and an ordinary
+NSC one — and is one programme.
+
+## What the verification checks, and what it cannot
+
+`verify_tut_programmes.py` reads the PDF with `pdftotext -layout`, a
+different engine and code path from the `pdfplumber` table walk the
+extractor uses, so it cannot confirm the parser's own mistakes back to
+it. On the current extraction:
+
+    1 FIDELITY   124/124 programme names printed on their page
+    2 SUBJECTS   525/525 named subjects are real NSC subjects
+    3 LEVELS     380/380 branches carry a level in 1-7
+    4 APS        149/149 thresholds printed on their page
+    5 COVERAGE   124 rows across 14 pages
+    6 INHERITED  25 levels inherited, each listed
+
+It does NOT check that a requirement means what TUT intends — only that
+every name, level and threshold served is printed where the record says
+it is.
+
+## The one inference in the data: inherited levels
+
+TUT's level column is set "print on change": a number appears beside an
+alternative only where its requirement DIVERGES from the option above
+it. Page 14 shows both halves on adjacent rows — `Dip (Adventure
+Tourism)` prints 4 beside Mathematical Literacy because it is held
+higher than Mathematics at 3, while `Dip (Administrative Information
+Management)` prints nothing beside it because it is held to the same 3.
+
+So an alternative with no printed level inherits the last one printed in
+its own block, and **25 levels in the dataset were set this way**. They
+are listed in full by the verifier. Inheritance is scoped to the block:
+a requirement that opens with no level has nothing legitimate to
+inherit and is reported, never defaulted.
+
+The split corroborates itself — the BEd degrees inherit 4 and the
+diplomas inherit 3, matching the prospectus's own general rule
+("Bachelor's degrees: at least four subjects at performance level 4").
+
+## What this document does NOT contain
+
+No course lists. Despite its title, "First Year Course Information"
+carries admission requirements only — compulsory subjects, levels, APS,
+duration, campuses, closing dates, careers. There is no curriculum
+outline anywhere in its 20 pages, so TUT programmes match learners but
+have nothing to show behind "what you would study".
+
+## Not scored
+
+`Dip (Fire Technology)` is open only to serving Fire and Rescue
+personnel and asks for a diploma-endorsed NSC, three years' service and
+HAZMAT and Fire Fighter certificates. It names no subject and no APS, so
+it is `scoreable: false` and reaches a learner in the
+`requires_additional_assessment` bucket rather than being scored on
+requirements TUT does not state.
+
+## Two validator checks were widened for this data
+
+Both narrowly, both in `scripts/validate_data.py`:
+
+1. A programme that is `scoreable: false` AND states no subjects at all
+   is exempt from "no English requirement". Dip (Fire Technology) names
+   no subject; inventing an English level would state a requirement TUT
+   does not.
+2. A programme requiring TWO unnamed languages and naming none is also
+   exempt. `BEd (Foundation Phase Teaching)` asks for "Home language
+   offered in the programme" at 5 and "First additional language" at 4
+   — a learner teaching in Sepedi and isiZulu satisfies it, and English
+   appears nowhere on the row.
+
+Both conditions are required in each case, so a record that lists some
+subjects but not English is still an error — which is the transcription
+slip that check exists to catch.
+
+---
+
+# Previous conversion (source no longer available)
+
 **Status: `confidence: "extracted"` for all 125 TUT programmes, not
 `"verified"`.** Registered against `aps_best6_excl_lo` with a real,
 cross-checked `zero_below_level` config — this is not an UNVERIFIED

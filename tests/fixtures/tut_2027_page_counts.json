@@ -1,0 +1,52 @@
+{
+  "_comment": "Programme counts per PDF page of TUT First Year Course Information 2027. seeds/tut/tut_2027.json must account for every page here.",
+  "_provenance": {
+    "extracted": "Deterministic pdfplumber table walk (scripts/extract_tut_programmes.py), no model and no hand transcription. INDEPENDENT of the seed, which is built from it. Never regenerate from the seed -- that makes the check compare the data against itself."
+  },
+  "source_document": "tut_first_year_course_information_2027.pdf",
+  "total_programmes": 124,
+  "pages": {
+    "5": {
+      "programmes": 13
+    },
+    "6": {
+      "programmes": 7
+    },
+    "7": {
+      "programmes": 14
+    },
+    "8": {
+      "programmes": 7
+    },
+    "9": {
+      "programmes": 9
+    },
+    "10": {
+      "programmes": 7
+    },
+    "11": {
+      "programmes": 6
+    },
+    "13": {
+      "programmes": 10
+    },
+    "14": {
+      "programmes": 13
+    },
+    "15": {
+      "programmes": 7
+    },
+    "16": {
+      "programmes": 7
+    },
+    "17": {
+      "programmes": 10
+    },
+    "18": {
+      "programmes": 8
+    },
+    "19": {
+      "programmes": 6
+    }
+  }
+}
