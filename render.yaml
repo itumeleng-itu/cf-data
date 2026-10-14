@@ -1,0 +1,52 @@
+# Render Blueprint for the coursefind data API.
+#
+# WHAT THIS DEPLOYS, AND WHAT IT DELIBERATELY DOES NOT
+# ----------------------------------------------------
+# It runs the IMAGE THAT CI ALREADY BUILT AND TESTED, pulled from GHCR --
+# it does not build from this repo. That matters: the image is only
+# produced after `uv sync --locked`, a --verified-only export, schema
+# validation and the full test suite have all passed (see
+# .github/workflows/build-data-image.yml). A Render-side build would
+# skip every one of those gates and could ship data no test ever saw.
+#
+# THE TAG IS PINNED, NOT :latest
+# ------------------------------
+# api/Dockerfile bakes programmes.json in at build time and says why:
+# "new data means a new image tag, not a live reload". Pinning keeps
+# that promise end to end -- what is deployed is a named, reproducible
+# artifact, and a rollback is editing one line back. :latest would mean
+# the running service silently changes whenever anyone tags a release,
+# which is the opposite of the discipline the rest of this pipeline is
+# built on.
+#
+# To ship a new data release: change the tag below, commit, and Render
+# redeploys. That commit is also the record of when it went live.
+#
+# THE PORT
+# --------
+# The image's CMD listens on 8000 and takes no argument for it. Rather
+# than override the command to interpolate Render's $PORT -- which means
+# wrapping it in a shell and trusting how the command string is split --
+# PORT is declared below as 8000. Render then routes to 8000 and the
+# container runs the EXACT command it runs locally and in the Docker
+# smoke test, so there is no deployment-only invocation to get wrong.
+services:
+  - type: web
+    name: coursefind-api
+    runtime: image
+    image:
+      url: ghcr.io/itumeleng-itu/coursefind-api:2027.1
+    region: frankfurt          # closest Render region to South Africa
+    # Not `free`: a free service sleeps after 15 minutes idle and takes
+    # roughly a minute to wake. The frontend calls this server-side
+    # during a search, so that cold start lands on a learner as a page
+    # that simply hangs. Change to `free` if the bill matters more than
+    # the first search of the day.
+    plan: starter
+    healthCheckPath: /healthz
+    autoDeploy: false          # the tag above is the only thing that ships
+    envVars:
+      # Tells Render which port the container already listens on, instead
+      # of asking the container to listen on one Render picks.
+      - key: PORT
+        value: 8000
