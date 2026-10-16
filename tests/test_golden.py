@@ -33,7 +33,17 @@ CANONICAL_MARKS = {
     "physical_sciences": 73,
 }
 
-# Verified 2026-08-02 against the 29 currently-encoded UJ programmes by
+# Regenerated 2026-10-16, when the UJ 2027 prospectus extraction took UJ
+# from 29 encoded programmes to 179 and this set from 210 to 347.
+#
+# The regeneration was only accepted because the diff was 137 GAINED and
+# ZERO LOST. This fixture is a strong one (English 87, Maths 88, Physical
+# Sciences 73, Life Sciences 87), so it clears the newly-added bars; what
+# matters is that no programme which qualified before stopped qualifying.
+# A single loss would have meant a requirement had changed somewhere and
+# would have had to be explained before this line was touched.
+#
+# Verified 2026-08-02 against the 29 then-encoded UJ programmes by
 # actually running the pipeline, not by inspection. B5LAZQ is the one
 # expected non-qualifier (requires isiZulu, which this fixture doesn't have).
 # Grew 5 -> 11 (Science), 11 -> 17 (CBE), 17 -> 23 (FEBE), 23 -> 28 (Health:
@@ -43,53 +53,38 @@ CANONICAL_MARKS = {
 # 34, three level-5 bars, the second-highest APS encoded after B2M52Q's 40)
 # is the highest bar in this tranche and was checked individually.
 EXPECTED_QUALIFYING_CODES = frozenset({
-# --- UJ 2027 -------------------------------------------------------------
-    "B1CISQ", "B2I01Q", "B2I02Q", "B2I04Q", "B2M43Q", "B2M52Q",
-    "B2M55Q", "B2M56Q", "B2M57Q", "B34A5Q", "B34CAQ", "B34F5Q",
-    "B34HRQ", "B3N14Q", "B4L03Q", "B5BFPQ", "B6CS0Q", "B6CV3Q",
-    "B6EL1Q", "B6ES0Q", "B6MC2Q", "B6MS0Q", "B8CD2Q", "B9E01Q",
-    "B9M01Q", "B9N02Q", "B9O02Q", "B9S15Q",
-# --- Wits 2027 (re-added with the verified extraction, 60 programmes) -----
-# The canonical fixture (English HL 87, Maths 88, Physical Sciences 73,
-# Life Sciences 87) clears 58 of the 60. The two it does not are checked
-# individually rather than taken on trust:
-#   SBA03 Actuarial Science     - page 123: English 7, Mathematics 7,
-#   SBA08 Mathematical Sciences - page 126: Physical Sciences 7
-# The fixture's 73% is Level 6, so both correctly fail the subject rule.
-#
-# This set was RE-DERIVED after Wits was removed and re-added from a
-# corrected extraction -- not restored from the previous commit. It comes
-# out identical, which is the point: the extractor changed how it reads
-# five pages' COURSE LISTS, and course lists have no bearing on who gets
-# in. A change here would have meant an admission requirement moved, and
-# none did.
-    "ABA00", "ABA02", "AFA01", "AFA02", "AFA04", "AFA10",
-    "AFA11", "AFA12", "AFA13", "AFA14", "CBA00", "CBA08",
-    "CBA10", "CBA12", "CBA13", "CBA14", "CBA17", "CBA18",
-    "EBA00", "EBA01", "EFA00", "EFA01", "EFA03", "EFA05",
-    "EFA06", "EFA07", "EFA08", "EFA09", "FBA00", "FBA04",
-    "FBA05", "FBA07", "HFA00", "HFA01", "HFA02", "LFA12",
-    "LFA13", "LFA14", "MBA01", "MBA04", "MBA05", "MFA00",
-    "MFA02", "MFA03", "MFA04", "MFA07", "MFA08", "SBA04",
-    "SBA09", "SBA10", "SBA11", "SBA12", "SBA13", "SBA15",
-    "SBA20", "SBA21", "SBA22", "WITS-BSC-GEN",
-# --- TUT 2027 (first encoding, from TUT's own prospectus) ----------------
-# TUT's APS bars run 18-30 and this fixture scores 41 there (7+7+7+7+7+6
-# on its best six excluding Life Orientation, with zero_below_level 2),
-# so it clears almost everything. The FOUR it does not were each checked
-# rather than taken on trust:
-#   BEd Senior Phase (Consumer/Hospitality) - needs Consumer Studies or
-#                                             Hospitality Studies
-#   BEd Senior Phase (Commerce)             - needs Accounting, Business
-#                                             Studies or Economics
-#   Dip (Credit Management)                 - needs Accounting
-#   Dip (Fire Technology)                   - scoreable: false, admitted
-#                                             on service and certificates
-#
-# Nothing was LOST when TUT was added: every UJ and Wits code above still
-# qualifies, which is what makes this an addition rather than a change to
-# anyone's existing result.
-    "tut-barch-bachelor-of-architecture",
+    "ABA00", "ABA02", "AFA01", "AFA02", "AFA04", "AFA10", "AFA11", "AFA12",
+    "AFA13", "AFA14", "B1CEMQ", "B1CISQ", "B1CMMQ", "B2E02Q", "B2E10Q",
+    "B2E11Q", "B2E12Q", "B2E13Q", "B2E14Q", "B2E17Q", "B2E18Q", "B2E19Q",
+    "B2E20Q", "B2E22Q", "B2E40Q", "B2E41Q", "B2E42Q", "B2E43Q", "B2E44Q",
+    "B2E45Q", "B2E46Q", "B2E49Q", "B2E70Q", "B2E71Q", "B2E72Q", "B2E73Q",
+    "B2E74Q", "B2I01Q", "B2I02Q", "B2I04Q", "B2L10Q", "B2L11Q", "B2L12Q",
+    "B2L13Q", "B2L14Q", "B2L15Q", "B2L16Q", "B2L17Q", "B2L18Q", "B2L20Q",
+    "B2L24Q", "B2L25Q", "B2L26Q", "B2M40Q", "B2M41Q", "B2M42Q", "B2M43Q",
+    "B2M44Q", "B2M45Q", "B2M46Q", "B2M47Q", "B2M52Q", "B2M54Q", "B2M55Q",
+    "B2M56Q", "B2M57Q", "B2P70Q", "B2P71Q", "B2P72Q", "B2P77Q", "B2P78Q",
+    "B2P81Q", "B2P82Q", "B2P83Q", "B34A5Q", "B34ACC", "B34AEQ", "B34BEQ",
+    "B34BMQ", "B34CAQ", "B34F5Q", "B34FEQ", "B34HNQ", "B34HRC", "B34HRQ",
+    "B34I7Q", "B34PKQ", "B34TDQ", "B34TLQ", "B3N14Q", "B3NE4Q", "B4A01Q",
+    "B4C01Q", "B4L03Q", "B5BFPQ", "B5BITQ", "B5BSAQ", "B5BSBQ", "B5BSEQ",
+    "B5LAEQ", "B5LAFQ", "B5LOPQ", "B5SGEQ", "B5SLSQ", "B5SMMQ", "B5SPSQ",
+    "B6CE1Q", "B6CN0Q", "B6CS0Q", "B6CV3Q", "B6EL1Q", "B6ES0Q", "B6EX0Q",
+    "B6EXTQ", "B6IN2Q", "B6L1XQ", "B6MC2Q", "B6MINQ", "B6MS0Q", "B6PX2Q",
+    "B6PY2Q", "B6SU0Q", "B6UP0Q", "B7015Q", "B7023Q", "B7024Q", "B7025Q",
+    "B7026Q", "B7EX2Q", "B7EX3Q", "B7EX4Q", "B7EX5Q", "B8BA3Q", "B8BA6Q",
+    "B8BA7Q", "B8CD2Q", "B8DM3Q", "B8FD1Q", "B8ID1Q", "B9B01Q", "B9C01Q",
+    "B9CM1Q", "B9E01Q", "B9ENV1", "B9M01Q", "B9M02Q", "B9M03Q", "B9M04Q",
+    "B9N02Q", "B9O02Q", "B9P01Q", "B9S14Q", "B9S15Q", "B9SE1Q", "CBA00",
+    "CBA08", "CBA10", "CBA12", "CBA13", "CBA14", "CBA17", "CBA18", "D34F9Q",
+    "D34FBQ", "D34LEQ", "D34LGQ", "D34MKQ", "D34P2Q", "D34PEQ", "D34RMQ",
+    "D34SBQ", "D34SEQ", "D34TEQ", "D34TMQ", "D34TRQ", "D3A15Q", "D6MAEQ",
+    "D6MASQ", "D6OPEQ", "D6OPMQ", "D7002Q", "D7EX2Q", "D8AT1Q", "D8FP1Q",
+    "D8JD1Q", "D9S01Q", "DI1401", "EBA00", "EBA01", "EFA00", "EFA01", "EFA03",
+    "EFA05", "EFA06", "EFA07", "EFA08", "EFA09", "FBA00", "FBA04", "FBA05",
+    "FBA07", "HFA00", "HFA01", "HFA02", "LFA12", "LFA13", "LFA14", "MBA01",
+    "MBA04", "MBA05", "MFA00", "MFA02", "MFA03", "MFA04", "MFA07", "MFA08",
+    "SBA04", "SBA09", "SBA10", "SBA11", "SBA12", "SBA13", "SBA15", "SBA20",
+    "SBA21", "SBA22", "WITS-BSC-GEN", "tut-barch-bachelor-of-architecture",
     "tut-barch-bachelor-of-architecture-extended",
     "tut-bed-foundation-phase-teaching",
     "tut-bed-intermediate-phase-teaching",

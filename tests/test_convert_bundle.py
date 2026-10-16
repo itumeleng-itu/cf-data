@@ -395,20 +395,27 @@ _SEEDS = {p["qualification_code"]: p for p in load()["programmes"]}
 # language bands, a prose-only exclusion, and both negative controls.
 # Each must rebuild its hand-verified tree exactly.
 _REAL_CASES: dict[str, tuple[dict, object]] = {
+    # Page 40 prints a bare "33" in the Minimum APS cell. The condition
+    # "with_mathematics" was read in from the Mathematics column, which
+    # the subject requirements already carry; the APS bar itself is
+    # unconditional.
     "B34CAQ": (
         {"english": 4, "mathematics": 5, "mathematical_literacy": "not_accepted",
          "technical_mathematics": "not_accepted"},
-        {"with_mathematics": 33},
+        33,
     ),
+    # Pages 60-61 print bare numbers here too ("28", "32"); only the CBE
+    # and FEBE rows that actually read "N with Maths/Tech Maths OR ..."
+    # carry conditional bars.
     "B6CV3Q": (
         {"english": 4, "mathematics": 5, "technical_mathematics": 5,
          "any_of": [{"physical_science": 5}, {"technical_science": 5}]},
-        {"with_mathematics": 28, "with_technical_mathematics": 28},
+        28,
     ),
     "B6CS0Q": (
         {"english": 5, "mathematics": 5, "technical_mathematics": 5,
          "physical_science": 5, "technical_science": "not_accepted"},
-        {"with_mathematics": 32, "with_technical_mathematics": 32},
+        32,
     ),
     "B34HRQ": (
         {"english": 4, "mathematics": 4, "technical_mathematics": 4, "mathematical_literacy": 5},
@@ -420,9 +427,13 @@ _REAL_CASES: dict[str, tuple[dict, object]] = {
          "isizulu": {"home_language": 4, "first_additional_language": 5}},
         28,
     ),
+    # Page 54 heads one column "Mathematical Literacy / Technical
+    # Mathematics", so level 5 in it is satisfied by either subject.
+    # Transcribing only the Mathematical Literacy half dropped a route
+    # the page offers.
     "B5BFPQ": (
         {"english": {"home_language": 5, "first_additional_language": 6},
-         "mathematics": 3, "mathematical_literacy": 5},
+         "mathematics": 3, "technical_mathematics": 5, "mathematical_literacy": 5},
         28,
     ),
     "B8CD2Q": (
@@ -573,7 +584,7 @@ def test_cli_dry_run_converts_and_validates_without_writing(tmp_path: Path) -> N
             "qualification_code": "B34CAQ", "programme": "Bachelor of Accounting",
             "faculty": "College of Business and Economics", "campus": ["APK"],
             "duration_years": 3, "source_page": 40, "confidence": "verified",
-            "minimum_aps": {"with_mathematics": 33},
+            "minimum_aps": 33,
             "requirements": {
                 "english": 4, "mathematics": 5,
                 "mathematical_literacy": "not_accepted",

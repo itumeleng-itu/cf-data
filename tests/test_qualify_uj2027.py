@@ -218,6 +218,20 @@ def test_physical_sciences_at_level_6_constrains_nothing_where_not_required() ->
         assert with_ps == no_ps, code
 
 
+def _physical_sciences_has_an_alternative(node: object) -> bool:
+    """Whether physical_sciences sits in an `any` beside another subject."""
+    if isinstance(node, dict):
+        if node.get("kind") == "any":
+            rules = node.get("rules") or []
+            subjects = [r.get("subject") for r in rules if isinstance(r, dict)]
+            if "physical_sciences" in subjects and len(subjects) > 1:
+                return True
+        return any(_physical_sciences_has_an_alternative(v) for v in node.values())
+    if isinstance(node, list):
+        return any(_physical_sciences_has_an_alternative(v) for v in node)
+    return False
+
+
 def test_physical_sciences_actually_required_where_tree_references_it() -> None:
     without_ps = {k: v for k, v in CANONICAL_MARKS.items() if k != "physical_sciences"}
     checked = []
@@ -231,6 +245,14 @@ def test_physical_sciences_actually_required_where_tree_references_it() -> None:
         nsc = programme["requirements"]["nsc"]
         if not _tree_references_subject(nsc["subjects"], "physical_sciences"):
             continue
+        # The same exemption the comment above describes, now that UJ has
+        # such a programme too: the 2027 prospectus prints "Physical
+        # Science | OR | Life Science" over the BEd Senior Phase subjects
+        # on page 55, so B5SGEQ is satisfied by either. The invariant is
+        # about subjects a programme genuinely requires, not every subject
+        # its tree happens to name.
+        if _physical_sciences_has_an_alternative(nsc["subjects"]):
+            continue
         excluded = set(nsc.get("excluded_subjects") or [])
         with_ps = evaluate(nsc["subjects"], CANONICAL_MARKS, excluded)
         no_ps = evaluate(nsc["subjects"], without_ps, excluded)
@@ -238,7 +260,17 @@ def test_physical_sciences_actually_required_where_tree_references_it() -> None:
         checked.append(code)
     # Sanity: this test isn't vacuously true because no programme matched.
     assert "B2M43Q" in checked
-    assert {"B6CS0Q", "B6ES0Q", "B6MS0Q", "B6CV3Q", "B6EL1Q", "B6MC2Q"} <= set(checked)
+    # The BEng programmes require Physical Sciences outright -- page 60
+    # marks Technical Science "Not accepted" for them, so it is excluded
+    # rather than offered as an alternative.
+    #
+    # The BEngTech ones are no longer here, and should not be: page 60
+    # prints "Physical Science | OR | Technical Science" over them, so a
+    # technical-stream candidate qualifies on Technical Science alone.
+    # test_technical_stream_learner_qualifies_where_technical_maths_is_an_alternative
+    # asserts exactly that for B6CV3Q and B6MC2Q, and the two statements
+    # cannot both hold of the same programme.
+    assert {"B6CS0Q", "B6ES0Q", "B6MS0Q"} <= set(checked)
 
 
 # Technical-stream learner (FEBE tranche): Technical Maths and Technical

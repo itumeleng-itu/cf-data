@@ -39,7 +39,12 @@ _UJ_SEEDS = {p["qualification_code"]: p for p in _UJ_PROGRAMMES}
 # any_additional_language come AFTER whichever language rule it must not
 # double-count, not that it be in any specific absolute position -- so
 # this is a real, harmless divergence in ORDER only, never in content.
-_KNOWN_ORDER_ONLY_EXCEPTIONS = {"B4L03Q"}
+# B4L03Q used to round-trip in a different rule order and was exempted
+# here. The 2027 converter emits any_additional_language last, which is
+# where the round-trip puts it, so the exemption is no longer needed and
+# the record is now covered by the main gate below. The set stays (and is
+# asserted empty) so a future exemption has to be added deliberately.
+_KNOWN_ORDER_ONLY_EXCEPTIONS: set[str] = set()
 
 
 def _rules_as_multiset(rules: list[dict]) -> list[str]:
@@ -52,9 +57,13 @@ def test_every_uj_seed_record_exports_without_error() -> None:
     assert skipped == [], f"{len(skipped)} record(s) could not be exported: {skipped}"
 
 
-def test_export_produces_exactly_29_programmes() -> None:
+def test_export_covers_every_uj_seed_record() -> None:
+    """Was pinned at 29 while UJ had only the hand-checked tranche. The
+    2027 prospectus extraction brought it to 179, so the useful assertion
+    is that export loses none of them, whatever the count."""
     bundle, _skipped = export_institution(_INSTITUTIONS["uj"], _UJ_PROGRAMMES)
-    assert len(bundle["programmes"]) == 29
+    assert len(bundle["programmes"]) == len(_UJ_PROGRAMMES)
+    assert len(bundle["programmes"]) == 179
 
 
 @pytest.mark.parametrize("code", sorted(set(_UJ_SEEDS) - _KNOWN_ORDER_ONLY_EXCEPTIONS))
@@ -74,24 +83,10 @@ def test_round_trip_reproduces_the_exact_seed_tree(code: str) -> None:
     assert records[0]["requirements"]["nsc"] == _UJ_SEEDS[code]["requirements"]["nsc"]
 
 
-def test_the_one_known_exception_differs_only_in_rule_order_never_in_content() -> None:
-    code = "B4L03Q"
-    flat = unflatten_programme(_UJ_SEEDS[code])
-    _institution, records = convert_bundle({
-        "institution": {"id": "uj", "name": "UJ", "scoring_strategy": "aps_best6_excl_lo"},
-        "academic_year": 2027,
-        "programmes": [flat],
-    })
-    got = records[0]["requirements"]["nsc"]
-    original = _UJ_SEEDS[code]["requirements"]["nsc"]
-
-    assert got["score"] == original["score"]
-    assert got["excluded_subjects"] == original["excluded_subjects"]
-    assert got["subjects"]["kind"] == original["subjects"]["kind"]
-    assert _rules_as_multiset(got["subjects"]["rules"]) == _rules_as_multiset(original["subjects"]["rules"])
-    # Pin down that it IS actually reordered, not accidentally identical --
-    # this test would be vacuous otherwise.
-    assert got["subjects"]["rules"] != original["subjects"]["rules"]
+def test_no_record_is_exempt_from_the_round_trip_gate() -> None:
+    """The gate above skips anything in _KNOWN_ORDER_ONLY_EXCEPTIONS, so
+    an empty set is what makes it a gate rather than a sample."""
+    assert _KNOWN_ORDER_ONLY_EXCEPTIONS == set()
 
 
 def test_round_trip_through_the_full_export_bundle_output(tmp_path: Path) -> None:
