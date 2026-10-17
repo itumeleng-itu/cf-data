@@ -92,11 +92,19 @@ SUBJECT_WORDS: list[tuple[str, str]] = [
 # This is applied as a rule rather than a list of known cases so that
 # a bar SU introduces in a later edition is handled the same way
 # instead of silently falling through as unparseable.
+# Quotes the printed line rather than naming a subject.
+#
+# Naming one meant guessing which subject the percentage belonged to,
+# which works for "Mathematics 75%" and does not for Bachelor of Data
+# Science, whose 75% sits inside a four-way language alternative. That
+# produced "The booklet requires that subject 75%". The printed line
+# is unambiguous, always available, and is what the learner would see
+# if they opened the booklet themselves.
 OFF_BAND_NOTE = (
-    "The booklet requires {subject} {pct}%. This tool matches on NSC "
-    "levels, and {pct}% falls inside level {level} ({floor}-{ceiling}%), "
-    "so a level {level} mark is matched here - check your actual "
-    "percentage against the {pct}% Stellenbosch requires."
+    'Stellenbosch prints: "{printed}". {pct}% is not an NSC level '
+    "boundary - it falls inside level {level} ({floor}-{ceiling}%), "
+    "which is what is matched here, so check your actual percentage "
+    "against the {pct}% the booklet asks for."
 )
 
 def _s(subject: str, level: int) -> dict:
@@ -675,7 +683,7 @@ def build_record(row: dict, pages: list[int], faculties: list[str]) -> dict:
                 floor, ceiling = band_range(level)
                 notes.append(
                     OFF_BAND_NOTE.format(
-                        subject=_subject_key(text) or "that subject",
+                        printed=" ".join(text.split()),
                         pct=pct,
                         level=level,
                         floor=floor,

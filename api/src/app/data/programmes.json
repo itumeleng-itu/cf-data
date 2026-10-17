@@ -772,7 +772,7 @@
         }
       },
       "selection_notes": [
-        "The booklet requires that subject 75%. This tool matches on NSC levels, and 75% falls inside level 6 (70-79%), so a level 6 mark is matched here - check your actual percentage against the 75% Stellenbosch requires.",
+        "Stellenbosch prints: \"Afrikaans Home Language 60% OR English Home Language 60% OR Afrikaans First Additional Language 75% OR English First Additional Language 75%\". 75% is not an NSC level boundary - it falls inside level 6 (70-79%), which is what is matched here, so check your actual percentage against the 75% the booklet asks for.",
         "Interfaculty programme, listed under Agrisciences, Arts and Social Sciences, Economic and Management Sciences, Science (booklet pages 3, 6, 8, 15)."
       ],
       "career_text": null,
@@ -3030,7 +3030,7 @@
         }
       },
       "selection_notes": [
-        "The booklet requires mathematics 75%. This tool matches on NSC levels, and 75% falls inside level 6 (70-79%), so a level 6 mark is matched here - check your actual percentage against the 75% Stellenbosch requires."
+        "Stellenbosch prints: \"Mathematics 75%\". 75% is not an NSC level boundary - it falls inside level 6 (70-79%), which is what is matched here, so check your actual percentage against the 75% the booklet asks for."
       ],
       "career_text": null,
       "source_doc": "su_admissions_booklet_2027",
