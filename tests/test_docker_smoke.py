@@ -28,11 +28,20 @@ IMAGE_TAG = f"coursefind-api-smoketest:{_SUFFIX}"
 CONTAINER_NAME = f"coursefind-api-smoketest-{_SUFFIX}"
 HOST_PORT = 18123
 DATA_VERSION = "smoketest-2027.1"
-# All three institutions now: 29 UJ + 60 Wits + 124 TUT. The canonical
-# learner below qualifies for 28 UJ, 47 Wits and 120 TUT. TUT's bars run
-# 18-30 where Wits' run 33-43, which is why nearly all of it clears.
-EXPECTED_PROGRAMME_COUNT = 213
-EXPECTED_QUALIFYING_COUNT = 195
+# All four institutions: 179 UJ + 124 TUT + 65 SU + 60 Wits = 428.
+#
+# These two numbers had been stale since UJ grew from 29 to 179
+# programmes, so this test was failing on the seed-count assertion
+# before it ever reached Docker. Both are now derived from the same
+# canonical learner and the same loop as tests/test_golden.py, whose
+# EXPECTED_QUALIFYING_CODES this count must agree with -- the marks in
+# the two files are identical and are asserted to stay so.
+#
+# The qualifying figure excludes scoreable=false programmes, because
+# /v1/qualify reports those in requires_additional_assessment and
+# never in `qualified`.
+EXPECTED_PROGRAMME_COUNT = 428
+EXPECTED_QUALIFYING_COUNT = 399
 
 CANONICAL_MARKS = [
     {"subject": "english_hl", "percentage": 87},

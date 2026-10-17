@@ -47,13 +47,49 @@ VALID = {s.value for s in Subject}
 APS_MIN, APS_MAX = 0, 60
 
 
-def walk(rule: dict, path: str, errs: list[str]) -> None:
+def score_ceiling(institution: dict | None) -> int:
+    """The highest min_score that is plausible for this institution.
+
+    APS_MAX is a points ceiling, and it is the wrong yardstick for an
+    institution that does not use points. Stellenbosch publishes a
+    percentage aggregate -- "an NSC aggregate of at least 65%
+    (excluding Life Orientation)" -- scored by percentage_sum_div_10
+    with a divisor of 6, which returns 0-100. Measured against 60,
+    fifty-three perfectly ordinary SU records read as implausible.
+
+    The ceiling is therefore derived from the strategy actually
+    configured: for percentage_sum_div_10 it is the largest value the
+    scorer can return, so CPUT's divisor of 10 still caps at 60 and
+    only SU's divisor of 6 widens to 100.
+    """
+    if not institution:
+        return APS_MAX
+    if institution.get("scoring_strategy") != "percentage_sum_div_10":
+        return APS_MAX
+    config = institution.get("scoring_config") or {}
+    subject_count = config.get("subject_count", 6)
+    divisor = config.get("divisor", 10)
+    return (100 * subject_count) // divisor
+
+
+# Institutions whose source document does not state a language
+# requirement for every programme. See the note at the English check.
+INSTITUTIONS_WITHOUT_UNIVERSAL_ENGLISH = {"su"}
+
+
+def walk(rule: dict, path: str, errs: list[str], top: bool = True) -> None:
     kind = rule.get("kind")
     if kind in ("all", "any"):
-        if not rule.get("rules"):
+        if not rule.get("rules") and not (top and kind == "all"):
+            # An empty "all" at the root of a programme's subject tree
+            # means "this programme states no subject conditions", and
+            # the evaluator treats it as exactly that. SU's BTh and
+            # BDiv (p15) print an aggregate and nothing else. Nested,
+            # an empty node is still a bug, and an empty "any" is a
+            # bug anywhere because no branch of it can ever succeed.
             errs.append(f"{path}: empty {kind} node")
         for n, r in enumerate(rule.get("rules", [])):
-            walk(r, f"{path}.{kind}[{n}]", errs)
+            walk(r, f"{path}.{kind}[{n}]", errs, top=False)
     elif kind == "subject":
         has_subj, has_lang = "subject" in rule, "language" in rule
         if has_subj == has_lang:
@@ -114,7 +150,7 @@ def _names_any_language(rule: dict) -> bool:
     return bool(rule.get("language")) or str(rule.get("subject", "")).endswith(("_hl", "_fal"))
 
 
-def _semantic_errors(p: dict, tag: str) -> list[str]:
+def _semantic_errors(p: dict, tag: str, institution: dict | None = None) -> list[str]:
     """Checks a structurally valid record can still fail. Ported from
     extract/methods/coordinate.py's validate(); see the module docstring
     for why each one exists and why none of them repair."""
@@ -151,10 +187,11 @@ def _semantic_errors(p: dict, tag: str) -> list[str]:
         if phys and min(phys) < 5:
             errs.append(f"{tag}: {name!r}: Physics major with physical_sciences={min(phys)} (expected >=5)")
 
+    ceiling = score_ceiling(institution)
     for threshold in nsc.get("score", []):
         score = threshold.get("min_score")
-        if isinstance(score, int) and not APS_MIN <= score <= APS_MAX:
-            errs.append(f"{tag}: implausible APS {score} (outside {APS_MIN}-{APS_MAX})")
+        if isinstance(score, int) and not APS_MIN <= score <= ceiling:
+            errs.append(f"{tag}: implausible score {score} (outside {APS_MIN}-{ceiling})")
 
     # A programme that states NO NSC subject requirements at all, and
     # is marked unscoreable, is admitted on something other than a
@@ -187,8 +224,25 @@ def _semantic_errors(p: dict, tag: str) -> list[str]:
     names_a_language = _names_any_language(nsc["subjects"])
     language_degree = unnamed_languages >= 2 and not names_a_language
 
+    # Some sources simply do not publish a language bar for parts of
+    # their offering, and then a missing English rule is the truth
+    # rather than a dropped column. Stellenbosch's Faculty of Medicine
+    # and Health Sciences (p12) prints an aggregate and science
+    # subjects for MBChB, Nursing, Dietetics, Physiotherapy and
+    # Occupational Therapy and no language requirement at all, and
+    # Theology (p15) prints only an aggregate for BTh and BDiv. Each
+    # was checked against the page.
+    #
+    # This is an institution-level opt-out rather than a blanket one
+    # because it would otherwise hide a genuinely dropped language
+    # rule on the other 56 SU records. tests/test_su_2027.py pins the
+    # exact set that may lack one, so a converter regression that
+    # loses a language rule still fails there.
+    source_omits_english = p["institution_id"] in INSTITUTIONS_WITHOUT_UNIVERSAL_ENGLISH
+
     if not (p.get("scoreable") is False and states_no_subjects) \
             and not language_degree \
+            and not source_omits_english \
             and not _mentions_english(nsc["subjects"]):
         errs.append(f"{tag}: no English requirement")
 
@@ -202,7 +256,8 @@ def validate(data: dict) -> list[str]:
     errs: list[str] = []
     if not data.get("programmes"):
         errs.append("no programmes found — refusing to validate an empty dataset")
-    inst_ids = {i["id"] for i in data["institutions"]}
+    institutions = {i["id"]: i for i in data["institutions"]}
+    inst_ids = set(institutions)
     seen: set[tuple] = set()
 
     for p in data["programmes"]:
@@ -215,16 +270,25 @@ def validate(data: dict) -> list[str]:
         seen.add(key)
 
         nsc = p["requirements"].get("nsc")
-        if not nsc:
+        if nsc is None:
             errs.append(f"{tag}: no nsc requirements")
             continue
         if not p.get("scoreable", True):
+            # Checked before the emptiness test below, because an
+            # unscoreable programme may legitimately state nothing at
+            # all. Stellenbosch's Diploma in Practical Music and
+            # Higher Certificate in Music (p5) are admitted on an
+            # audition; the booklet prints no aggregate and no subject
+            # bars, so `nsc` is {} and that is the truth about them.
             # scoreable=false means main.py's _run_qualify routes this
             # programme straight to requires_additional_assessment and
             # never calls evaluate()/select_score_threshold() on it at all
             # (see _ProgrammeModel's docstring) -- an empty score list and
             # an empty subject tree are the correct, expected shape here,
             # not a transcription gap the checks below would be catching.
+            continue
+        if not nsc:
+            errs.append(f"{tag}: no nsc requirements")
             continue
         if not nsc.get("score"):
             errs.append(f"{tag}: empty score thresholds")
@@ -241,7 +305,7 @@ def validate(data: dict) -> list[str]:
             if s not in VALID:
                 errs.append(f"{tag}: unknown excluded subject '{s}'")
         walk(nsc["subjects"], tag, errs)
-        errs.extend(_semantic_errors(p, tag))
+        errs.extend(_semantic_errors(p, tag, institutions.get(p["institution_id"])))
 
     return errs
 

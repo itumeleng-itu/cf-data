@@ -12,7 +12,18 @@ from app.qualify import select_score_threshold  # noqa: E402
 from app.scoring import SCORERS  # noqa: E402
 
 _DATA = load()
-_PROGRAMMES = {p["qualification_code"]: p for p in _DATA["programmes"]}
+# UJ only. This indexes by qualification_code alone, so every
+# institution's programmes shared one namespace and the tests that
+# sweep it were silently checking other institutions' records against
+# UJ expectations -- Stellenbosch's two audition-entry programmes,
+# which state no subject tree at all, turned one of them into a
+# KeyError. Codes are only unique WITHIN an institution, so scoping
+# here also removes a collision waiting to happen.
+_PROGRAMMES = {
+    p["qualification_code"]: p
+    for p in _DATA["programmes"]
+    if p["institution_id"] == "uj"
+}
 _INSTITUTIONS = {i["id"]: i for i in _DATA["institutions"]}
 
 CANONICAL_MARKS = {

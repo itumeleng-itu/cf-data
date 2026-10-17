@@ -23,6 +23,18 @@
     }
   },
   {
+    "id": "su",
+    "name": "Stellenbosch University",
+    "scoring_strategy": "percentage_sum_div_10",
+    "scoring_config": {
+      "subject_count": 6,
+      "divisor": 6,
+      "exclude_subjects": [
+        "life_orientation"
+      ]
+    }
+  },
+  {
     "id": "vut",
     "name": "Vaal University of Technology",
     "scoring_strategy": "aps_best6_excl_lo",

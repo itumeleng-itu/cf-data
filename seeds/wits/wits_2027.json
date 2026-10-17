@@ -1602,11 +1602,7 @@
     "extended": false,
     "requirements": {
       "nsc": {
-        "score": [
-          {
-            "min_score": 0
-          }
-        ],
+        "score": [],
         "subjects": {
           "kind": "all",
           "rules": [
@@ -1718,11 +1714,7 @@
     "extended": false,
     "requirements": {
       "nsc": {
-        "score": [
-          {
-            "min_score": 0
-          }
-        ],
+        "score": [],
         "subjects": {
           "kind": "all",
           "rules": [
@@ -5170,11 +5162,7 @@
     "extended": false,
     "requirements": {
       "nsc": {
-        "score": [
-          {
-            "min_score": 0
-          }
-        ],
+        "score": [],
         "subjects": {
           "kind": "all",
           "rules": [
@@ -5271,11 +5259,7 @@
     "extended": false,
     "requirements": {
       "nsc": {
-        "score": [
-          {
-            "min_score": 0
-          }
-        ],
+        "score": [],
         "subjects": {
           "kind": "all",
           "rules": [
@@ -5417,11 +5401,7 @@
     "extended": false,
     "requirements": {
       "nsc": {
-        "score": [
-          {
-            "min_score": 0
-          }
-        ],
+        "score": [],
         "subjects": {
           "kind": "all",
           "rules": [
@@ -5674,11 +5654,7 @@
     "extended": false,
     "requirements": {
       "nsc": {
-        "score": [
-          {
-            "min_score": 0
-          }
-        ],
+        "score": [],
         "subjects": {
           "kind": "all",
           "rules": [
@@ -5808,11 +5784,7 @@
     "extended": false,
     "requirements": {
       "nsc": {
-        "score": [
-          {
-            "min_score": 0
-          }
-        ],
+        "score": [],
         "subjects": {
           "kind": "all",
           "rules": [
@@ -5974,11 +5946,7 @@
     "extended": false,
     "requirements": {
       "nsc": {
-        "score": [
-          {
-            "min_score": 0
-          }
-        ],
+        "score": [],
         "subjects": {
           "kind": "all",
           "rules": [
@@ -6148,11 +6116,7 @@
     "extended": false,
     "requirements": {
       "nsc": {
-        "score": [
-          {
-            "min_score": 0
-          }
-        ],
+        "score": [],
         "subjects": {
           "kind": "all",
           "rules": [
@@ -6321,11 +6285,7 @@
     "extended": false,
     "requirements": {
       "nsc": {
-        "score": [
-          {
-            "min_score": 0
-          }
-        ],
+        "score": [],
         "subjects": {
           "kind": "all",
           "rules": [
@@ -6450,11 +6410,7 @@
     "extended": false,
     "requirements": {
       "nsc": {
-        "score": [
-          {
-            "min_score": 0
-          }
-        ],
+        "score": [],
         "subjects": {
           "kind": "all",
           "rules": [

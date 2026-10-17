@@ -1,0 +1,5125 @@
+[
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BA-DEVELOPMENT-ENVIRONMENT",
+    "name": "BA in Development and the Environment#",
+    "faculty": "Arts and Social Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 63
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_hl",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_fal",
+                  "min_level": 3
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "If you take Economics as a university subject, then also: Mathematics 60%"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 4,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BA-DRAMA-THEATRE-STUDIES",
+    "name": "BA in Drama and Theatre Studies",
+    "faculty": "Arts and Social Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_hl",
+                  "min_level": 5
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_fal",
+                  "min_level": 4
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 5,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BA-HUMAN-RESOURCE-MANAGEMENT",
+    "name": "BA in Human Resource Management#",
+    "faculty": "Arts and Social Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 63
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_hl",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_fal",
+                  "min_level": 3
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "mathematics",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "mathematical_literacy",
+                  "min_level": 6
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 5,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BA-HUMANITIES",
+    "name": "BA in Humanities#",
+    "faculty": "Arts and Social Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 63
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_hl",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_fal",
+                  "min_level": 3
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "If you take Organisational Informatics as a university subject, then also: Mathematics 50% OR Mathematical Literacy 70%"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 4,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BA-INTERNATIONAL-STUDIES",
+    "name": "BA in International Studies#",
+    "faculty": "Arts and Social Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 63
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 5
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 5,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BA-LANGUAGE-CULTURE",
+    "name": "BA in Language and Culture#",
+    "faculty": "Arts and Social Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 63
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_hl",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_fal",
+                  "min_level": 4
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 4,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BA-LAW",
+    "name": "BA (Law)",
+    "faculty": "Law",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 70
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 6
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 6
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "Write the NBTs AQL before 31 July",
+      "If you wish to take Economics as a university subject, then also: Mathematics 60%"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 11,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BA-MUSIC",
+    "name": "BA in Music",
+    "faculty": "Arts and Social Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_hl",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_fal",
+                  "min_level": 3
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "In the main instrument (or in singing) at least a practical standard in classical music equivalent to the Grade VII examination and theoretical knowledge equivalent to any of the examining bodies’ Grade V theory examination.",
+      "Candidates must be available for an audition and theoretical test at the Department of Music in Stellenbosch, where they must demonstrate proof of the required standards. Upon receiving your application, we send you information about the audition. Further information at auditions@sun.ac.za.",
+      "If you take Mathematics as a university subject, then also: Mathematics 70%"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 5,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BA-POLITICAL-PHILOSOPHICAL-ECONOMIC-STUDIES-PPE",
+    "name": "BA in Political, Philosophical and Economic Studies (PPE)",
+    "faculty": "Arts and Social Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 63
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_hl",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_fal",
+                  "min_level": 3
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 6,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BA-VISUAL-ARTS",
+    "name": "BA in Visual Arts",
+    "faculty": "Arts and Social Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_hl",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_fal",
+                  "min_level": 3
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "Hand in a prescribed portfolio of art by 1 September. Information is available at www. maties.com > Apply > Application documents."
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 6,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BACC",
+    "name": "BAcc",
+    "faculty": "Economic and Management Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 70
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "mathematics",
+                  "min_level": 6
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "subject": "mathematics",
+                      "min_level": 5
+                    },
+                    {
+                      "kind": "subject",
+                      "subject": "accounting",
+                      "min_level": 6
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 6
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 6
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 8,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BACCLLB",
+    "name": "BAccLLB",
+    "faculty": "Law",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 5.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 80
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 6
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 6
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "mathematics",
+                  "min_level": 6
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "subject": "mathematics",
+                      "min_level": 5
+                    },
+                    {
+                      "kind": "subject",
+                      "subject": "accounting",
+                      "min_level": 6
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "Write the NBTs AQL and MAT before 31 July"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 11,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BACHELOR-DATA-SCIENCE-BDATSCI",
+    "name": "Bachelor of Data Science (BDatSci)",
+    "faculty": "Agrisciences; Arts and Social Sciences; Economic and Management Sciences; Science",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 80
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 7
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 6
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 6
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "The booklet requires that subject 75%. This tool matches on NSC levels, and 75% falls inside level 6 (70-79%), so a level 6 mark is matched here - check your actual percentage against the 75% Stellenbosch requires.",
+      "Interfaculty programme, listed under Agrisciences, Arts and Social Sciences, Economic and Management Sciences, Science (booklet pages 3, 6, 8, 15)."
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 3,
+    "confidence": "flagged",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BACHELOR-MUSIC-BMUS",
+    "name": "Bachelor of Music (BMus)",
+    "faculty": "Arts and Social Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_hl",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_fal",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_fal",
+                  "min_level": 3
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "In the main instrument (or in singing) at least a practical standard in classical music equivalent to the Grade VII examination and theoretical knowledge equivalent to any of the examining bodies’ Grade V theory examination.",
+      "Candidates must be available for an audition and theoretical test at the Department of Music in Stellenbosch, where candidates must demonstrate proof of the required standards. Upon receiving your application, we send you information about the audition. Further information at auditions@sun.ac.za",
+      "If you take Mathematics as a university subject, then also: Mathematics 70%"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 5,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BACHELOR-NURSING",
+    "name": "Bachelor of Nursing",
+    "faculty": "Medicine and Health Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "mathematics",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "mathematical_literacy",
+                  "min_level": 6
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "life_sciences",
+              "min_level": 4
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 12,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BACHELOR-OCCUPATIONAL-THERAPY",
+    "name": "Bachelor of Occupational Therapy",
+    "faculty": "Medicine and Health Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 4
+            },
+            {
+              "kind": "subject",
+              "subject": "life_sciences",
+              "min_level": 4
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 12,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BACHELOR-SOCIAL-WORK",
+    "name": "Bachelor of Social Work",
+    "faculty": "Arts and Social Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 63
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_hl",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_fal",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_fal",
+                  "min_level": 4
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 6,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BACHELOR-SPEECH-LANGUAGE-HEARING-THERAPY",
+    "name": "Bachelor of Speech-Language and Hearing Therapy",
+    "faculty": "Medicine and Health Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 4
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "physical_sciences",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "life_sciences",
+                  "min_level": 5
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "language": "english",
+                      "min_level": 5
+                    },
+                    {
+                      "kind": "subject",
+                      "language": "afrikaans",
+                      "min_level": 5
+                    }
+                  ]
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "language": "english",
+                      "min_level": 5
+                    },
+                    {
+                      "kind": "any",
+                      "rules": [
+                        {
+                          "kind": "subject",
+                          "language": "isizulu",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "isixhosa",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "sepedi",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "sesotho",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "setswana",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "xitsonga",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "siswati",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "tshivenda",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "isindebele",
+                          "min_level": 5
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "language": "afrikaans",
+                      "min_level": 5
+                    },
+                    {
+                      "kind": "any",
+                      "rules": [
+                        {
+                          "kind": "subject",
+                          "language": "isizulu",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "isixhosa",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "sepedi",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "sesotho",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "setswana",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "xitsonga",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "siswati",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "tshivenda",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "isindebele",
+                          "min_level": 5
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "At least two of English, Afrikaans and a third South African language at 60% (Home Language or First Additional Language)."
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 12,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BAGRIC-AGRIBUSINESS-MANAGEMENT",
+    "name": "BAgric in Agribusiness Management",
+    "faculty": "Agrisciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 2,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BAGRIC-AGRICULTURAL-PRODUCTION-MANAGEMENT-ELSENB",
+    "name": "BAgric in Agricultural Production and Management: Elsenburg",
+    "faculty": "Agrisciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 55
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "mathematics",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "mathematical_literacy",
+                  "min_level": 5
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "physical_sciences",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "life_sciences",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "agricultural_sciences",
+                  "min_level": 4
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 2,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BCOM-ACTUARIAL-SCIENCE",
+    "name": "BCom (Actuarial Science)",
+    "faculty": "Economic and Management Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 80
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 7
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isizulu_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isixhosa_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sepedi_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "sesotho_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "setswana_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "xitsonga_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "siswati_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "tshivenda_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "isindebele_hl",
+                  "min_level": 5
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "If the Home Language (in the requirement above) is not English, then also English First Additional Language 75%"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 8,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BCOM-ECONOMIC-SCIENCES",
+    "name": "BCom (Economic Sciences)",
+    "faculty": "Economic and Management Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 6
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 6
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 6,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BCOM-FINANCIAL-ACCOUNTING",
+    "name": "BCom (Financial Accounting)",
+    "faculty": "Economic and Management Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 6
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 6
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 9,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BCOM-INDUSTRIAL-PSYCHOLOGY",
+    "name": "BCom (Industrial Psychology)",
+    "faculty": "Economic and Management Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 6
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 6
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 8,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BCOM-INTERNATIONAL-BUSINESS",
+    "name": "BCom (International Business)",
+    "faculty": "Economic and Management Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 80
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 6
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 6
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 7
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 8,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BCOM-LAW",
+    "name": "BCom (Law)",
+    "faculty": "Law",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 70
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 6
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 6
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "Write the NBTs AQL and MAT before 31 July"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 11,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BCOM-MANAGEMENT-ACCOUNTING",
+    "name": "BCom (Management Accounting)",
+    "faculty": "Economic and Management Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 6
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 6
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 9,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BCOM-MANAGEMENT-SCIENCES",
+    "name": "BCom (Management Sciences)",
+    "faculty": "Economic and Management Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 6
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 6
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 7,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BCOM-MATHEMATICAL-SCIENCES",
+    "name": "BCom (Mathematical Sciences)",
+    "faculty": "Economic and Management Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 70
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 6
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 6
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 6
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "The booklet requires mathematics 75%. This tool matches on NSC levels, and 75% falls inside level 6 (70-79%), so a level 6 mark is matched here - check your actual percentage against the 75% Stellenbosch requires."
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 7,
+    "confidence": "flagged",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BDIV-BACHELOR-DIVINITY",
+    "name": "BDiv (Bachelor of Divinity)",
+    "faculty": "Theology",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": []
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 15,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BED-FOUNDATION-PHASE-EDUCATION",
+    "name": "BEd (Foundation Phase Education)",
+    "faculty": "Education",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "subject": "english_hl",
+                      "min_level": 5
+                    },
+                    {
+                      "kind": "any",
+                      "rules": [
+                        {
+                          "kind": "subject",
+                          "language": "afrikaans",
+                          "min_level": 4
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "isixhosa",
+                          "min_level": 4
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "subject": "afrikaans_hl",
+                      "min_level": 5
+                    },
+                    {
+                      "kind": "any",
+                      "rules": [
+                        {
+                          "kind": "subject",
+                          "language": "english",
+                          "min_level": 4
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "isixhosa",
+                          "min_level": 4
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "subject": "isixhosa_hl",
+                      "min_level": 5
+                    },
+                    {
+                      "kind": "any",
+                      "rules": [
+                        {
+                          "kind": "subject",
+                          "language": "english",
+                          "min_level": 4
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "afrikaans",
+                          "min_level": 4
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "mathematics",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "mathematical_literacy",
+                  "min_level": 5
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 9,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BED-INTERMEDIATE-PHASE-EDUCATION",
+    "name": "BEd (Intermediate Phase Education)",
+    "faculty": "Education",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "subject": "english_hl",
+                      "min_level": 5
+                    },
+                    {
+                      "kind": "any",
+                      "rules": [
+                        {
+                          "kind": "subject",
+                          "language": "afrikaans",
+                          "min_level": 4
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "isixhosa",
+                          "min_level": 4
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "subject": "afrikaans_hl",
+                      "min_level": 5
+                    },
+                    {
+                      "kind": "any",
+                      "rules": [
+                        {
+                          "kind": "subject",
+                          "language": "english",
+                          "min_level": 4
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "isixhosa",
+                          "min_level": 4
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "subject": "isixhosa_hl",
+                      "min_level": 5
+                    },
+                    {
+                      "kind": "any",
+                      "rules": [
+                        {
+                          "kind": "subject",
+                          "language": "english",
+                          "min_level": 4
+                        },
+                        {
+                          "kind": "subject",
+                          "language": "afrikaans",
+                          "min_level": 4
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "mathematics",
+                  "min_level": 3
+                },
+                {
+                  "kind": "subject",
+                  "subject": "mathematical_literacy",
+                  "min_level": 5
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "Teaching module choice: Mathematics (pass with 60% average in the first year)",
+      "Teaching module choice: Life Skills",
+      "Teaching module choice: Natural Sciences (Ed)",
+      "Teaching module choice: Life Sciences or Physical Sciences 50%",
+      "Teaching module choice: Social Sciences (Ed)",
+      "Teaching module choice: History or Geography 50%"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 9,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BENG-CHEMICAL",
+    "name": "BEng (Chemical)",
+    "faculty": "Engineering",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 70
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 6
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 5
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 5
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "subject": "english_fal",
+                      "min_level": 4
+                    },
+                    {
+                      "kind": "subject",
+                      "subject": "afrikaans_hl",
+                      "min_level": 4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "The Faculty also admits English First Additional Language 50% together with Afrikaans Second Additional Language 60%. The NSC subject list this tool matches on has no Second Additional Language, so that combination is not matched here - if it describes you, apply anyway.",
+      "Applicants are also subject to selection according to selection criteria"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 10,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BENG-CIVIL",
+    "name": "BEng (Civil)",
+    "faculty": "Engineering",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 70
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 6
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 5
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 5
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "subject": "english_fal",
+                      "min_level": 4
+                    },
+                    {
+                      "kind": "subject",
+                      "subject": "afrikaans_hl",
+                      "min_level": 4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "The Faculty also admits English First Additional Language 50% together with Afrikaans Second Additional Language 60%. The NSC subject list this tool matches on has no Second Additional Language, so that combination is not matched here - if it describes you, apply anyway.",
+      "Applicants are also subject to selection according to selection criteria"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 10,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BENG-ELECTRICAL-ELECTRONIC",
+    "name": "BEng (Electrical and Electronic)",
+    "faculty": "Engineering",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 70
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 6
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 5
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 5
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "subject": "english_fal",
+                      "min_level": 4
+                    },
+                    {
+                      "kind": "subject",
+                      "subject": "afrikaans_hl",
+                      "min_level": 4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "The Faculty also admits English First Additional Language 50% together with Afrikaans Second Additional Language 60%. The NSC subject list this tool matches on has no Second Additional Language, so that combination is not matched here - if it describes you, apply anyway.",
+      "Applicants are also subject to selection according to selection criteria"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 10,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BENG-ELECTRICAL-ELECTRONIC-DATA-ENGINEERING",
+    "name": "BEng (Electrical and Electronic) (Data Engineering)",
+    "faculty": "Engineering",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 70
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 6
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 5
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 5
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "subject": "english_fal",
+                      "min_level": 4
+                    },
+                    {
+                      "kind": "subject",
+                      "subject": "afrikaans_hl",
+                      "min_level": 4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "The Faculty also admits English First Additional Language 50% together with Afrikaans Second Additional Language 60%. The NSC subject list this tool matches on has no Second Additional Language, so that combination is not matched here - if it describes you, apply anyway.",
+      "Applicants are also subject to selection according to selection criteria"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 10,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BENG-INDUSTRIAL",
+    "name": "BEng (Industrial)",
+    "faculty": "Engineering",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 70
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 6
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 5
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 5
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "subject": "english_fal",
+                      "min_level": 4
+                    },
+                    {
+                      "kind": "subject",
+                      "subject": "afrikaans_hl",
+                      "min_level": 4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "The Faculty also admits English First Additional Language 50% together with Afrikaans Second Additional Language 60%. The NSC subject list this tool matches on has no Second Additional Language, so that combination is not matched here - if it describes you, apply anyway.",
+      "Applicants are also subject to selection according to selection criteria"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 10,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BENG-MECHANICAL",
+    "name": "BEng (Mechanical)",
+    "faculty": "Engineering",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 70
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 6
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 5
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 5
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "subject": "english_fal",
+                      "min_level": 4
+                    },
+                    {
+                      "kind": "subject",
+                      "subject": "afrikaans_hl",
+                      "min_level": 4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "The Faculty also admits English First Additional Language 50% together with Afrikaans Second Additional Language 60%. The NSC subject list this tool matches on has no Second Additional Language, so that combination is not matched here - if it describes you, apply anyway.",
+      "Applicants are also subject to selection according to selection criteria"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 10,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BENG-MECHATRONIC",
+    "name": "BEng (Mechatronic)",
+    "faculty": "Engineering",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 70
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 6
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 5
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 5
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "subject",
+                      "subject": "english_fal",
+                      "min_level": 4
+                    },
+                    {
+                      "kind": "subject",
+                      "subject": "afrikaans_hl",
+                      "min_level": 4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "The Faculty also admits English First Additional Language 50% together with Afrikaans Second Additional Language 60%. The NSC subject list this tool matches on has no Second Additional Language, so that combination is not matched here - if it describes you, apply anyway.",
+      "Applicants are also subject to selection according to selection criteria"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 10,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC",
+    "name": "BSc",
+    "faculty": "Science",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 6
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 15,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC-BIODIVERSITY-ECOLOGY",
+    "name": "BSc Biodiversity and Ecology",
+    "faculty": "Science",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 13,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC-CHEMISTRY",
+    "name": "BSc Chemistry",
+    "faculty": "Science",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 6
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 13,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC-COMPUTER-SCIENCE",
+    "name": "BSc Computer Science",
+    "faculty": "Science",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 6
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "If you take Chemistry or Physics as a university subject: Physical Sciences 50%"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 14,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC-CONSERVATION-ECOLOGY",
+    "name": "BSc in Conservation Ecology",
+    "faculty": "Agrisciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 3,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC-DIETETICS",
+    "name": "BSc in Dietetics",
+    "faculty": "Medicine and Health Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 4
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            },
+            {
+              "kind": "subject",
+              "subject": "life_sciences",
+              "min_level": 4
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 12,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC-EARTH-SCIENCE",
+    "name": "BSc Earth Science",
+    "faculty": "Science",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "Mathematics 60% or 70% (depending on your choice of first-year Mathematics and Physics) **"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 14,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC-FOOD-SCIENCE",
+    "name": "BSc in Food Science",
+    "faculty": "Agrisciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 3,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC-FORESTRY-FORESTRY-WOOD-SCIENCES-BSCFOR",
+    "name": "BSc in Forestry (Forestry and Wood Sciences) (BScFor)",
+    "faculty": "Agrisciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "See additional requirements for each field of study"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 3,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC-GEOINFORMATICS",
+    "name": "BSc GeoInformatics",
+    "faculty": "Science",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "Mathematics 60%; OR 70% (if you choose Computer Science as university subject) **"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 14,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC-HUMAN-LIFE-SCIENCES",
+    "name": "BSc Human Life Sciences",
+    "faculty": "Science",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "Mathematics 60% or 70% (depending on your choice of first-year Mathematics and Physics) **"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 13,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC-MATHEMATICAL-SCIENCES",
+    "name": "BSc Mathematical Sciences",
+    "faculty": "Science",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 6
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "If you take Chemistry or Physics as a university subject: Physical Sciences 50%"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 14,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC-MOLECULAR-BIOLOGY-BIOTECHNOLOGY",
+    "name": "BSc Molecular Biology and Biotechnology",
+    "faculty": "Science",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "Mathematics 60% or 70% (depending on your choice of first-year Mathematics and Physics) **"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 13,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC-PHYSICS",
+    "name": "BSc Physics",
+    "faculty": "Science",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 6
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 14,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC-PHYSIOTHERAPY",
+    "name": "BSc in Physiotherapy",
+    "faculty": "Medicine and Health Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 12,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSC-SPORT-SCIENCE",
+    "name": "BSc Sport Science",
+    "faculty": "Science",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 65
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 13,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSCAGRIC-AGRICULTURAL-ECONOMICS",
+    "name": "BScAgric in Agricultural Economics",
+    "faculty": "Agrisciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 2,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSCAGRIC-ANIMAL-PRODUCTION-SYSTEMS",
+    "name": "BScAgric in Animal Production Systems",
+    "faculty": "Agrisciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 3,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSCAGRIC-PLANT-SOIL-SCIENCE",
+    "name": "BScAgric in Plant and Soil Science",
+    "faculty": "Agrisciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 3,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BSCAGRIC-VITICULTURE-OENOLOGY",
+    "name": "BScAgric in Viticulture and Oenology",
+    "faculty": "Agrisciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "language": "english",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "language": "afrikaans",
+                  "min_level": 4
+                }
+              ]
+            },
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 3,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "BTH-BACHELOR-THEOLOGY",
+    "name": "BTh (Bachelor of Theology)",
+    "faculty": "Theology",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 60
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": []
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 15,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "DIPLOMA-PRACTICAL-MUSIC",
+    "name": "Diploma in Practical Music",
+    "faculty": "Arts and Social Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {}
+    },
+    "selection_notes": [
+      "A National Senior Certificate with at least 40% in each of four school subjects (excluding Life Orientation).",
+      "In the main instrument (or in singing) at least a practical standard in classical music equivalent to the Grade VII examination and theoretical knowledge equivalent to any of the examining bodies’ Grade III/IV theory examination.",
+      "Candidates must be available for an audition and theoretical test at the Department of Music in Stellenbosch, where they must demonstrate proof of the required standards. Upon receiving your application, we send you information about the audition. Further information at auditions@sun.ac.za."
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 5,
+    "confidence": "verified",
+    "scoreable": false
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "DIPLOMA-SUSTAINABLE-DEVELOPMENT",
+    "name": "Diploma in Sustainable Development",
+    "faculty": "Economic and Management Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 3.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 55
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 5
+                }
+              ]
+            },
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "mathematics",
+                  "min_level": 4
+                },
+                {
+                  "kind": "subject",
+                  "subject": "mathematical_literacy",
+                  "min_level": 5
+                },
+                {
+                  "kind": "all",
+                  "rules": [
+                    {
+                      "kind": "any",
+                      "rules": [
+                        {
+                          "kind": "subject",
+                          "subject": "mathematics",
+                          "min_level": 3
+                        },
+                        {
+                          "kind": "subject",
+                          "subject": "mathematical_literacy",
+                          "min_level": 4
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "any",
+                      "rules": [
+                        {
+                          "kind": "subject",
+                          "subject": "business_studies",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "subject": "economics",
+                          "min_level": 5
+                        },
+                        {
+                          "kind": "subject",
+                          "subject": "accounting",
+                          "min_level": 5
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 6,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "HIGHER-CERTIFICATE-MUSIC",
+    "name": "Higher Certificate in Music",
+    "faculty": "Arts and Social Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 1.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {}
+    },
+    "selection_notes": [
+      "In the main instrument (or in singing) at least a practical standard in classical music equivalent to the Grade V/VI examination and theoretical knowledge equivalent to any of the examining bodies’ Grade III/IV theory examination.",
+      "Candidates must be available for an audition. Further information at auditions@sun.ac.za."
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 5,
+    "confidence": "verified",
+    "scoreable": false
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "LLB-FOUR-YEAR",
+    "name": "LLB (four-year)",
+    "faculty": "Law",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 4.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 70
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "any",
+              "rules": [
+                {
+                  "kind": "subject",
+                  "subject": "english_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_hl",
+                  "min_level": 5
+                },
+                {
+                  "kind": "subject",
+                  "subject": "afrikaans_fal",
+                  "min_level": 6
+                },
+                {
+                  "kind": "subject",
+                  "subject": "english_fal",
+                  "min_level": 6
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [
+      "Write the NBTs AQL before 31 July",
+      "If you wish to take Economics as a university subject, then also: Mathematics 60%"
+    ],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 11,
+    "confidence": "verified",
+    "scoreable": true
+  },
+  {
+    "institution_id": "su",
+    "academic_year": 2027,
+    "qualification_code": "MBCHB",
+    "name": "MBChB",
+    "faculty": "Medicine and Health Sciences",
+    "campus": [
+      "Stellenbosch"
+    ],
+    "duration_years": 6.0,
+    "extended": false,
+    "requirements": {
+      "nsc": {
+        "score": [
+          {
+            "min_score": 75
+          }
+        ],
+        "subjects": {
+          "kind": "all",
+          "rules": [
+            {
+              "kind": "subject",
+              "subject": "mathematics",
+              "min_level": 5
+            },
+            {
+              "kind": "subject",
+              "subject": "physical_sciences",
+              "min_level": 4
+            },
+            {
+              "kind": "subject",
+              "subject": "life_sciences",
+              "min_level": 4
+            }
+          ]
+        }
+      }
+    },
+    "selection_notes": [],
+    "career_text": null,
+    "source_doc": "su_admissions_booklet_2027",
+    "source_page": 12,
+    "confidence": "verified",
+    "scoreable": true
+  }
+]

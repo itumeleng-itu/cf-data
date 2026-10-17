@@ -210,14 +210,14 @@ def test_aps_below_the_floor_is_reported() -> None:
     errs = _errors(_programme(requirements={"nsc": {
         "score": [{"min_score": -1}], "subjects": _subjects(_ENGLISH),
     }}))
-    assert any("implausible APS -1" in e for e in errs)
+    assert any("implausible score -1" in e for e in errs)
 
 
 def test_aps_above_the_ceiling_is_reported() -> None:
     errs = _errors(_programme(requirements={"nsc": {
         "score": [{"min_score": 61}], "subjects": _subjects(_ENGLISH),
     }}))
-    assert any("implausible APS 61" in e for e in errs)
+    assert any("implausible score 61" in e for e in errs)
 
 
 def test_both_ends_of_the_plausible_aps_range_are_accepted() -> None:
@@ -236,7 +236,7 @@ def test_every_threshold_is_checked_not_just_the_first() -> None:
         ],
         "subjects": _subjects(_ENGLISH),
     }}))
-    assert any("implausible APS 99" in e for e in errs)
+    assert any("implausible score 99" in e for e in errs)
 
 
 # --- missing English ----------------------------------------------------

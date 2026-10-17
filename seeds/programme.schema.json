@@ -4,161 +4,353 @@
   "title": "UJ-style programme seed file",
   "description": "One institution's programmes for one or more academic years. Mirrors the checks in scripts/validate_data.py — keep both in sync.",
   "type": "array",
-  "items": { "$ref": "#/$defs/programme" },
-
+  "items": {
+    "$ref": "#/$defs/programme"
+  },
   "$defs": {
     "subject": {
       "enum": [
-        "english_hl", "english_fal",
-        "afrikaans_hl", "afrikaans_fal",
-        "isizulu_hl", "isizulu_fal",
-        "isixhosa_hl", "isixhosa_fal",
-        "sepedi_hl", "sepedi_fal",
-        "sesotho_hl", "sesotho_fal",
-        "setswana_hl", "setswana_fal",
-        "xitsonga_hl", "xitsonga_fal",
-        "siswati_hl", "siswati_fal",
-        "tshivenda_hl", "tshivenda_fal",
-        "isindebele_hl", "isindebele_fal",
-        "mathematics", "mathematical_literacy", "technical_mathematics",
-        "physical_sciences", "technical_sciences", "life_sciences", "life_orientation",
-        "accounting", "business_studies", "economics", "geography", "history",
-        "tourism", "consumer_studies", "visual_arts", "dramatic_arts", "music",
-        "design", "information_technology", "computer_applications_technology",
-        "engineering_graphics_and_design", "agricultural_sciences",
-        "hospitality_studies", "religion_studies"
-      ]
+        "english_hl",
+        "english_fal",
+        "afrikaans_hl",
+        "afrikaans_fal",
+        "isizulu_hl",
+        "isizulu_fal",
+        "isixhosa_hl",
+        "isixhosa_fal",
+        "sepedi_hl",
+        "sepedi_fal",
+        "sesotho_hl",
+        "sesotho_fal",
+        "setswana_hl",
+        "setswana_fal",
+        "xitsonga_hl",
+        "xitsonga_fal",
+        "siswati_hl",
+        "siswati_fal",
+        "tshivenda_hl",
+        "tshivenda_fal",
+        "isindebele_hl",
+        "isindebele_fal",
+        "mathematics",
+        "mathematical_literacy",
+        "technical_mathematics",
+        "physical_sciences",
+        "technical_sciences",
+        "life_sciences",
+        "life_orientation",
+        "accounting",
+        "business_studies",
+        "economics",
+        "geography",
+        "history",
+        "tourism",
+        "consumer_studies",
+        "visual_arts",
+        "dramatic_arts",
+        "music",
+        "design",
+        "information_technology",
+        "computer_applications_technology",
+        "engineering_graphics_and_design",
+        "agricultural_sciences",
+        "hospitality_studies",
+        "religion_studies",
+        "agricultural_technology",
+        "civil_technology",
+        "electrical_technology",
+        "mechanical_technology",
+        "engineering_mathematics_n3",
+        "engineering_mathematics_n4",
+        "engineering_science_n4",
+        "catering",
+        "hotel"
+      ],
+      "description": "Every subject the engine recognises, mirroring app.subjects.Subject. The two had drifted: the engine gained agricultural_technology, the three other technology subjects, the N3/N4 engineering subjects, catering and hotel, and this enum did not, so six valid TUT records failed validation for naming a subject the engine accepts."
     },
-
     "languageFamily": {
       "enum": [
-        "english", "afrikaans", "isizulu", "isixhosa", "sepedi", "sesotho",
-        "setswana", "xitsonga", "siswati", "tshivenda", "isindebele"
+        "english",
+        "afrikaans",
+        "isizulu",
+        "isixhosa",
+        "sepedi",
+        "sesotho",
+        "setswana",
+        "xitsonga",
+        "siswati",
+        "tshivenda",
+        "isindebele"
       ]
     },
-
     "ruleNode": {
       "oneOf": [
-        { "$ref": "#/$defs/allAnyNode" },
-        { "$ref": "#/$defs/subjectNode" },
-        { "$ref": "#/$defs/anyAdditionalLanguageNode" }
+        {
+          "$ref": "#/$defs/allAnyNode"
+        },
+        {
+          "$ref": "#/$defs/subjectNode"
+        },
+        {
+          "$ref": "#/$defs/anyAdditionalLanguageNode"
+        }
       ]
     },
-
     "allAnyNode": {
+      "description": "An empty rules array is permitted for 'all' and refused for 'any', which mirrors what the evaluator does with each. An empty 'all' contributes no failures, so it reads as 'no subject conditions' -- Stellenbosch's BTh and BDiv (p15) print an aggregate and no subject bars at all, and that is the honest encoding of it. An empty 'any' has no branch that can succeed; the evaluator reports it as malformed, so the schema refuses it rather than letting it reach the engine.",
       "type": "object",
       "properties": {
-        "kind": { "enum": ["all", "any"] },
+        "kind": {
+          "enum": [
+            "all",
+            "any"
+          ]
+        },
         "rules": {
           "type": "array",
-          "minItems": 1,
-          "items": { "$ref": "#/$defs/ruleNode" }
+          "items": {
+            "$ref": "#/$defs/ruleNode"
+          }
         }
       },
-      "required": ["kind", "rules"],
-      "additionalProperties": false
+      "required": [
+        "kind",
+        "rules"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "any"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rules": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
     },
-
     "subjectNode": {
       "type": "object",
       "properties": {
-        "kind": { "const": "subject" },
-        "subject": { "$ref": "#/$defs/subject" },
-        "language": { "$ref": "#/$defs/languageFamily" },
-        "min_level": { "type": "integer", "minimum": 1, "maximum": 7 },
-        "min_level_fal": { "type": "integer", "minimum": 1, "maximum": 7 }
+        "kind": {
+          "const": "subject"
+        },
+        "subject": {
+          "$ref": "#/$defs/subject"
+        },
+        "language": {
+          "$ref": "#/$defs/languageFamily"
+        },
+        "min_level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7
+        },
+        "min_level_fal": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7
+        }
       },
-      "required": ["kind"],
+      "required": [
+        "kind"
+      ],
       "oneOf": [
-        { "required": ["subject"], "not": { "required": ["language"] } },
-        { "required": ["language"], "not": { "required": ["subject"] } }
+        {
+          "required": [
+            "subject"
+          ],
+          "not": {
+            "required": [
+              "language"
+            ]
+          }
+        },
+        {
+          "required": [
+            "language"
+          ],
+          "not": {
+            "required": [
+              "subject"
+            ]
+          }
+        }
       ],
       "additionalProperties": false
     },
-
     "anyAdditionalLanguageNode": {
       "type": "object",
       "properties": {
-        "kind": { "const": "any_additional_language" },
-        "min_level": { "type": "integer", "minimum": 1, "maximum": 7 }
+        "kind": {
+          "const": "any_additional_language"
+        },
+        "min_level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7
+        }
       },
-      "required": ["kind", "min_level"],
+      "required": [
+        "kind",
+        "min_level"
+      ],
       "additionalProperties": false
     },
-
     "scoreThreshold": {
       "type": "object",
       "properties": {
-        "min_score": { "type": "integer", "minimum": 10, "maximum": 48 },
-        "requires_subject": { "$ref": "#/$defs/subject" }
+        "min_score": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 100,
+          "description": "The bar on whatever the institution's scoring_strategy produces. That is an APS in the 10-48 range for most institutions, but a percentage aggregate for a percentage_sum_div_10 institution -- Stellenbosch asks for 'an NSC aggregate of at least 65%', which scores 0-100. Hence the ceiling of 100 rather than 48."
+        },
+        "requires_subject": {
+          "$ref": "#/$defs/subject"
+        }
       },
-      "required": ["min_score"],
+      "required": [
+        "min_score"
+      ],
       "additionalProperties": false
     },
-
     "nscRequirements": {
       "type": "object",
       "properties": {
         "score": {
           "type": "array",
-          "minItems": 1,
-          "items": { "$ref": "#/$defs/scoreThreshold" }
+          "items": {
+            "$ref": "#/$defs/scoreThreshold"
+          },
+          "description": "Score thresholds. May be empty ONLY for a scoreable=false programme, which /v1/qualify never evaluates; the programme-level conditional below enforces that. Before this was expressible, unscoreable programmes carried an invented placeholder -- TUT's Dip (Fire Technology) an empty array, eleven Wits records a min_score of 0 -- purely to satisfy the schema."
         },
-        "subjects": { "$ref": "#/$defs/ruleNode" },
+        "subjects": {
+          "$ref": "#/$defs/ruleNode"
+        },
         "excluded_subjects": {
           "type": "array",
-          "items": { "$ref": "#/$defs/subject" },
+          "items": {
+            "$ref": "#/$defs/subject"
+          },
           "default": []
         }
       },
-      "required": ["score", "subjects"],
       "additionalProperties": false
     },
-
     "requirements": {
       "type": "object",
       "properties": {
-        "nsc": { "$ref": "#/$defs/nscRequirements" }
+        "nsc": {
+          "$ref": "#/$defs/nscRequirements"
+        }
       },
-      "required": ["nsc"],
+      "required": [
+        "nsc"
+      ],
       "additionalProperties": false
     },
-
     "programme": {
       "type": "object",
       "properties": {
-        "institution_id": { "type": "string", "minLength": 1 },
-        "academic_year": { "type": "integer" },
-        "qualification_code": { "type": "string", "minLength": 1 },
-        "name": { "type": "string", "minLength": 1 },
-        "faculty": { "type": ["string", "null"] },
+        "institution_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "academic_year": {
+          "type": "integer"
+        },
+        "qualification_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "faculty": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "campus": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "default": []
         },
-        "duration_years": { "type": ["number", "null"] },
-        "extended": { "type": "boolean", "default": false },
-        "requirements": { "$ref": "#/$defs/requirements" },
+        "duration_years": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "extended": {
+          "type": "boolean",
+          "default": false
+        },
+        "requirements": {
+          "$ref": "#/$defs/requirements"
+        },
         "selection_notes": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "default": []
         },
-        "career_text": { "type": ["string", "null"] },
-        "source_doc": { "type": ["string", "null"] },
-        "source_page": { "type": ["integer", "null"] },
+        "career_text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_doc": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_page": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
         "confidence": {
-          "enum": ["verified", "extracted", "flagged"],
+          "enum": [
+            "verified",
+            "extracted",
+            "flagged"
+          ],
           "default": "extracted"
         },
         "scoring_override": {
-          "type": ["object", "null"],
+          "type": [
+            "object",
+            "null"
+          ],
           "description": "Merges over the institution's scoring_config for this one programme's score calculation (same algorithm, different parameters -- e.g. a faculty-specific subject_count). null/omitted means the institution's own scoring_config applies unchanged.",
           "default": null
         },
         "scoring_strategy_override": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Replaces the institution's scoring_strategy outright for this one programme, when a faculty uses a genuinely different ALGORITHM, not just different parameters of the same one. null/omitted means the institution's own scoring_strategy applies.",
           "default": null
         },
@@ -166,10 +358,66 @@
           "type": "boolean",
           "description": "false means no formula here produces a trustworthy score at all (e.g. a Composite Index needing National Benchmark Test results this dataset never collects) -- /v1/qualify reports such a programme in its own requires_additional_assessment bucket, never scored, qualified, or near-miss.",
           "default": true
+        },
+        "alternate_codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Other codes the same programme is published under. UJ prints a second code for a few programmes offered on more than one campus.",
+          "default": []
+        },
+        "streams": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Per-stream curriculum detail, where the source publishes it (Wits). Deliberately unconstrained beyond 'an object': the curriculum tree is nested several levels deep and is not yet modelled here, and a loose type that admits the real data is more honest than a strict one the seeds are allowed to bypass.",
+          "default": []
         }
       },
       "required": [
-        "institution_id", "academic_year", "qualification_code", "name", "requirements"
+        "institution_id",
+        "academic_year",
+        "qualification_code",
+        "name",
+        "requirements"
+      ],
+      "allOf": [
+        {
+          "description": "A programme that /v1/qualify will evaluate must state both a score threshold and a subject rule, because the evaluator reads requirements.nsc.score and requirements.nsc.subjects directly and a missing key is a KeyError at request time. A scoreable=false programme is never evaluated at all -- it is reported in the requires_additional_assessment bucket -- so it is allowed to state neither. Stellenbosch's Diploma in Practical Music is the case this exists for: entry is by audition, and the booklet prints no aggregate and no subject bars, so inventing either to satisfy the schema would be inventing an entry condition.",
+          "if": {
+            "properties": {
+              "scoreable": {
+                "const": false
+              }
+            },
+            "required": [
+              "scoreable"
+            ]
+          },
+          "then": true,
+          "else": {
+            "properties": {
+              "requirements": {
+                "properties": {
+                  "nsc": {
+                    "required": [
+                      "score",
+                      "subjects"
+                    ],
+                    "properties": {
+                      "score": {
+                        "minItems": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       ],
       "additionalProperties": false
     }
