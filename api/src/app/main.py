@@ -344,7 +344,26 @@ def _resolve_scoring(institution: dict, programme: dict) -> tuple[str, dict]:
     return strategy, config
 
 
-def _evaluate_programme(programme: dict, marks: dict[str, int], achieved: int) -> ProgrammeResultDict:
+# How to describe a score to the learner.
+#
+# "Requires an APS of 80" is wrong for an institution that does not
+# publish an APS. Stellenbosch asks for "an NSC aggregate of at least
+# 80% (excluding Life Orientation)", and a learner reading "APS of 80"
+# against their own APS of 38 will think they are 42 points short of a
+# programme they may already meet.
+_SCORE_WORDING = {
+    "percentage_sum_div_10": ("an average of {value}%", "{value}%"),
+}
+_DEFAULT_WORDING = ("an APS of {value}", "{value}")
+
+
+def _score_phrases(strategy: str) -> tuple[str, str]:
+    return _SCORE_WORDING.get(strategy, _DEFAULT_WORDING)
+
+
+def _evaluate_programme(
+    programme: dict, marks: dict[str, int], achieved: int, strategy: str = "",
+) -> ProgrammeResultDict:
     """Checks ONE programme against a learner's marks: does their score
     meet the required APS, AND do they meet every subject requirement?
     Combines both checks into a single result the learner can read,
@@ -366,9 +385,13 @@ def _evaluate_programme(programme: dict, marks: dict[str, int], achieved: int) -
         message = f"Requires {' or '.join(required_names)} to determine eligibility for this programme"
         failures.append(Failure(kind="score", message=message, required=None, actual=achieved, subject=None))
     elif achieved < required:
+        needs, have = _score_phrases(strategy)
         failures.append(Failure(
             kind="score",
-            message=f"Requires an APS of {required}; you have {achieved}",
+            message=(
+                f"Requires {needs.format(value=required)}; "
+                f"you have {have.format(value=achieved)}"
+            ),
             required=required, actual=achieved, subject=None,
         ))
     failures.extend(evaluate(nsc["subjects"], marks, excluded))
@@ -441,7 +464,10 @@ def _run_qualify(request: QualifyRequest) -> QualifyResponseDict:
         else:
             achieved = scores[institution_id]
 
-        result = _evaluate_programme(programme, marks, achieved)
+        result = _evaluate_programme(
+            programme, marks, achieved,
+            _resolve_scoring(institution, programme)[0],
+        )
         if not result["failures"]:
             qualified.append(result)
         elif request.include_near_misses and len(result["failures"]) <= 2:
