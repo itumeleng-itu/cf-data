@@ -5785,7 +5785,9 @@
       "name": "Dip (Accounting)",
       "faculty": "Faculty of Economics and Finance",
       "campus": [
-        "GaRankuwa Campus"
+        "Ga-Rankuwa Campus",
+        "Mbombela Campus",
+        "Polokwane Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -5853,7 +5855,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: M Po.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -5870,7 +5871,7 @@
       "name": "Dip (Economics)",
       "faculty": "Faculty of Economics and Finance",
       "campus": [
-        "GaRankuwa Campus"
+        "Ga-Rankuwa Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -5945,7 +5946,9 @@
       "name": "Dip (Financial Management)",
       "faculty": "Faculty of Economics and Finance",
       "campus": [
-        "GaRankuwa Campus"
+        "Ga-Rankuwa Campus",
+        "Mbombela Campus",
+        "Polokwane Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -6013,7 +6016,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: M Po.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -6030,7 +6032,7 @@
       "name": "Dip (Financial Planning)",
       "faculty": "Faculty of Economics and Finance",
       "campus": [
-        "GaRankuwa Campus"
+        "Ga-Rankuwa Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -6114,7 +6116,9 @@
       "name": "Dip (Internal Auditing)",
       "faculty": "Faculty of Economics and Finance",
       "campus": [
-        "GaRankuwa Campus"
+        "Ga-Rankuwa Campus",
+        "Mbombela Campus",
+        "Polokwane Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -6182,7 +6186,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: M Po.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -6199,7 +6202,9 @@
       "name": "Dip (Public Finance)",
       "faculty": "Faculty of Economics and Finance",
       "campus": [
-        "GaRankuwa Campus"
+        "Ga-Rankuwa Campus",
+        "Mbombela Campus",
+        "Polokwane Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -6267,7 +6272,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: M Po.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -6284,7 +6288,7 @@
       "name": "HCert (Accounting)",
       "faculty": "Faculty of Economics and Finance",
       "campus": [
-        "GaRankuwa Campus"
+        "Ga-Rankuwa Campus"
       ],
       "duration_years": 1.0,
       "extended": false,
@@ -6707,7 +6711,8 @@
       "name": "BEngTech (Electrical Engineering)",
       "faculty": "Faculty of Engineering and the Built Environment",
       "campus": [
-        "Pretoria Campus"
+        "Pretoria Campus",
+        "eMalahleni Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -6763,7 +6768,6 @@
       },
       "selection_notes": [
         "Also requires: Any three additional subjects at level 4.",
-        "Also offered at: E.",
         "Applications close 30/9.",
         "Recommended subjects: Engineering Graphics and Design and Electrical Technology.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -7283,7 +7287,8 @@
       "name": "Dip (Electrical Engineering)",
       "faculty": "Faculty of Engineering and the Built Environment",
       "campus": [
-        "Pretoria Campus"
+        "Pretoria Campus",
+        "eMalahleni Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -7338,7 +7343,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: E.",
         "Applications close 30/9.",
         "Recommended subjects: Electrical Technology and Engineering Graphics and Design.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -7637,7 +7641,8 @@
       "name": "HCert (Electrical Engineering)",
       "faculty": "Faculty of Engineering and the Built Environment",
       "campus": [
-        "Pretoria Campus"
+        "Pretoria Campus",
+        "eMalahleni Campus"
       ],
       "duration_years": 1.0,
       "extended": false,
@@ -7692,7 +7697,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: E.",
         "Applications close 30/9.",
         "Recommended subjects: Electrical Technology.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -7854,7 +7858,7 @@
       "name": "BEd (Foundation Phase Teaching)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve North Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -7897,7 +7901,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SN.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -7914,7 +7917,7 @@
       "name": "BEd (Intermediate Phase Teaching)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve North Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -7991,7 +7994,6 @@
       "selection_notes": [
         "One of the following combinations:",
         "Also requires: Any other home language offered in the programme at level 4.",
-        "Also offered at: SN.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -8008,7 +8010,7 @@
       "name": "BEd (Senior Phase and Further Education and Training Teaching) (Specialisation in Agriculture)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve North Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -8098,7 +8100,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SN.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -8115,7 +8116,7 @@
       "name": "BEd (Senior Phase and Further Education and Training Teaching) (Specialisation in Consumer Sciences)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve North Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -8190,7 +8191,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SN.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -8207,7 +8207,7 @@
       "name": "BEd (Senior Phase and Further Education and Training Teaching) (Specialisation in Economic and Management Sciences)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve North Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -8277,7 +8277,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SN.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -8294,7 +8293,7 @@
       "name": "BEd (Senior Phase and Further Education and Training Teaching) (Specialisation in Information Technology)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve North Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -8344,7 +8343,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SN.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -8361,7 +8359,7 @@
       "name": "BEd (Senior Phase and Further Education and Training Teaching) (Specialisation in Mathematics)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve North Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -8421,7 +8419,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SN.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -8438,7 +8435,7 @@
       "name": "BEd (Senior Phase and Further Education and Training Teaching) (Specialisation in Physical Education)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve North Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -8493,7 +8490,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SN.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -8510,7 +8506,7 @@
       "name": "BEd (Senior Phase and Further Education and Training Teaching) (Specialisation in Sciences)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve North Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -8555,7 +8551,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SN.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -8572,7 +8567,7 @@
       "name": "BEd (Senior Phase and Further Education and Training Teaching) (Specialisation in Technology)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve North Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -8652,7 +8647,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SN.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -8669,7 +8663,7 @@
       "name": "Dip (Adult and Community Education and Training) (Specialisation in Civil Technology)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve North Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -8748,7 +8742,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SN.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -8765,7 +8758,7 @@
       "name": "Dip (Adult and Community Education and Training) (Specialisation in Consumer Sciences)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve North Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -8819,7 +8812,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SN.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -8836,7 +8828,7 @@
       "name": "Dip (Adult and Community Education and Training) (Specialisation in Electrical and Mechanical)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve North Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -8895,7 +8887,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SN.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -8912,7 +8903,7 @@
       "name": "Dip (Correctional and Rehabilitation Studies)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -8952,7 +8943,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SS.",
         "Applications close 15/6.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -8969,7 +8959,7 @@
       "name": "Dip (Integrated Communication)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve North Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -9038,7 +9028,6 @@
       },
       "selection_notes": [
         "Preference will be given to applicants with a score of 5 or more for English.",
-        "Also offered at: SN.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -9055,7 +9044,7 @@
       "name": "Dip (Journalism)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve North Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -9075,7 +9064,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SN.",
         "Applications close 31/7.",
         "Recommended subjects: Geography, History, third language or any art-related subject.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -9093,7 +9081,7 @@
       "name": "Dip (Language Practice)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -9114,7 +9102,6 @@
       },
       "selection_notes": [
         "Also requires: Any other official South African language offered in the programme at level 5.",
-        "Also offered at: SS.",
         "Applications close 31/7.",
         "Recommended subjects: Afrikaans, Sepedi, Setswana, IsiZulu, Tshivenda or Xitsonga.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -9132,7 +9119,8 @@
       "name": "Dip (Law)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus",
+        "Mbombela Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -9152,7 +9140,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SS M.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -9169,7 +9156,7 @@
       "name": "Dip (Legal Support)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -9190,7 +9177,6 @@
       },
       "selection_notes": [
         "Also requires: Any other additional language at level 3.",
-        "Also offered at: SS.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -9207,7 +9193,7 @@
       "name": "Dip (Policing)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -9267,7 +9253,6 @@
         "FOR APPLICANTS WHO ARE NOT",
         "EMPLOYED IN A LAW ENFORCEMENT DEPARTMENT, WITH A NATIONAL SENIOR CERTIFICATE OBTAINED IN OR AFTER",
         "2008:",
-        "Also offered at: SS.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -9284,7 +9269,9 @@
       "name": "Dip (Public Affairs) (Admin of State)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus",
+        "Mbombela Campus",
+        "Polokwane Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -9324,7 +9311,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SS M Po.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -9341,7 +9327,9 @@
       "name": "Dip (Public Affairs) (Local Government)",
       "faculty": "Faculty of Humanities",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus",
+        "Mbombela Campus",
+        "Polokwane Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -9381,7 +9369,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SS M Po.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -9398,7 +9385,9 @@
       "name": "Dip (Computer Science)",
       "faculty": "Faculty of ICT",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus",
+        "eMalahleni Campus",
+        "Polokwane Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -9457,7 +9446,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SS E Po.",
         "Applications close 30/9.",
         "Recommended subjects: Information Technology.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -9475,7 +9463,9 @@
       "name": "Dip (Computer Science) (Extended)",
       "faculty": "Faculty of ICT",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus",
+        "eMalahleni Campus",
+        "Polokwane Campus"
       ],
       "duration_years": 4.0,
       "extended": true,
@@ -9534,7 +9524,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SS E Po.",
         "Applications close 30/9.",
         "Recommended subjects: Information Technology.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -9552,7 +9541,7 @@
       "name": "Dip (Computer Systems Engineering)",
       "faculty": "Faculty of ICT",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -9607,7 +9596,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SS.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -9624,7 +9612,7 @@
       "name": "Dip (Computer Systems Engineering) (Extended)",
       "faculty": "Faculty of ICT",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus"
       ],
       "duration_years": 4.0,
       "extended": true,
@@ -9679,7 +9667,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SS.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -9696,7 +9683,7 @@
       "name": "Dip (Informatics)",
       "faculty": "Faculty of ICT",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -9755,7 +9742,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SS.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -9772,7 +9758,7 @@
       "name": "Dip (Informatics) (Extended)",
       "faculty": "Faculty of ICT",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus"
       ],
       "duration_years": 4.0,
       "extended": true,
@@ -9831,7 +9817,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SS.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -9848,7 +9833,7 @@
       "name": "Dip (Information Technology)",
       "faculty": "Faculty of ICT",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -9922,7 +9907,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SS.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -9939,7 +9923,7 @@
       "name": "Dip (Information Technology) (Extended)",
       "faculty": "Faculty of ICT",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus"
       ],
       "duration_years": 4.0,
       "extended": true,
@@ -10013,7 +9997,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SS.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -10030,7 +10013,7 @@
       "name": "Dip (Multimedia Computing)",
       "faculty": "Faculty of ICT",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -10089,7 +10072,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SS.",
         "Applications close 30/9.",
         "Recommended subjects: Information Technology.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -10107,7 +10089,7 @@
       "name": "Dip (Multimedia Computing) (Extended)",
       "faculty": "Faculty of ICT",
       "campus": [
-        "Soshanguve Campus"
+        "Soshanguve South Campus"
       ],
       "duration_years": 4.0,
       "extended": true,
@@ -10166,7 +10148,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: SS.",
         "Applications close 30/9.",
         "Recommended subjects: Information Technology.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -10184,7 +10165,9 @@
       "name": "Dip (Administrative Information Management)",
       "faculty": "Faculty of Management Sciences",
       "campus": [
-        "Pretoria Campus"
+        "Pretoria Campus",
+        "eMalahleni Campus",
+        "Polokwane Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -10234,7 +10217,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: E Po.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -10251,7 +10233,7 @@
       "name": "Dip (Adventure Tourism Management) (Only Mbombela Campus)",
       "faculty": "Faculty of Management Sciences",
       "campus": [
-        "Pretoria Campus"
+        "Mbombela Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -10301,7 +10283,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: M.",
         "Applications close 30/9.",
         "Recommended subjects: Business Studies, Geography and Tourism Studies.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -10524,7 +10505,7 @@
       "name": "Dip (Ecotourism Management) (Only Mbombela Campus)",
       "faculty": "Faculty of Management Sciences",
       "campus": [
-        "Pretoria Campus"
+        "Mbombela Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -10574,7 +10555,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: M.",
         "Applications close 30/9.",
         "Recommended subjects: Business Studies, Geography, Hospitality Studies, Life Sciences and Tourism.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -10592,7 +10572,9 @@
       "name": "Dip (Entrepreneurship)",
       "faculty": "Faculty of Management Sciences",
       "campus": [
-        "Pretoria Campus"
+        "Pretoria Campus",
+        "eMalahleni Campus",
+        "Polokwane Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -10642,7 +10624,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: E Po.",
         "Applications close 30/9.",
         "Recommended subjects: Commercial subjects.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -10859,7 +10840,9 @@
       "name": "Dip (Human Resource Management)",
       "faculty": "Faculty of Management Sciences",
       "campus": [
-        "Pretoria Campus"
+        "Pretoria Campus",
+        "eMalahleni Campus",
+        "Polokwane Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -10909,7 +10892,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: E Po.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -10926,7 +10908,8 @@
       "name": "Dip (Marketing)",
       "faculty": "Faculty of Management Sciences",
       "campus": [
-        "Pretoria Campus"
+        "Pretoria Campus",
+        "Mbombela Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -10976,7 +10959,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: M.",
         "Applications close 30/9.",
         "Recommended subjects: Accounting, Business Studies and Economics.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -11060,7 +11042,8 @@
       "name": "Dip (Retail Business Management)",
       "faculty": "Faculty of Management Sciences",
       "campus": [
-        "Pretoria Campus"
+        "Pretoria Campus",
+        "Online"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -11110,7 +11093,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: O.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -11394,7 +11376,8 @@
       "name": "HCert (Administrative Information Management) (Online presentation)",
       "faculty": "Faculty of Management Sciences",
       "campus": [
-        "Pretoria Campus"
+        "Pretoria Campus",
+        "Online"
       ],
       "duration_years": 1.0,
       "extended": false,
@@ -11414,7 +11397,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: O.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
       "career_text": "Secretary, administration officer, personal assistant, office manager",
@@ -11430,7 +11412,8 @@
       "name": "HCert (Contact Centre Management) (Online presentation)",
       "faculty": "Faculty of Management Sciences",
       "campus": [
-        "Pretoria Campus"
+        "Pretoria Campus",
+        "Online"
       ],
       "duration_years": 1.0,
       "extended": false,
@@ -11450,7 +11433,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: O.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
       "career_text": "Agent, call centre representative, call centre officer, team leader, supervisor, functional leader, strategic manager",
@@ -11466,7 +11448,8 @@
       "name": "BEnvironmental Health",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -11527,7 +11510,6 @@
       },
       "selection_notes": [
         "Also requires: Two other subjects at level 4.",
-        "Also offered at: Pr.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -11544,7 +11526,8 @@
       "name": "BHSci (Biokinetics)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -11604,7 +11587,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Pr.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -11621,7 +11603,8 @@
       "name": "BHSci (Clinical Technology)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -11681,7 +11664,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Ar.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -11698,7 +11680,8 @@
       "name": "BHSci (Medical Laboratory Science)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -11758,7 +11741,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Ar.",
         "Applications close 15/6.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -11775,7 +11757,8 @@
       "name": "BHSci (Medical Orthotics and Prosthetics)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -11835,7 +11818,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Pr.",
         "Applications close 15/6.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -11852,7 +11834,8 @@
       "name": "BHSci (Veterinary Technology)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -11922,7 +11905,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Ar.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -11939,7 +11921,8 @@
       "name": "BNursing",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -11984,7 +11967,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Pr.",
         "Applications close 15/6.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -12001,7 +11983,8 @@
       "name": "BPharm / Bachelor of Pharmacy",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -12062,7 +12045,6 @@
       },
       "selection_notes": [
         "Also requires: Two other subjects at level 4.",
-        "Also offered at: Ar.",
         "Applications close 15/6.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -12079,7 +12061,8 @@
       "name": "BRad (Diagnostic) / Bachelor of Radiography in Diagnostics",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -12139,7 +12122,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Ar.",
         "Applications close 15/6.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -12156,7 +12138,8 @@
       "name": "BSc (Industrial Chemistry)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 4.0,
       "extended": false,
@@ -12191,7 +12174,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Ar.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -12208,7 +12190,8 @@
       "name": "Dip (Analytical Chemistry)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -12263,7 +12246,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Ar.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -12280,7 +12262,8 @@
       "name": "Dip (Animal Sciences)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -12325,7 +12308,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Pr.",
         "Applications close 31/7.",
         "Recommended subjects: Agricultural Sciences and Life Sciences.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -12343,7 +12325,8 @@
       "name": "Dip (Biotechnology)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -12403,7 +12386,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Ar.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -12420,7 +12402,8 @@
       "name": "Dip (Crop Production)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -12478,7 +12461,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Pr.",
         "Applications close 31/7.",
         "Recommended subjects: Agricultural subjects, Life Sciences and/or Physical Sciences.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -12496,7 +12478,8 @@
       "name": "Dip (Environmental Sciences)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -12551,7 +12534,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Ar.",
         "Applications close 30/9.",
         "Recommended subjects: Geography and Life Sciences.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -12569,7 +12551,8 @@
       "name": "Dip (Equine Science)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -12614,7 +12597,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Pr.",
         "Applications close 30/9.",
         "Recommended subjects: Agricultural Sciences and Life Sciences.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -12632,7 +12614,8 @@
       "name": "Dip (Fire Technology) (Only offered to Fire and Rescue Services personnel)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -12653,7 +12636,6 @@
         "A National Senior Certificate with a bachelor’s degree",
         "a diploma endorsement,",
         "an equivalent qualification and three years’",
-        "Also offered at: Ar D.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -12670,7 +12652,8 @@
       "name": "Dip (Food Technology)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -12730,7 +12713,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Ar.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -12747,7 +12729,8 @@
       "name": "Dip (Geology)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -12802,7 +12785,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Ar.",
         "Applications close 31/7.",
         "Recommended subjects: Computer Applications Technology, Geography and/or Information Technology.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -12820,7 +12802,8 @@
       "name": "Dip (Horticulture)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -12904,7 +12887,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Pr.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -12921,7 +12903,8 @@
       "name": "Dip (Industrial Physics)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -12976,7 +12959,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Ar.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -12993,7 +12975,8 @@
       "name": "Dip (Kinesiology and Coaching Science)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -13048,7 +13031,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Pr.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -13065,7 +13047,8 @@
       "name": "Dip (Landscape Technology)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -13149,7 +13132,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Pr.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -13166,7 +13148,8 @@
       "name": "Dip (Nature Conservation)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -13225,7 +13208,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Pr.",
         "Applications close 31/7.",
         "Recommended subjects: Agricultural Sciences, Geography, Life Sciences, Physical Sciences or Technical Sciences.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -13243,7 +13225,8 @@
       "name": "Dip (Somatic Therapy)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -13307,7 +13290,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Ar.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -13324,7 +13306,8 @@
       "name": "Dip (Water Science and Technology)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -13379,7 +13362,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Ar.",
         "Applications close 30/9.",
         "Recommended subjects: Life Sciences.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -13397,7 +13379,8 @@
       "name": "Dip (Wildlife Management)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 3.0,
       "extended": false,
@@ -13456,7 +13439,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Pr.",
         "Applications close 31/7.",
         "Recommended subjects: Agricultural Sciences, Geography, Life Sciences, Physical Sciences or Technical Sciences.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
@@ -13474,7 +13456,8 @@
       "name": "HCert (Dental Assisting)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 1.0,
       "extended": false,
@@ -13515,7 +13498,6 @@
       },
       "selection_notes": [
         "Also requires: Any other additional subjects at level 3.",
-        "Also offered at: Pr.",
         "Applications close 31/7.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -13532,7 +13514,7 @@
       "name": "HCert (Forestry Management) (Only Mbombela Campus)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Mbombela Campus"
       ],
       "duration_years": 2.0,
       "extended": false,
@@ -13591,7 +13573,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: M.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -13608,7 +13589,8 @@
       "name": "HCert (Resource and Waste Management)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 1.0,
       "extended": false,
@@ -13667,7 +13649,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Ar.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],
@@ -13684,7 +13665,8 @@
       "name": "HCert (Water Treatment)",
       "faculty": "Faculty of Science",
       "campus": [
-        "Arcadia and Pretoria Campuses"
+        "Arcadia Campus",
+        "Pretoria Campus"
       ],
       "duration_years": 1.0,
       "extended": false,
@@ -13758,7 +13740,6 @@
         }
       },
       "selection_notes": [
-        "Also offered at: Ar.",
         "Applications close 30/9.",
         "qualification_code is SYNTHETIC - TUT publishes no code for this programme in this document."
       ],

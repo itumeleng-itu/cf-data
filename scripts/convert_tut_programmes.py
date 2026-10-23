@@ -102,6 +102,87 @@ ANY_LANGUAGE = re.compile(
     re.I)
 
 
+# TUT's campus column, decoded.
+#
+# The table prints a code per programme ("M Po", "SS E Po") alongside
+# a page-level campus banner. Only the banner was being used, and the
+# column went into a prose note reading "Also offered at: M Po" --
+# which is why Polokwane, Mbombela, eMalahleni and Online appeared
+# nowhere in the campus field, and why three programmes whose own
+# name says "(Only Mbombela Campus)" were filed under Pretoria.
+#
+# Codes confirmed against TUT's published campus list: Pretoria,
+# Arcadia, Arts, Soshanguve North, Soshanguve South, Ga-Rankuwa,
+# eMalahleni, Mbombela and Polokwane.
+CAMPUS_CODES = {
+    "Pr": "Pretoria Campus",
+    "Ar": "Arcadia Campus",
+    "SN": "Soshanguve North Campus",
+    "SS": "Soshanguve South Campus",
+    "G": "Ga-Rankuwa Campus",
+    "GR": "Ga-Rankuwa Campus",
+    "E": "eMalahleni Campus",
+    "M": "Mbombela Campus",
+    "Po": "Polokwane Campus",
+    "O": "Online",
+}
+
+# The page banner names a campus in prose; normalise it to the same
+# vocabulary so a programme does not end up with both "Soshanguve
+# Campus" and "Soshanguve South Campus".
+BANNER_CAMPUSES = {
+    "Pretoria Campus": ["Pretoria Campus"],
+    "Arts Campus": ["Arts Campus"],
+    "GaRankuwa Campus": ["Ga-Rankuwa Campus"],
+    "Ga-Rankuwa Campus": ["Ga-Rankuwa Campus"],
+    # The banner is generic where the column is specific; the column
+    # wins when it says which Soshanguve.
+    "Soshanguve Campus": ["Soshanguve Campus"],
+    "Arcadia and Pretoria Campuses": ["Arcadia Campus", "Pretoria Campus"],
+}
+
+
+# Codes seen in the column that are not campuses. Reported, never
+# guessed: "D" appears once, on Dip (Fire Technology), and the
+# prospectus legend is the only thing that can say what it means.
+UNRESOLVED_CODES: dict[str, list[str]] = {}
+
+
+def campuses_for(programme: dict) -> list[str]:
+    """Every campus a programme is taught at, banner plus column.
+
+    The column is authoritative where the two disagree: the banner
+    describes a page, the column describes the programme.
+    """
+    banner = programme.get("campus") or ""
+    campuses = list(BANNER_CAMPUSES.get(banner, [banner] if banner else []))
+
+    column = (programme.get("other_campuses") or "").strip()
+    for token in column.split():
+        name = CAMPUS_CODES.get(token)
+        if name is None:
+            UNRESOLVED_CODES.setdefault(token, []).append(programme.get("name", "?"))
+            continue
+        if name not in campuses:
+            campuses.append(name)
+
+    # The banner says "Soshanguve Campus"; the column says which one.
+    # Keeping both would list a programme at a campus and at its own
+    # sub-campus.
+    if any(c.startswith("Soshanguve ") and c != "Soshanguve Campus" for c in campuses):
+        campuses = [c for c in campuses if c != "Soshanguve Campus"]
+
+    # A programme whose own name says it runs at one campus only is
+    # not also taught wherever its page banner happens to sit. Three
+    # programmes read "(Only Mbombela Campus)" and were filed under
+    # Pretoria.
+    only = re.search(r"\(Only ([A-Za-z \-]+?) Campus\)", programme.get("name", ""))
+    if only:
+        return [f"{only.group(1).strip()} Campus"]
+
+    return campuses
+
+
 def clean(name: str) -> str:
     """TUT's printed form -> a lookup key. The parenthetical after a
     technology subject lists the trades it covers ("Civil Technology
@@ -201,8 +282,7 @@ def convert(programmes):
             failures.append((p["page"], p["name"], str(e)))
             continue
 
-        if p["other_campuses"]:
-            notes.append(f"Also offered at: {p['other_campuses']}.")
+
         if p["closing_date"]:
             notes.append(f"Applications close {p['closing_date']}.")
         if p["recommended"]:
@@ -219,7 +299,7 @@ def convert(programmes):
             "qualification_code": code_for(p["name"], used),
             "name": p["name"],
             "faculty": p["faculty"],
-            "campus": [p["campus"]] if p["campus"] else [],
+            "campus": campuses_for(p),
             "duration_years": p["duration_years"],
             "extended": "(Extended)" in p["name"],
             "requirements": {"nsc": {
